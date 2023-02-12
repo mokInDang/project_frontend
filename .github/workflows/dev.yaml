@@ -24,12 +24,12 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies
+      - name: Install React dependencies
+        working-directory: ./project_frontend
         run: npm ci
 
-      - name: Install dependencies
-        working-directory: ./project_frontend
-        run: npm ci      
+      - name: Install modules dependencies
+        run: npm ci
 
       - name: Build
         working-directory: ./project_frontend
