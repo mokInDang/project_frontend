@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import { Link } from "react-router-dom"
 
-function Login(){
+function Home(){
     return (<Fragment>
-        <div>로그인</div>
-        <div><Link to="/">메인 페이지</Link></div>
+        <div>메인 페이지</div>
+        <div><Link to="login">로그인</Link></div>
         </Fragment>
     )
 }
-export default Login;
+export default Home;

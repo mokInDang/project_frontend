@@ -1,10 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
 import { Test } from './components';
+import { Home, Login } from './pages';
+import {Routes, Route} from "react-router-dom"
 
 function App() {
   return (
-    <Test />
+    <div className="App">
+      <Routes>
+        <Route path="/" exact={true} element={<Home/>} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </div>
   );
 }
 
