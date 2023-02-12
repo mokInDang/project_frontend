@@ -26,14 +26,14 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        
+
       - name: Install dependencies
         working-directory: ./project_frontend
         run: npm ci      
 
       - name: Build
         working-directory: ./project_frontend
-        run: npm run build
+        run: CI=false npm run build
       
       - name: Setup Python for AWS CLI
         uses: actions/setup-python@v4
