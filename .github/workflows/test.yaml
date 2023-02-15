@@ -44,6 +44,7 @@ jobs:
         run: npm ci
 
       - name: Build
+        working-directory: ./project_frontend
         run: CI=false npm run build
   
   job_deploy:
