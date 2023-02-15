@@ -1,0 +1,57 @@
+name: Continuous Integration with GitHub Actions & S3 Deploy with CloudFront
+on:
+  push:
+    branches: # 브랜치에서 push 이벤트가 일어났을 때 실행
+      - main
+      - dev 
+      - feature/*
+  pull_request:
+    branches:
+      - main
+      - dev
+      - feature/*
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps: 
+      - name: Check out current commit (${{github.sha}})
+        uses: actions/checkout@v3
+        
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Cache Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        working-directory: ./project_frontend
+        run: npm ci
+
+      - name: Build
+        working-directory: ./project_frontend
+        run: CI=false npm run build
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Deploy to S3
+        run: aws s3 sync ./project_frontend/build s3://${{ secrets.S3_BUCKET }}
+
+      - name: Invalidate CloudFront Cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
