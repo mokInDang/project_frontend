@@ -1,0 +1,103 @@
+name: Continuous Integration with GitHub Actions & S3 Deploy with CloudFront
+on:
+  push:
+    branches: # 브랜치에서 push 이벤트가 일어났을 때 실행
+      - main
+      - dev 
+      - feature/*
+  pull_request:
+    branches:
+      - main
+      - dev
+      - feature/*
+env:
+  CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/node_modules
+  CACHED_BUILD_PATHS: ${{ github.workspace }}/.next
+  BUILD_CACHE_KEY: ${{ github.sha }}
+
+jobs:
+  job_install_dependencies:
+    name: Install Dependencies
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps: 
+      - name: Check out current commit (${{github.sha}})
+        uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Compute dependency cache key
+        id : compute_lockfile_hash
+        run: echo "::set-output name=hash::${{hashFiles('package-lock.json')}}"
+      - name: Check dependency cache
+        uses: actions/cache@v3
+        id: cache_dependencies
+        with:
+          path: ${{ env.CACHED_DEPENDENCY_PATHS }}
+          key: ${{ steps.compute_lockfile_hash.outputs.hash }}
+      - name: Install Dependencies
+        if: steps.cache_dependencies.outputs.cache-hit == ''
+        working-directory: ./project_frontend
+        run: npm ci
+    outputs:
+      dependency_cache_key: ${{ steps.compute_lockfile_hash.outputs.hash }}
+  job_build:
+    name: Build
+    needs: job_install_dependencies
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out current commit (${{github.sha}})
+        uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Check dependency cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.CACHED_DEPENDENCY_PATHS }}
+          key: ${{ needs.job_install_dependencies.outputs.dependency_cache_key }}
+      - name: Check build cache
+        uses: actions/cache@v3
+        id: cache_built_packages
+        with:
+          path: ${{ env.CACHED_BUILD_PATHS }}
+          key: ${{ env.BUILD_CACHE_KEY }}
+      - name: Build packages
+        if: steps.cache_built_packages.outputs.cache-hit == ''
+        working-directory: ./project_frontend
+        run: CI=false npm run build
+    outputs:
+      dependency_cache_key: ${{ needs.job_install_dependencies.outputs.dependency_cache_key }}
+  job_continuous_delivery:
+    name: Continuous Delivery
+    needs: job_build
+    steps:
+      - name: Setup Python for AWS CLI
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Install AWS CLI
+        run: pip3 install awscli --upgrade --user
+      
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          mask-aws-account-id: true
+
+      - name: Deploy to S3
+        env :
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+        run: |
+          aws s3 sync ./project_frontend/build s3://${{ secrets.S3_BUCKET }}
+      
+      - name: Invalidate CloudFront Cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
