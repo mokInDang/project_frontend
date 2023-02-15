@@ -60,8 +60,7 @@ jobs:
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
       - name: Deploy to S3
-        working-directory: ./project_frontend
-        run: aws s3 sync /build s3://${{ secrets.S3_BUCKET }}
+        run: aws s3 sync build s3://${{ secrets.S3_BUCKET }}
 
       - name: Invalidate CloudFront Cache
         run: aws cloudfront create-invalidation \
