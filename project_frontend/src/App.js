@@ -10,6 +10,7 @@ function App() {
 			<Routes>
 				<Route path="/" exact={true} element={<Home />}/>
 				<Route path="/login" element={<Login />}/>
+        <Route path="/api/member/join" element={<Login />}/>
 			</Routes>
 		</div>
 	);
