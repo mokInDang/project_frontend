@@ -1,4 +1,4 @@
 import KakaoLoginButton from './login/kakaoLoginButton';
-import Test from './test';
+import JoinComment from './login/joinComment';
 
-export { Test, KakaoLoginButton };
+export { JoinComment, KakaoLoginButton };
