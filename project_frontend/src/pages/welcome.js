@@ -34,7 +34,7 @@ function Welcome() {
 		};
 		if (KAKAO_CODE) {
 			console.log(KAKAO_CODE);
-			getAccessToken();
+			//getAccessToken();
 			setTimeout(MovetoHome, 2000); // 메인 페이지로 2초 후 이동
 		}
 	}, []);
