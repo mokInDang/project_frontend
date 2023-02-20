@@ -10,8 +10,7 @@ function Welcome() {
 		const getAccessToken = async () => {
 			await axios(
 				{
-					url: `api/member/join
-				`,
+					url: `api/member/join`,
 					method: 'post',
 					headers: '',
 					data: {

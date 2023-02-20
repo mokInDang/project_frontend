@@ -12,7 +12,7 @@ const LoginButtonImg = styled.img`
 `;
 function KakaoLoginButton() {
 	const REST_API_KEY = '60b35611c843f6c8f618a495ecc8eaf6';
-	const REDIRECT_URI = 'http://localhost:3000/api/member/join';
+	const REDIRECT_URI = 'https://dc80qpzdkglct.cloudfront.net/api/member/join';
 	const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 	// const [innerWidth, setInnerWidth] = useState(document.body.offsetWidth);
 
