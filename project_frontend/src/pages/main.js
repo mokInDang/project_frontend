@@ -1,9 +1,15 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
+const KAKAO_CODE = new URL(document.location.href).searchParams.get('code');
+
 function Home() {
-	const KAKAO_CODE = new URL(document.location.href).searchParams.get('code');
 	console.log(KAKAO_CODE);
+	window.history.pushState(KAKAO_CODE, '', `/`);
+	localStorage.setItem('authorizationCode', KAKAO_CODE);
+	if (KAKAO_CODE){
+		alert("로그인을 축하드립니다."); // 모달알림창구현해보기
+	}
 	return (
 		<Fragment>
 			<div>메인 페이지_code formatting</div>
