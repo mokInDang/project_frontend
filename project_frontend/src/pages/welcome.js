@@ -7,6 +7,7 @@ function MovetoHome() {
 }
 function Welcome() {
 	const KAKAO_CODE = new URL(document.location.href).searchParams.get('code');
+	console.log(KAKAO_CODE);
 	// useEffect(() => {
 	// 	const KAKAO_CODE = new URL(document.location).searchParams.get('code');
 	// 	const getAccessToken = async () => {
