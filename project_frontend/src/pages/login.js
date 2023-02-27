@@ -25,8 +25,14 @@ const CloseButton = styled.span`
 	right: 20px;
 	top: 20px;
 `;
-function Login() {
+// eslint-disable-next-line no-restricted-globals
+const Host = window.location.host;
+const REST_API_KEY = '60b35611c843f6c8f618a495ecc8eaf6';
+const REDIRECT_URI = `http://${Host}`;
+const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
+function Login() {
+	console.log(REST_API_KEY);
 	return (
 		<>
 			<div>
@@ -41,7 +47,9 @@ function Login() {
 			<LoginPageWrap>
 				<JoinComment />
 				<LoginComments>소셜 계정으로 로그인하기</LoginComments>
-				<KakaoLoginButton />
+				<a href={KAKAO_AUTH_URL}>
+					<KakaoLoginButton />
+				</a>
 			</LoginPageWrap>
 		</>
 	);
