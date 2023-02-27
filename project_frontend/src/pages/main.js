@@ -14,8 +14,8 @@ function Home() {
 	useEffect(() => {
 		const getAccessToken = async () => {
 			await axios({
-				url: `api/member/join`,
-				method: 'get',
+				url: `/api/member/join`, //서버 url로 수정하기
+				method: 'post',
 				headers: {
 					Authorization: `${ KAKAO_CODE }`,
 				},
@@ -31,7 +31,7 @@ function Home() {
 				})
 				.catch((response) => {
 					console.log(response);
-				})
+				});
 		};
 		if (KAKAO_CODE) {
 			getAccessToken(); // 메인 페이지로 2초 후 이동
