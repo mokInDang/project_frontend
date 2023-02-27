@@ -15,7 +15,7 @@ function Home() {
 		const getAccessToken = async () => {
 			await axios({
 				url: `api/member/join`,
-				method: 'post',
+				method: 'get',
 				headers: {
 					Authorization: `${ KAKAO_CODE }`,
 				},
