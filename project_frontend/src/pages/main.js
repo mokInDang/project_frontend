@@ -43,10 +43,10 @@ function Home() {
 			<Header />
 			<div>메인 페이지_글쓰기 화면 구현</div>
 			<div>
-				<Link to="login">로그인</Link>
+				<Link to="/login">로그인</Link>
 			</div>
 			<div>
-				<Link to="boards">글쓰기</Link>
+				<Link to="/boards">글쓰기</Link>
 			</div>
 		</Fragment>
 	);
