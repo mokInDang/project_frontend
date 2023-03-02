@@ -24,7 +24,7 @@ const WriteForm = () => {
 		const formData = JSON.stringify(form);
 		console.log(formData);
 		axios({
-			url: `/board`, //서버 url로 수정하기
+			url: `https://jsonplaceholder.typicode.com/comments`, //서버 url로 수정하기
 			method: 'post',
 			body: formData,
 		});
@@ -35,7 +35,7 @@ const WriteForm = () => {
 			...form, // 기존값 복사 (spread operator)
 			content: htmlContent, // 덮어쓰기
 		};
-		console.log(nextForm);
+		console.log(JSON.stringify(nextForm));
 		// console.log('html');
 		setForm(nextForm);
 	};
