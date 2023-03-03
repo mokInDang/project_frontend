@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Header } from '../components';
 
 const KAKAO_CODE = new URL(document.location.href).searchParams.get('code');
 
@@ -17,7 +18,7 @@ function Home() {
 				url: `/api/member/join`, //서버 url로 수정하기
 				method: 'post',
 				headers: {
-					Authorization: `${ KAKAO_CODE }`,
+					Authorization: `${KAKAO_CODE}`,
 				},
 			})
 				.then((res) => {
@@ -39,9 +40,13 @@ function Home() {
 	});
 	return (
 		<Fragment>
-			<div>메인 페이지_code formatting</div>
+			<Header />
+			<div>메인 페이지_글쓰기 화면 구현</div>
 			<div>
-				<Link to="login">로그인</Link>
+				<Link to="/login">로그인</Link>
+			</div>
+			<div>
+				<Link to="/boards">글쓰기</Link>
 			</div>
 		</Fragment>
 	);
