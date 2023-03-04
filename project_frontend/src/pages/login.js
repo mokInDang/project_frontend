@@ -28,7 +28,7 @@ const CloseButton = styled.span`
 // eslint-disable-next-line no-restricted-globals
 const Host = window.location.host;
 const REST_API_KEY = '60b35611c843f6c8f618a495ecc8eaf6';
-const REDIRECT_URI = `https://${Host}/api/member/join`;
+const REDIRECT_URI = `https://${Host}/api/member/join/`;
 const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
 function Login() {
