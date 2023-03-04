@@ -6,6 +6,7 @@ function MovetoHome() {
 	window.location.replace('/');
 }
 function Welcome() {
+	console.log("카카오 인가코드 받아오기");
 	const KAKAO_CODE = new URL(document.location.href).searchParams.get('code');
 	// useEffect(() => {
 	// 	let data = { authorizationCode : KAKAO_CODE };
