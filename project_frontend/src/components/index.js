@@ -4,6 +4,7 @@ import EditorComponent from './write/editorComponent';
 import Header from './header';
 import WriteForm from './write/writeForm';
 import WriteWrapper from './write/writeWrapper';
+import GetlocationButton from './getLocationButton';
 
 export {
 	JoinComment,
@@ -12,4 +13,5 @@ export {
 	EditorComponent,
 	WriteForm,
 	WriteWrapper,
+	GetlocationButton,
 };
