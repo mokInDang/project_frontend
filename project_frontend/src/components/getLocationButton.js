@@ -26,14 +26,7 @@ function GetLocationButton() {
 		}
 	};
 	return (
-		<>
 			<div onClick={getLocation}>내 위치 받아오기</div>
-			<div>
-				위도:{locRef.current.lat}
-				<br />
-				경도:{locRef.current.lng}
-			</div>
-		</>
 	);
 }
 export default GetLocationButton;
