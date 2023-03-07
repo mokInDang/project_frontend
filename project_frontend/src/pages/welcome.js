@@ -25,7 +25,7 @@ function Welcome() {
 					{
 						headers: {
 							'Content-Type': `application/json`,
-							'Access-Control-Allow-Origin': `https://localhost`,
+							'Access-Control-Allow-Origin': `https://www.dongnejupging.xyz`,
 						},
 					}
 				)
