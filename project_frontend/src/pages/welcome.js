@@ -6,39 +6,29 @@ function MovetoHome() {
 	window.location.replace('/');
 }
 function Welcome() {
-	function splitString(stringToSplit, separator) {
-		var arrayOfStrings = stringToSplit.split(separator);
-		console.log(arrayOfStrings[0]);
-		console.log(arrayOfStrings[1]);
-		localStorage.setItem('AccessToken', arrayOfStrings[0]);
-		localStorage.setItem('RefreshToken', arrayOfStrings[1]);
-	}
 	const KAKAO_CODE = new URL(document.location.href).searchParams.get('code');
 	useEffect(() => {
 		let data = { authorizationCode: KAKAO_CODE };
-		//console.log(KAKAO_CODE);
+		console.log(`카카오 코드 확인 : ${data}`);
 		const getAccessToken = async () => {
+			console.log(`getAccessToken 실행`);
 			await axios
-				.post(
-					'https://dev.dongnejupging.xyz/api/member/join',
-					JSON.stringify(data),
-					{
-						headers: {
-							'Content-Type': `application/json`,
-							'Access-Control-Allow-Origin': `https://www.dongnejupging.xyz`,
-						},
-					}
-				)
+				.post('/api/member/join', JSON.stringify(data), {
+					headers: {
+						'Content-Type': 'application/json',
+						'Access-Control-Allow-Origin': `https://www.dongnejupging.xyz`,
+					},
+				})
 				.then((res) => {
-					//인가코드를 보내고 나면
-					const authToken = res.headers.get('Authorization');
-					// let accessToken = res.data.accessToken; //액세스 토큰 받아오기
-					// let refreshToken = res.headers['refresh-token']  ; //리프레쉬 토큰 받아오기
-					// localStorage.setItem('AccessToken', accessToken);
-					// localStorage.setItem('Refresh_Token', refreshToken);
-					var comma = ', ';
-					splitString(authToken, comma);
-					console.log('토큰 받아오기 성공');
+					// accessToken 설정
+					const { Token } = res.headers.get('Authorization');
+					axios.defaults.headers.common['Authorization'] = `${Token}`;
+					console.log(
+						`http header Authorization 필드에 기본으로 Access Token 삽입 ${Token}`
+					);
+					const { Alias } = res.data.alias;
+					console.log(res.data);
+					console.log(Alias);
 				})
 				.catch((response) => {
 					console.log(response);
@@ -55,8 +45,6 @@ function Welcome() {
 	return (
 		<>
 			<h1>회원가입을 축하합니다~</h1>
-			<h3>AccessToken : {localStorage.getItem('AccessToken')}</h3>
-			<h3>RefreshToken : {localStorage.getItem('RefreshToken')}</h3>
 			<Link to='/'>홈으로</Link>
 		</>
 	);
