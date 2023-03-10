@@ -9,7 +9,6 @@ function Welcome() {
 	const KAKAO_CODE = new URL(document.location.href).searchParams.get('code');
 	useEffect(() => {
 		let data = { authorizationCode: KAKAO_CODE };
-		console.log(`카카오 코드 확인 : ${JSON.stringify(data)}`);
 		const getAccessToken = async () => {
 			console.log(`getAccessToken 실행`);
 			await axios
@@ -21,15 +20,15 @@ function Welcome() {
 				})
 				.then((res) => {
 					// accessToken 설정
-					const { Token } = res.headers.get('Authorization');
-					console.log({ Token });
+					const Token = res.headers.get('Authorization');
+					console.log(Token);
 					axios.defaults.headers.common['Authorization'] = `${Token}`;
 					console.log(
 						`http header Authorization 필드에 기본으로 Access Token 삽입 ${Token}`
 					);
-					const { Alias } = JSON.stringify(res.data.alias);
+					const { alias } = res.data;
 					console.log(res.data);
-					console.log({ Alias });
+					console.log(JSON.stringify(alias));
 				})
 				.catch((response) => {
 					console.log(response);
