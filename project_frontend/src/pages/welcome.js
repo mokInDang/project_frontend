@@ -45,7 +45,7 @@ function Welcome() {
 
 	return (
 		<>
-			<h1>{Alias}님 회원가입을 축하합니다~</h1>
+			<h1>회원가입을 축하합니다~</h1>
 			<Link to='/'>홈으로</Link>
 		</>
 	);
