@@ -17,27 +17,22 @@ const onLogin = async (res) => {
 			console.log('로그인 실패');
 		});
 };
-const onSilentRefresh = () => {
-	console.log('onSilentRefresh 실행');
-	axios
-		.post('/api/member/reissueToken')
-		.then(onLoginSuccess)
-		.catch((error) => {
-			console.log(error);
-			console.log('onSilentRefresh 실패');
-			// Todo : status 따라 다른 에러 메시지 출력하도록 할 것
-		});
-};
 
 const onLoginSuccess = (res) => {
 	// accessToken 설정
-	console.log('Response Status : 200');
+	console.log('onLoginSuccess 실행');
+	console.log(axios.defaults.headers.common.Authorization);
 	const Token = res.headers.get('Authorization');
 	axios.defaults.headers.common['Authorization'] = Token;
 	console.log(axios.defaults.headers.common.Authorization);
 
 	const { alias } = res.data;
 	console.log(JSON.stringify(alias));
+	setTimeout(onSilentRefresh(), 5000);
+};
+
+const onSilentRefresh = () => {
+	console.log('onSilentRefresh 실행');
 	axios
 		.post('/api/member/reissueToken')
 		.then(onLoginSuccess)
