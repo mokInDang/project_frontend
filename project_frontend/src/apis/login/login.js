@@ -22,27 +22,24 @@ let setAuthHeader = function (res) {
 		console.log(axios.defaults.headers.common.Authorization);
 		const Token = res.headers.get('Authorization');
 		axios.defaults.headers.common['Authorization'] = Token;
+		const { alias } = res.data;
+		console.log(JSON.stringify(alias));
 		resolve(console.log(axios.defaults.headers.common.Authorization)); // resolve 함수 호출된 경우 비동기 처리 성공!
 	});
 };
 const onLoginSuccess = async (res) => {
-	// accessToken 설정
 	console.log('onLoginSuccess 실행');
 	await setAuthHeader(res)
-		.then((res) => {
-			const { alias } = res.data;
-			console.log(JSON.stringify(alias));
-			setTimeout(onSilentRefresh(), 5000);
-		})
+		.then(setTimeout(onSilentRefresh(), 5000))
 		.catch((error) => {
 			console.log(error);
 			console.log('onLoginSuccess 실패');
 		});
 };
 
-const onSilentRefresh = () => {
+const onSilentRefresh = async () => {
 	console.log('onSilentRefresh 실행');
-	axios
+	await axios
 		.post('/api/member/reissueToken')
 		.then(onLoginSuccess)
 		.catch((error) => {
