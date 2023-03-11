@@ -1,8 +1,13 @@
 import './App.css';
 import { Home, Login, Welcome, Write } from './pages';
 import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { onSilentRefresh } from './apis';
 
 function App() {
+	useEffect(()=>{
+		onSilentRefresh();
+	},[]);
 	return (
 		<div className="App">
 			<Routes>
