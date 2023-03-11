@@ -14,17 +14,16 @@ const onLogin = async (res) => {
 		.then(onLoginSuccess)
 		.catch((error) => {
 			console.log(error);
-			console.log('로그인 실패');
+			console.log('onLogin 실패');
 		});
 };
 let setAuthHeader = function (res) {
 	return new Promise((resolve) => {
-		console.log('setAuthHeader 실행');
+		console.log('onLoginSuccess 내 setAuthHeader 실행');
 		const Token = res.headers.get('Authorization');
 		axios.defaults.headers.common['Authorization'] = Token;
 		const { alias } = res.data;
-		console.log(JSON.stringify(alias));
-		resolve(console.log(axios.defaults.headers.common.Authorization)); // resolve 함수 호출된 경우 비동기 처리 성공!
+		resolve(console.log('onLoginSuccess 내 setAuthHeader 완료')); // resolve 함수 호출된 경우 비동기 처리 성공!
 	});
 };
 const onLoginSuccess = async (res) => {
@@ -48,7 +47,6 @@ const onSilentRefresh = () => {
 		.catch((error) => {
 			console.log(error);
 			console.log('onSilentRefresh 실패');
-			// Todo : status 따라 다른 에러 메시지 출력하도록 할 것
 		});
 };
 
