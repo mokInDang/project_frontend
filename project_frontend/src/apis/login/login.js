@@ -39,6 +39,7 @@ const onLoginSuccess = (res) => {
 		console.log('Response Status : 200');
 		const Token = res.headers.get('Authorization');
 		setDefaultHeaders(Token);
+		console.log(axios.defaults.headers.common['Authorization']);
 		console.log(`onLoginSuccess 실행 ${Token}`);
 
 		const { alias } = res.data;
