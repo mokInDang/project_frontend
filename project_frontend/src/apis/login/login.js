@@ -19,9 +19,8 @@ const onLogin = async (data) => {
 };
 const onSilentRefresh = () => {
 	console.log('onSilentRefresh 실행');
-	const data = {};
 	axios
-		.post('/api/member/reissueToken', data)
+		.post('/api/member/reissueToken')
 		.then(onLoginSuccess)
 		.catch((error) => {
 			console.log(error);
