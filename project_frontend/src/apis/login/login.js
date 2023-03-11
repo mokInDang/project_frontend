@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const JWT_EXPIRY_TIME = 30 * 60 * 1000; // 만료 시간 (30분 밀리초로 표현)
 
@@ -7,7 +7,7 @@ const onLogin = async (data) => {
 	await axios
 		.post('/api/member/join', JSON.stringify(data), {
 			headers: {
-                'Content-Type': 'application/json',
+				'Content-Type': 'application/json',
 				'Access-Control-Allow-Origin': `https://www.dongnejupging.xyz`,
 			},
 		})
@@ -19,8 +19,9 @@ const onLogin = async (data) => {
 };
 const onSilentRefresh = () => {
 	console.log('onSilentRefresh 실행');
+	const data = {};
 	axios
-		.post('/api/member/reissueToken', {})
+		.post('/api/member/reissueToken', data)
 		.then(onLoginSuccess)
 		.catch((error) => {
 			console.log(error);
@@ -35,7 +36,7 @@ const onLoginSuccess = (res) => {
 	axios.defaults.headers.common['Authorization'] = `${Token}`;
 	console.log(`onLoginSuccess 실행 ${Token}`);
 
-	setTimeout(onSilentRefresh, JWT_EXPIRY_TIME);
+	setTimeout(onSilentRefresh, 5000);
 
 	const { alias } = res.data;
 	console.log(res.data);
