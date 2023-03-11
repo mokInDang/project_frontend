@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { onLogin } from '../apis';
+import { onLogin, onSilentRefresh } from '../apis';
 
 function MovetoHome() {
 	window.location.replace('/');
@@ -13,6 +13,7 @@ function Welcome() {
 		let kakaoAuthCode = { authorizationCode: KAKAO_CODE };
 		if (KAKAO_CODE) {
 			onLogin(kakaoAuthCode)
+			.then(onSilentRefresh());
 			// .then(setTimeout(MovetoHome(),5000));
 		}
 	}, []);

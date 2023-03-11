@@ -35,7 +35,7 @@ const onLoginSuccess = (res) => {
 	axios.defaults.headers.common['Authorization'] = `${Token}`;
 	console.log(`onLoginSuccess 실행 ${Token}`);
 
-	setTimeout(onSilentRefresh, 5000);
+	setTimeout(onSilentRefresh, JWT_EXPIRY_TIME);
 
 	const { alias } = res.data;
 	console.log(res.data);
