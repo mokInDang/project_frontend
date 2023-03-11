@@ -13,7 +13,7 @@ function Welcome() {
 		let kakaoAuthCode = { authorizationCode: KAKAO_CODE };
 		if (KAKAO_CODE) {
 			onLogin(kakaoAuthCode)
-			.then(onSilentRefresh());
+			.then(console.log('Welcome에서 onLogin 실행 완료'));
 			// .then(setTimeout(MovetoHome(),5000));
 		}
 	}, []);

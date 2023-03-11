@@ -19,7 +19,7 @@ const onLogin = async (res) => {
 };
 let setAuthHeader = function (res) {
 	return new Promise((resolve) => {
-		console.log(axios.defaults.headers.common.Authorization);
+		console.log('setAuthHeader 실행');
 		const Token = res.headers.get('Authorization');
 		axios.defaults.headers.common['Authorization'] = Token;
 		const { alias } = res.data;
