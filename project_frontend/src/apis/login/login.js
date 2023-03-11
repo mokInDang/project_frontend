@@ -17,18 +17,27 @@ const onLogin = async (res) => {
 			console.log('로그인 실패');
 		});
 };
-
-const onLoginSuccess = (res) => {
+let setAuthHeader = function (res) {
+	return new Promise((resolve) => {
+		console.log(axios.defaults.headers.common.Authorization);
+		const Token = res.headers.get('Authorization');
+		axios.defaults.headers.common['Authorization'] = Token;
+		resolve(console.log(axios.defaults.headers.common.Authorization)); // resolve 함수 호출된 경우 비동기 처리 성공!
+	});
+};
+const onLoginSuccess = async (res) => {
 	// accessToken 설정
 	console.log('onLoginSuccess 실행');
-	console.log(axios.defaults.headers.common.Authorization);
-	const Token = res.headers.get('Authorization');
-	axios.defaults.headers.common['Authorization'] = Token;
-	console.log(axios.defaults.headers.common.Authorization);
-
-	const { alias } = res.data;
-	console.log(JSON.stringify(alias));
-	setTimeout(onSilentRefresh(), 5000);
+	await setAuthHeader(res)
+		.then((res) => {
+			const { alias } = res.data;
+			console.log(JSON.stringify(alias));
+			setTimeout(onSilentRefresh(), 5000);
+		})
+		.catch((error) => {
+			console.log(error);
+			console.log('onLoginSuccess 실패');
+		});
 };
 
 const onSilentRefresh = () => {
