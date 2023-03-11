@@ -29,18 +29,13 @@ const onSilentRefresh = () => {
 		});
 };
 
-const setDefaultHeaders = (Token) => {
-	axios.defaults.headers.common['Authorization'] = Token;
-};
-
 const onLoginSuccess = (res) => {
 	// accessToken 설정
 	if (res.status === 200) {
 		console.log('Response Status : 200');
 		const Token = res.headers.get('Authorization');
-		setDefaultHeaders(Token);
-		console.log(axios.defaults.headers.common['Authorization']);
-		console.log(`onLoginSuccess 실행 ${Token}`);
+		axios.defaults.headers.common['Authorization'] = Token;
+		console.log(console.log(axios.defaults.headers.common.Authorization));
 
 		const { alias } = res.data;
 		console.log(JSON.stringify(alias));
