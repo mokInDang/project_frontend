@@ -5,9 +5,6 @@ import { useEffect } from 'react';
 import { onSilentRefresh } from './apis';
 
 function App() {
-	useEffect(()=>{
-		onSilentRefresh();
-	},[]);
 	return (
 		<div className="App">
 			<Routes>
