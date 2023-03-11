@@ -31,21 +31,21 @@ const onSilentRefresh = () => {
 
 const onLoginSuccess = (res) => {
 	// accessToken 설정
-	if (res.status === 200) {
-		console.log('Response Status : 200');
-		const Token = res.headers.get('Authorization');
-		axios.defaults.headers.common['Authorization'] = Token;
-		console.log(axios.defaults.headers.common.Authorization);
+	console.log('Response Status : 200');
+	const Token = res.headers.get('Authorization');
+	axios.defaults.headers.common['Authorization'] = Token;
+	console.log(axios.defaults.headers.common.Authorization);
 
-		const { alias } = res.data;
-		console.log(JSON.stringify(alias));
-
-		try {
-			setTimeout(onSilentRefresh, JWT_EXPIRY_TIME);
-		} catch (e) {
-			console.log(e);
-		}
-	}
+	const { alias } = res.data;
+	console.log(JSON.stringify(alias));
+	axios
+		.post('/api/member/reissueToken')
+		.then(onLoginSuccess)
+		.catch((error) => {
+			console.log(error);
+			console.log('onSilentRefresh 실패');
+			// Todo : status 따라 다른 에러 메시지 출력하도록 할 것
+		});
 };
 
 export { onLogin, onSilentRefresh, onLoginSuccess };
