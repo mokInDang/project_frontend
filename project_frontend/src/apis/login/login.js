@@ -18,14 +18,14 @@ const onLogin = async (res) => {
 		});
 };
 let setAuthHeader = function (res) {
-	return new Promise((resolve) => {
+	//return new Promise((resolve) => {
 		console.log('setAuthHeader 실행');
 		const Token = res.headers.get('Authorization');
 		axios.defaults.headers.common['Authorization'] = Token;
 		const { alias } = res.data;
 		console.log(JSON.stringify(alias));
-		resolve(console.log(axios.defaults.headers.common.Authorization)); // resolve 함수 호출된 경우 비동기 처리 성공!
-	});
+	// 	resolve(console.log(axios.defaults.headers.common.Authorization)); // resolve 함수 호출된 경우 비동기 처리 성공!
+	// });
 };
 const onLoginSuccess = async (res) => {
 	console.log('onLoginSuccess 실행');
