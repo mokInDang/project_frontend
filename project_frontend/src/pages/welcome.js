@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { onLogin, onSilentRefresh } from '../apis';
+import { onLogin } from '../apis';
 
 function MovetoHome() {
 	window.location.replace('/');
@@ -12,10 +12,8 @@ function Welcome() {
 	useEffect(() => {
 		let kakaoAuthCode = { authorizationCode: KAKAO_CODE };
 		if (KAKAO_CODE) {
-			onLogin(kakaoAuthCode)
-			.then(console.log('Welcome에서 onLogin 실행 완료'));
-			// .then(setTimeout(MovetoHome(),5000));
-		}
+			onLogin(kakaoAuthCode);
+		} // eslint-disable-next-line
 	}, []);
 
 	return (
