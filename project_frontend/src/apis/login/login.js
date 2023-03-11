@@ -30,16 +30,19 @@ let setAuthHeader = function (res) {
 const onLoginSuccess = async (res) => {
 	console.log('onLoginSuccess 실행');
 	await setAuthHeader(res)
-		.then(setTimeout(onSilentRefresh(), 5000))
+		.then(() => {
+			console.log('onLoginSuccess 내 onSilentRefresh 실행')
+			setTimeout(onSilentRefresh(), 5000);
+		})
 		.catch((error) => {
 			console.log(error);
 			console.log('onLoginSuccess 실패');
 		});
 };
 
-const onSilentRefresh = async () => {
+const onSilentRefresh = () => {
 	console.log('onSilentRefresh 실행');
-	await axios
+	axios
 		.post('/api/member/reissueToken')
 		.then(onLoginSuccess)
 		.catch((error) => {
