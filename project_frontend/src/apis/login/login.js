@@ -29,9 +29,9 @@ let setAuthHeader = function (res) {
 const onLoginSuccess = async (res) => {
 	console.log('onLoginSuccess 실행');
 	await setAuthHeader(res)
-		.then(() => {
-			console.log('onLoginSuccess 내 onSilentRefresh 실행')
-			setTimeout(onSilentRefresh(), 5000);
+		.then(() => { // setHeader 성공 시 .then 안 함수 실행
+			console.log('onLoginSuccess 내 onSilentRefresh 실행');
+			setTimeout(onSilentRefresh(), JWT_EXPIRY_TIME - 60000); // 액세스 토큰 만료 1분 전 재발급
 		})
 		.catch((error) => {
 			console.log(error);
@@ -49,5 +49,12 @@ const onSilentRefresh = () => {
 			console.log('onSilentRefresh 실패');
 		});
 };
-
-export { onLogin, onSilentRefresh, onLoginSuccess };
+const reissueToken = () => {
+	const token = axios.defaults.headers.common.Authorization;
+	console.log(token);
+	// Todo : 로그아웃 시 Authorization undefined로 설정해줄 것
+	if (typeof token === 'string' && token.slice(0, 6) === 'Bearer') { 
+		onSilentRefresh();
+	} else console.log('type of axios default header Authorization is not string');
+};
+export { onLogin, onSilentRefresh, onLoginSuccess, reissueToken };

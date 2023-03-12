@@ -1,3 +1,3 @@
-import { onLogin, onLoginSuccess, onSilentRefresh } from './login/login';
+import { onLogin, onLoginSuccess, onSilentRefresh, reissueToken } from './login/login';
 
-export { onLogin, onLoginSuccess, onSilentRefresh };
+export { onLogin, onLoginSuccess, onSilentRefresh, reissueToken };
