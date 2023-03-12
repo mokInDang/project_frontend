@@ -2,11 +2,13 @@ import './App.css';
 import { Home, Login, Welcome, Write } from './pages';
 import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
-import { onSilentRefresh } from './apis';
+import { reissueToken } from './apis';
 import { useEffect } from 'react';
+
 function App() {
 	useEffect(() => {
-		onSilentRefresh();
+		console.log('App.js에서 reissueToken 호출');
+		reissueToken();
 	});
 
 	return (
