@@ -23,10 +23,11 @@ const WriteForm = () => {
 	const { title, content, activityCategory, startingDate, requestDate } = form;
 
 	const writePost = () => {
+		const formData = JSON.stringify(form);
 		axios({
 			url: `/api/boards`,
 			method: 'post',
-			body: form,
+			body: formData,
 		});
 	};
 	const getHtmlContent = (newContent) => {
