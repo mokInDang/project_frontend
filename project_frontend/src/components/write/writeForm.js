@@ -27,7 +27,7 @@ const WriteForm = () => {
 		axios({
 			url: `/api/boards`,
 			method: 'post',
-			body: formData,
+			body: form,
 		});
 	};
 	const getHtmlContent = (newContent) => {
