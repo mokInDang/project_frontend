@@ -1,21 +1,23 @@
 import React, { useRef } from 'react';
-
+import axios from 'axios';
 function GetLocationButton() {
-	const locRef = useRef({ lat: null, lng: null });
+	const locRef = useRef({ latitude: null, longitude: null });
 
 	const getLocation = () => {
 		window.navigator.geolocation.getCurrentPosition(success, error);
 		function success(pos) {
 			const coordsObj = {
-				lat: null,
-				lng: null,
+				latitude: null,
+				longitude: null,
 			};
-			coordsObj.lat = pos.coords.latitude;
-			coordsObj.lng = pos.coords.longitude;
+			coordsObj.latitude = pos.coords.latitude;
+			coordsObj.longitude = pos.coords.longitude;
 			locRef.current = coordsObj;
-			console.log(`${locRef.current.lat}`);
-			console.log(`${locRef.current.lng}`);
+			console.log(locRef.current);
 			// axios 요청으로 region 보내는 함수
+			axios.put(`/api/member/region`, JSON.stringify(locRef.current), {
+				headers: { "Content-Type": "application/json; charset=utf-8" },
+			});
 			/** 
       
        **/
