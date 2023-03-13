@@ -8,8 +8,8 @@ const WriteForm = () => {
 	var year = today.getFullYear();
 	var month = ('0' + (today.getMonth() + 1)).slice(-2);
 	var day = ('0' + today.getDate()).slice(-2);
-	var now = year + '-' + month + '-' + day;
-	let todayString = now.toString();
+	var todayString = year + '-' + month + '-' + day;
+	// let todayString = now.toString();
 
 	const [htmlContent, setHtmlContent] = useState('');
 	const [form, setForm] = useState({
@@ -17,7 +17,7 @@ const WriteForm = () => {
 		content: '',
 		activityCategory: '',
 		startingDate: '',
-		requestDate: ``
+		requestDate: `${todayString}`
 	});
 
 	const { title, content, activityCategory, startingDate, requestDate } = form;
