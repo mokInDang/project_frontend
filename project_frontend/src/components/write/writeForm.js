@@ -35,9 +35,9 @@ const WriteForm = () => {
 			...form, // 기존값 복사 (spread operator)
 			content: htmlContent, // 덮어쓰기
 		};
-		console.log(JSON.stringify(nextForm));
 		// console.log('html');
 		setForm(nextForm);
+		console.log(nextForm);
 	};
 
 	const onChange = (e) => {
