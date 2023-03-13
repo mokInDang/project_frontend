@@ -26,7 +26,7 @@ const WriteForm = () => {
 		const formData = JSON.stringify(form);
 		console.log(formData);
 		axios({
-			url: `https://jsonplaceholder.typicode.com/comments`, //서버 url로 수정하기
+			url: `/api/boards`,
 			method: 'post',
 			body: formData,
 		});
@@ -91,7 +91,7 @@ const WriteForm = () => {
 				name="text"
 				value={htmlContent}
 				getHtmlContent={getHtmlContent}
-				onChange={onChange}></EditorComponent>
+				onChange={onChange}></EditorComponent><br/>
 			<Link to="/">취소</Link>
 			<span onClick={writePost}>확인</span>
 		</div>
