@@ -13,12 +13,14 @@ const WriteForm = () => {
 
 	const [htmlContent, setHtmlContent] = useState('');
 	const [form, setForm] = useState({
+		title: '',
+		content: '',
 		activityCategory: '',
 		startingDate: '',
-		title: '',
+		requestDate: ``
 	});
 
-	const { activityCategory, startingDate, title } = form;
+	const { title, content, activityCategory, startingDate, requestDate } = form;
 
 	const writePost = () => {
 		const formData = JSON.stringify(form);
