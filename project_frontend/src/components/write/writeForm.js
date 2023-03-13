@@ -17,17 +17,18 @@ const WriteForm = () => {
 		content: '',
 		activityCategory: '',
 		startingDate: '',
-		requestDate: `${todayString}`
+		requestDate: `${todayString}`,
 	});
 
 	const { title, content, activityCategory, startingDate, requestDate } = form;
 
 	const writePost = () => {
-		console.log(form);
+		const formData = JSON.stringify(form);
+		console.log(formData);
 		axios({
 			url: `/api/boards`,
 			method: 'post',
-			body: form,
+			body: formData,
 		});
 	};
 	const getHtmlContent = (newContent) => {
@@ -38,7 +39,7 @@ const WriteForm = () => {
 		};
 		// console.log('html');
 		setForm(nextForm);
-		console.log(nextForm);
+		console.log(JSON.stringify(nextForm));
 	};
 
 	const onChange = (e) => {
@@ -46,8 +47,8 @@ const WriteForm = () => {
 			...form, // 기존값 복사 (spread operator)
 			[e.target.name]: e.target.value, // 덮어쓰기
 		};
-		console.log(nextForm);
 		setForm(nextForm);
+		console.log(JSON.stringify(nextForm));
 	};
 
 	return (
@@ -90,7 +91,8 @@ const WriteForm = () => {
 				name="text"
 				value={htmlContent}
 				getHtmlContent={getHtmlContent}
-				onChange={onChange}></EditorComponent><br/>
+				onChange={onChange}></EditorComponent>
+			<br />
 			<Link to="/">취소</Link>
 			<span onClick={writePost}>확인</span>
 		</div>
