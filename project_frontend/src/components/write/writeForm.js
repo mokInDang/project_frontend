@@ -23,12 +23,9 @@ const WriteForm = () => {
 	const { title, content, activityCategory, startingDate, requestDate } = form;
 
 	const writePost = () => {
-		const formData = JSON.stringify(form);
-		console.log(formData);
-		axios({
-			url: `/api/boards`,
-			method: 'post',
-			body: formData,
+		console.log('writePost 실행');
+		axios.post(`/api/boards`, JSON.stringify(form), {
+			headers: { "Content-Type": "application/json; charset=utf-8" },
 		});
 	};
 	const getHtmlContent = (newContent) => {
@@ -39,7 +36,7 @@ const WriteForm = () => {
 		};
 		// console.log('html');
 		setForm(nextForm);
-		console.log(JSON.stringify(nextForm));
+		console.log(nextForm);
 	};
 
 	const onChange = (e) => {
@@ -48,7 +45,7 @@ const WriteForm = () => {
 			[e.target.name]: e.target.value, // 덮어쓰기
 		};
 		setForm(nextForm);
-		console.log(JSON.stringify(nextForm));
+		console.log(nextForm);
 	};
 
 	return (
