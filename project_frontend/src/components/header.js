@@ -34,7 +34,6 @@ const Profile = styled.div`
 
 const Header = () => {
 	const [view, setView] = useState(false);
-	axios.defaults.headers.common.Authorization = 'Bearer token';
 	const token = axios.defaults.headers.common.Authorization;
 	var isLogined = true;
 	// Todo : 로그아웃 시 Authorization undefined로 설정해줄 것
