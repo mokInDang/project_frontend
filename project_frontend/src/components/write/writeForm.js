@@ -8,25 +8,24 @@ const WriteForm = () => {
 	var year = today.getFullYear();
 	var month = ('0' + (today.getMonth() + 1)).slice(-2);
 	var day = ('0' + today.getDate()).slice(-2);
-	var now = year + '-' + month + '-' + day;
-	let todayString = now.toString();
+	var todayString = year + '-' + month + '-' + day;
+	// let todayString = now.toString();
 
 	const [htmlContent, setHtmlContent] = useState('');
 	const [form, setForm] = useState({
+		title: '',
+		content: '',
 		activityCategory: '',
 		startingDate: '',
-		title: '',
+		requestDate: `${todayString}`,
 	});
 
-	const { activityCategory, startingDate, title } = form;
+	const { title, content, activityCategory, startingDate, requestDate } = form;
 
 	const writePost = () => {
-		const formData = JSON.stringify(form);
-		console.log(formData);
-		axios({
-			url: `https://jsonplaceholder.typicode.com/comments`, //서버 url로 수정하기
-			method: 'post',
-			body: formData,
+		console.log('writePost 실행');
+		axios.post(`/api/boards`, JSON.stringify(form), {
+			headers: { "Content-Type": "application/json; charset=utf-8" },
 		});
 	};
 	const getHtmlContent = (newContent) => {
@@ -35,9 +34,9 @@ const WriteForm = () => {
 			...form, // 기존값 복사 (spread operator)
 			content: htmlContent, // 덮어쓰기
 		};
-		console.log(JSON.stringify(nextForm));
 		// console.log('html');
 		setForm(nextForm);
+		console.log(nextForm);
 	};
 
 	const onChange = (e) => {
@@ -45,8 +44,8 @@ const WriteForm = () => {
 			...form, // 기존값 복사 (spread operator)
 			[e.target.name]: e.target.value, // 덮어쓰기
 		};
-		console.log(nextForm);
 		setForm(nextForm);
+		console.log(nextForm);
 	};
 
 	return (
@@ -90,6 +89,7 @@ const WriteForm = () => {
 				value={htmlContent}
 				getHtmlContent={getHtmlContent}
 				onChange={onChange}></EditorComponent>
+			<br />
 			<Link to="/">취소</Link>
 			<span onClick={writePost}>확인</span>
 		</div>

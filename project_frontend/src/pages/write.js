@@ -7,9 +7,7 @@ function Write() {
 		<>
 			<Header />
 			<WriteWrapper>
-				<form>
 					<WriteForm />
-				</form>
 			</WriteWrapper>
 		</>
 	);
