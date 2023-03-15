@@ -16,9 +16,10 @@ const Headerdiv = styled.div`
 `;
 
 const HeaderButton = styled.div`
+	direction: rtl;
 	display: inline-block;
 	height: 100%;
-	margin: 0px 20px 0px 20px;
+	margin: 0px 0px 0px 20px;
 	font-weight: 700;
 	font-size: 30px;
 	color: #000000;
@@ -66,11 +67,11 @@ const Header = () => {
 						</Link>
 						<div
 							style={{
-								marginLeft: `20px`}}
+								marginLeft: `20px`,
+							}}
 							onClick={() => {
 								setView(!view);
-							}}
-							>
+							}}>
 							<Profile />
 							<AiFillCaretDown
 								size={30}
@@ -81,7 +82,7 @@ const Header = () => {
 				</>
 			) : (
 				<>
-					<div style={{ flex: '1 0 auto', width: '80%' }}></div>
+					<div style={{ flex: '1 0 auto' }}></div>
 					<div
 						style={{
 							display: 'flex',
