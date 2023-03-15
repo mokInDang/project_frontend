@@ -3,6 +3,8 @@ import GetLocationButton from './getLocationButton';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { AiFillCaretDown } from 'react-icons/ai';
+import Dropdown from './dropdown';
+import { useState } from 'react';
 
 const Headerdiv = styled.div`
 	top: 0;
@@ -24,7 +26,6 @@ const HeaderButton = styled.div`
 `;
 const Profile = styled.div`
 	display: inline-block;
-	margin-left: 20px;
 	border-radius: 50%;
 	background: #555;
 	height: 50px;
@@ -32,6 +33,7 @@ const Profile = styled.div`
 `;
 
 const Header = () => {
+	const [view, setView] = useState(false);
 	axios.defaults.headers.common.Authorization = 'Bearer token';
 	const token = axios.defaults.headers.common.Authorization;
 	var isLogined = true;
@@ -64,6 +66,11 @@ const Header = () => {
 							<HeaderButton>새 글 쓰기</HeaderButton>
 						</Link>
 						<div
+							style={{
+								marginLeft: `20px`}}
+							onClick={() => {
+								setView(!view);
+							}}
 							>
 							<Profile />
 							<AiFillCaretDown
