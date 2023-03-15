@@ -15,11 +15,11 @@ function GetLocationButton() {
 			locRef.current = coordsObj;
 			console.log(locRef.current);
 			// axios 요청으로 region 보내는 함수
-			axios.put(`/api/member/region`, JSON.stringify(locRef.current), {
+			axios.patch(`/api/member/region`, JSON.stringify(locRef.current), {
 				headers: { "Content-Type": "application/json; charset=utf-8" },
 			});
 			/** 
-      
+    
        **/
 		}
 		function error(error) {
