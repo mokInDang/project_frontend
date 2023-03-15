@@ -12,9 +12,6 @@ function Home() {
 			<Header />
 			<div>메인 페이지_글쓰기 화면 구현</div>
 			<button onClick={reissueToken}>리이슈 테스트</button>
-			<div>
-				<Link to="/boards">글쓰기</Link>
-			</div>
 			<GetLocationButton>내 위치 받아오기</GetLocationButton>
 		</Fragment>
 	);
