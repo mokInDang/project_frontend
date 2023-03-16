@@ -8,13 +8,10 @@ function MovetoHome() {
 
 function Welcome() {
 	const KAKAO_CODE = new URL(document.location.href).searchParams.get('code');
-
-	useEffect(() => {
-		let kakaoAuthCode = { authorizationCode: KAKAO_CODE };
-		if (KAKAO_CODE) {
-			onLogin(kakaoAuthCode);
-		} // eslint-disable-next-line
-	}, []);
+	let kakaoAuthCode = { authorizationCode: KAKAO_CODE };
+	if (KAKAO_CODE) {
+		onLogin(kakaoAuthCode);
+	} // eslint-disable-next-line
 
 	return (
 		<>
