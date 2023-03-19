@@ -27,9 +27,12 @@ let setAuthHeader = function (res) {
 		debugger;
 		axios.defaults.headers.common['Authorization'] = Token;
 		debugger;
-		const { alias } = res.data;
+		const { email, alias, region } = res.data;
+		var setHeaderTime = new Date();
 		resolve(
-			console.log(`4. setAuthHeader 완료 ${axios.defaults.headers.common}`)
+			console.log(
+				`4. setAuthHeader 완료 : ${setHeaderTime.toLocaleString('ko-KR')}`
+			)
 		); // resolve 함수 호출된 경우 비동기 처리 성공!
 	});
 };
@@ -64,7 +67,6 @@ const onSilentRefresh = () => {
 };
 const reissueToken = () => {
 	const token = axios.defaults.headers.common.Authorization;
-	console.log(token);
 	// Todo : 로그아웃 시 Authorization undefined로 설정해줄 것
 	if (typeof token === 'string' && token.slice(0, 6) === 'Bearer') {
 		onSilentRefresh();
