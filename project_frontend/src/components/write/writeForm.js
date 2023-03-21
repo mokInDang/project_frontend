@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import EditorComponent from './editorComponent';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { CustomSelectActivity, 
+} from './customSelect';
 
 const WriteForm = () => {
 	var today = new Date();
@@ -16,7 +18,7 @@ const WriteForm = () => {
 		content: '',
 		activityCategory: '',
 		startingDate: '',
-		requestDate: `${todayString}`,
+		requestDate: ``,
 	});
 
 	const { title, content, activityCategory, startingDate, requestDate } = form;
@@ -26,6 +28,15 @@ const WriteForm = () => {
 		axios.post(`/api/boards`, JSON.stringify(form), {
 			headers: { "Content-Type": "application/json; charset=utf-8" },
 		});
+	};
+	const getSelectedActivity = (newSelectedActivity) => {
+		const nextForm = {
+			...form, // 기존값 복사 (spread operator)
+			activityCategory: newSelectedActivity, // 덮어쓰기
+		};
+		// console.log('html');
+		setForm(nextForm);
+		console.log(nextForm);
 	};
 	const getHtmlContent = (newContent) => {
 		if (newContent == '<p><br></p>') {
@@ -53,21 +64,6 @@ const WriteForm = () => {
 		<div>
 			<h3>프로젝트 기본 정보를 입력해주세요.</h3>
 			<hr />
-			<label htmlFor="activityCategory">모집 구분</label>
-			<select
-				onChange={onChange}
-				id="activityCategory"
-				name="activityCategory"
-				value="산책/달리기"
-				required>
-				<option
-					value="산책/달리기"
-					disabled>
-					산책/달리기
-				</option>
-				<option value="산책">산책</option>
-				<option value="달리기">달리기</option>
-			</select>
 			<label htmlFor="startingDate">시작 예정일</label>
 			<input
 				type="date"
@@ -75,6 +71,16 @@ const WriteForm = () => {
 				value={startingDate}
 				onChange={onChange}
 				min={todayString}></input>
+			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+				<div style={{ display: 'inline-block', width: '45%' }}>
+					<label htmlFor="activityCategory">모집 구분</label>
+					<CustomSelectActivity
+						name="activityCategory"
+						value={activityCategory}
+						getSelectedActivity={getSelectedActivity}
+					/>
+				</div>
+			</div>
 			<h3>프로젝트에 대해 소개해주세요.</h3>
 			<hr></hr>
 			<label htmlFor="title">제목</label>

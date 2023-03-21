@@ -6,6 +6,7 @@ import WriteForm from './write/writeForm';
 import WriteWrapper from './write/writeWrapper';
 import GetlocationButton from './getLocationButton';
 import Dropdown from './dropdown';
+import { CustomSelectActivity } from './write/customSelect';
 
 export {
 	JoinComment,
@@ -15,5 +16,6 @@ export {
 	WriteForm,
 	WriteWrapper,
 	GetlocationButton,
-	Dropdown
+	Dropdown,
+	CustomSelectActivity,
 };
