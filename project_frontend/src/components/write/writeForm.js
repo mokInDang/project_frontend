@@ -2,23 +2,15 @@ import React, { useState } from 'react';
 import EditorComponent from './editorComponent';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { CustomSelectActivity, 
-} from './customSelect';
+import { CustomSelectActivity, CustomSelectDate, TodayString } from './customSelect';
 
 const WriteForm = () => {
-	var today = new Date();
-	var year = today.getFullYear();
-	var month = ('0' + (today.getMonth() + 1)).slice(-2);
-	var day = ('0' + today.getDate()).slice(-2);
-	var todayString = year + '-' + month + '-' + day;
-	// let todayString = now.toString();
-
 	const [form, setForm] = useState({
 		title: '',
 		content: '',
 		activityCategory: '',
 		startingDate: '',
-		requestDate: ``,
+		requestDate: `${TodayString()}`,
 	});
 
 	const { title, content, activityCategory, startingDate, requestDate } = form;
@@ -26,7 +18,7 @@ const WriteForm = () => {
 	const writePost = () => {
 		console.log('writePost 실행');
 		axios.post(`/api/boards`, JSON.stringify(form), {
-			headers: { "Content-Type": "application/json; charset=utf-8" },
+			headers: { 'Content-Type': 'application/json; charset=utf-8' },
 		});
 	};
 	const getSelectedActivity = (newSelectedActivity) => {
@@ -38,6 +30,16 @@ const WriteForm = () => {
 		setForm(nextForm);
 		console.log(nextForm);
 	};
+	const getSelectedDate = (newSelectedDate) => {
+		const nextForm = {
+			...form, // 기존값 복사 (spread operator)
+			startingDate: newSelectedDate, // 덮어쓰기
+		};
+		// console.log('html');
+		setForm(nextForm);
+		console.log(nextForm);
+	};
+
 	const getHtmlContent = (newContent) => {
 		if (newContent == '<p><br></p>') {
 			newContent = '';
@@ -52,6 +54,7 @@ const WriteForm = () => {
 	};
 
 	const onChange = (e) => {
+		// input 태그에 사용되는 함수
 		const nextForm = {
 			...form, // 기존값 복사 (spread operator)
 			[e.target.name]: e.target.value, // 덮어쓰기
@@ -64,13 +67,6 @@ const WriteForm = () => {
 		<div>
 			<h3>프로젝트 기본 정보를 입력해주세요.</h3>
 			<hr />
-			<label htmlFor="startingDate">시작 예정일</label>
-			<input
-				type="date"
-				name="startingDate"
-				value={startingDate}
-				onChange={onChange}
-				min={todayString}></input>
 			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
 				<div style={{ display: 'inline-block', width: '45%' }}>
 					<label htmlFor="activityCategory">모집 구분</label>
@@ -78,6 +74,14 @@ const WriteForm = () => {
 						name="activityCategory"
 						value={activityCategory}
 						getSelectedActivity={getSelectedActivity}
+					/>
+				</div>
+				<div style={{ display: 'inline-block', width: '45%' }}>
+					<label htmlFor="startingDate">시작 예정일</label>
+					<CustomSelectDate
+						name="startingDate"
+						value={startingDate}
+						getSelectedDate={getSelectedDate}
 					/>
 				</div>
 			</div>

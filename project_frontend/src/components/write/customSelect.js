@@ -43,6 +43,7 @@ const SelectOptions = styled.ul`
 	border-radius: 8px;
 	background-color: #ffffff;
 `;
+
 const Option = styled.li`
 	font-size: 15px;
 	padding: 12px 0px;
@@ -53,6 +54,47 @@ const Option = styled.li`
 	}
 `;
 
+const DateSelector = styled.input`
+	position: relative;
+	height: 55px;
+	width: 100%;
+	cursor: pointer;
+	border: 1px solid #bdbdbd;
+	border-radius: 8px;
+	text-indent: 10px;
+	&::before {
+		content: '⌵';
+		position: absolute;
+		top: 14px;
+		right: 20px;
+		color: #bdbdbd;
+		font-size: 20px;
+	}
+	// background: url() no-repeat right 5px center / 10px auto;
+	::-webkit-clear-button,
+	::-webkit-inner-spin-button {
+		display: none;
+	}
+	::-webkit-calendar-picker-indicator {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background: transparent;
+		color: transparent;
+		cursor: pointer;
+	}
+`;
+
+const TodayString = () => {
+	var today = new Date();
+	var year = today.getFullYear();
+	var month = ('0' + (today.getMonth() + 1)).slice(-2);
+	var day = ('0' + today.getDate()).slice(-2);
+	var todayString = year + '-' + month + '-' + day;
+	return todayString;
+};
 const CustomSelectActivity = ({ getSelectedActivity }) => {
 	const [showOptions, setShowOptions] = useState(false);
 	const [currentValue, setCurrentValue] = useState('');
@@ -75,4 +117,22 @@ const CustomSelectActivity = ({ getSelectedActivity }) => {
 	);
 };
 
-export { CustomSelectActivity };
+const CustomSelectDate = ({ getSelectedDate }) => {
+	const [date, setDate] = useState('');
+	const onChange = (e) => {
+		setDate(e.target.value);
+	};
+	useEffect(() => {
+		getSelectedDate(date);
+	}, [date]);
+	return (
+		<DateSelector
+			placeholder="연도-월-일"
+			type="date"
+			value={date}
+			onChange={onChange}
+			min={TodayString()}></DateSelector>
+	);
+}; // 추후 react-datepicker 라이브러리로 변경할 것
+
+export { CustomSelectActivity, CustomSelectDate, TodayString };
