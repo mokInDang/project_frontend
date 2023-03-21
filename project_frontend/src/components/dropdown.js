@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { onLogout } from '../apis';
 
 const DropdownDiv = styled.div`
 	font-size: 23px;
@@ -23,7 +24,7 @@ function Dropdown() {
 		<DropdownDiv>
 			<DropdownList>내 작성글</DropdownList>
 			<DropdownList>설정</DropdownList>
-			<DropdownList>로그아웃</DropdownList>
+			<DropdownList onClick={onLogout}>로그아웃</DropdownList>
 		</DropdownDiv>
 	);
 }
