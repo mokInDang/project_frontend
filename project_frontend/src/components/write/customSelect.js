@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 
 const SelectBox = styled.div`
+	margin-top: 20px;
 	content: '산책/달리기';
 	position: relative;
 	width: 100%;
@@ -28,6 +29,9 @@ const Label = styled.label`
 	font-size: 14px;
 	margin-left: 4px;
 	text-align: center;
+	font-weight: 350;
+	font-size: 18px;
+	color: rgba(0, 0, 0, 0.5);
 `;
 const SelectOptions = styled.ul`
 	z-index: 10000;
@@ -42,6 +46,8 @@ const SelectOptions = styled.ul`
 	border: 1px solid #bdbdbd;
 	border-radius: 8px;
 	background-color: #ffffff;
+	font-weight: 700;
+	font-size: 18px;
 `;
 
 const Option = styled.li`
@@ -55,6 +61,7 @@ const Option = styled.li`
 `;
 
 const DateSelector = styled.input`
+	margin-top: 20px;
 	position: relative;
 	height: 55px;
 	width: 100%;
@@ -62,6 +69,10 @@ const DateSelector = styled.input`
 	border: 1px solid #bdbdbd;
 	border-radius: 8px;
 	text-indent: 10px;
+	font-weight: 350;
+	font-size: 18px;
+	color: rgba(0, 0, 0, 0.5);
+
 	&::before {
 		content: '⌵';
 		position: absolute;
