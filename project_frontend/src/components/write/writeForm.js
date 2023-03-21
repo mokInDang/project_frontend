@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import EditorComponent from './editorComponent';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { CustomSelectActivity, CustomSelectDate, TodayString } from './customSelect';
+import {
+	CustomSelectActivity,
+	CustomSelectDate,
+	TodayString,
+} from './customSelect';
+import { Button, HR, Label, P, Title } from './writeFormComponents';
+import { green1, green2 } from '../../assets/images';
 
 const WriteForm = () => {
 	const [form, setForm] = useState({
@@ -65,11 +71,14 @@ const WriteForm = () => {
 
 	return (
 		<div>
-			<h3>프로젝트 기본 정보를 입력해주세요.</h3>
-			<hr />
+			<P>
+				<img src={green1} />
+				프로젝트 기본 정보를 입력해주세요.
+			</P>
+			<HR />
 			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
 				<div style={{ display: 'inline-block', width: '45%' }}>
-					<label htmlFor="activityCategory">모집 구분</label>
+					<Label htmlFor="activityCategory">모집 구분</Label>
 					<CustomSelectActivity
 						name="activityCategory"
 						value={activityCategory}
@@ -77,7 +86,7 @@ const WriteForm = () => {
 					/>
 				</div>
 				<div style={{ display: 'inline-block', width: '45%' }}>
-					<label htmlFor="startingDate">시작 예정일</label>
+					<Label htmlFor="startingDate">시작 예정일</Label>
 					<CustomSelectDate
 						name="startingDate"
 						value={startingDate}
@@ -85,23 +94,42 @@ const WriteForm = () => {
 					/>
 				</div>
 			</div>
-			<h3>프로젝트에 대해 소개해주세요.</h3>
-			<hr></hr>
-			<label htmlFor="title">제목</label>
-			<br></br>
-			<input
+			<P>
+				<img src={green2} />
+				프로젝트에 대해 소개해주세요.
+			</P>
+			<HR />
+			<Label htmlFor="title">제목</Label>
+			<Title
 				type="text"
 				placeholder="글 제목을 입력해주세요."
 				name="title"
 				value={title}
-				onChange={onChange}></input>
+				onChange={onChange}></Title>
 			<EditorComponent
 				name="content"
 				value={content}
 				getHtmlContent={getHtmlContent}></EditorComponent>
 			<br />
-			<Link to="/">취소</Link>
-			<span onClick={writePost}>확인</span>
+			<div
+				style={{
+					position: 'relative',
+					height: '30px',
+					float: 'right',
+				}}>
+				<Button name="cancel">
+					<Link
+						to="/"
+						style={{ textDecoration: 'none', color: '#767676' }}>
+						취소
+					</Link>
+				</Button>
+				<Button
+					onClick={writePost}
+					name="write">
+					글 등록
+				</Button>
+			</div>
 		</div>
 	);
 };
