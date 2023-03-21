@@ -11,7 +11,6 @@ const WriteForm = () => {
 	var todayString = year + '-' + month + '-' + day;
 	// let todayString = now.toString();
 
-	const [htmlContent, setHtmlContent] = useState('');
 	const [form, setForm] = useState({
 		title: '',
 		content: '',
@@ -29,10 +28,12 @@ const WriteForm = () => {
 		});
 	};
 	const getHtmlContent = (newContent) => {
-		setHtmlContent(newContent);
+		if (newContent == '<p><br></p>') {
+			newContent = '';
+		}
 		const nextForm = {
 			...form, // 기존값 복사 (spread operator)
-			content: htmlContent, // 덮어쓰기
+			content: newContent, // 덮어쓰기
 		};
 		// console.log('html');
 		setForm(nextForm);
@@ -85,10 +86,9 @@ const WriteForm = () => {
 				value={title}
 				onChange={onChange}></input>
 			<EditorComponent
-				name="text"
-				value={htmlContent}
-				getHtmlContent={getHtmlContent}
-				onChange={onChange}></EditorComponent>
+				name="content"
+				value={content}
+				getHtmlContent={getHtmlContent}></EditorComponent>
 			<br />
 			<Link to="/">취소</Link>
 			<span onClick={writePost}>확인</span>
