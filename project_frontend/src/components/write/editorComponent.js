@@ -4,10 +4,6 @@ import 'react-quill/dist/quill.snow.css';
 
 function EditorComponent({ getHtmlContent }) {
 	const [content, setContent] = useState('');
-	const getContent =(e)=>{
-		setContent(e);
-		getHtmlContent(content);
-	}
 	const modules = {
 		toolbar: [
 			//[{ 'font': [] }],
@@ -39,8 +35,8 @@ function EditorComponent({ getHtmlContent }) {
 		'background',
 	];
 	useEffect(() => {
-		getContent()
-	},[]);
+		getHtmlContent(content)
+	},[content]);
 
 	return (
 		<div style={{ height: '600px' }}>
@@ -50,7 +46,7 @@ function EditorComponent({ getHtmlContent }) {
 				modules={modules}
 				formats={formats}
 				value={content}
-				onChange={getContent}
+				onChange={setContent}
 			/>
 		</div>
 	);
