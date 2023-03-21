@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-
 function EditorComponent({ getHtmlContent }) {
 	const [content, setContent] = useState('');
 	const modules = {
@@ -35,8 +34,8 @@ function EditorComponent({ getHtmlContent }) {
 		'background',
 	];
 	useEffect(() => {
-		getHtmlContent(content)
-	},[content]);
+		getHtmlContent(content);
+	}, [content]);
 
 	return (
 		<div style={{ height: '600px' }}>
@@ -47,6 +46,7 @@ function EditorComponent({ getHtmlContent }) {
 				formats={formats}
 				value={content}
 				onChange={setContent}
+				placeholder="프로젝트에 대해 소개해주세요!"
 			/>
 		</div>
 	);
