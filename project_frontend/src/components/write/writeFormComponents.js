@@ -9,7 +9,7 @@ const P = styled.p`
 	font-family: NanumSquareNeo;
 	font-style: normal;
 	font-weight: 900;
-	font-size: 24px;
+	font-size: 22px;
 
 	/* or 62% */
 	align-items: center;

@@ -48,6 +48,7 @@ const Header = () => {
 			? (isLogined = true)
 			: (isLogined = false);
 	}
+	isLogined = true;
 	return (
 		<Headerdiv>
 			{isLogined ? (
@@ -67,7 +68,7 @@ const Header = () => {
 						</Link>
 						<div
 							style={{
-								marginLeft: `20px`,
+								marginLeft: `40px`,
 							}}
 							onClick={() => {
 								setView(!view);
