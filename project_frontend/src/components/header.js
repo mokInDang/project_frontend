@@ -9,19 +9,19 @@ import { useState } from 'react';
 const Headerdiv = styled.div`
 	top: 0;
 	width: 100%;
-	height: 160px;
+	height: 120px;
 	background: #ffffff;
 	align-items: center;
 	display: flex;
 `;
 
 const HeaderButton = styled.div`
-	direction: rtl;
 	display: inline-block;
 	height: 100%;
-	margin: 0px 0px 0px 20px;
+	margin: 0px 0px 0px 70px;
+	font-family: NanumSquare_acR;
 	font-weight: 700;
-	font-size: 30px;
+	font-size: 25px;
 	color: #000000;
 	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
 `;
@@ -48,6 +48,7 @@ const Header = () => {
 			? (isLogined = true)
 			: (isLogined = false);
 	}
+	isLogined = true;
 	return (
 		<Headerdiv>
 			{isLogined ? (
@@ -67,7 +68,7 @@ const Header = () => {
 						</Link>
 						<div
 							style={{
-								marginLeft: `20px`,
+								marginLeft: `40px`,
 							}}
 							onClick={() => {
 								setView(!view);
@@ -89,16 +90,21 @@ const Header = () => {
 							alignItems: 'center',
 							margin: '0px 100px 0px 30px',
 						}}>
-						<Link
-							to="/boards"
-							style={{ textDecoration: 'none' }}>
-							<HeaderButton>새 글 쓰기</HeaderButton>
-						</Link>
-						<Link
-							to="/login"
-							style={{ textDecoration: 'none' }}>
-							<HeaderButton>로그인</HeaderButton>
-						</Link>
+						<HeaderButton>
+							<Link
+								to="/boards"
+								style={{ textDecoration: 'none', color: '#000' }}>
+								새 글 쓰기
+							</Link>
+						</HeaderButton>
+
+						<HeaderButton>
+							<Link
+								to="/login"
+								style={{ textDecoration: 'none', color: '#000' }}>
+								로그인
+							</Link>
+						</HeaderButton>
 					</div>
 				</>
 			)}

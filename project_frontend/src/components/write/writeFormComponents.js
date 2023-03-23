@@ -6,9 +6,10 @@ const HR = styled.hr`
 `;
 
 const P = styled.p`
+	font-family: NanumSquareNeo;
 	font-style: normal;
 	font-weight: 900;
-	font-size: 24px;
+	font-size: 22px;
 
 	/* or 62% */
 	align-items: center;
@@ -18,14 +19,14 @@ const P = styled.p`
 	color: #000000;
 `;
 const Label = styled.label`
-	font-family: 'NanumSquare_ac';
-	font-style: normal;
+	font-family: NanumSquare_acR;
 	font-weight: 700;
 	font-size: 23px;
 	line-height: 25px;
 `;
 
 const Title = styled.input`
+	font-family: NanumSquareNeo;
 	margin-top: 25px;
 	margin-bottom: 35px;
 	height: 60px;
@@ -35,6 +36,8 @@ const Title = styled.input`
 	outline: 0;
 	width: 100%;
 	text-indent: 20px;
+	font-family: NanumSquareNeo;
+	font-style: normal;
 	font-weight: 350;
 	font-size: 17px;
 `;
@@ -51,7 +54,7 @@ display:inline-block;
     font-weight: 350;
     font-size: 15px;
     line-height: 30px;
-	background: ${(props) => (props.name == 'cancel' ? '#DDDDDD' : '#000000')};
-    color: ${(props) => (props.name == 'cancel' ? '#767676' : '#ffffff')};
+	background: ${(props) => (props.name === 'cancel' ? '#DDDDDD' : '#000000')};
+    color: ${(props) => (props.name === 'cancel' ? '#767676' : '#ffffff')};
 `;
 export { HR, P, Label, Title, Button };

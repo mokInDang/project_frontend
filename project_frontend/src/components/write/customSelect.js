@@ -19,7 +19,7 @@ const SelectBox = styled.div`
 	&::before {
 		content: '⌵';
 		position: absolute;
-		top: 10px;
+		top: 14px;
 		right: 20px;
 		color: #bdbdbd;
 		font-size: 20px;
@@ -29,6 +29,8 @@ const Label = styled.label`
 	font-size: 14px;
 	margin-left: 4px;
 	text-align: center;
+	font-family: NanumSquareNeo;
+	font-style: normal;
 	font-weight: 350;
 	font-size: 18px;
 	color: rgba(0, 0, 0, 0.5);
@@ -54,6 +56,7 @@ const Option = styled.li`
 	font-size: 15px;
 	padding: 12px 0px;
 	background-color: #ffffff;
+	opacity: 0.7;
 	transition: background-color 0.2s ease-in;
 	&:hover {
 		background-color: rgba(161, 198, 254, 0.5);
@@ -69,6 +72,8 @@ const DateSelector = styled.input`
 	border: 1px solid #bdbdbd;
 	border-radius: 8px;
 	text-indent: 10px;
+	font-family: NanumSquareNeo;
+	font-style: normal;
 	font-weight: 350;
 	font-size: 18px;
 	color: rgba(0, 0, 0, 0.5);

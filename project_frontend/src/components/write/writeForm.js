@@ -76,8 +76,8 @@ const WriteForm = () => {
 				프로젝트 기본 정보를 입력해주세요.
 			</P>
 			<HR />
-			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-				<div style={{ display: 'inline-block', width: '45%' }}>
+			<div style={{ display: 'flex', justifyContent: 'space-between', marginBottom:'80px' }}>
+				<div style={{ display: 'inline-block', width: '48%' }}>
 					<Label htmlFor="activityCategory">모집 구분</Label>
 					<CustomSelectActivity
 						name="activityCategory"
@@ -85,7 +85,7 @@ const WriteForm = () => {
 						getSelectedActivity={getSelectedActivity}
 					/>
 				</div>
-				<div style={{ display: 'inline-block', width: '45%' }}>
+				<div style={{ display: 'inline-block', width: '48%' }}>
 					<Label htmlFor="startingDate">시작 예정일</Label>
 					<CustomSelectDate
 						name="startingDate"
