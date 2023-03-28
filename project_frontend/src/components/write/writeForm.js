@@ -30,7 +30,8 @@ const WriteForm = () => {
 			})
 			.then((res) => {
 				console.log(res.data);
-				navigate(`/board/:${res.data.boardId}`, { replace: true });
+				let data = res.data;
+				navigate(`/boards/${data.id}`, { replace: true });
 			})
 			.catch((error) => {
 				console.log(error);
