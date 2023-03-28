@@ -45,10 +45,9 @@ const Header = () => {
 	}
 	{
 		typeof token === 'string' && token.slice(0, 6) === 'Bearer'
-			? (isLogined = true)
-			: (isLogined = false);
+			? isLogined = true
+			: isLogined = false;
 	}
-	isLogined = true;
 	return (
 		<Headerdiv>
 			{isLogined ? (
