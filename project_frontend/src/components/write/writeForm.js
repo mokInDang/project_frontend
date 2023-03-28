@@ -31,7 +31,7 @@ const WriteForm = () => {
 			.then((res) => {
 				console.log(res.data);
 				let data = res.data;
-				navigate(`/boards/${data.id}`, { replace: true });
+				navigate(`/boards/${data.boardId}`, { replace: true });
 			})
 			.catch((error) => {
 				console.log(error);
