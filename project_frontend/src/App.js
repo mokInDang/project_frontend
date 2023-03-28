@@ -1,5 +1,5 @@
 import './App.css';
-import { Home, Login, Welcome, Write } from './pages';
+import { Home, Login, ViewDetails, Welcome, Write } from './pages';
 import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import { reissueToken } from './apis';
@@ -18,6 +18,7 @@ function App() {
 				<Route path="/login" element={<Login />}/>
 				<Route path="/api/auth/join" element={<Welcome />}/>
 				<Route path="/boards" element={<Write />}/>
+				<Route path="/boards/:id" element={<ViewDetails />}/>
 			</Routes>
 		</div>
 	);

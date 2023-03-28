@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import EditorComponent from './editorComponent';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
 	CustomSelectActivity,
 	CustomSelectDate,
@@ -11,6 +11,7 @@ import { Button, HR, Label, P, Title } from './writeFormComponents';
 import { green1, green2 } from '../../assets/images';
 
 const WriteForm = () => {
+	const navigate = useNavigate();
 	const [form, setForm] = useState({
 		title: '',
 		content: '',
@@ -21,11 +22,20 @@ const WriteForm = () => {
 
 	const { title, content, activityCategory, startingDate, requestDate } = form;
 
-	const writePost = () => {
+	const writePost = async () => {
 		console.log('writePost 실행');
-		axios.post(`/api/boards`, JSON.stringify(form), {
-			headers: { 'Content-Type': 'application/json; charset=utf-8' },
-		});
+		axios
+			.post(`/api/boards`, JSON.stringify(form), {
+				headers: { 'Content-Type': 'application/json; charset=utf-8' },
+			})
+			.then((res) => {
+				console.log(res.body.boardId);
+				navigate(`/board/:${res.body.boardId}`, { replace: true });
+			})
+			.catch((error) => {
+				console.log(error.status);
+				console.log(error);
+			});
 	};
 	const getSelectedActivity = (newSelectedActivity) => {
 		const nextForm = {
