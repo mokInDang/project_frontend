@@ -29,11 +29,10 @@ const WriteForm = () => {
 				headers: { 'Content-Type': 'application/json; charset=utf-8' },
 			})
 			.then((res) => {
-				console.log(res.body.boardId);
-				navigate(`/board/:${res.body.boardId}`, { replace: true });
+				console.log(res.data);
+				navigate(`/board/:${res.data.boardId}`, { replace: true });
 			})
 			.catch((error) => {
-				console.log(error.status);
 				console.log(error);
 			});
 	};
