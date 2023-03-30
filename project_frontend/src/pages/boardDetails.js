@@ -9,12 +9,18 @@ function BoardDetails() {
 		.get(`/api/boards/${params.boardId}`)
 		.then((res) => {
 			console.log(res);
-			return <p>{JSON.stringify(res.data)}</p>;
+			return (
+				<div>
+					{res.data.boardId}
+					{res.data.title}
+					{res.data.content}
+				</div>
+			);
 		})
 		.catch((error) => {
 			alert(`해당하는 글이 존재하지 않습니다.`);
 			console.log(error);
-			navigate('/');
+			// navigate('/');
 		});
 }
 export default BoardDetails;
