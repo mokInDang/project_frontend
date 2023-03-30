@@ -2,11 +2,11 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function ViewDetails() {
+function BoardDetails() {
 	const navigate = useNavigate();
-	let { params } = useParams();
+	let params = useParams();
 	axios
-		.get(`/api/boards/${params}`)
+		.get(`/api/boards/${params.boardId}`)
 		.then((res) => {
 			console.log(res);
 			return <p>{res.body}</p>;
@@ -17,4 +17,4 @@ function ViewDetails() {
 			navigate('/');
 		});
 }
-export default ViewDetails;
+export default BoardDetails;

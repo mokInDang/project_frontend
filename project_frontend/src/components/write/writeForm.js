@@ -29,9 +29,8 @@ const WriteForm = () => {
 				headers: { 'Content-Type': 'application/json; charset=utf-8' },
 			})
 			.then((res) => {
-				console.log(res.data);
-				let data = res.data;
-				navigate(`/boards/${data.boardId}`, { replace: true });
+				console.log(res.data.boardId);
+				navigate(`/boards/${res.data.boardId}`, { replace: true });
 			})
 			.catch((error) => {
 				console.log(error);
