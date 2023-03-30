@@ -8,14 +8,8 @@ function BoardDetails() {
 	axios
 		.get(`/api/boards/${params.boardId}`)
 		.then((res) => {
-			console.log(res);
-			return (
-				<div>
-					{res.data.boardId}
-					{res.data.title}
-					{res.data.content}
-				</div>
-			);
+			console.log(res.data);
+			return <div>{res.data}</div>;
 		})
 		.catch((error) => {
 			alert(`해당하는 글이 존재하지 않습니다.`);
