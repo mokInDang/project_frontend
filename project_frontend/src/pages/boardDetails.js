@@ -9,7 +9,7 @@ function BoardDetails() {
 		.get(`/api/boards/${params.boardId}`)
 		.then((res) => {
 			console.log(res);
-			return <p>{res.body}</p>;
+			return <p>{JSON.stringify(res.body)}</p>;
 		})
 		.catch((error) => {
 			alert(`해당하는 글이 존재하지 않습니다.`);
