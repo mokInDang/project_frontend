@@ -7,6 +7,9 @@ import WriteWrapper from './write/writeWrapper';
 import GetlocationButton from './getLocationButton';
 import Dropdown from './dropdown';
 import { CustomSelectActivity } from './write/customSelect';
+import { InfiniteScroll } from './main/infiniteScroll';
+import { BoardItemsWrap } from './main/mainStyledComponents';
+import { Card } from './main/card';
 
 export {
 	JoinComment,
@@ -18,4 +21,7 @@ export {
 	GetlocationButton,
 	Dropdown,
 	CustomSelectActivity,
+	InfiniteScroll,
+	BoardItemsWrap,
+	Card,
 };
