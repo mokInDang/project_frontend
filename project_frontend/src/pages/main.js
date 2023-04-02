@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import axios from 'axios';
 import { Header, InfiniteScroll } from '../components';
-import { Header, InfiniteScroll } from '../components';
 import GetLocationButton from '../components/getLocationButton';
 import { reissueToken } from '../apis';
 
