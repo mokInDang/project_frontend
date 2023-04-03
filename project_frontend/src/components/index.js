@@ -10,6 +10,7 @@ import { CustomSelectActivity } from './write/customSelect';
 import { InfiniteScroll } from './main/infiniteScroll';
 import { BoardItemsWrap } from './main/mainStyledComponents';
 import { Card } from './main/card';
+import { LinkTo, Profile } from './globalStyledComponents';
 
 export {
 	JoinComment,
@@ -24,4 +25,6 @@ export {
 	InfiniteScroll,
 	BoardItemsWrap,
 	Card,
+	LinkTo,
+	Profile,
 };
