@@ -24,43 +24,24 @@ const DateString = (dateString, parseString) => {
 	return dateString;
 };
 
-const board = {
-	'boardId': 1,
-	'title': '니냐뇨',
-	'content': '<p>니냐니냐뇨 </p>',
-	'creatingDatetime': '2023-04-06T00:59:17.392482',
-	'writerAlias': '수현',
-	'startingDate': '2023-04-20',
-	'region': '영등포구',
-	'activityCategory': '달리기',
-	'onRecruitment': true,
-	'firstFourLettersOfEmail': 'pany',
-	'mine': true,
-};
-
 const BoardContent = () => {
 	const navigate = useNavigate();
 	const [boardDetails, setBoardDetails] = useState('');
 	let params = useParams();
-	axios
-		.get(`/api/boards/${params.boardId}`)
-		.then((res) => {
-			console.log(res.data);
-			setBoardDetails(res.data);
-		})
-		.catch((error) => {
-			alert(`해당하는 글이 존재하지 않습니다.`);
-			console.log(`해당하는 글이 존재하지 않습니다.`);
-			console.log(error);
-			navigate('/');
-		});
-
-	// function getBoardDetails(board) {
-	// 	setBoardDetails(board);
-	// }
-	// useEffect(() => {
-	// 	getBoardDetails(board);
-	// }, [boardDetails]);
+	useEffect(() => {
+		axios
+			.get(`/api/boards/${params.boardId}`)
+			.then((res) => {
+				console.log(res.data);
+				setBoardDetails(res.data);
+			})
+			.catch((error) => {
+				alert(`해당하는 글이 존재하지 않습니다.`);
+				console.log(`해당하는 글이 존재하지 않습니다.`);
+				console.log(error);
+				navigate('/');
+			});
+	}, []);
 
 	let items = ['활동 지역', '모집 구분', '시작 예정'];
 	let values = [
