@@ -5,17 +5,14 @@ import { Card, BoardItemsWrap } from '../index';
 
 function InfiniteScroll() {
 	const [boardItems, setBoardItems] = useState([]);
-	const [pageNumber, setPageNumber] = useState(1);
+	const [pageNumber, setPageNumber] = useState(0);
 	const [loading, setLoading] = useState(false);
 
 	const getBoardItems = async (pageNumber) => {
 		await axios
-			.get(`https://jsonplaceholder.typicode.com/posts/${pageNumber}/comments`)
+			.get(`/api/boards?page=${pageNumber}&size=12&sort=id`)
 			.then((res) => {
-				setBoardItems((data) => [...data, ...res.data]);
-				// console.log(res.data.hasNext);
-				console.log(res.data[0]);
-				console.log(boardItems);
+				setBoardItems((data) => [...data, ...res.data.boards]);
 				setLoading(true);
 			});
 	};
@@ -33,7 +30,6 @@ function InfiniteScroll() {
 		if (loading) {
 			const observer = new IntersectionObserver(
 				(entries) => {
-					console.log(entries[0].isIntersecting);
 					if (entries[0].isIntersecting) {
 						num++;
 						loadMore();
@@ -53,7 +49,7 @@ function InfiniteScroll() {
 			<BoardItemsWrap>
 				{boardItems.map((boardItem) => (
 					<Card
-						key={boardItem.id}
+						key={boardItem.boardId}
 						content={boardItem}></Card>
 				))}
 			</BoardItemsWrap>

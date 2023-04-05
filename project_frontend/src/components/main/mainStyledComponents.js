@@ -23,13 +23,16 @@ const BoardItemCard = styled.div`
 	flex-direction: column;
 	height: 42rem;
 	border-radius: 0.7rem;
-	padding: 3rem;
+	padding: 4rem 3rem 2rem 3rem;
 	box-sizing: border-box;
 	background-color: rgba(255, 255, 255, 0.8);
 	border: 2px solid #b3b3b3;
 	border-radius: 5rem;
 	transition: all 0.2s ease-in-out;
 	position: relative;
+
+	font-style: normal;
+	font-weight: 700;
 
 	@media (max-width: 778px) {
 		height: 40rem;
@@ -51,15 +54,11 @@ const BoardItemCard = styled.div`
 		background-color: rgba(0, 0, 0, 0.1);
 	}
 
-	div {
-		font-family: NanumSquare_acR;
-		font-style: normal;
-		font-weight: 700;
-	}
 	.category {
 		color: #b3b3b3;
 		font-size: 1.5rem;
 		display: flex;
+		letter-spacing: 0.075rem;
 	}
 	.title {
 		font-size: 2rem;
@@ -80,7 +79,6 @@ const BoardItemCard = styled.div`
 	.email {
 		align-items: center;
 		display: flex;
-		bottom: 3.5rem;
 		font-size: 1.7rem;
 	}
 `;

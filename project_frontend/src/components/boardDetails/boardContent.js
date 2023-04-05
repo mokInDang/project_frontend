@@ -60,9 +60,13 @@ const BoardContent = () => {
 					/>
 					<HeadingDiv fontSize="4rem">{boardDetails.title}</HeadingDiv>
 					<WriterDiv>
-						<WriterProfilePicDiv size="6rem" />
+						<WriterProfilePicDiv
+							size="6rem"
+							margin="2rem 2rem 2rem 0"
+						/>
 						<div>
-							{boardDetails.writerAlias}({boardDetails.firstFourLettersOfEmail})
+							{boardDetails.writerAlias}({boardDetails.firstFourLettersOfEmail}
+							****)
 						</div>
 						<VerticalBar id="verticalbar" />
 						<div className="startingDate">
