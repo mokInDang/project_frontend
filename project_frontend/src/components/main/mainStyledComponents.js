@@ -30,6 +30,7 @@ const BoardItemCard = styled.div`
 	border-radius: 5rem;
 	transition: all 0.2s ease-in-out;
 	position: relative;
+	word-break: break-all;
 
 	font-style: normal;
 	font-weight: 700;
@@ -56,9 +57,14 @@ const BoardItemCard = styled.div`
 
 	.category {
 		color: #b3b3b3;
-		font-size: 1.5rem;
+		font-size: 1.4rem;
 		display: flex;
 		letter-spacing: 0.075rem;
+		flex-shrink: 0;
+		transition: all 0.1s ease-in-out;
+		@media (max-width: 355px) {
+			font-size: 1.3rem;
+		}
 	}
 	.title {
 		font-size: 2rem;
@@ -70,6 +76,7 @@ const BoardItemCard = styled.div`
 		font-size: 1.4rem;
 		line-height: 152%;
 		flex-grow: 1;
+		overflow: hidden;
 	}
 	hr {
 		opacity: 0.7;
