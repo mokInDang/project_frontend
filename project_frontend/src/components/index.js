@@ -11,6 +11,16 @@ import { InfiniteScroll } from './main/infiniteScroll';
 import { BoardItemsWrap } from './main/mainStyledComponents';
 import { Card } from './main/card';
 import { LinkTo, Profile } from './globalStyledComponents';
+import {
+	BoardWrapper,
+	HeadingDiv,
+	WriterDiv,
+	WriterProfilePicDiv,
+	VerticalBar,
+	ContentDiv,
+	BoardInfo,
+	ReplyInput,
+} from './boardDetails/boardDetailsStyledComponents';
 
 export {
 	JoinComment,
@@ -18,13 +28,23 @@ export {
 	Header,
 	EditorComponent,
 	WriteForm,
-	WriteWrapper,
 	GetlocationButton,
 	Dropdown,
 	CustomSelectActivity,
 	InfiniteScroll,
-	BoardItemsWrap,
 	Card,
+};
+export {
+	WriteWrapper,
+	BoardItemsWrap,
 	LinkTo,
 	Profile,
+	BoardWrapper,
+	HeadingDiv,
+	WriterDiv,
+	WriterProfilePicDiv,
+	VerticalBar,
+	ContentDiv,
+	BoardInfo,
+	ReplyInput,
 };

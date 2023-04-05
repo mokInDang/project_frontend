@@ -1,71 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { WriteWrapper, Header, Profile } from '../components';
+import { Header } from '../components';
 import { HR } from '../components/write/writeFormComponents';
 import { BsArrowLeft } from 'react-icons/bs';
 import styled from 'styled-components';
+import {
+	BoardWrapper,
+	HeadingDiv,
+	WriterDiv,
+	WriterProfilePicDiv,
+	VerticalBar,
+	ContentDiv,
+	BoardInfo,
+	ReplyInput,
+} from '../components';
 
-const TitleDiv = styled.div`
-	font-family: 'NanumSquareNeo';
-	font-style: normal;
-	font-weight: 900;
-	font-size: 40px;
-	line-height: 135%;
-`;
-const ContentDiv = styled.div`
-	font-weight: 600;
-	font-style: normal;
-	font-size: 18px;
-	line-height: 160%;
-	letter-spacing: 0.7px;
-`;
-const ProfileDiv = styled(Profile)`
-	width: 68px;
-	height: 68px;
-`;
-const BoardWrapper = styled(WriteWrapper)`
-	margin: 45px auto;
-`;
-
-const board = {
-	'boardId': 1,
-	'title': 'asdasdddwioqjdsdddadsssssssssssssssssdaewwwwwwwwwwwwwwoq',
-	'content':
-		'<p>asdasdddwioqjdsdddoqasdasdddwioqjdsdddoqasdasdddwioqjdsdddoqasdasdddwioqjdsdddoqasdasdddwioqjdsdddoqasdasdddwioqjdsdddoqasdasdddwioqjdsdddoqasdasdddwioqjdsdddoqasdasdddwioqjdsdddoqasdasdddwioqjdsdddoqasdasdddwioqjdsdddoqasdasdddwioqjdsdddoq</p>',
-	'creatingDatetime': '2023-04-02T22:28:16.951634',
-	'writerAlias': '최지환',
-	'startingDate': '2023-04-19',
-	'region': '동작구',
-	'activityCategory': '산책',
-	'onRecruitment': true,
-	'firstFourLettersOfEmail': 'cjh8',
-	'mine': true,
+const DateString = (dateString, parseString) => {
+	let date = new Date(dateString);
+	var year = date.getFullYear();
+	var month = ('0' + (date.getMonth() + 1)).slice(-2);
+	var day = ('0' + date.getDate()).slice(-2);
+	var dateString = year + parseString + month + parseString + day;
+	return dateString;
 };
 function BoardDetails() {
 	const navigate = useNavigate();
 	const [boardDetails, setBoardDetails] = useState('');
 	let params = useParams();
-	// axios
-	// 	.get(`/api/boards/${params.boardId}`)
-	// 	.then((res) => {
-	// 		console.log(res.data);
-	// 		setBoardDetails(res.data);
-	// 		console.log(boardDetails);
-	// 	})
-	// 	.catch((error) => {
-	// 		alert(`해당하는 글이 존재하지 않습니다.`);
-	// 		console.log(error);
-	// 		// navigate('/');
-	// 	});
-	const getBoardDetails = (details) => {
-		setBoardDetails(details);
-		console.log(boardDetails);
-	};
+	axios
+		.get(`/api/boards/${params.boardId}`)
+		.then((res) => {
+			console.log(res.data);
+			setBoardDetails(res.data);
+		})
+		.catch((error) => {
+			alert(`해당하는 글이 존재하지 않습니다.`);
+			console.log(`해당하는 글이 존재하지 않습니다.`);
+			console.log(error);
+			navigate('/');
+		});
 	useEffect(() => {
-		getBoardDetails(board);
 		console.log(boardDetails);
 	}, [boardDetails]);
+
+	let items = ['활동 지역', '모집 구분', '시작 예정'];
+	let values = [
+		boardDetails.region,
+		boardDetails.activityCategory,
+		DateString(boardDetails.startingDate, '.'),
+	];
 	return (
 		<>
 			<Header />
@@ -76,14 +60,39 @@ function BoardDetails() {
 					style={{ margin: '30px 10px', cursor: 'pointer' }}
 					onClick={() => navigate(-1)}
 				/>
-				<TitleDiv>{boardDetails.title}</TitleDiv>
-				<ProfileDiv />
-				<div>
-					{boardDetails.writerAlias} | {boardDetails.firstFourLettersOfEmail}
-				</div>
-				<HR></HR>
+				<HeadingDiv fontSize="4rem">{boardDetails.title}</HeadingDiv>
+				<WriterDiv>
+					<WriterProfilePicDiv />
+					<div>
+						{boardDetails.writerAlias}({boardDetails.firstFourLettersOfEmail})
+					</div>
+					<VerticalBar id="verticalbar" />
+					<div className="startingDate">
+						{DateString(boardDetails.creatingDatetime, '.')}
+					</div>
+				</WriterDiv>
+				<HR />
+				<BoardInfo>
+					{items.map((item, i) => {
+						return (
+							<div key={i}>
+								<div className="category">{item}</div>
+								<div>{values[i]}</div>
+							</div>
+						);
+					})}
+				</BoardInfo>
 				<ContentDiv>
+					<HeadingDiv fontSize="2.9rem">프로젝트 소개</HeadingDiv>
+					<HR />
 					<div dangerouslySetInnerHTML={{ __html: boardDetails.content }} />
+				</ContentDiv>
+				<ContentDiv>
+					<HeadingDiv fontSize="2.5rem">0개의 댓글이 있습니다.</HeadingDiv>
+					<ReplyInput>
+						<textarea></textarea>
+					</ReplyInput>
+					<div className="submitReply">댓글 등록</div>
 				</ContentDiv>
 			</BoardWrapper>
 		</>

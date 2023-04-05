@@ -7,5 +7,8 @@ const WriteWrapper = styled.div`
 	@media (max-width: 768px) {
 		width: 70%;
 	}
+	@media (max-width: 425px) {
+		width: 85%;
+	}
 `;
 export default WriteWrapper;
