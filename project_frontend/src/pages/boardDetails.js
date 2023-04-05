@@ -40,9 +40,6 @@ function BoardDetails() {
 			console.log(error);
 			navigate('/');
 		});
-	useEffect(() => {
-		console.log(boardDetails);
-	}, [boardDetails]);
 
 	let items = ['활동 지역', '모집 구분', '시작 예정'];
 	let values = [
