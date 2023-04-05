@@ -49,49 +49,55 @@ function BoardDetails() {
 	];
 	return (
 		<>
-			<Header />
-			{/* 상세글 받아오지 못했을 시 표시되지 않도록 조건문 넣을 것 */}
-			<BoardWrapper>
-				<BsArrowLeft
-					size={50}
-					style={{ margin: '30px 10px', cursor: 'pointer' }}
-					onClick={() => navigate(-1)}
-				/>
-				<HeadingDiv fontSize="4rem">{boardDetails.title}</HeadingDiv>
-				<WriterDiv>
-					<WriterProfilePicDiv />
-					<div>
-						{boardDetails.writerAlias}({boardDetails.firstFourLettersOfEmail})
-					</div>
-					<VerticalBar id="verticalbar" />
-					<div className="startingDate">
-						{DateString(boardDetails.creatingDatetime, '.')}
-					</div>
-				</WriterDiv>
-				<HR />
-				<BoardInfo>
-					{items.map((item, i) => {
-						return (
-							<div key={i}>
-								<div className="category">{item}</div>
-								<div>{values[i]}</div>
+			{!boardDetails ? (
+				<></>
+			) : (
+				<>
+					<Header />
+					<BoardWrapper>
+						<BsArrowLeft
+							size={50}
+							style={{ margin: '30px 10px', cursor: 'pointer' }}
+							onClick={() => navigate(-1)}
+						/>
+						<HeadingDiv fontSize="4rem">{boardDetails.title}</HeadingDiv>
+						<WriterDiv>
+							<WriterProfilePicDiv size="6rem" />
+							<div>
+								{boardDetails.writerAlias}(
+								{boardDetails.firstFourLettersOfEmail})
 							</div>
-						);
-					})}
-				</BoardInfo>
-				<ContentDiv>
-					<HeadingDiv fontSize="2.9rem">프로젝트 소개</HeadingDiv>
-					<HR />
-					<div dangerouslySetInnerHTML={{ __html: boardDetails.content }} />
-				</ContentDiv>
-				<ContentDiv>
-					<HeadingDiv fontSize="2.5rem">0개의 댓글이 있습니다.</HeadingDiv>
-					<ReplyInput>
-						<textarea></textarea>
-					</ReplyInput>
-					<div className="submitReply">댓글 등록</div>
-				</ContentDiv>
-			</BoardWrapper>
+							<VerticalBar id="verticalbar" />
+							<div className="startingDate">
+								{DateString(boardDetails.creatingDatetime, '.')}
+							</div>
+						</WriterDiv>
+						<HR />
+						<BoardInfo>
+							{items.map((item, i) => {
+								return (
+									<div key={i}>
+										<div className="category">{item}</div>
+										<div>{values[i]}</div>
+									</div>
+								);
+							})}
+						</BoardInfo>
+						<ContentDiv>
+							<HeadingDiv fontSize="2.9rem">프로젝트 소개</HeadingDiv>
+							<HR />
+							<div dangerouslySetInnerHTML={{ __html: boardDetails.content }} />
+						</ContentDiv>
+						<ContentDiv>
+							<HeadingDiv fontSize="2.5rem">0개의 댓글이 있습니다.</HeadingDiv>
+							<ReplyInput>
+								<textarea></textarea>
+							</ReplyInput>
+							<div className="submitReply">댓글 등록</div>
+						</ContentDiv>
+					</BoardWrapper>
+				</>
+			)}
 		</>
 	);
 }
