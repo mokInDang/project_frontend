@@ -31,8 +31,8 @@ const WriterDiv = styled.div`
 `;
 
 const WriterProfilePicDiv = styled(Profile)`
-	width: 6rem;
-	height: 6rem;
+	width: ${(props) => props.size};
+	height: ${(props) => props.size};
 	margin: 2rem 2rem 2rem 0;
 	flex-shrink: 0;
 `;
@@ -49,23 +49,6 @@ const ContentDiv = styled.div`
 	line-height: 160%;
 	letter-spacing: 0.07rem;
 	margin: 8rem 0;
-	position: relative;
-	.submitReply {
-		position: absolute;
-		right: 0;
-		width: 10rem;
-		height: 3.4rem;
-		line-height: 3.4rem;
-		text-align: center;
-		color: #ffffff;
-		background: #000000;
-		border-radius: 16px;
-		box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.13);
-		font-family: 'NanumSquare_acR';
-		font-weight: 500;
-		font-size: 1.2rem;
-		text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.13);
-	}
 `;
 
 const BoardInfo = styled.div`
@@ -103,6 +86,9 @@ const BoardInfo = styled.div`
 		grid-template-columns: auto;
 	}
 `;
+const ReplyDiv = styled(ContentDiv)`
+	position: relative;
+`;
 const ReplyInput = styled.div`
 	margin: 2rem 0;
 	height: 10rem;
@@ -121,7 +107,22 @@ const ReplyInput = styled.div`
 		font-weight: 700;
 	}
 `;
-
+const ReplySubmitButton = styled.div`
+	position: absolute;
+	right: 0;
+	width: 10rem;
+	height: 3.4rem;
+	line-height: 3.4rem;
+	text-align: center;
+	color: #ffffff;
+	background: #000000;
+	border-radius: 16px;
+	box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.13);
+	font-family: 'NanumSquare_acR';
+	font-weight: 500;
+	font-size: 1.2rem;
+	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.13);
+`;
 export {
 	BoardWrapper,
 	HeadingDiv,
@@ -130,5 +131,7 @@ export {
 	VerticalBar,
 	ContentDiv,
 	BoardInfo,
+	ReplyDiv,
 	ReplyInput,
+	ReplySubmitButton,
 };
