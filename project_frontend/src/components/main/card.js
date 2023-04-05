@@ -1,12 +1,14 @@
 import { BoardItemCard } from './mainStyledComponents';
 import { WriterProfilePicDiv, VerticalBar } from '../../components';
+import { useNavigate } from 'react-router-dom';
 const Card = (props) => {
+	const navigate = useNavigate();
 	const content = props.content.content;
 	const newContent = content
 		.replace(/<[^>]*>?/g, '')
 		.replace(/(<([^>]+)>)/gi, '');
 	return (
-		<BoardItemCard>
+		<BoardItemCard onClick={() => navigate(`/boards/${props.content.boardId}`)}>
 			<div className="category">
 				시작 예정일
 				<VerticalBar />

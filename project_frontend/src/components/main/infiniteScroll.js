@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
 import { Card, BoardItemsWrap } from '../index';
 
 function InfiniteScroll() {
