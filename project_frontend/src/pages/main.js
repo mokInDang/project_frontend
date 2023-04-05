@@ -5,7 +5,6 @@ import GetLocationButton from '../components/getLocationButton';
 import { reissueToken } from '../apis';
 
 function Home() {
-	console.log(axios.defaults.headers.common['Authorization']);
 	return (
 		<Fragment>
 			<Header />
