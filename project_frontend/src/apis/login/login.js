@@ -12,7 +12,6 @@ const onLogin = async (res) => {
 			},
 		})
 		.then((res) => {
-			debugger;
 			onLoginSuccess(res);
 		})
 		.catch((error) => {
@@ -24,9 +23,7 @@ let setAuthHeader = function (res) {
 	return new Promise((resolve) => {
 		console.log('3. setAuthHeader 실행');
 		const Token = res.headers.get('Authorization');
-		debugger;
 		axios.defaults.headers.common['Authorization'] = Token;
-		debugger;
 		const { email, alias, region } = res.data;
 		var setHeaderTime = new Date();
 		resolve(
@@ -43,9 +40,7 @@ const onLoginSuccess = async (res) => {
 		.then(() => {
 			// setHeader 성공 시 .then 안 함수 실행
 			console.log('5. onLoginSuccess 내 onSilentRefresh 실행');
-			debugger;
-			setTimeout(onSilentRefresh(), JWT_EXPIRY_TIME - 60000); // 액세스 토큰 만료 1분 전 재발급
-			debugger;
+			setTimeout(onSilentRefresh(), 60000); // 액세스 토큰 만료 1분 전 재발급
 		})
 		.catch((error) => {
 			console.log(error);

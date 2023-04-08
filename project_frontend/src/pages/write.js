@@ -1,13 +1,11 @@
 import React from 'react';
-import { Header, WriteForm, WriteWrapper } from '../components';
-import styled from 'styled-components';
+import { WriteForm, WriteWrapper } from '../components';
 
 function Write() {
 	return (
 		<>
-			<Header />
 			<WriteWrapper>
-					<WriteForm />
+				<WriteForm />
 			</WriteWrapper>
 		</>
 	);

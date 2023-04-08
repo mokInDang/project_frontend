@@ -3,15 +3,17 @@ import { Home, Login, BoardDetails, Welcome, Write } from './pages';
 import { Routes, Route } from 'react-router-dom';
 import { reissueToken } from './apis';
 import { useEffect } from 'react';
+import { Header } from './components';
 
 function App() {
 	useEffect(() => {
 		console.log('App.js에서 reissueToken 호출');
 		reissueToken();
-	});
+	},[]);
 
 	return (
 		<div className="App">
+			<Header />
 			<Routes>
 				<Route path="/" element={<Home />}/>
 				<Route path="/login" element={<Login />}/>
