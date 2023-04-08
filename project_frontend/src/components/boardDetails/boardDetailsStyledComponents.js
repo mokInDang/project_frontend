@@ -33,7 +33,7 @@ const WriterDiv = styled.div`
 const WriterProfilePicDiv = styled(Profile)`
 	width: ${(props) => props.size};
 	height: ${(props) => props.size};
-	margin: 2rem 2rem 2rem 0;
+	margin: ${(props) => props.margin};
 	flex-shrink: 0;
 `;
 
