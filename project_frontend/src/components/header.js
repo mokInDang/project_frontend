@@ -94,7 +94,8 @@ const Header = (props) => {
 
 	return (
 		<>
-			{location.pathname === '/login' ? ( // login 페이지에서 헤더 표시 X
+			{location.pathname === '/login' ||
+			location.pathname === '/api/auth/join' ? ( // login 페이지에서 헤더 표시 X
 				<></>
 			) : (
 				<Headerdiv>
