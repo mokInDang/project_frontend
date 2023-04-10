@@ -5,6 +5,7 @@ import Dropdown from './dropdown';
 import { useState, useEffect } from 'react';
 import { movePath } from '../hooks/movePath';
 import { homeIcon } from '../assets/images';
+import { reissueToken } from '../apis';
 
 const Headerdiv = styled.div`
 	align-items: center;
@@ -67,21 +68,25 @@ const Header = (props) => {
 	const [view, setView] = useState(false);
 	const location = useLocation();
 	const [userInfo, setUserInfo] = useState({});
+
 	useEffect(() => {
-		if (location.state !== null) {
+		console.log(`header에서 props.isLogined 출력 ${props.isLogined}`);
+	}, [props.isLogined]);
+
+	useEffect(() => {
+		if (location.pathname === '/' && location.state !== null) {
 			setUserInfo(location.state);
-		}
+		} else setUserInfo(null);
 	}, [location.state]); // 로그인 시 state로 넘겨받은 userInfo 저장
 
 	useEffect(() => {
-		console.log(userInfo);
+		console.log(`userInfo : ${JSON.stringify(userInfo)}`);
 	}, [userInfo]);
 
 	useEffect(() => {
 		setView(false);
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로
 
-	var isLogined = props.isLogined;
 	return (
 		<>
 			{location.pathname === '/login' ? ( // login 페이지에서 헤더 표시 X
@@ -103,7 +108,7 @@ const Header = (props) => {
 								onClick={() => movePath(navigate, '/boards')}>
 								새 글 쓰기
 							</HeaderButton>
-							{isLogined ? (
+							{props.isLogined ? (
 								<ProfileWrap
 									onClick={() => {
 										setView(!view);

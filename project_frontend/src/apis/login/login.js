@@ -40,7 +40,6 @@ let setAuthHeader = function (res) {
 const onLoginSuccess = async (res) => {
 	console.log(res);
 	console.log('2. onLoginSuccess 실행');
-	const userInfo = res.data;
 
 	await setAuthHeader(res)
 		.then(() => {
@@ -66,10 +65,20 @@ const onSilentRefresh = () => {
 		});
 };
 const reissueToken = () => {
+	console.log('reissueToken 실행');
 	const token = axios.defaults.headers.common.Authorization;
+	var isLogined = false;
 	// Todo : 로그아웃 시 Authorization undefined로 설정해줄 것
 	if (typeof token === 'string' && token.slice(0, 6) === 'Bearer') {
-		setInterval(onSilentRefresh(), JWT_EXPIRY_TIME - 60000);
-	} else console.log('Access Token not defined');
+		isLogined = true;
+		onSilentRefresh();
+		setInterval(() => onSilentRefresh(), 10000);
+		console.log(isLogined);
+	} else {
+		isLogined = false;
+		console.log('Access Token not defined');
+		console.log(isLogined);
+	}
+	return isLogined;
 };
 export { OnLogin, onSilentRefresh, onLoginSuccess, reissueToken };
