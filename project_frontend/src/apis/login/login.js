@@ -1,8 +1,10 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const JWT_EXPIRY_TIME = 30 * 60 * 1000; // 만료 시간 (30분 밀리초로 표현)
 
-const onLogin = async (res) => {
+const OnLogin = async (res) => {
+	const navigate = useNavigate();
 	console.log(`1. onLogin 실행`);
 	await axios
 		.post('/api/auth/join', JSON.stringify(res), {
@@ -13,10 +15,13 @@ const onLogin = async (res) => {
 		})
 		.then((res) => {
 			onLoginSuccess(res);
+			navigate('/', { state: res.data });
 		})
 		.catch((error) => {
 			console.log(error);
 			console.log('onLogin 실패');
+			alert('로그인에 실패하였습니다.');
+			navigate('/');
 		});
 };
 let setAuthHeader = function (res) {
@@ -24,7 +29,6 @@ let setAuthHeader = function (res) {
 		console.log('3. setAuthHeader 실행');
 		const Token = res.headers.get('Authorization');
 		axios.defaults.headers.common['Authorization'] = Token;
-		const { email, alias, region } = res.data;
 		var setHeaderTime = new Date();
 		resolve(
 			console.log(
@@ -36,11 +40,12 @@ let setAuthHeader = function (res) {
 const onLoginSuccess = async (res) => {
 	console.log(res);
 	console.log('2. onLoginSuccess 실행');
+	const userInfo = res.data;
+
 	await setAuthHeader(res)
 		.then(() => {
 			// setHeader 성공 시 .then 안 함수 실행
 			console.log('5. onLoginSuccess 내 onSilentRefresh 실행');
-			setTimeout(onSilentRefresh(), 60000); // 액세스 토큰 만료 1분 전 재발급
 		})
 		.catch((error) => {
 			console.log(error);
@@ -64,8 +69,7 @@ const reissueToken = () => {
 	const token = axios.defaults.headers.common.Authorization;
 	// Todo : 로그아웃 시 Authorization undefined로 설정해줄 것
 	if (typeof token === 'string' && token.slice(0, 6) === 'Bearer') {
-		onSilentRefresh();
-	} else
-		console.log('type of axios default header Authorization is not string');
+		setInterval(onSilentRefresh(), JWT_EXPIRY_TIME - 60000);
+	} else console.log('Access Token not defined');
 };
-export { onLogin, onSilentRefresh, onLoginSuccess, reissueToken };
+export { OnLogin, onSilentRefresh, onLoginSuccess, reissueToken };

@@ -13,6 +13,8 @@ const Headerdiv = styled.div`
 	height: 110px;
 	top: 0;
 	width: 100%;
+	box-sizing: border-box;
+	padding: 0 5rem;
 	transition: all 0.2s ease-in-out;
 	@media (max-width: 778px) {
 		height: 90px;
@@ -33,30 +35,32 @@ const HeaderButton = styled.div`
 	font-size: 24px;
 	height: 100%;
 	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
-	@media (max-width: 500px) {
-	}
 `;
 
 const Profile = styled.div`
 	border-radius: 50%;
-	background: #555;
-	display: inline-block;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	margin-right: 1rem;
 	height: 50px;
 	width: 50px;
+	background: url(${(props) =>
+			!props.src || props.src === 'DEFAULT_PROFILE_IMAGE_URL'
+				? 'https://s3.ap-northeast-2.amazonaws.com/dongnejupging.profile.image.bucket/profile_image/%EC%9E%84%EC%8B%9C%ED%94%84%EB%A1%9C%ED%95%84.PNG'
+				: props.src})
+		no-repeat center/cover;
 `;
 
 const ButtonWrap = styled.div`
 	align-items: center;
 	display: flex;
-	margin: 0px 5% 0px 0px;
-	@media (max-width: 778px) {
-		margin-right: 7%;
-	}
 `;
 
 const ProfileWrap = styled.div`
 	flex-shrink: 0;
+	display: flex;
 	cursor: pointer;
+	justify-content: center;
+	align-items: center;
 `;
 const Header = (props) => {
 	const navigate = useNavigate();
@@ -66,9 +70,12 @@ const Header = (props) => {
 	useEffect(() => {
 		if (location.state !== null) {
 			setUserInfo(location.state);
-			console.log(userInfo);
 		}
 	}, [location.state]); // 로그인 시 state로 넘겨받은 userInfo 저장
+
+	useEffect(() => {
+		console.log(userInfo);
+	}, [userInfo]);
 
 	useEffect(() => {
 		setView(false);
@@ -87,7 +94,7 @@ const Header = (props) => {
 							<img
 								src={homeIcon}
 								onClick={() => movePath(navigate, '/')}
-								style={{ width: '4rem', marginLeft: '3rem' }}
+								style={{ width: '4rem' }}
 							/>
 						</div>
 						<ButtonWrap>
@@ -101,11 +108,8 @@ const Header = (props) => {
 									onClick={() => {
 										setView(!view);
 									}}>
-									<Profile />
-									<AiFillCaretDown
-										size={30}
-										style={{ margin: '10px 0px 10px 10px' }}
-									/>
+									<Profile src={userInfo.profileImageUrl} />
+									<AiFillCaretDown size={30} />
 								</ProfileWrap>
 							) : (
 								<HeaderButton onClick={() => movePath(navigate, '/login')}>
