@@ -1,113 +1,120 @@
 import styled from 'styled-components';
-import GetLocationButton from './getLocationButton';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { AiFillCaretDown } from 'react-icons/ai';
 import Dropdown from './dropdown';
 import { useState } from 'react';
 
 const Headerdiv = styled.div`
+	align-items: center;
+	background: #ffffff;
+	display: flex;
+	height: 110px;
 	top: 0;
 	width: 100%;
-	height: 120px;
-	background: #ffffff;
-	align-items: center;
-	display: flex;
+	transition: all 0.2s ease-in-out;
+	@media (max-width: 778px) {
+		height: 90px;
+	}
 `;
 
 const HeaderButton = styled.div`
-	display: inline-block;
-	height: 100%;
-	margin: 0px 0px 0px 70px;
+	color: #000000;
+	flex-shrink: 0;
 	font-family: NanumSquare_acR;
 	font-weight: 700;
-	font-size: 25px;
-	color: #000000;
-	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+	font-size: 24px;
+	height: 100%;
+	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
+	@media (max-width: 500px) {
+	}
+`;
+
+const NewPostButton = styled(HeaderButton)`
+	margin-right: 50px;
+	@media (max-width: 778px) {
+		display: none;
+	}
 `;
 const Profile = styled.div`
-	display: inline-block;
 	border-radius: 50%;
 	background: #555;
+	display: inline-block;
 	height: 50px;
 	width: 50px;
 `;
 
+const ButtonWrap = styled.div`
+	align-items: center;
+	display: flex;
+	margin: 0px 5% 0px 0px;
+	@media (max-width: 778px) {
+		margin-right: 7%;
+	}
+`;
+
+const LinkTo = styled(Link)`
+	text-decoration: none;
+	color: #000;
+`;
+
+const ProfileButton = styled.div`
+	flex-shrink: 0;
+	cursor: pointer;
+`;
 const Header = () => {
 	const [view, setView] = useState(false);
+	const location = useLocation();
 	const token = axios.defaults.headers.common.Authorization;
 	var isLogined = true;
-	// Todo : 로그아웃 시 Authorization undefined로 설정해줄 것
 	if (typeof token === 'string' && token.slice(0, 6) === 'Bearer') {
 		isLogined = true;
 	} else {
 		isLogined = false;
 	}
-	{
-		typeof token === 'string' && token.slice(0, 6) === 'Bearer'
-			? isLogined = true
-			: isLogined = false;
-	}
-	return (
-		<Headerdiv>
-			{isLogined ? (
-				<>
-					{view ? <Dropdown></Dropdown> : ''}
-					<div style={{ flex: '1 0 auto' }}></div>
-					<div
-						style={{
-							display: 'flex',
-							alignItems: 'center',
-							margin: '0px 100px 0px 30px',
-						}}>
-						<Link
-							to="/boards"
-							style={{ textDecoration: 'none' }}>
-							<HeaderButton>새 글 쓰기</HeaderButton>
-						</Link>
-						<div
-							style={{
-								marginLeft: `40px`,
-							}}
-							onClick={() => {
-								setView(!view);
-							}}>
-							<Profile />
-							<AiFillCaretDown
-								size={30}
-								style={{ margin: '10px' }}
-							/>
-						</div>
-					</div>
-				</>
-			) : (
-				<>
-					<div style={{ flex: '1 0 auto' }}></div>
-					<div
-						style={{
-							display: 'flex',
-							alignItems: 'center',
-							margin: '0px 100px 0px 30px',
-						}}>
-						<HeaderButton>
-							<Link
-								to="/boards"
-								style={{ textDecoration: 'none', color: '#000' }}>
-								새 글 쓰기
-							</Link>
-						</HeaderButton>
 
-						<HeaderButton>
-							<Link
-								to="/login"
-								style={{ textDecoration: 'none', color: '#000' }}>
-								로그인
-							</Link>
-						</HeaderButton>
-					</div>
-				</>
+	return (
+		<>
+			{location.pathname === '/login' ? ( // login 페이지에서 헤더 표시 X
+				<></>
+			) : (
+				<Headerdiv>
+					{isLogined ? (
+						<>
+							{view ? <Dropdown></Dropdown> : ''}
+							<div style={{ flexGrow: '1' }}></div>
+							<ButtonWrap>
+								<NewPostButton>
+									<LinkTo to="/boards">새 글 쓰기</LinkTo>
+								</NewPostButton>
+								<ProfileButton
+									onClick={() => {
+										setView(!view);
+									}}>
+									<Profile />
+									<AiFillCaretDown
+										size={30}
+										style={{ margin: '10px 0px 10px 10px' }}
+									/>
+								</ProfileButton>
+							</ButtonWrap>
+						</>
+					) : (
+						<>
+							<div style={{ flexGrow: '1' }} />
+							<ButtonWrap>
+								<NewPostButton>
+									<LinkTo to="/boards">새 글 쓰기</LinkTo>
+								</NewPostButton>
+								<HeaderButton>
+									<LinkTo to="/login">로그인</LinkTo>
+								</HeaderButton>
+							</ButtonWrap>
+						</>
+					)}
+				</Headerdiv>
 			)}
-		</Headerdiv>
+		</>
 	);
 };
 export default Header;
