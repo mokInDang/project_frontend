@@ -70,6 +70,7 @@ const Header = (props) => {
 	const [view, setView] = useState(false);
 	const location = useLocation();
 	const [userInfo, setUserInfo] = useState({});
+	const [isLogined, setIsLogined] = useState(false);
 	const token = axios.defaults.headers.common.Authorization;
 	if (typeof token === 'string' && token.slice(0, 6) === 'Bearer') {
 		props.getIsLogined(true);
@@ -78,6 +79,7 @@ const Header = (props) => {
 	}
 	useEffect(() => {
 		console.log(`header에서 props.isLogined 출력 ${props.isLogined}`);
+		setIsLogined(props.isLogined);
 	}, [props.isLogined]);
 
 	useEffect(() => {
@@ -113,7 +115,7 @@ const Header = (props) => {
 								onClick={() => movePath(navigate, '/boards')}>
 								새 글 쓰기
 							</HeaderButton>
-							{props.isLogined ? (
+							{isLogined ? (
 								<ProfileWrap
 									onClick={() => {
 										setView(!view);
