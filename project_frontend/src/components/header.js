@@ -45,9 +45,11 @@ const Profile = styled.div`
 	height: 50px;
 	width: 50px;
 	background: url(${(props) =>
-			!props.src || props.src === 'DEFAULT_PROFILE_IMAGE_URL'
-				? 'https://s3.ap-northeast-2.amazonaws.com/dongnejupging.profile.image.bucket/profile_image/%EC%9E%84%EC%8B%9C%ED%94%84%EB%A1%9C%ED%95%84.PNG'
-				: props.src})
+			props.src &&
+			props.src !== 'DEFAULT_PROFILE_IMAGE_URL' &&
+			props.src !== null
+				? props.src
+				: 'https://s3.ap-northeast-2.amazonaws.com/dongnejupging.profile.image.bucket/profile_image/%EC%9E%84%EC%8B%9C%ED%94%84%EB%A1%9C%ED%95%84.PNG'})
 		no-repeat center/cover;
 `;
 
@@ -67,14 +69,13 @@ const Header = (props) => {
 	const navigate = useNavigate();
 	const [view, setView] = useState(false);
 	const location = useLocation();
-	const [userInfo, setUserInfo] = useState(null);
+	const [userInfo, setUserInfo] = useState({});
 	const token = axios.defaults.headers.common.Authorization;
 	if (typeof token === 'string' && token.slice(0, 6) === 'Bearer') {
 		props.getIsLogined(true);
 	} else {
 		props.getIsLogined(false);
 	}
-
 	useEffect(() => {
 		console.log(`header에서 props.isLogined 출력 ${props.isLogined}`);
 	}, [props.isLogined]);
@@ -82,12 +83,9 @@ const Header = (props) => {
 	useEffect(() => {
 		if (location.pathname === '/' && location.state !== null) {
 			setUserInfo(location.state);
-		} else setUserInfo(null);
-	}, [location.state, location.pathname]); // 로그인 시 state로 넘겨받은 userInfo 저장
-
-	useEffect(() => {
+		} else setUserInfo({});
 		console.log(`userInfo : ${JSON.stringify(userInfo)}`);
-	}, [userInfo]);
+	}, [location.state, location.pathname]); // 로그인 시 state로 넘겨받은 userInfo 저장
 
 	useEffect(() => {
 		setView(false);
@@ -120,7 +118,13 @@ const Header = (props) => {
 									onClick={() => {
 										setView(!view);
 									}}>
-									<Profile src={userInfo.profileImageUrl} />
+									<Profile
+										src={
+											userInfo.profileImage !== undefined
+												? userInfo.profileImage
+												: 'DEFAULT_PROFILE_IMAGE_URL'
+										}
+									/>
 									<AiFillCaretDown size={30} />
 								</ProfileWrap>
 							) : (
