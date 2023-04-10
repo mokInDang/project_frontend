@@ -5,7 +5,7 @@ import Dropdown from './dropdown';
 import { useState, useEffect } from 'react';
 import { movePath } from '../hooks/movePath';
 import { homeIcon } from '../assets/images';
-import { reissueToken } from '../apis';
+import axios from 'axios';
 
 const Headerdiv = styled.div`
 	align-items: center;
@@ -67,7 +67,13 @@ const Header = (props) => {
 	const navigate = useNavigate();
 	const [view, setView] = useState(false);
 	const location = useLocation();
-	const [userInfo, setUserInfo] = useState({});
+	const [userInfo, setUserInfo] = useState(null);
+	const token = axios.defaults.headers.common.Authorization;
+	if (typeof token === 'string' && token.slice(0, 6) === 'Bearer') {
+		props.getIsLogined(true);
+	} else {
+		props.getIsLogined(false);
+	}
 
 	useEffect(() => {
 		console.log(`header에서 props.isLogined 출력 ${props.isLogined}`);
@@ -77,7 +83,7 @@ const Header = (props) => {
 		if (location.pathname === '/' && location.state !== null) {
 			setUserInfo(location.state);
 		} else setUserInfo(null);
-	}, [location.state]); // 로그인 시 state로 넘겨받은 userInfo 저장
+	}, [location.state, location.pathname]); // 로그인 시 state로 넘겨받은 userInfo 저장
 
 	useEffect(() => {
 		console.log(`userInfo : ${JSON.stringify(userInfo)}`);
@@ -98,6 +104,7 @@ const Header = (props) => {
 						<div style={{ flexGrow: '1' }}>
 							<img
 								src={homeIcon}
+								alt="homeIcon"
 								onClick={() => movePath(navigate, '/')}
 								style={{ width: '4rem' }}
 							/>

@@ -44,7 +44,8 @@ const onLoginSuccess = async (res) => {
 	await setAuthHeader(res)
 		.then(() => {
 			// setHeader 성공 시 .then 안 함수 실행
-			console.log('5. onLoginSuccess 내 onSilentRefresh 실행');
+			console.log('5. onLoginSuccess 내 reissueToken 실행');
+			reissueToken();
 		})
 		.catch((error) => {
 			console.log(error);
@@ -65,20 +66,13 @@ const onSilentRefresh = () => {
 		});
 };
 const reissueToken = () => {
-	console.log('reissueToken 실행');
 	const token = axios.defaults.headers.common.Authorization;
-	var isLogined = false;
 	// Todo : 로그아웃 시 Authorization undefined로 설정해줄 것
 	if (typeof token === 'string' && token.slice(0, 6) === 'Bearer') {
-		isLogined = true;
 		onSilentRefresh();
 		setInterval(() => onSilentRefresh(), 10000);
-		console.log(isLogined);
 	} else {
-		isLogined = false;
 		console.log('Access Token not defined');
-		console.log(isLogined);
 	}
-	return isLogined;
 };
 export { OnLogin, onSilentRefresh, onLoginSuccess, reissueToken };

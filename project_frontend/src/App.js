@@ -1,18 +1,13 @@
 import './App.css';
 import { Home, Login, BoardDetails, Welcome, Write } from './pages';
 import { Routes, Route } from 'react-router-dom';
-import { reissueToken } from './apis';
 import { Header } from './components';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 function App() {
 	const [isLogined, setIsLogined] = useState(false);
 	const getIsLogined = (value) => {
 		setIsLogined(value);
 	};
-	useEffect(() => {
-		getIsLogined(reissueToken());
-		console.log(isLogined);
-	});
 
 	return (
 		<div className="App">
