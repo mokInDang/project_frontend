@@ -4,6 +4,7 @@ import kakao_login_medium_wide from './kakao_login_medium_wide.png';
 import kakao_login_medium_narrow from './kakao_login_medium_narrow.png';
 import green1 from './1.png';
 import green2 from './2.png';
+import homeIcon from './homeIcon.png';
 
 export {
 	kakao_login_large_wide,
@@ -12,4 +13,5 @@ export {
 	kakao_login_medium_narrow,
 	green1,
 	green2,
+	homeIcon,
 };
