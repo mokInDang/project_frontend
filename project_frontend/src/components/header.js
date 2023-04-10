@@ -94,8 +94,7 @@ const Header = (props) => {
 
 	return (
 		<>
-			{location.pathname === '/login' ||
-			location.pathname === '/api/auth/join' ? ( // login 페이지에서 헤더 표시 X
+			{location.pathname === '/login' ? ( // login 페이지에서 헤더 표시 X
 				<></>
 			) : (
 				<Headerdiv>
@@ -109,32 +108,36 @@ const Header = (props) => {
 								style={{ width: '4rem' }}
 							/>
 						</div>
-						<ButtonWrap>
-							<HeaderButton
-								className="NewPost"
-								onClick={() => movePath(navigate, '/boards')}>
-								새 글 쓰기
-							</HeaderButton>
-							{isLogined ? (
-								<ProfileWrap
-									onClick={() => {
-										setView(!view);
-									}}>
-									<Profile
-										src={
-											userInfo.profileImage !== undefined
-												? userInfo.profileImage
-												: 'DEFAULT_PROFILE_IMAGE_URL'
-										}
-									/>
-									<AiFillCaretDown size={30} />
-								</ProfileWrap>
-							) : (
-								<HeaderButton onClick={() => movePath(navigate, '/login')}>
-									로그인
+						{location.pathname === '/api/auth/join' ? (
+							<></>
+						) : (
+							<ButtonWrap>
+								<HeaderButton
+									className="NewPost"
+									onClick={() => movePath(navigate, '/boards')}>
+									새 글 쓰기
 								</HeaderButton>
-							)}
-						</ButtonWrap>
+								{isLogined ? (
+									<ProfileWrap
+										onClick={() => {
+											setView(!view);
+										}}>
+										<Profile
+											src={
+												userInfo.profileImage !== undefined
+													? userInfo.profileImage
+													: 'DEFAULT_PROFILE_IMAGE_URL'
+											}
+										/>
+										<AiFillCaretDown size={30} />
+									</ProfileWrap>
+								) : (
+									<HeaderButton onClick={() => movePath(navigate, '/login')}>
+										로그인
+									</HeaderButton>
+								)}
+							</ButtonWrap>
+						)}
 					</>
 				</Headerdiv>
 			)}
