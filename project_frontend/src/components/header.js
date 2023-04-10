@@ -1,113 +1,147 @@
 import styled from 'styled-components';
-import GetLocationButton from './getLocationButton';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AiFillCaretDown } from 'react-icons/ai';
 import Dropdown from './dropdown';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { movePath } from '../hooks/movePath';
+import { homeIcon } from '../assets/images';
+import axios from 'axios';
 
 const Headerdiv = styled.div`
+	align-items: center;
+	background: #ffffff;
+	display: flex;
+	height: 110px;
 	top: 0;
 	width: 100%;
-	height: 120px;
-	background: #ffffff;
+	box-sizing: border-box;
+	padding: 0 5rem;
+	transition: all 0.2s ease-in-out;
+	@media (max-width: 778px) {
+		height: 90px;
+	}
+	.NewPost {
+		margin-right: 50px;
+		@media (max-width: 778px) {
+			display: none;
+		}
+	}
+`;
+
+const HeaderButton = styled.div`
+	color: #000000;
+	flex-shrink: 0;
+	font-family: NanumSquare_acR;
+	font-weight: 700;
+	font-size: 24px;
+	height: 100%;
+	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
+`;
+
+const Profile = styled.div`
+	border-radius: 50%;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	margin-right: 1rem;
+	height: 50px;
+	width: 50px;
+	background: url(${(props) =>
+			props.src &&
+			props.src !== 'DEFAULT_PROFILE_IMAGE_URL' &&
+			props.src !== null
+				? props.src
+				: 'https://s3.ap-northeast-2.amazonaws.com/dongnejupging.profile.image.bucket/profile_image/%EC%9E%84%EC%8B%9C%ED%94%84%EB%A1%9C%ED%95%84.PNG'})
+		no-repeat center/cover;
+`;
+
+const ButtonWrap = styled.div`
 	align-items: center;
 	display: flex;
 `;
 
-const HeaderButton = styled.div`
-	display: inline-block;
-	height: 100%;
-	margin: 0px 0px 0px 70px;
-	font-family: NanumSquare_acR;
-	font-weight: 700;
-	font-size: 25px;
-	color: #000000;
-	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+const ProfileWrap = styled.div`
+	flex-shrink: 0;
+	display: flex;
+	cursor: pointer;
+	justify-content: center;
+	align-items: center;
 `;
-const Profile = styled.div`
-	display: inline-block;
-	border-radius: 50%;
-	background: #555;
-	height: 50px;
-	width: 50px;
-`;
-
-const Header = () => {
+const Header = (props) => {
+	const navigate = useNavigate();
 	const [view, setView] = useState(false);
+	const location = useLocation();
+	const [userInfo, setUserInfo] = useState({});
+	var isLogined = false;
+
 	const token = axios.defaults.headers.common.Authorization;
-	var isLogined = true;
-	// Todo : 로그아웃 시 Authorization undefined로 설정해줄 것
 	if (typeof token === 'string' && token.slice(0, 6) === 'Bearer') {
+		props.getIsLogined(true);
 		isLogined = true;
 	} else {
+		props.getIsLogined(false);
 		isLogined = false;
 	}
-	{
-		typeof token === 'string' && token.slice(0, 6) === 'Bearer'
-			? isLogined = true
-			: isLogined = false;
-	}
+
+	useEffect(() => {
+		if (location.pathname === '/' && location.state !== null) {
+			setUserInfo(location.state);
+		} else setUserInfo({});
+		console.log(`userInfo : ${JSON.stringify(userInfo)}`);
+	}, [location.state, location.pathname]); // 로그인 시 state로 넘겨받은 userInfo 저장
+
+	useEffect(() => {
+		setView(false);
+	}, [location.pathname]); // 페이지 이동 시 dropdown view false로
+
 	return (
-		<Headerdiv>
-			{isLogined ? (
-				<>
-					{view ? <Dropdown></Dropdown> : ''}
-					<div style={{ flex: '1 0 auto' }}></div>
-					<div
-						style={{
-							display: 'flex',
-							alignItems: 'center',
-							margin: '0px 100px 0px 30px',
-						}}>
-						<Link
-							to="/boards"
-							style={{ textDecoration: 'none' }}>
-							<HeaderButton>새 글 쓰기</HeaderButton>
-						</Link>
-						<div
-							style={{
-								marginLeft: `40px`,
-							}}
-							onClick={() => {
-								setView(!view);
-							}}>
-							<Profile />
-							<AiFillCaretDown
-								size={30}
-								style={{ margin: '10px' }}
+		<>
+			{location.pathname === '/login' ? ( // login 페이지에서 헤더 표시 X
+				<></>
+			) : (
+				<Headerdiv>
+					<>
+						{view ? <Dropdown /> : ''}
+						<div style={{ flexGrow: '1' }}>
+							<img
+								src={homeIcon}
+								alt="homeIcon"
+								onClick={() => movePath(navigate, '/')}
+								style={{ width: '4rem' }}
 							/>
 						</div>
-					</div>
-				</>
-			) : (
-				<>
-					<div style={{ flex: '1 0 auto' }}></div>
-					<div
-						style={{
-							display: 'flex',
-							alignItems: 'center',
-							margin: '0px 100px 0px 30px',
-						}}>
-						<HeaderButton>
-							<Link
-								to="/boards"
-								style={{ textDecoration: 'none', color: '#000' }}>
-								새 글 쓰기
-							</Link>
-						</HeaderButton>
-
-						<HeaderButton>
-							<Link
-								to="/login"
-								style={{ textDecoration: 'none', color: '#000' }}>
-								로그인
-							</Link>
-						</HeaderButton>
-					</div>
-				</>
+						{location.pathname === '/api/auth/join' ? (
+							<></>
+						) : (
+							<ButtonWrap>
+								<HeaderButton
+									className="NewPost"
+									onClick={() => movePath(navigate, '/boards')}>
+									새 글 쓰기
+								</HeaderButton>
+								{isLogined ? (
+									<ProfileWrap
+										onClick={() => {
+											setView(!view);
+										}}>
+										<Profile
+											src={
+												userInfo.profileImage !== undefined
+													? userInfo.profileImage
+													: 'DEFAULT_PROFILE_IMAGE_URL'
+											}
+										/>
+										<AiFillCaretDown size={30} />
+									</ProfileWrap>
+								) : (
+									<HeaderButton onClick={() => movePath(navigate, '/login')}>
+										로그인
+									</HeaderButton>
+								)}
+							</ButtonWrap>
+						)}
+					</>
+				</Headerdiv>
 			)}
-		</Headerdiv>
+		</>
 	);
 };
 export default Header;

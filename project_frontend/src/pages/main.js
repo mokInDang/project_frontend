@@ -1,13 +1,11 @@
-import React, { Fragment, useEffect } from 'react';
-import axios from 'axios';
-import { Header, InfiniteScroll } from '../components';
+import React, { Fragment } from 'react';
+import { InfiniteScroll } from '../components';
 import GetLocationButton from '../components/getLocationButton';
 import { reissueToken } from '../apis';
 
 function Home() {
 	return (
 		<Fragment>
-			<Header />
 			<div style={{ height: '300px', backgroundColor: '#81CC55' }}>
 				<button onClick={reissueToken}>리이슈 테스트</button>
 				<GetLocationButton>내 위치 받아오기</GetLocationButton>
