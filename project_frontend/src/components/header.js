@@ -70,17 +70,16 @@ const Header = (props) => {
 	const [view, setView] = useState(false);
 	const location = useLocation();
 	const [userInfo, setUserInfo] = useState({});
-	const [isLogined, setIsLogined] = useState(false);
+	var isLogined = false;
+
 	const token = axios.defaults.headers.common.Authorization;
 	if (typeof token === 'string' && token.slice(0, 6) === 'Bearer') {
 		props.getIsLogined(true);
+		isLogined = true;
 	} else {
 		props.getIsLogined(false);
+		isLogined = false;
 	}
-	useEffect(() => {
-		console.log(`header에서 props.isLogined 출력 ${props.isLogined}`);
-		setIsLogined(props.isLogined);
-	}, [props.isLogined]);
 
 	useEffect(() => {
 		if (location.pathname === '/' && location.state !== null) {
