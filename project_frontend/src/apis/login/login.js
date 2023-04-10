@@ -70,7 +70,7 @@ const reissueToken = () => {
 	// Todo : 로그아웃 시 Authorization undefined로 설정해줄 것
 	if (typeof token === 'string' && token.slice(0, 6) === 'Bearer') {
 		onSilentRefresh();
-		setInterval(() => onSilentRefresh(), 10000);
+		setInterval(() => onSilentRefresh(), JWT_EXPIRY_TIME - 10000);
 	} else {
 		console.log('Access Token not defined');
 	}
