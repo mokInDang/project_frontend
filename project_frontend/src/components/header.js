@@ -5,7 +5,7 @@ import Dropdown from './dropdown';
 import { useState, useEffect } from 'react';
 import { movePath } from '../hooks/movePath';
 import { homeIcon } from '../assets/images';
-import axios from 'axios';
+import secureLocalStorage from 'react-secure-storage';
 
 const Headerdiv = styled.div`
 	align-items: center;
@@ -69,24 +69,17 @@ const Header = (props) => {
 	const navigate = useNavigate();
 	const [view, setView] = useState(false);
 	const location = useLocation();
-	const [userInfo, setUserInfo] = useState({});
 	var isLogined = false;
-
-	const token = axios.defaults.headers.common.Authorization;
-	if (typeof token === 'string' && token.slice(0, 6) === 'Bearer') {
-		props.getIsLogined(true);
-		isLogined = true;
-	} else {
-		props.getIsLogined(false);
-		isLogined = false;
-	}
+	const token = secureLocalStorage.getItem('accessToken');
+	const userInfo = secureLocalStorage.getItem('userInfo');
 
 	useEffect(() => {
-		if (location.pathname === '/' && location.state !== null) {
-			setUserInfo(location.state);
-		} else setUserInfo({});
-		console.log(`userInfo : ${JSON.stringify(userInfo)}`);
-	}, [location.state, location.pathname]); // 로그인 시 state로 넘겨받은 userInfo 저장
+		if (typeof token === 'string' && token.slice(0, 6) === 'Bearer') {
+			props.getIsLogined(true);
+		} else {
+			props.getIsLogined(false);
+		}
+	});
 
 	useEffect(() => {
 		setView(false);
@@ -117,15 +110,15 @@ const Header = (props) => {
 									onClick={() => movePath(navigate, '/boards')}>
 									새 글 쓰기
 								</HeaderButton>
-								{isLogined ? (
+								{props.isLogined ? (
 									<ProfileWrap
 										onClick={() => {
 											setView(!view);
 										}}>
 										<Profile
 											src={
-												userInfo.profileImage !== undefined
-													? userInfo.profileImage
+												userInfo.profileImageUrl !== undefined
+													? userInfo.profileImageUrl
 													: 'DEFAULT_PROFILE_IMAGE_URL'
 											}
 										/>
