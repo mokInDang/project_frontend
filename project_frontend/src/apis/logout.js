@@ -1,4 +1,5 @@
 import axios from 'axios';
+import secureLocalStorage from 'react-secure-storage';
 
 const Host = window.location.host;
 const REST_API_KEY = '60b35611c843f6c8f618a495ecc8eaf6';
@@ -13,6 +14,7 @@ const onLogout = async () => {
 			console.log(`동네줍깅 로그아웃 : Access token 삭제`);
 			axios.defaults.headers.common['Authorization'] = undefined;
 			console.log(res.status);
+			secureLocalStorage.clear();
 			window.location.replace(KAKAO_LOGOUT_URL);
 		})
 		.catch((error) => {
