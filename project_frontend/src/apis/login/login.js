@@ -40,7 +40,6 @@ let setAuthHeader = function (res) {
 	});
 };
 const onLoginSuccess = async (res) => {
-	console.log(res);
 	console.log('2. onLoginSuccess 실행');
 
 	await setAuthHeader(res)
@@ -69,7 +68,13 @@ const onSilentRefresh = () => {
 };
 const reissueToken = () => {
 	// Todo : 로그아웃 시 Authorization undefined로 설정해줄 것
-	if (secureLocalStorage.getItem('accessToken').slice(0, 6) === 'Bearer') {
+	if (
+		secureLocalStorage.getItem('accessToken') !== null &&
+		secureLocalStorage.getItem('accessToken').slice(0, 6) === 'Bearer'
+	) {
+		axios.defaults.headers.common['Authorization'] =
+			secureLocalStorage.getItem('accessToken');
+		onSilentRefresh();
 		setInterval(() => onSilentRefresh(), JWT_EXPIRY_TIME - 10000);
 	} else {
 		console.log('Access Token not defined');

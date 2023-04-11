@@ -3,12 +3,13 @@ import { Home, Login, BoardDetails, Welcome, Write } from './pages';
 import { Routes, Route } from 'react-router-dom';
 import { Header } from './components';
 import { useState } from 'react';
+import { reissueToken } from './apis';
 function App() {
 	const [isLogined, setIsLogined] = useState(false);
 	const getIsLogined = (value) => {
 		setIsLogined(value);
 	};
-
+	reissueToken();
 	return (
 		<div className="App">
 			<Header
