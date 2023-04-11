@@ -25,36 +25,12 @@ const OnLogin = async (res) => {
 			navigate('/');
 		});
 };
-let setAuthHeader = function (res) {
-	return new Promise((resolve) => {
-		console.log('3. setAuthHeader 실행');
-		secureLocalStorage.setItem('accessToken', res.headers.get('Authorization'));
-		axios.defaults.headers.common['Authorization'] =
-			secureLocalStorage.getItem('accessToken');
-		var setHeaderTime = new Date();
-		resolve(
-			console.log(
-				`4. setAuthHeader 완료 : ${setHeaderTime.toLocaleString('ko-KR')}`
-			)
-		); // resolve 함수 호출된 경우 비동기 처리 성공!
-	});
-};
 const onLoginSuccess = async (res) => {
 	console.log('2. onLoginSuccess 실행');
 	secureLocalStorage.setItem('accessToken', res.headers.get('Authorization'));
 	axios.defaults.headers.common['Authorization'] =
 		secureLocalStorage.getItem('accessToken');
 	setInterval(() => onSilentRefresh(), JWT_EXPIRY_TIME - 60000);
-	// await setAuthHeader(res)
-	// 	.then(() => {
-	// 		// setHeader 성공 시 .then 안 함수 실행
-	// 		console.log('5. onLoginSuccess 내 reissueToken 실행');
-	// 		reissueToken();
-	// 	})
-	// 	.catch((error) => {
-	// 		console.log(error);
-	// 		console.log('onLoginSuccess 실패');
-	// 	});
 };
 
 const onSilentRefresh = () => {
@@ -78,7 +54,6 @@ const reissueToken = () => {
 		axios.defaults.headers.common['Authorization'] =
 			secureLocalStorage.getItem('accessToken');
 		onSilentRefresh();
-		// setInterval(() => onSilentRefresh(), JWT_EXPIRY_TIME - 10000);
 	} else {
 		console.log('Access Token not defined');
 	}
