@@ -69,7 +69,6 @@ const Header = (props) => {
 	const navigate = useNavigate();
 	const [view, setView] = useState(false);
 	const location = useLocation();
-	var isLogined = false;
 	const token = secureLocalStorage.getItem('accessToken');
 	const userInfo = secureLocalStorage.getItem('userInfo');
 

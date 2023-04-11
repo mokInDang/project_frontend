@@ -8,13 +8,13 @@ const KAKAO_LOGOUT_URL = `https://kauth.kakao.com/oauth/logout?client_id=${REST_
 
 const onLogout = async () => {
 	console.log(`Logout 실행 : 카카오 계정과 함께 로그아웃`);
-	secureLocalStorage.clear();
 	await axios
 		.delete('/api/auth/logout')
 		.then((res) => {
 			console.log(`동네줍깅 로그아웃 : Access token 삭제`);
 			axios.defaults.headers.common['Authorization'] = undefined;
 			console.log(res.status);
+			secureLocalStorage.clear();
 			window.location.replace(KAKAO_LOGOUT_URL);
 		})
 		.catch((error) => {
