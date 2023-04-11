@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import secureLocalStorage from 'react-secure-storage';
 const JWT_EXPIRY_TIME = 30 * 60 * 1000; // 만료 시간 (30분 밀리초로 표현)
 
 const OnLogin = async (res) => {
@@ -15,7 +15,8 @@ const OnLogin = async (res) => {
 		})
 		.then((res) => {
 			onLoginSuccess(res);
-			navigate('/', { state: res.data });
+			secureLocalStorage.setItem('userInfo', res.data);
+			navigate('/');
 		})
 		.catch((error) => {
 			console.log(error);
@@ -27,8 +28,9 @@ const OnLogin = async (res) => {
 let setAuthHeader = function (res) {
 	return new Promise((resolve) => {
 		console.log('3. setAuthHeader 실행');
-		const Token = res.headers.get('Authorization');
-		axios.defaults.headers.common['Authorization'] = Token;
+		secureLocalStorage.setItem('accessToken', res.headers.get('Authorization'));
+		axios.defaults.headers.common['Authorization'] =
+			secureLocalStorage.getItem('accessToken');
 		var setHeaderTime = new Date();
 		resolve(
 			console.log(
@@ -66,10 +68,8 @@ const onSilentRefresh = () => {
 		});
 };
 const reissueToken = () => {
-	const token = axios.defaults.headers.common.Authorization;
 	// Todo : 로그아웃 시 Authorization undefined로 설정해줄 것
-	if (typeof token === 'string' && token.slice(0, 6) === 'Bearer') {
-		onSilentRefresh();
+	if (secureLocalStorage.getItem('accessToken').slice(0, 6) === 'Bearer') {
 		setInterval(() => onSilentRefresh(), JWT_EXPIRY_TIME - 10000);
 	} else {
 		console.log('Access Token not defined');
