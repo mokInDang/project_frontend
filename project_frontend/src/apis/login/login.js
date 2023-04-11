@@ -30,7 +30,7 @@ const onLoginSuccess = async (res) => {
 	secureLocalStorage.setItem('accessToken', res.headers.get('Authorization'));
 	axios.defaults.headers.common['Authorization'] =
 		secureLocalStorage.getItem('accessToken');
-	setInterval(() => onSilentRefresh(), 10000);
+	setTimeout(() => onSilentRefresh(), 10000);
 };
 
 const onSilentRefresh = () => {
