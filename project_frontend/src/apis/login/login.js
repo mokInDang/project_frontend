@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import secureLocalStorage from 'react-secure-storage';
-const JWT_EXPIRY_TIME = 30 * 60 * 1000; // 만료 시간 (30분 밀리초로 표현)
+const JWT_EXPIRY_TIME = 2 * 60 * 60 * 1000; // 만료 시간 (30분 밀리초로 표현) 60000 = 1분, 60000 *60 = 1시간, 60000*60*2 = 2시간
 
 const OnLogin = async (res) => {
 	const navigate = useNavigate();
@@ -30,7 +30,7 @@ const onLoginSuccess = async (res) => {
 	secureLocalStorage.setItem('accessToken', res.headers.get('Authorization'));
 	axios.defaults.headers.common['Authorization'] =
 		secureLocalStorage.getItem('accessToken');
-	setTimeout(() => onSilentRefresh(), 10000);
+	setTimeout(() => onSilentRefresh(), JWT_EXPIRY_TIME - 60000);
 };
 
 const onSilentRefresh = () => {
