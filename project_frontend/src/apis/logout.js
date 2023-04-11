@@ -1,4 +1,5 @@
 import axios from 'axios';
+import secureLocalStorage from 'react-secure-storage';
 
 const Host = window.location.host;
 const REST_API_KEY = '60b35611c843f6c8f618a495ecc8eaf6';
@@ -7,6 +8,7 @@ const KAKAO_LOGOUT_URL = `https://kauth.kakao.com/oauth/logout?client_id=${REST_
 
 const onLogout = async () => {
 	console.log(`Logout 실행 : 카카오 계정과 함께 로그아웃`);
+	secureLocalStorage.clear();
 	await axios
 		.delete('/api/auth/logout')
 		.then((res) => {
