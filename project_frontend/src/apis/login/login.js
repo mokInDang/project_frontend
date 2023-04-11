@@ -30,7 +30,7 @@ const onLoginSuccess = async (res) => {
 	secureLocalStorage.setItem('accessToken', res.headers.get('Authorization'));
 	axios.defaults.headers.common['Authorization'] =
 		secureLocalStorage.getItem('accessToken');
-	setInterval(() => onSilentRefresh(), JWT_EXPIRY_TIME - 60000);
+	setInterval(() => onSilentRefresh(), 10000);
 };
 
 const onSilentRefresh = () => {
