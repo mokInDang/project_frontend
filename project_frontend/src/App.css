@@ -1,6 +1,14 @@
 .App {
-	font-family: 'NanumSquare_acR';
+	font-family: 'NanumSquare';
 	letter-spacing: 0.05rem;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-use-select: none;
+	user-select: none;
+}
+
+* :focus {
+	outline: none;
 }
 
 .App-logo {

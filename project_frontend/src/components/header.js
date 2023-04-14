@@ -75,7 +75,6 @@ const Headerdiv = styled.div`
 const HeaderButton = styled.div`
 	color: #000000;
 	flex-shrink: 0;
-	font-family: NanumSquare_acR;
 	font-weight: 700;
 	font-size: 2.4rem;
 	height: 100%;

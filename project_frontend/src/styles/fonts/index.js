@@ -4,7 +4,7 @@ import NanumSquareNeo_Variable from './NanumSquareNeo_Variable.woff';
 
 export default createGlobalStyle`
     @font-face {
-        font-family: "NanumSquare_acR";
+        font-family: "NanumSquare";
         src: url(${NanumSquare_acR}) format('truetype');
     }
     @font-face {
