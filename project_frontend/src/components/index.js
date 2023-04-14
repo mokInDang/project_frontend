@@ -8,7 +8,11 @@ import WriteForm from './write/writeForm';
 import WriteWrapper from './write/writeWrapper';
 import { CustomSelectActivity } from './write/customSelect';
 import { InfiniteScroll } from './main/infiniteScroll';
-import { BoardItemsWrap } from './main/mainStyledComponents';
+import {
+	BoardItemsWrap,
+	TabWrapper,
+	TabDiv,
+} from './main/mainStyledComponents';
 import { Card } from './main/card';
 import { LinkTo, Profile } from './globalStyledComponents';
 import { BoardContent } from './boardDetails/boardContent';
@@ -53,4 +57,6 @@ export {
 	ReplyDiv,
 	ReplyInput,
 	ReplySubmitButton,
+	TabWrapper,
+	TabDiv,
 };

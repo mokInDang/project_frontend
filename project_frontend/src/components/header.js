@@ -6,22 +6,66 @@ import { useState, useEffect } from 'react';
 import { movePath } from '../hooks/movePath';
 import { homeIcon } from '../assets/images';
 import secureLocalStorage from 'react-secure-storage';
+import { locationIcon } from '../assets/images';
 
 const Headerdiv = styled.div`
-	align-items: center;
-	background: #ffffff;
-	display: flex;
-	height: 110px;
-	top: 0;
 	width: 100%;
-	box-sizing: border-box;
-	padding: 0 5rem;
-	transition: all 0.2s ease-in-out;
-	@media (max-width: 778px) {
-		height: 90px;
+	justify-content: center;
+
+	.headerWrapper {
+		box-sizing: border-box;
+		padding: 0 5rem;
+		margin: 0 auto;
+		transition: all 0.2s ease-in-out;
+		align-items: center;
+		background: #ffffff;
+		display: flex;
+		height: 9rem;
+		@media (min-width: 1600px) {
+			height: 11rem;
+			padding: 0 3rem;
+			max-width: 161rem;
+		}
+		@media (max-width: 778px) {
+			padding: 0 3rem;
+		}
+		@media (max-width: 425px) {
+			padding: 0 2rem;
+		}
 	}
-	.NewPost {
-		margin-right: 50px;
+	.logoWrapper {
+		flex-grow: 1;
+		.HomebuttonWrapper {
+			cursor: pointer;
+		}
+		div {
+			display: flex;
+			align-items: center;
+			font-family: NanumSquareNeo;
+			font-weight: 900;
+			font-size: 3rem;
+			img {
+				width: 3.5rem;
+				margin-right: 2rem;
+			}
+		}
+	}
+	.myRegion {
+		margin-right: 5rem;
+		text-shadow: none;
+		display: flex;
+		align-items: center;
+		img {
+			width: 3.5rem;
+			margin: 1rem;
+		}
+		@media (max-width: 778px) {
+			margin-right: 3rem;
+		}
+	}
+	.newPost {
+		margin-right: 5rem;
+		cursor: pointer;
 		@media (max-width: 778px) {
 			display: none;
 		}
@@ -33,7 +77,7 @@ const HeaderButton = styled.div`
 	flex-shrink: 0;
 	font-family: NanumSquare_acR;
 	font-weight: 700;
-	font-size: 24px;
+	font-size: 2.4rem;
 	height: 100%;
 	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
 `;
@@ -41,9 +85,9 @@ const HeaderButton = styled.div`
 const Profile = styled.div`
 	border-radius: 50%;
 	border: 1px solid rgba(0, 0, 0, 0.1);
-	margin-right: 1rem;
-	height: 50px;
-	width: 50px;
+	margin-right: 0.5rem;
+	height: 5rem;
+	width: 5rem;
 	background: url(${(props) =>
 			props.src &&
 			props.src !== 'DEFAULT_PROFILE_IMAGE_URL' &&
@@ -62,15 +106,24 @@ const ProfileWrap = styled.div`
 	flex-shrink: 0;
 	display: flex;
 	cursor: pointer;
-	justify-content: center;
+	justify-content: end;
 	align-items: center;
 `;
 const Header = (props) => {
 	const navigate = useNavigate();
 	const [view, setView] = useState(false);
 	const location = useLocation();
-	const token = secureLocalStorage.getItem('accessToken');
-	const userInfo = secureLocalStorage.getItem('userInfo');
+	let token = '';
+	let userInfo = '';
+	// secureLocalStorage.setItem('userInfo', { region: '동작구' });
+	// secureLocalStorage.setItem('accessToken', 'Bearer Token');
+	if (
+		secureLocalStorage.getItem('accessToken') &&
+		secureLocalStorage.getItem('userInfo')
+	) {
+		token = secureLocalStorage.getItem('accessToken');
+		userInfo = secureLocalStorage.getItem('userInfo');
+	}
 
 	useEffect(() => {
 		if (typeof token === 'string' && token.slice(0, 6) === 'Bearer') {
@@ -86,26 +139,32 @@ const Header = (props) => {
 
 	return (
 		<>
-			{location.pathname === '/login' ? ( // login 페이지에서 헤더 표시 X
-				<></>
-			) : (
+			{location.pathname !== '/login' && (
 				<Headerdiv>
-					<>
-						{view ? <Dropdown /> : ''}
-						<div style={{ flexGrow: '1' }}>
-							<img
-								src={homeIcon}
-								alt="homeIcon"
-								onClick={() => movePath(navigate, '/')}
-								style={{ width: '4rem' }}
-							/>
+					<div className="headerWrapper">
+						<div className="logoWrapper">
+							<div>
+								<div
+									className="HomebuttonWrapper"
+									onClick={() => movePath(navigate, '/')}>
+									<img
+										src={homeIcon}
+										alt="homeIcon"
+									/>
+									우리동네줍깅
+								</div>
+							</div>
 						</div>
-						{location.pathname === '/api/auth/join' ? (
-							<></>
-						) : (
+						{location.pathname !== '/api/auth/join' && (
 							<ButtonWrap>
+								{userInfo.region && (
+									<div className="myRegion">
+										<img src={locationIcon} />
+										<HeaderButton>{userInfo.region}</HeaderButton>
+									</div>
+								)}
 								<HeaderButton
-									className="NewPost"
+									className="newPost"
 									onClick={() => movePath(navigate, '/boards')}>
 									새 글 쓰기
 								</HeaderButton>
@@ -116,12 +175,13 @@ const Header = (props) => {
 										}}>
 										<Profile
 											src={
-												userInfo.profileImageUrl !== undefined
+												userInfo.profileImageUrl
 													? userInfo.profileImageUrl
 													: 'DEFAULT_PROFILE_IMAGE_URL'
 											}
 										/>
-										<AiFillCaretDown size={30} />
+										<AiFillCaretDown size={'3rem'} />
+										{view ? <Dropdown /> : ''}
 									</ProfileWrap>
 								) : (
 									<HeaderButton onClick={() => movePath(navigate, '/login')}>
@@ -130,7 +190,7 @@ const Header = (props) => {
 								)}
 							</ButtonWrap>
 						)}
-					</>
+					</div>
 				</Headerdiv>
 			)}
 		</>
