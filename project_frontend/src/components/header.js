@@ -160,7 +160,11 @@ const Header = (props) => {
 								{userInfo.region && (
 									<div className="myRegion">
 										<img src={locationIcon} />
-										<HeaderButton>{userInfo.region}</HeaderButton>
+										<HeaderButton>
+											{userInfo.region === 'DEFAULT_REGION'
+												? ''
+												: userInfo.region}
+										</HeaderButton>
 									</div>
 								)}
 								<HeaderButton
