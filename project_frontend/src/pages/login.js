@@ -6,24 +6,24 @@ import { TfiClose } from 'react-icons/tfi';
 
 const LoginPageWrap = styled.div`
 	text-align: center;
-	padding-top: 203px;
+	padding-top: 20rem;
 	user-select: none;
 `;
 const LoginComments = styled.div`
-	font-family: 'NanumGothic';
 	font-style: normal;
-	font-weight: 700;
-	font-size: 24px;
-	line-height: 28px;
+	font-weight: 900;
+	font-size: 2.4rem;
+	line-height: 2.8rem;
 	color: #000000;
 	opacity: 0.5;
-	padding-top: 60px;
-	padding-bottom: 80px;
+	padding-top: 6rem;
+	padding-bottom: 8rem;
 `;
 const CloseButton = styled.span`
 	position: absolute;
-	right: 20px;
-	top: 20px;
+	right: 2rem;
+	top: 2rem;
+	width: 3rem;
 `;
 // eslint-disable-next-line no-restricted-globals
 const Host = window.location.host;
@@ -38,7 +38,7 @@ function Login() {
 				<Link to="/">
 					<CloseButton>
 						<TfiClose
-							size="30"
+							size="3rem"
 							color="#3A3A3A"></TfiClose>
 					</CloseButton>
 				</Link>
