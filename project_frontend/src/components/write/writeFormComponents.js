@@ -2,59 +2,83 @@ import styled from 'styled-components';
 
 const HR = styled.hr`
 	border: 1.8px solid rgba(153, 153, 153, 0.3);
-	margin-bottom: 25px;
+	margin-bottom: 2.5rem;
+	margin-bottom: 2.5rem;
 `;
 
 const P = styled.p`
 	font-family: NanumSquareNeo;
 	font-style: normal;
 	font-weight: 900;
-	font-size: 22px;
+	font-size: 2.2rem;
+	font-size: 2.2rem;
 
-	/* or 62% */
 	align-items: center;
 	display: flex;
 	letter-spacing: 0.01em;
-	text-indent: 10px;
+	text-indent: 1rem;
+	text-indent: 1rem;
 	color: #000000;
 `;
 const Label = styled.label`
-	font-family: NanumSquare_acR;
 	font-weight: 700;
-	font-size: 23px;
-	line-height: 25px;
+	font-size: 2.3rem;
+	line-height: 2.5rem;
+	font-size: 2.3rem;
+	line-height: 2.5rem;
 `;
 
 const Title = styled.input`
 	font-family: NanumSquareNeo;
-	margin-top: 25px;
-	margin-bottom: 35px;
-	height: 60px;
+	margin-top: 2.5rem;
+	margin-bottom: 3.5rem;
+	height: 6rem;
+	margin-top: 2.5rem;
+	margin-bottom: 3.5rem;
+	height: 6rem;
 	background: #ffffff;
 	border: 1px solid #bdbdbd;
-	border-radius: 8px;
+	border-radius: 0.8rem;
+	border-radius: 0.8rem;
 	outline: 0;
 	width: 100%;
-	text-indent: 20px;
+	text-indent: 2rem;
+	text-indent: 2rem;
 	font-family: NanumSquareNeo;
 	font-style: normal;
 	font-weight: 350;
-	font-size: 17px;
+	font-size: 1.7rem;
+`;
+
+const QuillWrap = styled.div`
+	height: 600px;
+	@media (max-width: 768px) {
+		height: 400px;
+	}
+	@media (max-width: 425px) {
+		height: 400px;
+	}
+`;
+
+const ButtonWrap = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 2rem;
 `;
 const Button = styled.div`
-display:inline-block;
-	width: 85px;
-    height:100%;
+	display: inline-block;
+	width: 8.5rem;
+    height: 100%;
     box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.13)
     border: none;
-    border-radius: 7px;
+    border-radius: 0.7rem;
     cursor:pointer;
-    margin-left: 25px;
-    text-align:center;
+    margin-left: 2.5rem;
+    text-align: center;
     font-weight: 350;
-    font-size: 15px;
-    line-height: 30px;
+    font-size: 1.5rem;
+    line-height: 3rem;
 	background: ${(props) => (props.name === 'cancel' ? '#DDDDDD' : '#000000')};
     color: ${(props) => (props.name === 'cancel' ? '#767676' : '#ffffff')};
 `;
-export { HR, P, Label, Title, Button };
+export { HR, P, Label, Title, Button, ButtonWrap, QuillWrap };

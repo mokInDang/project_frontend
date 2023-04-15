@@ -1,0 +1,10 @@
+@font-face {
+	font-family: 'NanumSquare';
+	src: url('./NanumSquare_acR.ttf') format('truetype');
+	letter-spacing: 0.05rem;
+}
+@font-face {
+	font-family: 'NanumSquareNeo';
+	src: url('./NanumSquareNeo_Variable.woff') format('woff');
+	letter-spacing: 0.05rem;
+}

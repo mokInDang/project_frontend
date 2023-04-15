@@ -2,59 +2,59 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 
 const SelectBox = styled.div`
-	margin-top: 20px;
+	margin-top: 2rem;
 	content: '산책/달리기';
 	position: relative;
 	width: 100%;
-	height: 55px;
+	height: 5.5rem;
 	background-color: #ffffff;
 	cursor: pointer;
 	border: 1px solid #bdbdbd;
-	border-radius: 8px;
+	border-radius: 0.8rem;
 	outline: 0;
-	text-indent: 20px;
+	text-indent: 2rem;
 	align-items: center;
 	display: flex;
 
 	&::before {
 		content: '⌵';
 		position: absolute;
-		top: 14px;
-		right: 20px;
+		top: 1.4rem;
+		right: 2rem;
 		color: #bdbdbd;
-		font-size: 20px;
+		font-size: 2rem;
 	}
 `;
 const Label = styled.label`
-	font-size: 14px;
-	margin-left: 4px;
+	font-size: 1.4rem;
+	margin-left: 0.4rem;
 	text-align: center;
 	font-family: NanumSquareNeo;
 	font-style: normal;
 	font-weight: 350;
-	font-size: 18px;
+	font-size: 1.8rem;
 	color: rgba(0, 0, 0, 0.5);
 `;
 const SelectOptions = styled.ul`
 	z-index: 10000;
 	position: absolute;
 	list-style: none;
-	top: 60px;
+	top: 6rem;
 	left: 0;
 	width: 100%;
 	overflow: hidden;
 	display: ${(props) => (props.show ? 'block' : 'none')};
 	padding: 0;
 	border: 1px solid #bdbdbd;
-	border-radius: 8px;
+	border-radius: 0.8rem;
 	background-color: #ffffff;
 	font-weight: 700;
-	font-size: 18px;
+	font-size: 1.8rem;
 `;
 
 const Option = styled.li`
-	font-size: 15px;
-	padding: 12px 0px;
+	font-size: 1.5rem;
+	padding: 1.2rem 0;
 	background-color: #ffffff;
 	opacity: 0.7;
 	transition: background-color 0.2s ease-in;
@@ -64,27 +64,27 @@ const Option = styled.li`
 `;
 
 const DateSelector = styled.input`
-	margin-top: 20px;
+	margin-top: 2rem;
 	position: relative;
-	height: 55px;
+	height: 5.5rem;
 	width: 100%;
 	cursor: pointer;
 	border: 1px solid #bdbdbd;
-	border-radius: 8px;
-	text-indent: 10px;
+	border-radius: 0.8rem;
+	text-indent: 1rem;
 	font-family: NanumSquareNeo;
 	font-style: normal;
 	font-weight: 350;
-	font-size: 18px;
+	font-size: 1.8rem;
 	color: rgba(0, 0, 0, 0.5);
 
 	&::before {
 		content: '⌵';
 		position: absolute;
-		top: 14px;
-		right: 20px;
+		top: 1.4rem;
+		right: 2rem;
 		color: #bdbdbd;
-		font-size: 20px;
+		font-size: 2rem;
 	}
 	// background: url() no-repeat right 5px center / 10px auto;
 	::-webkit-clear-button,

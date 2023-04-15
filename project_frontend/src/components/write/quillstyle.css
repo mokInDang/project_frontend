@@ -1,0 +1,62 @@
+.ql-editor {
+	font-family: 'NanumSquare';
+	font-size: 1.8rem;
+}
+.QuillComponent {
+	height: calc(100% - 42px);
+}
+@media screen and (max-width: 836px) {
+	.QuillComponent {
+		height: calc(100% - 67px);
+	}
+}
+@media screen and (max-width: 768px) {
+	.QuillComponent {
+		height: calc(100% - 42px);
+	}
+}
+@media screen and (max-width: 747px) {
+	.QuillComponent {
+		height: calc(100% - 67px);
+	}
+}
+@media screen and (max-width: 337px) {
+	.QuillComponent {
+		height: calc(100% - 90px);
+	}
+}
+.ql-container .ql-snow {
+	height: 55rem;
+}
+
+.ql-formats {
+	font-size: 1rem;
+}
+.ql-picker.ql-font .ql-picker-label[data-value='NanumSquare']::before,
+.ql-picker.ql-font .ql-picker-item[data-value='NanumSquare']::before {
+	font-family: 'NanumSquare', cursive;
+	content: '나눔스퀘어' !important;
+	font-size: 1.3rem;
+}
+.ql-picker.ql-font .ql-picker-label[data-value='NanumSquareNeo']::before,
+.ql-picker.ql-font .ql-picker-item[data-value='NanumSquareNeo']::before {
+	font-family: 'NanumSquareNeo';
+	content: '나눔스퀘어 네오' !important;
+	font-size: 1.1rem;
+}
+
+/* Set content font-families */
+.ql-font-NanumSquare {
+	font-family: 'NanumSquare';
+}
+.ql-font-NanumSquareNeo {
+	font-family: 'NanumSquareNeo';
+}
+.ql-size-large,
+.ql-size span[data-value='large']::before {
+	font-size: 2rem !important;
+}
+.ql-size-medium,
+.ql-size span[data-value='medium']::before {
+	font-size: 1.5rem !important;
+}
