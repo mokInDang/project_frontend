@@ -7,6 +7,8 @@ import green2 from './2.png';
 import homeIcon from './homeIcon.png';
 import locationIcon from './location.png';
 import banner from './banner.png';
+// import { ReactComponent as entireRegionIcon } from './entireregion.svg';
+// import { ReactComponent as myRegionIcon } from './myregion.svg';
 
 export {
 	kakao_login_large_wide,
@@ -18,4 +20,6 @@ export {
 	homeIcon,
 	locationIcon,
 	banner,
+	// entireRegionIcon,
+	// myRegionIcon,
 };

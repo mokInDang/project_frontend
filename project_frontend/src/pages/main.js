@@ -1,10 +1,9 @@
 import React, { Fragment, useState } from 'react';
 import { InfiniteScroll } from '../components';
-import GetLocationButton from '../components/getLocationButton';
-import { reissueToken } from '../apis';
 import { SlArrowDown } from 'react-icons/sl';
 import { TabWrapper, TabDiv } from '../components';
 import { banner } from '../assets/images';
+import { ImFileEmpty, ImFileText2 } from 'react-icons/im';
 
 function Home() {
 	const [boardTab, setBoardTap] = useState(0);
@@ -74,6 +73,10 @@ function Home() {
 							setRegionTap(0);
 						}}
 						className="entireRegion">
+						<ImFileEmpty
+							size="2.5rem"
+							style={{ marginRight: '1rem' }}
+						/>
 						전체
 					</TabDiv>
 					<TabDiv
@@ -82,6 +85,10 @@ function Home() {
 							setRegionTap(1);
 						}}
 						className="myRegion">
+						<ImFileText2
+							size="2.5rem"
+							style={{ marginRight: '1rem' }}
+						/>
 						내 지역
 					</TabDiv>
 				</TabWrapper>

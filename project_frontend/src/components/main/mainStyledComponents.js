@@ -121,6 +121,12 @@ const TabWrapper = styled.div`
 	box-sizing: border-box;
 	flex-direction: row;
 	font-weight: 700;
+	@media only screen and (max-width: 778px) {
+		font-size: 2.2rem;
+	}
+	@media only screen and (max-width: 425px) {
+		font-size: 1.5rem;
+	}
 	div {
 		font-size: 2.5rem;
 		margin: 1.5rem 3rem;
@@ -128,7 +134,7 @@ const TabWrapper = styled.div`
 		display: flex;
 		align-items: center;
 	}
-	color: #000;
+	color: #3A3A3A;
 	${(props) =>
 		props.boardTab
 			? '.recruitment{color:#dddddd}'
