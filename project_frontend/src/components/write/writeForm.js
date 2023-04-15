@@ -7,7 +7,7 @@ import {
 	CustomSelectDate,
 	TodayString,
 } from './customSelect';
-import { Button, HR, Label, P, Title } from './writeFormComponents';
+import { Button, ButtonWrap, HR, Label, P, Title } from './writeFormComponents';
 import { green1, green2 } from '../../assets/images';
 
 const WriteForm = () => {
@@ -17,13 +17,13 @@ const WriteForm = () => {
 		content: '',
 		activityCategory: '',
 		startingDate: '',
-		requestDate: `${TodayString()}`,
 	});
 
-	const { title, content, activityCategory, startingDate, requestDate } = form;
+	const { title, content, activityCategory, startingDate } = form;
 
 	const writePost = async () => {
 		console.log('writePost 실행');
+		console.log(form);
 		axios
 			.post(`/api/boards`, JSON.stringify(form), {
 				headers: { 'Content-Type': 'application/json; charset=utf-8' },
@@ -41,31 +41,25 @@ const WriteForm = () => {
 			...form, // 기존값 복사 (spread operator)
 			activityCategory: newSelectedActivity, // 덮어쓰기
 		};
-		// console.log('html');
 		setForm(nextForm);
-		console.log(nextForm);
 	};
 	const getSelectedDate = (newSelectedDate) => {
 		const nextForm = {
 			...form, // 기존값 복사 (spread operator)
 			startingDate: newSelectedDate, // 덮어쓰기
 		};
-		// console.log('html');
 		setForm(nextForm);
-		console.log(nextForm);
 	};
 
 	const getHtmlContent = (newContent) => {
-		if (newContent == '<p><br></p>') {
+		if (newContent === '<p><br></p>') {
 			newContent = '';
 		}
 		const nextForm = {
 			...form, // 기존값 복사 (spread operator)
 			content: newContent, // 덮어쓰기
 		};
-		// console.log('html');
 		setForm(nextForm);
-		console.log(nextForm);
 	};
 
 	const onChange = (e) => {
@@ -75,17 +69,24 @@ const WriteForm = () => {
 			[e.target.name]: e.target.value, // 덮어쓰기
 		};
 		setForm(nextForm);
-		console.log(nextForm);
 	};
 
 	return (
 		<div>
 			<P>
-				<img src={green1} />
+				<img
+					src={green1}
+					alt="1"
+				/>
 				프로젝트 기본 정보를 입력해주세요.
 			</P>
 			<HR />
-			<div style={{ display: 'flex', justifyContent: 'space-between', marginBottom:'80px' }}>
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: 'space-between',
+					marginBottom: '7rem',
+				}}>
 				<div style={{ display: 'inline-block', width: '48%' }}>
 					<Label htmlFor="activityCategory">모집 구분</Label>
 					<CustomSelectActivity
@@ -104,7 +105,10 @@ const WriteForm = () => {
 				</div>
 			</div>
 			<P>
-				<img src={green2} />
+				<img
+					src={green2}
+					alt="2"
+				/>
 				프로젝트에 대해 소개해주세요.
 			</P>
 			<HR />
@@ -119,13 +123,7 @@ const WriteForm = () => {
 				name="content"
 				value={content}
 				getHtmlContent={getHtmlContent}></EditorComponent>
-			<br />
-			<div
-				style={{
-					position: 'relative',
-					height: '30px',
-					float: 'right',
-				}}>
+			<ButtonWrap>
 				<Button name="cancel">
 					<Link
 						to="/"
@@ -138,7 +136,7 @@ const WriteForm = () => {
 					name="write">
 					글 등록
 				</Button>
-			</div>
+			</ButtonWrap>
 		</div>
 	);
 };

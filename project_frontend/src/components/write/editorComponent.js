@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import './quillstyle.css';
+import { QuillWrap } from './writeFormComponents';
+
+const Quill = ReactQuill.Quill;
+var Font = Quill.import('formats/font');
+var Size = Quill.import('formats/size');
+Font.whitelist = ['NanumSquare', 'NanumSquareNeo'];
+Size.whitelist = ['medium', 'large'];
+Quill.register(Size, true);
+Quill.register(Font, true);
 function EditorComponent({ getHtmlContent }) {
 	const [content, setContent] = useState('');
 	const modules = {
 		toolbar: [
-			//[{ 'font': [] }],
-			[{ 'header': [1, 2, false] }],
-			['bold', 'italic', 'underline', 'strike'],
-			[
-				{ 'list': 'ordered' },
-				{ 'list': 'bullet' },
-				{ 'indent': '-1' },
-				{ 'indent': '+1' },
-			],
+			[{ 'font': Font.whitelist }],
+			[{ 'size': ['medium', 'large'] }],
+			['bold', 'italic', 'underline'],
+			[{ 'list': 'ordered' }, { 'list': 'bullet' }],
 			[{ 'align': [] }, { 'color': [] }, { 'background': [] }],
 		],
 	};
 
 	const formats = [
-		//'font',
-		'header',
+		'font',
+		'size',
 		'bold',
 		'italic',
 		'underline',
@@ -28,7 +33,6 @@ function EditorComponent({ getHtmlContent }) {
 		'blockquote',
 		'list',
 		'bullet',
-		'indent',
 		'align',
 		'color',
 		'background',
@@ -38,9 +42,9 @@ function EditorComponent({ getHtmlContent }) {
 	}, [content]);
 
 	return (
-		<div style={{ height: '600px' }}>
+		<QuillWrap>
 			<ReactQuill
-				style={{ height: '550px' }}
+				className="QuillComponent"
 				theme="snow"
 				modules={modules}
 				formats={formats}
@@ -48,7 +52,7 @@ function EditorComponent({ getHtmlContent }) {
 				onChange={setContent}
 				placeholder="프로젝트에 대해 소개해주세요!"
 			/>
-		</div>
+		</QuillWrap>
 	);
 }
 
