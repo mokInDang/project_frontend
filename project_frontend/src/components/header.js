@@ -79,6 +79,7 @@ const HeaderButton = styled.div`
 	font-size: 2.4rem;
 	height: 100%;
 	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
+	cursor: pointer;
 `;
 
 const Profile = styled.div`
@@ -156,14 +157,10 @@ const Header = (props) => {
 						</div>
 						{location.pathname !== '/api/auth/join' && (
 							<ButtonWrap>
-								{userInfo.region && (
+								{userInfo.region && userInfo.region !== 'DEFAULT_REGION' && (
 									<div className="myRegion">
 										<img src={locationIcon} />
-										<HeaderButton>
-											{userInfo.region === 'DEFAULT_REGION'
-												? ''
-												: userInfo.region}
-										</HeaderButton>
+										<HeaderButton>{userInfo.region}</HeaderButton>
 									</div>
 								)}
 								<HeaderButton
