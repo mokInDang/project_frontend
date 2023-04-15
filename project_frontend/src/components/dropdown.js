@@ -6,17 +6,22 @@ import { movePath } from '../hooks/movePath';
 const DropDownWrapper = styled.div`
 	position: absolute;
 	top: 8rem;
-
-	@media (max-width: 1440px) {
+	@media (min-width: 1440px) {
 		top: 9rem;
+	}
+	@media (max-width: 1440px) {
+		top: 8.5rem;
 	}
 	@media (max-width: 778px) {
 		top: 8rem;
-	}
-	.newPost {
-		display: none;
-		@media (max-width: 778px) {
+		.newPostList {
 			display: block;
+		}
+	}
+	.newPostList {
+		display: block;
+		@media (min-width: 778px) {
+			display: none;
 		}
 	}
 `;
@@ -50,7 +55,7 @@ function Dropdown() {
 		<DropDownWrapper>
 			<DropdownDiv>
 				<DropdownList
-					className="newPost"
+					className="newPostList"
 					onClick={() => movePath(navigate, '/boards')}>
 					새 글 쓰기
 				</DropdownList>
