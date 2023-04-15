@@ -6,20 +6,10 @@ import { movePath } from '../hooks/movePath';
 const DropDownWrapper = styled.div`
 	position: absolute;
 	top: 8rem;
-	@media (min-width: 1440px) {
-		top: 9rem;
-	}
-	@media (max-width: 1440px) {
-		top: 8.5rem;
-	}
-	@media (max-width: 778px) {
-		top: 8rem;
-		.newPostList {
-			display: block;
-		}
+	@media (min-width: 1600px) {
+		top: 9.5rem;
 	}
 	.newPostList {
-		display: block;
 		@media (min-width: 778px) {
 			display: none;
 		}
