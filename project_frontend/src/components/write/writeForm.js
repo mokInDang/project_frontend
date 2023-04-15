@@ -5,7 +5,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
 	CustomSelectActivity,
 	CustomSelectDate,
-	TodayString,
 } from './customSelect';
 import { Button, ButtonWrap, HR, Label, P, Title } from './writeFormComponents';
 import { green1, green2 } from '../../assets/images';

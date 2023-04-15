@@ -1,7 +1,6 @@
 import Header from './header';
 import Dropdown from './dropdown';
 import GetlocationButton from './getLocationButton';
-import KakaoLoginButton from './login/kakaoLoginButton';
 import JoinComment from './login/joinComment';
 import EditorComponent from './write/editorComponent';
 import WriteForm from './write/writeForm';
@@ -17,6 +16,12 @@ import { Card } from './main/card';
 import { LinkTo, Profile } from './globalStyledComponents';
 import { BoardContent } from './boardDetails/boardContent';
 import {
+	KakaoLoginButton,
+	LoginPageWrap,
+	CloseButton,
+	LoginComments,
+} from './login/loginStyledComponents';
+import {
 	BoardWrapper,
 	HeadingDiv,
 	WriterDiv,
@@ -31,7 +36,6 @@ import {
 
 export {
 	JoinComment,
-	KakaoLoginButton,
 	Header,
 	EditorComponent,
 	WriteForm,
@@ -47,6 +51,10 @@ export {
 	BoardItemsWrap,
 	LinkTo,
 	Profile,
+	KakaoLoginButton,
+	LoginPageWrap,
+	LoginComments,
+	CloseButton,
 	BoardWrapper,
 	HeadingDiv,
 	WriterDiv,

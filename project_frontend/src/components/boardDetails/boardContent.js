@@ -20,8 +20,8 @@ const DateString = (dateString, parseString) => {
 	var year = date.getFullYear();
 	var month = ('0' + (date.getMonth() + 1)).slice(-2);
 	var day = ('0' + date.getDate()).slice(-2);
-	var dateString = year + parseString + month + parseString + day;
-	return dateString;
+	var newDateString = year + parseString + month + parseString + day;
+	return newDateString;
 };
 
 const BoardContent = () => {
@@ -93,7 +93,7 @@ const BoardContent = () => {
 					<ReplyDiv>
 						<HeadingDiv fontSize="2.5rem">0개의 댓글이 있습니다.</HeadingDiv>
 						<ReplyInput>
-							<textarea></textarea>
+							<textarea />
 						</ReplyInput>
 						<ReplySubmitButton>댓글 등록</ReplySubmitButton>
 					</ReplyDiv>

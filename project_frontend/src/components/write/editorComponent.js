@@ -11,6 +11,7 @@ Font.whitelist = ['NanumSquare', 'NanumSquareNeo'];
 Size.whitelist = ['medium', 'large'];
 Quill.register(Size, true);
 Quill.register(Font, true);
+
 function EditorComponent({ getHtmlContent }) {
 	const [content, setContent] = useState('');
 	const modules = {

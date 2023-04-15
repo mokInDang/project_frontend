@@ -16,7 +16,7 @@ function GetLocationButton() {
 			console.log(locRef.current);
 			// axios 요청으로 region 보내는 함수
 			axios.patch(`/api/member/region`, JSON.stringify(locRef.current), {
-				headers: { "Content-Type": "application/json; charset=utf-8" },
+				headers: { 'Content-Type': 'application/json; charset=utf-8' },
 			});
 			/** 
     
@@ -27,8 +27,6 @@ function GetLocationButton() {
 			alert('위치 액세스를 허용해주세요.');
 		}
 	};
-	return (
-			<div onClick={getLocation}>내 위치 받아오기</div>
-	);
+	return <button onClick={getLocation}>내 위치 받아오기</button>;
 }
 export default GetLocationButton;

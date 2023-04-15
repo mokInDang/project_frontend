@@ -1,30 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { JoinComment, KakaoLoginButton } from '../components';
+import {
+	JoinComment,
+	KakaoLoginButton,
+	CloseButton,
+	LoginPageWrap,
+	LoginComments,
+} from '../components';
 import { TfiClose } from 'react-icons/tfi';
 
-const LoginPageWrap = styled.div`
-	text-align: center;
-	padding-top: 20rem;
-	user-select: none;
-`;
-const LoginComments = styled.div`
-	font-style: normal;
-	font-weight: 900;
-	font-size: 2.4rem;
-	line-height: 2.8rem;
-	color: #000000;
-	opacity: 0.5;
-	padding-top: 6rem;
-	padding-bottom: 8rem;
-`;
-const CloseButton = styled.span`
-	position: absolute;
-	right: 2rem;
-	top: 2rem;
-	width: 3rem;
-`;
 // eslint-disable-next-line no-restricted-globals
 const Host = window.location.host;
 const REST_API_KEY = '60b35611c843f6c8f618a495ecc8eaf6';
@@ -33,7 +18,7 @@ const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST
 
 function Login() {
 	return (
-		<>
+		<div>
 			<div>
 				<Link to="/">
 					<CloseButton>
@@ -50,7 +35,7 @@ function Login() {
 					<KakaoLoginButton />
 				</a>
 			</LoginPageWrap>
-		</>
+		</div>
 	);
 }
 export default Login;
