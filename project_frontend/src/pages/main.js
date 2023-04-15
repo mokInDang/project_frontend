@@ -4,6 +4,7 @@ import { SlArrowDown } from 'react-icons/sl';
 import { TabWrapper, TabDiv } from '../components';
 import { banner } from '../assets/images';
 import { ImFileEmpty, ImFileText2 } from 'react-icons/im';
+import GetLocationButton from '../components/getLocationButton';
 
 function Home() {
 	const [boardTab, setBoardTap] = useState(0);
@@ -97,7 +98,7 @@ function Home() {
 				/>
 			</div>
 			<div style={!boardTab ? { display: 'none' } : { display: 'block' }}>
-				인증게시판
+				<GetLocationButton />
 			</div>
 		</Fragment>
 	);
