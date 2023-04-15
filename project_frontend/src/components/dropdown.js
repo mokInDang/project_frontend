@@ -13,6 +13,12 @@ const DropDownWrapper = styled.div`
 	@media (max-width: 778px) {
 		top: 8rem;
 	}
+	.newPost {
+		display: none;
+		@media (max-width: 778px) {
+			display: block;
+		}
+	}
 `;
 const DropdownDiv = styled.div`
 	z-index: 10000;
@@ -22,17 +28,10 @@ const DropdownDiv = styled.div`
 	flex-direction: column;
 	width: 22rem;
 	justify-content: space-around;
-	.newPost {
-		display: none;
-		@media (max-width: 778px) {
-			display: block;
-		}
-	}
 `;
 
 const DropdownList = styled.div`
 	cursor: pointer;
-	font-family: 'NanumSquare_acR';
 	font-style: normal;
 	font-weight: 700;
 	font-size: 2.3rem;
