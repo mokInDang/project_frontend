@@ -32,6 +32,7 @@ import {
 	ReplyDiv,
 	ReplyInput,
 	ReplySubmitButton,
+	BannerSlider,
 } from './boardDetails/boardDetailsStyledComponents';
 
 export {
