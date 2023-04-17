@@ -3,7 +3,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { banner1, banner2_trash, banner2_human } from '../../assets/images';
 import styled from 'styled-components';
-import '../../styles/index.css'
+import '../../styles/index.css';
 
 const BannerDiv = styled.div`
 	background: ${(props) => props.color} url(${(props) => props.image}) no-repeat
@@ -50,7 +50,7 @@ const BannerDiv = styled.div`
 	}
 	@media (max-width: 1440px) {
 		.banner2_text {
-			margin-right: 4rem;
+			margin-right: 3rem;
 			font-size: 3.5rem;
 			line-height: 6.5rem;
 			span {
@@ -58,6 +58,7 @@ const BannerDiv = styled.div`
 			}
 		}
 		.image {
+			margin-left: 1rem;
 			height: 75%;
 		}
 	}
@@ -72,26 +73,35 @@ const BannerDiv = styled.div`
 			}
 		}
 		.image {
-			margin-left: 1rem;
 			height: 60%;
 		}
 	}
-	@media (max-width: 768px) {
+	@media (max-width: 778px) {
 		background: ${(props) => props.color};
 		text-align: start;
 		.banner1 {
 			height: 100%;
+			font-size: 2.5rem;
+			span {
+				font-size: 4rem;
+			}
 		}
 		.image {
 			display: none;
 		}
+		.banner2_text {
+			margin-right: 0;
+		}
 	}
 	@media (max-width: 425px) {
-		span {
-			font-size: 3.5rem;
-		}
-		div {
+		height: 30rem;
+		.banner1 {
+			height: 100%;
 			font-size: 2.5rem;
+			line-height: 5.5rem;
+			span {
+				font-size: 4rem;
+			}
 		}
 	}
 `;
@@ -111,7 +121,7 @@ const BannerSlide = () => {
 	return (
 		<Slider
 			{...settings}
-			dotsClass='test-css'
+			dotsClass="test-css"
 			style={{ marginBottom: '3rem' }}>
 			<BannerDiv
 				color="#81cc55"
