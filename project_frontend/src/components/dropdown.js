@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { movePath } from '../hooks/movePath';
 
 const DropDownWrapper = styled.div`
+	z-index: 10000;
 	position: absolute;
 	top: 8rem;
 	@media (min-width: 1600px) {
@@ -16,7 +17,6 @@ const DropDownWrapper = styled.div`
 	}
 `;
 const DropdownDiv = styled.div`
-	z-index: 10000;
 	background-color: #ffffff;
 	box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.15);
 	display: flex;

@@ -1,0 +1,58 @@
+/* BannerSlide Dots CSS */
+.test-css {
+	width: 100%;
+	height: 4rem;
+	list-style: none;
+	text-align: center;
+	padding: 0;
+	color: #6d6968;
+}
+
+.test-css li {
+	position: relative;
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	/*margin: 1px;*/
+	padding: 0;
+	margin: 2rem 0;
+	cursor: pointer;
+}
+@media (max-width: 768px) {
+	.test-css li {
+		width: 20px;
+		height: 20px;
+	}
+}
+.test-css li button {
+	font-size: 0;
+	line-height: 0;
+	display: block;
+	width: 20px;
+	height: 20px;
+	padding: 5px;
+	cursor: pointer;
+	color: transparent;
+	border: 0;
+	outline: 0;
+	background: 0 0;
+}
+
+.test-css li button:before {
+	font-size: 4rem;
+	line-height: 20px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 20px;
+	height: 20px;
+	content: '•';
+	text-align: center;
+	opacity: 0.75;
+	color: #6d6968;
+}
+
+.test-css li.slick-active button:before {
+	opacity: 0.75;
+	color: #000111;
+}
