@@ -4,6 +4,7 @@ import axios from 'axios';
 import { HR } from '../write/writeFormComponents';
 import { BsArrowLeft } from 'react-icons/bs';
 import {
+	BoardDetailsWrap,
 	HeadingDiv,
 	WriterDiv,
 	WriterProfilePicDiv,
@@ -13,6 +14,8 @@ import {
 	ReplyDiv,
 	ReplyInput,
 	ReplySubmitButton,
+	ButtonsWrap,
+	BoardContentButtonDiv,
 } from './boardDetailsStyledComponents';
 
 const DateString = (dateString, parseString) => {
@@ -51,7 +54,7 @@ const BoardContent = () => {
 	return (
 		<>
 			{boardDetails ? (
-				<>
+				<BoardDetailsWrap>
 					<BsArrowLeft
 						style={{ margin: '3rem 1rem', cursor: 'pointer', fontSize: '5rem' }}
 						onClick={() => navigate(-1)}
@@ -73,6 +76,16 @@ const BoardContent = () => {
 						</div>
 					</WriterDiv>
 					<HR />
+					{boardDetails.mine ? (
+						<ButtonsWrap boardDetails={boardDetails}>
+							{/* boardDetails.onRecruitment 조회하여 마감 버튼 스타일할 것 */}
+							<BoardContentButtonDiv onClick={()=>{}}>마감</BoardContentButtonDiv>
+							<BoardContentButtonDiv onClick={()=>{}}>수정</BoardContentButtonDiv>
+							<BoardContentButtonDiv onClick={()=>{}}>삭제</BoardContentButtonDiv>
+						</ButtonsWrap>
+					) : (
+						<></>
+					)}
 					<BoardInfo>
 						{items.map((item, i) => {
 							return (
@@ -96,7 +109,7 @@ const BoardContent = () => {
 						</ReplyInput>
 						<ReplySubmitButton>댓글 등록</ReplySubmitButton>
 					</ReplyDiv>
-				</>
+				</BoardDetailsWrap>
 			) : (
 				<></>
 			)}

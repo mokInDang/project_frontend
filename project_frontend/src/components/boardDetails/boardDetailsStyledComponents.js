@@ -7,7 +7,9 @@ const BoardWrapper = styled(WriteWrapper)`
 		margin: 1rem auto;
 	}
 `;
-
+const BoardDetailsWrap = styled.div`
+	position: relative;
+`;
 const HeadingDiv = styled.div`
 	font-family: 'NanumSquareNeo';
 	font-weight: 900;
@@ -121,8 +123,29 @@ const ReplySubmitButton = styled.div`
 	font-size: 1.5rem;
 	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.13);
 `;
+const ButtonsWrap = styled.div`
+	position: absolute;
+	display: flex;
+	top: 31.5rem;
+	right: 2rem;
+	text-align: center;
+	justify-content: end;
+	width: 10rem;
+	font-size: 2rem;
+	font-weight: 700;
+	color: #000000b2;
+	@media (max-width: 1024px) {
+		right: 0rem;
+	}
+`;
+const BoardContentButtonDiv = styled.div`
+	flex-shrink: 0;
+	margin: 0 2rem;
+	cursor: pointer;
+`;
 export {
 	BoardWrapper,
+	BoardDetailsWrap,
 	HeadingDiv,
 	WriterDiv,
 	WriterProfilePicDiv,
@@ -132,4 +155,6 @@ export {
 	ReplyDiv,
 	ReplyInput,
 	ReplySubmitButton,
+	ButtonsWrap,
+	BoardContentButtonDiv,
 };
