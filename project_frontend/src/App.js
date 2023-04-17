@@ -1,12 +1,5 @@
 import './App.css';
-import {
-	Home,
-	Login,
-	BoardDetails,
-	Welcome,
-	Write,
-	EditRecruitment,
-} from './pages';
+import { Home, Login, BoardDetails, Welcome, PostRecruitment } from './pages';
 import { Routes, Route } from 'react-router-dom';
 import { Header } from './components';
 import { useState, useEffect } from 'react';
@@ -43,15 +36,15 @@ function App() {
 				/>
 				<Route
 					path="/boards/recruitment"
-					element={<Write />}
+					element={<PostRecruitment />}
+				/>
+				<Route
+					path="/edit/recruitment/:boardId"
+					element={<PostRecruitment />}
 				/>
 				<Route
 					path="/boards/recruitment/:boardId"
 					element={<BoardDetails />}
-				/>
-				<Route
-					path="/edit/recruitment/:boardId"
-					element={<EditRecruitment />}
 				/>
 			</Routes>
 		</div>
