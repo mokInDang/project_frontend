@@ -12,7 +12,7 @@ Size.whitelist = ['medium', 'large'];
 Quill.register(Size, true);
 Quill.register(Font, true);
 
-function EditorComponent({ getHtmlContent }) {
+function EditorComponent({ getHtmlContent, value }) {
 	const [content, setContent] = useState('');
 	const modules = {
 		toolbar: [
@@ -38,6 +38,10 @@ function EditorComponent({ getHtmlContent }) {
 		'color',
 		'background',
 	];
+	useEffect(() => {
+		setContent(value);
+	}, []);
+
 	useEffect(() => {
 		getHtmlContent(content);
 	}, [content]);

@@ -1,22 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EditorComponent from './editorComponent';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-	CustomSelectActivity,
-	CustomSelectDate,
-} from './customSelect';
+import { CustomSelectActivity, CustomSelectDate } from './customSelect';
 import { Button, ButtonWrap, HR, Label, P, Title } from './writeFormComponents';
 import { green1, green2 } from '../../assets/images';
 
-const WriteForm = () => {
+const WriteForm = (props) => {
 	const navigate = useNavigate();
-	const [form, setForm] = useState({
-		title: '',
-		content: '',
-		activityCategory: '',
-		startingDate: '',
-	});
+	const [form, setForm] = useState(props.form);
 
 	const { title, content, activityCategory, startingDate } = form;
 
@@ -42,6 +34,7 @@ const WriteForm = () => {
 			activityCategory: newSelectedActivity, // 덮어쓰기
 		};
 		setForm(nextForm);
+		console.log(form);
 	};
 	const getSelectedDate = (newSelectedDate) => {
 		const nextForm = {
