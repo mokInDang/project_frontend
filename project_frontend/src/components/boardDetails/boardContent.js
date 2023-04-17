@@ -36,8 +36,7 @@ const BoardContent = () => {
 				setBoardDetails(res.data);
 			})
 			.catch((error) => {
-				alert(error.response.request.response);
-				console.log(error.response.request.response);
+				alert('잘못된 접근입니다.');
 				console.log(error);
 				navigate('/');
 			});
