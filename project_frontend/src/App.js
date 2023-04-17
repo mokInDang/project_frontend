@@ -35,11 +35,11 @@ function App() {
 					element={<Welcome />}
 				/>
 				<Route
-					path="/boards"
+					path="/boards/recruitment"
 					element={<Write />}
 				/>
 				<Route
-					path="/boards/:boardId"
+					path="/boards/recruitment/:boardId"
 					element={<BoardDetails />}
 				/>
 			</Routes>

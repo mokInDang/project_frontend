@@ -165,7 +165,7 @@ const Header = (props) => {
 								)}
 								<HeaderButton
 									className="newPost"
-									onClick={() => movePath(navigate, '/boards')}>
+									onClick={() => movePath(navigate, '/boards/recruitment')}>
 									새 글 쓰기
 								</HeaderButton>
 								{props.isLogined ? (
