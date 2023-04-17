@@ -44,14 +44,7 @@ const VerticalBar = styled.div`
 `;
 
 const ContentDiv = styled.div`
-	font-weight: 700;
-	font-size: 1.8rem;
-	line-height: 160%;
-	letter-spacing: 0.07rem;
 	margin: 8rem 0;
-	@media (max-width: 778px) {
-		margin:
-	}
 `;
 
 const BoardInfo = styled.div`
