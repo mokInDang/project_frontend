@@ -16,10 +16,6 @@ const closeRecruitment = (boardId) => {
 			console.log('마감 처리 실패');
 		});
 };
-const movetoEditRecruitment = (boardId, nav) => {
-	console.log(`모집 게시글 수정페이지로 이동`);
-	movePath(nav, `/edit/recruitment/${boardId}`);
-};
 const deleteRecruitment = (boardId) => {
 	console.log(`모집 게시글 삭제`);
 	// 삭제하시겠습니까? 조건문 넣기 혹은 버튼 클릭시 모달창 띄우기
@@ -36,4 +32,4 @@ const deleteRecruitment = (boardId) => {
 		});
 };
 
-export { closeRecruitment, movetoEditRecruitment, deleteRecruitment };
+export { closeRecruitment, deleteRecruitment };

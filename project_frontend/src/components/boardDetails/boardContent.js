@@ -92,7 +92,7 @@ const BoardContent = () => {
 							</BoardContentButtonDiv>
 							<BoardContentButtonDiv
 								onClick={() => {
-									movetoEditRecruitment(boardDetails.boardId);
+									navigate(`/edit/recruitment/${boardDetails.boardId}`);
 								}}>
 								수정
 							</BoardContentButtonDiv>
