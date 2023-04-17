@@ -39,10 +39,8 @@ const Title = styled.input`
 	background: #ffffff;
 	border: 1px solid #bdbdbd;
 	border-radius: 0.8rem;
-	border-radius: 0.8rem;
 	outline: 0;
 	width: 100%;
-	text-indent: 2rem;
 	text-indent: 2rem;
 	font-family: NanumSquareNeo;
 	font-style: normal;

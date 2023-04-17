@@ -129,7 +129,7 @@ const Header = (props) => {
 	useEffect(() => {
 		setView(false);
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로
-
+	// secureLocalStorage.setItem('accessToken', 'Bearer Token');
 	return (
 		<>
 			{location.pathname !== '/login' && (
@@ -161,7 +161,9 @@ const Header = (props) => {
 								)}
 								<HeaderButton
 									className="newPost"
-									onClick={() => movePath(navigate, '/boards/recruitment')}>
+									onClick={() =>
+										isLogined(navigate, '/boards/recruitment')
+									}>
 									새 글 쓰기
 								</HeaderButton>
 								{props.isLogined ? (
