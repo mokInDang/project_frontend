@@ -3,14 +3,15 @@ import styled from 'styled-components';
 const BoardItemsWrap = styled.div`
 	display: grid;
 	padding: 0 2rem;
-	grid-template-columns: repeat(auto-fill, Minmax(35rem, 20%));
+	margin-top: 2rem;
+	grid-template-columns: repeat(auto-fill, 35rem);
 	// 너비 35rem인 아이템을 담을 수 있을만큼!
 	justify-content: center;
 	align-content: center;
 	row-gap: 7rem;
 	column-gap: 4rem;
 	@media (max-width: 796px) {
-		grid-template-columns: Minmax(32rem, 95%);
+		grid-template-columns: Minmax(35rem, 95%);
 	}
 	@media (min-width: 1920px) {
 		grid-template-columns: repeat(4, 35rem);
@@ -92,8 +93,8 @@ const BoardItemCard = styled.div`
 		color: #969696;
 		font-size: 1.4rem;
 		line-height: 2.1rem;
-		overflow: hidden;
 		height: 10.5rem;
+		overflow: hidden;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 5;
 	}
@@ -101,7 +102,7 @@ const BoardItemCard = styled.div`
 		margin-top: 3rem;
 		font-size: 1.7rem;
 		text-align: right;
-		color: rgba(0, 0, 0, 0.8);
+		color: rgba(40, 40, 40, 0.8);
 		hr {
 			opacity: 0.8;
 			border: 1.5px solid #b3b3b3;
@@ -110,6 +111,26 @@ const BoardItemCard = styled.div`
 	.writerProfile {
 		align-items: center;
 		display: flex;
+	}
+	@media (max-width: 796px) {
+		.category {
+			font-size: 1.8rem;
+		}
+		.title {
+			font-size: 2.5rem;
+			height: 3rem;
+			line-height: 3rem;
+			-webkit-line-clamp: 1;
+		}
+		.content {
+			font-size: 2rem;
+			line-height: 2.7rem;
+			height: 10.8rem;
+			-webkit-line-clamp: 4;
+		}
+		.writerProfileWrap {
+			margin-top: 4rem;
+		}
 	}
 `;
 const TabWrapper = styled.div`

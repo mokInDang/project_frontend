@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { onLogout } from '../apis';
 import { useNavigate } from 'react-router-dom';
-import { movePath } from '../hooks/movePath';
+import { movePath, isLogined } from '../utils';
 
 const DropDownWrapper = styled.div`
 	z-index: 10000;
@@ -46,7 +46,7 @@ function Dropdown() {
 			<DropdownDiv>
 				<DropdownList
 					className="newPostList"
-					onClick={() => movePath(navigate, '/boards')}>
+					onClick={() => isLogined(navigate, '/boards/recruitment')}>
 					새 글 쓰기
 				</DropdownList>
 				<DropdownList>내 작성글</DropdownList>

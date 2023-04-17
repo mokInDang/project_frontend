@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { AiFillCaretDown } from 'react-icons/ai';
 import Dropdown from './dropdown';
 import { useState, useEffect } from 'react';
-import { movePath } from '../hooks/movePath';
+import { movePath, isLogined } from '../utils';
 import { homeIcon } from '../assets/images';
 import secureLocalStorage from 'react-secure-storage';
 import { locationIcon } from '../assets/images';
@@ -96,7 +96,7 @@ const Profile = styled.div`
 				: 'https://s3.ap-northeast-2.amazonaws.com/dongnejupging.profile.image.bucket/profile_image/%EC%9E%84%EC%8B%9C%ED%94%84%EB%A1%9C%ED%95%84.PNG'})
 		no-repeat center/cover;
 `;
-
+export { Profile };
 const ButtonWrap = styled.div`
 	align-items: center;
 	display: flex;
@@ -113,30 +113,23 @@ const Header = (props) => {
 	const navigate = useNavigate();
 	const [view, setView] = useState(false);
 	const location = useLocation();
-	let token = '';
 	let userInfo = '';
-	// secureLocalStorage.setItem('userInfo', { region: '동작구' });
-	// secureLocalStorage.setItem('accessToken', 'Bearer Token');
-	if (
-		secureLocalStorage.getItem('accessToken') &&
-		secureLocalStorage.getItem('userInfo')
-	) {
-		token = secureLocalStorage.getItem('accessToken');
-		userInfo = secureLocalStorage.getItem('userInfo');
-	}
+
+	const getUserInfo = () => {
+		if (props.isLogined) {
+			userInfo = secureLocalStorage.getItem('userInfo');
+		}
+	};
 
 	useEffect(() => {
-		if (typeof token === 'string' && token.slice(0, 6) === 'Bearer') {
-			props.getIsLogined(true);
-		} else {
-			props.getIsLogined(false);
-		}
+		isLogined(props.getIsLogined, true, true);
+		getUserInfo();
 	});
 
 	useEffect(() => {
 		setView(false);
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로
-
+	// secureLocalStorage.setItem('accessToken', 'Bearer Token');
 	return (
 		<>
 			{location.pathname !== '/login' && (
@@ -159,13 +152,18 @@ const Header = (props) => {
 							<ButtonWrap>
 								{userInfo.region && userInfo.region !== 'DEFAULT_REGION' && (
 									<div className="myRegion">
-										<img src={locationIcon} />
+										<img
+											src={locationIcon}
+											alt="locationIcon"
+										/>
 										<HeaderButton>{userInfo.region}</HeaderButton>
 									</div>
 								)}
 								<HeaderButton
 									className="newPost"
-									onClick={() => movePath(navigate, '/boards')}>
+									onClick={() =>
+										isLogined(navigate, '/boards/recruitment')
+									}>
 									새 글 쓰기
 								</HeaderButton>
 								{props.isLogined ? (
@@ -173,13 +171,7 @@ const Header = (props) => {
 										onClick={() => {
 											setView(!view);
 										}}>
-										<Profile
-											src={
-												userInfo.profileImageUrl
-													? userInfo.profileImageUrl
-													: 'DEFAULT_PROFILE_IMAGE_URL'
-											}
-										/>
+										<Profile src={userInfo.profileImageUrl} />
 										<AiFillCaretDown size={'3rem'} />
 										{view ? <Dropdown /> : ''}
 									</ProfileWrap>

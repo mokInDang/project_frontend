@@ -30,14 +30,13 @@ const BoardContent = () => {
 	let params = useParams();
 	useEffect(() => {
 		axios
-			.get(`/api/boards/${params.boardId}`)
+			.get(`/api/boards/recruitment/${params.boardId}`)
 			.then((res) => {
 				console.log(res.data);
 				setBoardDetails(res.data);
 			})
 			.catch((error) => {
-				alert(`해당하는 글이 존재하지 않습니다.`);
-				console.log(`해당하는 글이 존재하지 않습니다.`);
+				alert('잘못된 접근입니다.');
 				console.log(error);
 				navigate('/');
 			});
@@ -54,8 +53,7 @@ const BoardContent = () => {
 			{boardDetails ? (
 				<>
 					<BsArrowLeft
-						size={50}
-						style={{ margin: '30px 10px', cursor: 'pointer' }}
+						style={{ margin: '3rem 1rem', cursor: 'pointer', fontSize: '5rem' }}
 						onClick={() => navigate(-1)}
 					/>
 					<HeadingDiv fontSize="4rem">{boardDetails.title}</HeadingDiv>
@@ -63,6 +61,7 @@ const BoardContent = () => {
 						<WriterProfilePicDiv
 							size="6rem"
 							margin="2rem 2rem 2rem 0"
+							src={boardDetails.writerProfileImageUrl}
 						/>
 						<div>
 							{boardDetails.writerAlias}({boardDetails.firstFourLettersOfEmail}

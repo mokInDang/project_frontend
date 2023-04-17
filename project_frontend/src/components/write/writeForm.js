@@ -24,15 +24,16 @@ const WriteForm = () => {
 		console.log('writePost 실행');
 		console.log(form);
 		axios
-			.post(`/api/boards`, JSON.stringify(form), {
+			.post(`/api/boards/recruitment`, JSON.stringify(form), {
 				headers: { 'Content-Type': 'application/json; charset=utf-8' },
 			})
 			.then((res) => {
 				console.log(res.data.boardId);
-				navigate(`/boards/${res.data.boardId}`, { replace: true });
+				navigate(`/boards/recruitment/${res.data.boardId}`, { replace: true });
 			})
 			.catch((error) => {
 				console.log(error);
+				console.log(error.response.request.response);
 			});
 	};
 	const getSelectedActivity = (newSelectedActivity) => {

@@ -44,10 +44,6 @@ const VerticalBar = styled.div`
 `;
 
 const ContentDiv = styled.div`
-	font-weight: 700;
-	font-size: 1.8rem;
-	line-height: 160%;
-	letter-spacing: 0.07rem;
 	margin: 8rem 0;
 `;
 
@@ -82,8 +78,10 @@ const BoardInfo = styled.div`
 		grid-template-rows: 1fr;
 		gap: 3rem;
 	}
-	@media (max-width: 768px) {
+	@media (max-width: 778px) {
 		grid-template-columns: auto;
+		gap: 2rem;
+		margin: 4rem 0;
 	}
 `;
 const ReplyDiv = styled(ContentDiv)`
@@ -118,9 +116,9 @@ const ReplySubmitButton = styled.div`
 	background: #000000;
 	border-radius: 16px;
 	box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.13);
-	font-family: 'NanumSquare_acR';
+	font-family: 'NanumSquare';
 	font-weight: 500;
-	font-size: 1.2rem;
+	font-size: 1.5rem;
 	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.13);
 `;
 export {
