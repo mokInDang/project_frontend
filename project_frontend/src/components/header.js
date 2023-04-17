@@ -96,7 +96,7 @@ const Profile = styled.div`
 				: 'https://s3.ap-northeast-2.amazonaws.com/dongnejupging.profile.image.bucket/profile_image/%EC%9E%84%EC%8B%9C%ED%94%84%EB%A1%9C%ED%95%84.PNG'})
 		no-repeat center/cover;
 `;
-
+export { Profile };
 const ButtonWrap = styled.div`
 	align-items: center;
 	display: flex;
@@ -159,7 +159,7 @@ const Header = (props) => {
 							<ButtonWrap>
 								{userInfo.region && userInfo.region !== 'DEFAULT_REGION' && (
 									<div className="myRegion">
-										<img src={locationIcon} />
+										<img src={locationIcon} alt="locationIcon" />
 										<HeaderButton>{userInfo.region}</HeaderButton>
 									</div>
 								)}
@@ -173,13 +173,7 @@ const Header = (props) => {
 										onClick={() => {
 											setView(!view);
 										}}>
-										<Profile
-											src={
-												userInfo.profileImageUrl
-													? userInfo.profileImageUrl
-													: 'DEFAULT_PROFILE_IMAGE_URL'
-											}
-										/>
+										<Profile src={userInfo.profileImageUrl} />
 										<AiFillCaretDown size={'3rem'} />
 										{view ? <Dropdown /> : ''}
 									</ProfileWrap>

@@ -13,7 +13,6 @@ import {
 	TabDiv,
 } from './main/mainStyledComponents';
 import { Card } from './main/card';
-import { LinkTo, Profile } from './globalStyledComponents';
 import { BoardContent } from './boardDetails/boardContent';
 import {
 	KakaoLoginButton,
@@ -32,9 +31,8 @@ import {
 	ReplyDiv,
 	ReplyInput,
 	ReplySubmitButton,
-	BannerSlider,
 } from './boardDetails/boardDetailsStyledComponents';
-
+import { Profile } from './header';
 export {
 	JoinComment,
 	Header,
@@ -50,7 +48,6 @@ export {
 export {
 	WriteWrapper,
 	BoardItemsWrap,
-	LinkTo,
 	Profile,
 	KakaoLoginButton,
 	LoginPageWrap,

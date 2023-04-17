@@ -63,6 +63,7 @@ const BoardContent = () => {
 						<WriterProfilePicDiv
 							size="6rem"
 							margin="2rem 2rem 2rem 0"
+							src={boardDetails.writerProfileImageUrl}
 						/>
 						<div>
 							{boardDetails.writerAlias}({boardDetails.firstFourLettersOfEmail}

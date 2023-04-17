@@ -25,7 +25,8 @@ const Card = (props) => {
 				<div className="writerProfile">
 					<WriterProfilePicDiv
 						size="4.6rem"
-						margin="1rem 1.5rem 1rem 0"></WriterProfilePicDiv>
+						margin="1rem 1.5rem 1rem 0"
+						src={props.content.writerProfileUrl}></WriterProfilePicDiv>
 					{props.content.writerAlias}({props.content.firstFourLettersOfEmail}
 					****)
 				</div>
