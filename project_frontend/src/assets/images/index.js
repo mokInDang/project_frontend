@@ -6,7 +6,9 @@ import green1 from './1.png';
 import green2 from './2.png';
 import homeIcon from './homeIcon.png';
 import locationIcon from './location.png';
-import banner from './banner.png';
+import banner1 from './banner.png';
+import banner2_trash from './banner2_trash.png'
+import banner2_human from './banner2_human.png'
 // import { ReactComponent as entireRegionIcon } from './entireregion.svg';
 // import { ReactComponent as myRegionIcon } from './myregion.svg';
 
@@ -19,7 +21,9 @@ export {
 	green2,
 	homeIcon,
 	locationIcon,
-	banner,
+	banner1,
+	banner2_trash,
+	banner2_human
 	// entireRegionIcon,
 	// myRegionIcon,
 };
