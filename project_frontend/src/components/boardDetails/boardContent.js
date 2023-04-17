@@ -53,8 +53,7 @@ const BoardContent = () => {
 			{boardDetails ? (
 				<>
 					<BsArrowLeft
-						size={50}
-						style={{ margin: '30px 10px', cursor: 'pointer' }}
+						style={{ margin: '3rem 1rem', cursor: 'pointer', fontSize: '5rem' }}
 						onClick={() => navigate(-1)}
 					/>
 					<HeadingDiv fontSize="4rem">{boardDetails.title}</HeadingDiv>
