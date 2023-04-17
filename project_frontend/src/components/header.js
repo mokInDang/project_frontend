@@ -150,7 +150,7 @@ const Header = (props) => {
 						</div>
 						{location.pathname !== '/api/auth/join' && (
 							<ButtonWrap>
-								{userInfo.region && userInfo.region !== 'DEFAULT_REGION' && (
+								{(userInfo.region && userInfo.region !== 'DEFAULT_REGION') && (
 									<div className="myRegion">
 										<img
 											src={locationIcon}
@@ -162,7 +162,8 @@ const Header = (props) => {
 								<HeaderButton
 									className="newPost"
 									onClick={() =>
-										isLogined(navigate, '/boards/recruitment')
+										// isLogined(navigate, '/boards/recruitment')
+										navigate('/boards/recruitment')
 									}>
 									새 글 쓰기
 								</HeaderButton>
