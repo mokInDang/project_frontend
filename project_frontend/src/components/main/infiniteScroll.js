@@ -10,11 +10,15 @@ function InfiniteScroll() {
 
 	const getBoardItems = async (pageNumber) => {
 		await axios
-			.get(`/api/boards?page=${pageNumber}&size=12&sort=id,DESC`)
+			.get(`/api/boards/recruitment?page=${pageNumber}&size=12&sort=id,DESC`)
 			.then((res) => {
 				setBoardItems((data) => [...data, ...res.data.boards]);
 				setHasNext(res.data.hasNext);
 				setLoading(true);
+			})
+			.catch((error) => {
+				console.log(error);
+				console.log(error.response.request.response);
 			});
 	};
 
