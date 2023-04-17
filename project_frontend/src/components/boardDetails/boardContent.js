@@ -17,6 +17,11 @@ import {
 	ButtonsWrap,
 	BoardContentButtonDiv,
 } from './boardDetailsStyledComponents';
+import {
+	closeRecruitment,
+	movetoEditRecruitment,
+	deleteRecruitment,
+} from '../../apis';
 
 const DateString = (dateString, parseString) => {
 	let date = new Date(dateString);
@@ -79,9 +84,24 @@ const BoardContent = () => {
 					{boardDetails.mine ? (
 						<ButtonsWrap boardDetails={boardDetails}>
 							{/* boardDetails.onRecruitment 조회하여 마감 버튼 스타일할 것 */}
-							<BoardContentButtonDiv onClick={()=>{}}>마감</BoardContentButtonDiv>
-							<BoardContentButtonDiv onClick={()=>{}}>수정</BoardContentButtonDiv>
-							<BoardContentButtonDiv onClick={()=>{}}>삭제</BoardContentButtonDiv>
+							<BoardContentButtonDiv
+								onClick={() => {
+									closeRecruitment(boardDetails.boardId);
+								}}>
+								마감
+							</BoardContentButtonDiv>
+							<BoardContentButtonDiv
+								onClick={() => {
+									movetoEditRecruitment(boardDetails.boardId);
+								}}>
+								수정
+							</BoardContentButtonDiv>
+							<BoardContentButtonDiv
+								onClick={() => {
+									deleteRecruitment(boardDetails.boardId);
+								}}>
+								삭제
+							</BoardContentButtonDiv>
 						</ButtonsWrap>
 					) : (
 						<></>
