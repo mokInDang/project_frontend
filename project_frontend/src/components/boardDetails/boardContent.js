@@ -19,7 +19,6 @@ import {
 } from './boardDetailsStyledComponents';
 import {
 	closeRecruitment,
-	movetoEditRecruitment,
 	deleteRecruitment,
 } from '../../apis';
 
