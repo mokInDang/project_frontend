@@ -30,7 +30,7 @@ const BoardContent = () => {
 	let params = useParams();
 	useEffect(() => {
 		axios
-			.get(`/api/boards/${params.boardId}`)
+			.get(`/api/boards/recruitment/${params.boardId}`)
 			.then((res) => {
 				console.log(res.data);
 				setBoardDetails(res.data);
