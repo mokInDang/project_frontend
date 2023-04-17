@@ -36,8 +36,8 @@ const BoardContent = () => {
 				setBoardDetails(res.data);
 			})
 			.catch((error) => {
-				alert(`해당하는 글이 존재하지 않습니다.`);
-				console.log(`해당하는 글이 존재하지 않습니다.`);
+				alert(error.response.request.response);
+				console.log(error.response.request.response);
 				console.log(error);
 				navigate('/');
 			});
