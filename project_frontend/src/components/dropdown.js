@@ -46,7 +46,7 @@ function Dropdown() {
 			<DropdownDiv>
 				<DropdownList
 					className="newPostList"
-					onClick={() => movePath(navigate, '/boards')}>
+					onClick={() => movePath(navigate, '/boards/recruitment')}>
 					새 글 쓰기
 				</DropdownList>
 				<DropdownList>내 작성글</DropdownList>

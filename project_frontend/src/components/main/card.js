@@ -8,7 +8,7 @@ const Card = (props) => {
 		.replace(/<[^>]*>?/g, '')
 		.replace(/(<([^>]+)>)/gi, '');
 	return (
-		<BoardItemCard onClick={() => navigate(`/boards/${props.content.boardId}`)}>
+		<BoardItemCard onClick={() => navigate(`/boards/recruitment/${props.content.boardId}`)}>
 			<div className="closed" />
 			<div className="category">
 				시작 예정일
