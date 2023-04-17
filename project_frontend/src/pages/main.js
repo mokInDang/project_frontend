@@ -4,7 +4,7 @@ import { SlArrowDown } from 'react-icons/sl';
 import { TabWrapper, TabDiv } from '../components';
 import { ImFileEmpty, ImFileText2 } from 'react-icons/im';
 import GetLocationButton from '../components/getLocationButton';
-import { BannerSlider } from '../components/main/bannerSlider';
+import { BannerSlide } from '../components/main/bannerSlider';
 
 function Home() {
 	const [boardTab, setBoardTap] = useState(0);
@@ -12,7 +12,7 @@ function Home() {
 	console.log(regionTab);
 	return (
 		<Fragment>
-			<BannerSlider></BannerSlider>
+			<BannerSlide></BannerSlide>
 			<TabWrapper boardTab={boardTab}>
 				<TabDiv
 					onClick={(e) => {

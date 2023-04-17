@@ -96,7 +96,7 @@ const BannerDiv = styled.div`
 	}
 `;
 
-const BannerSlider = () => {
+const BannerSlide = () => {
 	var settings = {
 		arrows: false,
 		dots: true,
@@ -147,4 +147,4 @@ const BannerSlider = () => {
 	);
 };
 
-export { BannerSlider };
+export { BannerSlide };
