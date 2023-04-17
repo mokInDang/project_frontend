@@ -7,6 +7,7 @@ import {
 import { onLogout } from './logout';
 import {
 	closeRecruitment,
+	GetRecruitmentForEdit,
 	deleteRecruitment,
 } from './boardDetails/recruitment';
 
@@ -17,5 +18,6 @@ export {
 	reissueToken,
 	onLogout,
 	closeRecruitment,
+	GetRecruitmentForEdit,
 	deleteRecruitment,
 };

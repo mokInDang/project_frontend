@@ -10,7 +10,7 @@ const WriteForm = (props) => {
 	const navigate = useNavigate();
 	const [form, setForm] = useState(props.form);
 
-	const { title, content, activityCategory, startingDate } = form;
+	let { title, content, activityCategory, startingDate } = form;
 
 	const writePost = async () => {
 		console.log('writePost 실행');
