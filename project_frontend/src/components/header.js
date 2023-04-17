@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { AiFillCaretDown } from 'react-icons/ai';
 import Dropdown from './dropdown';
 import { useState, useEffect } from 'react';
-import { movePath } from '../hooks/movePath';
+import { movePath } from '../utils/movePath';
 import { homeIcon } from '../assets/images';
 import secureLocalStorage from 'react-secure-storage';
 import { locationIcon } from '../assets/images';

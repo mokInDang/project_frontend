@@ -5,19 +5,12 @@ import { TabWrapper, TabDiv } from '../components';
 import { ImFileEmpty, ImFileText2 } from 'react-icons/im';
 import GetLocationButton from '../components/getLocationButton';
 import { BannerSlide } from '../components/main/bannerSlider';
-import secureLocalStorage from 'react-secure-storage';
+import { isLogined } from '../utils';
 
 function Home() {
 	const [boardTab, setBoardTap] = useState(0);
 	const [regionTab, setRegionTap] = useState(0);
 
-	const isLogined = (func, value) => {
-		if (secureLocalStorage.getItem('accessToken')) {
-			func(value);
-		} else {
-			alert('로그인 후 이용하실 수 있습니다.');
-		}
-	};
 	return (
 		<Fragment>
 			<BannerSlide />
