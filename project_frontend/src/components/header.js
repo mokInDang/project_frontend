@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { AiFillCaretDown } from 'react-icons/ai';
 import Dropdown from './dropdown';
 import { useState, useEffect } from 'react';
-import { movePath } from '../utils/movePath';
+import { movePath, isLogined } from '../utils';
 import { homeIcon } from '../assets/images';
 import secureLocalStorage from 'react-secure-storage';
 import { locationIcon } from '../assets/images';
@@ -113,24 +113,17 @@ const Header = (props) => {
 	const navigate = useNavigate();
 	const [view, setView] = useState(false);
 	const location = useLocation();
-	let token = '';
 	let userInfo = '';
-	// secureLocalStorage.setItem('userInfo', { region: '동작구' });
-	// secureLocalStorage.setItem('accessToken', 'Bearer Token');
-	if (
-		secureLocalStorage.getItem('accessToken') &&
-		secureLocalStorage.getItem('userInfo')
-	) {
-		token = secureLocalStorage.getItem('accessToken');
-		userInfo = secureLocalStorage.getItem('userInfo');
-	}
+
+	const getUserInfo = () => {
+		if (props.isLogined) {
+			userInfo = secureLocalStorage.getItem('userInfo');
+		}
+	};
 
 	useEffect(() => {
-		if (typeof token === 'string' && token.slice(0, 6) === 'Bearer') {
-			props.getIsLogined(true);
-		} else {
-			props.getIsLogined(false);
-		}
+		isLogined(props.getIsLogined, true, true);
+		getUserInfo();
 	});
 
 	useEffect(() => {
@@ -159,7 +152,10 @@ const Header = (props) => {
 							<ButtonWrap>
 								{userInfo.region && userInfo.region !== 'DEFAULT_REGION' && (
 									<div className="myRegion">
-										<img src={locationIcon} alt="locationIcon" />
+										<img
+											src={locationIcon}
+											alt="locationIcon"
+										/>
 										<HeaderButton>{userInfo.region}</HeaderButton>
 									</div>
 								)}
