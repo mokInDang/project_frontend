@@ -102,7 +102,7 @@ const BoardItemCard = styled.div`
 		margin-top: 3rem;
 		font-size: 1.7rem;
 		text-align: right;
-		color: rgba(0, 0, 0, 0.8);
+		color: rgba(40, 40, 40, 0.8);
 		hr {
 			opacity: 0.8;
 			border: 1.5px solid #b3b3b3;
