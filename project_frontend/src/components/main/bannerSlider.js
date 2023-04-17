@@ -3,6 +3,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { banner1, banner2_trash, banner2_human } from '../../assets/images';
 import styled from 'styled-components';
+import '../../styles/index.css'
 
 const BannerDiv = styled.div`
 	background: ${(props) => props.color} url(${(props) => props.image}) no-repeat
@@ -110,6 +111,7 @@ const BannerSlider = () => {
 	return (
 		<Slider
 			{...settings}
+			dotsClass='test-css'
 			style={{ marginBottom: '3rem' }}>
 			<BannerDiv
 				color="#81cc55"
