@@ -9,7 +9,7 @@ import {
 	closeRecruitment,
 	movetoEditRecruitment,
 	deleteRecruitment,
-} from './boardDetails/editBoard';
+} from './boardDetails/recruitment';
 
 export {
 	OnLogin,

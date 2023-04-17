@@ -3,5 +3,6 @@ import Home from './main';
 import Welcome from './welcome';
 import Write from './write';
 import BoardDetails from './boardDetails';
+import EditRecruitment from './editRecruitment';
 
-export { Login, Home, Welcome, Write, BoardDetails };
+export { Login, Home, Welcome, Write, BoardDetails, EditRecruitment };
