@@ -5,14 +5,22 @@ import { TabWrapper, TabDiv } from '../components';
 import { ImFileEmpty, ImFileText2 } from 'react-icons/im';
 import GetLocationButton from '../components/getLocationButton';
 import { BannerSlide } from '../components/main/bannerSlider';
+import secureLocalStorage from 'react-secure-storage';
 
 function Home() {
 	const [boardTab, setBoardTap] = useState(0);
 	const [regionTab, setRegionTap] = useState(0);
-	console.log(regionTab);
+
+	const isLogined = (func, value) => {
+		if (secureLocalStorage.getItem('accessToken')) {
+			func(value);
+		} else {
+			alert('로그인 후 이용하실 수 있습니다.');
+		}
+	};
 	return (
 		<Fragment>
-			<BannerSlide></BannerSlide>
+			<BannerSlide />
 			<TabWrapper boardTab={boardTab}>
 				<TabDiv
 					onClick={(e) => {
@@ -50,7 +58,7 @@ function Home() {
 					<TabDiv
 						onClick={(e) => {
 							e.preventDefault();
-							setRegionTap(1);
+							isLogined(setRegionTap, 1);
 						}}
 						className="myRegion">
 						<ImFileText2
@@ -60,9 +68,10 @@ function Home() {
 						내 지역
 					</TabDiv>
 				</TabWrapper>
-				<InfiniteScroll
-					style={regionTab ? { display: 'none' } : { display: 'block' }}
-				/>
+				<div style={regionTab ? { display: 'none' } : { display: 'block' }}>
+					<InfiniteScroll regionTab={regionTab} />
+				</div>
+				{regionTab ? <InfiniteScroll regionTab={regionTab} /> : <></>}
 			</div>
 			<div style={!boardTab ? { display: 'none' } : { display: 'block' }}>
 				<GetLocationButton />
