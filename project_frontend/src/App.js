@@ -1,5 +1,5 @@
 import './App.css';
-import { Home, Login, BoardDetails, Welcome, PostRecruitment } from './pages';
+import { Home, Login, BoardDetails, Welcome, PostRecruitment, PatchRecruitment } from './pages';
 import { Routes, Route } from 'react-router-dom';
 import { Header } from './components';
 import { useState, useEffect } from 'react';
@@ -32,7 +32,7 @@ function App() {
 				/>
 				<Route
 					path="/edit/recruitment/:boardId"
-					element={<PostRecruitment />}
+					element={<PatchRecruitment />}
 				/>
 				<Route
 					path="/boards/recruitment/:boardId"
