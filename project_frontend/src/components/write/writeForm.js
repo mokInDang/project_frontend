@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import EditorComponent from './editorComponent';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CustomSelectActivity, CustomSelectDate } from './customSelect';
 import { Button, ButtonWrap, HR, Label, P, Title } from './writeFormComponents';
 import { green1, green2 } from '../../assets/images';
+import { movePath } from '../../utils';
 
 const WriteForm = (props) => {
+	const boardIdForEdit = props.boardIdForEdit;
 	const navigate = useNavigate();
 	const [form, setForm] = useState(props.form);
 	const { title, contentBody, activityCategory, startingDate } = form;
@@ -118,17 +120,25 @@ const WriteForm = (props) => {
 					getHtmlContentBody
 				}></EditorComponent>
 			<ButtonWrap>
-				<Button name="cancel">
-					<Link
-						to="/"
-						style={{ textDecoration: 'none', color: '#767676' }}>
-						취소
-					</Link>
+				<Button
+					name="cancel"
+					onClick={() => {
+						if (window.confirm('글 작성을 취소하시겠습니까?')) {
+							movePath(navigate, '/');
+						}
+					}}>
+					취소
 				</Button>
 				<Button
-					onClick={writePost}
+					onClick={() => {
+						if (!boardIdForEdit) writePost();
+						else {
+							// 수정(axios.patch) 함수 넣기
+							console.log('수정하기 버튼 클릭');
+						}
+					}}
 					name="write">
-					글 등록
+					{!boardIdForEdit ? '글 등록' : '수정하기'}
 				</Button>
 			</ButtonWrap>
 		</div>
