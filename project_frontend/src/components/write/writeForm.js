@@ -6,20 +6,19 @@ import { CustomSelectActivity, CustomSelectDate } from './customSelect';
 import { Button, ButtonWrap, HR, Label, P, Title } from './writeFormComponents';
 import { green1, green2 } from '../../assets/images';
 import { movePath } from '../../utils';
+import { EditRecruitment } from '../../apis';
 
 const WriteForm = (props) => {
-	const boardIdForEdit = props.boardIdForEdit;
+	const boardIdToEdit = props.boardIdToEdit;
 	const navigate = useNavigate();
 	const [form, setForm] = useState(props.form);
 	const { title, contentBody, activityCategory, startingDate } = form;
 
-	const writePost = () => {
-		console.log('writePost 실행');
+	const writeRecruitment = () => {
+		console.log('writeRecruitment 실행');
 		console.log(form);
 		axios
-			.post(`/api/boards/recruitment`, JSON.stringify(form), {
-				headers: { 'Content-Type': 'application/json; charset=utf-8' },
-			})
+			.post(`/api/boards/recruitment`, form)
 			.then((res) => {
 				console.log(res.data.boardId);
 				navigate(`/boards/recruitment/${res.data.boardId}`, { replace: true });
@@ -35,7 +34,6 @@ const WriteForm = (props) => {
 			activityCategory: newSelectedActivity, // 덮어쓰기
 		};
 		setForm(nextForm);
-		console.log(form);
 	};
 	const getSelectedDate = (newSelectedDate) => {
 		const nextForm = {
@@ -116,14 +114,13 @@ const WriteForm = (props) => {
 			<EditorComponent
 				name="contentBody"
 				value={contentBody}
-				getHtmlContentBody={
-					getHtmlContentBody
-				}></EditorComponent>
+				getHtmlContentBody={getHtmlContentBody}
+			/>
 			<ButtonWrap>
 				<Button
 					name="cancel"
 					onClick={() => {
-						if (window.confirm('글 작성을 취소하시겠습니까?')) {
+						if (window.confirm('작성을 취소하고 페이지를 벗어나시겠습니까?')) {
 							movePath(navigate, '/');
 						}
 					}}>
@@ -131,14 +128,11 @@ const WriteForm = (props) => {
 				</Button>
 				<Button
 					onClick={() => {
-						if (!boardIdForEdit) writePost();
-						else {
-							// 수정(axios.patch) 함수 넣기
-							console.log('수정하기 버튼 클릭');
-						}
+						if (!boardIdToEdit) writeRecruitment();
+						else EditRecruitment(boardIdToEdit, form, navigate);
 					}}
 					name="write">
-					{!boardIdForEdit ? '글 등록' : '수정하기'}
+					{!boardIdToEdit ? '글 등록' : '수정하기'}
 				</Button>
 			</ButtonWrap>
 		</div>

@@ -1,7 +1,11 @@
 import axios from 'axios';
 
 const closeRecruitment = (boardId) => {
-	if (window.confirm('모집을 마감하시겠습니까?')) {
+	if (
+		window.confirm(
+			'모집을 마감하시겠습니까? 이는 되돌릴 수 없으며, 이후 게시글을 수정할 수 없습니다.'
+		)
+	) {
 		// 모달창으로 수정할 것
 		console.log(`모집 게시글 마감`);
 		axios
@@ -17,27 +21,21 @@ const closeRecruitment = (boardId) => {
 			});
 	}
 };
-const GetRecruitmentForEdit = (boardId, navigate) => {
-	console.log('GetRecruitmentForEdit 실행');
-	let form = {
-		title: '게시글 수정하기',
-		contentBody: '',
-		activityCategory: '',
-		startingDate: '',
-	};
-	axios
-		.get(`/api/boards/recruitment/${boardId}`)
-		.then((res) => {
-			console.log(res.data);
-			form = res.data;
-		})
-		.catch((error) => {
-			console.log(error);
-			console.log('기본 수정 폼 리턴')
-			alert('잘못된 접근입니다.');
-			navigate(-1);
-		});
-	return form;
+const EditRecruitment = (boardId, contentBody, navigate) => {
+	if (window.confirm('게시글 수정을 완료하시겠습니까?')) {
+		console.log('EditRecruitment 실행');
+		console.log(contentBody);
+		axios
+			.patch(`/api/boards/recruitment/${boardId}`, contentBody)
+			.then((res) => {
+				console.log(res.data.boardId);
+				navigate(`/boards/recruitment/${res.data.boardId}`, { replace: true });
+			})
+			.catch((error) => {
+				console.log(error);
+				alert('게시글 수정에 실패하였습니다.');
+			});
+	}
 };
 const deleteRecruitment = (boardId) => {
 	if (window.confirm('게시글을 삭제하시겠습니까?')) {
@@ -57,4 +55,4 @@ const deleteRecruitment = (boardId) => {
 	}
 };
 
-export { closeRecruitment, GetRecruitmentForEdit, deleteRecruitment };
+export { closeRecruitment, EditRecruitment, deleteRecruitment };

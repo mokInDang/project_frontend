@@ -17,10 +17,7 @@ import {
 	ButtonsWrap,
 	BoardContentButtonDiv,
 } from './boardDetailsStyledComponents';
-import {
-	closeRecruitment,
-	deleteRecruitment,
-} from '../../apis';
+import { closeRecruitment, deleteRecruitment } from '../../apis';
 
 const DateString = (dateString, parseString) => {
 	let date = new Date(dateString);

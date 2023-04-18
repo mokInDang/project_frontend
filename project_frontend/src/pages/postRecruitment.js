@@ -2,29 +2,34 @@ import { useNavigate, useParams, useLocation } from 'react-router';
 import { WriteForm, WriteWrapper } from '../components';
 
 function PostRecruitment() {
-	const formToEdit = useLocation().state;
-	const navigate = useNavigate();
-	console.log(formToEdit);
-	const boardIdForEdit = useParams().boardId;
-	let initialForm = {
+	const recruitmentToEdit = useLocation().state;
+	const boardIdToEdit = useParams().boardId;
+	let form = {
 		activityCategory: '',
 		startingDate: '',
 		title: '',
 		contentBody: '',
 	};
 
-	if (boardIdForEdit) {
-		{
-			formToEdit ? (initialForm = formToEdit) : navigate(-1);
-		}
+	if (recruitmentToEdit) {
+		let { activityCategory, startingDate, title, contentBody } =
+			recruitmentToEdit;
+		const formToEdit = {
+			activityCategory: activityCategory,
+			startingDate: startingDate,
+			title: title,
+			contentBody: contentBody,
+		};
+		form = formToEdit;
+		console.log(formToEdit);
 	}
 
 	return (
 		<>
 			<WriteWrapper>
 				<WriteForm
-					form={initialForm}
-					boardIdForEdit={boardIdForEdit}
+					form={form}
+					boardIdToEdit={boardIdToEdit}
 				/>
 			</WriteWrapper>
 		</>
