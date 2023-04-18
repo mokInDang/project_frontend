@@ -20,7 +20,7 @@ const closeRecruitment = (boardId) => {
 const GetRecruitmentForEdit = (boardId, navigate) => {
 	console.log('GetRecruitmentForEdit 실행');
 	let form = {
-		title: '',
+		title: '게시글 수정하기',
 		contentBody: '',
 		activityCategory: '',
 		startingDate: '',
@@ -33,9 +33,9 @@ const GetRecruitmentForEdit = (boardId, navigate) => {
 		})
 		.catch((error) => {
 			console.log(error);
-			console.log('기본 폼 리턴')
-			// alert('잘못된 접근입니다.');
-			// navigate(-1);
+			console.log('기본 수정 폼 리턴')
+			alert('잘못된 접근입니다.');
+			navigate(-1);
 		});
 	return form;
 };

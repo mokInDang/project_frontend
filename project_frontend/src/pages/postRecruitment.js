@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { WriteForm, WriteWrapper } from '../components';
 import { GetRecruitmentForEdit } from '../apis';
@@ -6,23 +5,23 @@ import { GetRecruitmentForEdit } from '../apis';
 function PostRecruitment() {
 	const boardIdForEdit = useParams().boardId;
 	const navigate = useNavigate();
-	const form = {
-		title: '',
-		contentBody: '',
+
+	let initialForm = {
 		activityCategory: '',
 		startingDate: '',
+		title: '',
+		contentBody: '',
 	};
 
-	console.log('postRecruitment');
+	if (boardIdForEdit) {
+		initialForm = GetRecruitmentForEdit(boardIdForEdit, navigate);
+	}
+
 	return (
 		<>
 			<WriteWrapper>
 				<WriteForm
-					form={
-						boardIdForEdit
-							? GetRecruitmentForEdit(boardIdForEdit, navigate)
-							: form
-					}
+					form={initialForm}
 					boardIdForEdit={boardIdForEdit}
 				/>
 			</WriteWrapper>
