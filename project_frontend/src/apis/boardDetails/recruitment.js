@@ -32,7 +32,7 @@ const EditRecruitment = (boardId, contentBody, navigate) => {
 	}
 };
 
-const closeRecruitment = (boardId, getIsClosed) => {
+const closeRecruitment = (boardId, getNewDetails) => {
 	if (
 		window.confirm(
 			'모집을 마감하시겠습니까? 이는 되돌릴 수 없으며, 이후 게시글을 수정할 수 없습니다.'
@@ -45,7 +45,7 @@ const closeRecruitment = (boardId, getIsClosed) => {
 			.then((res) => {
 				alert('마감 처리가 완료되었습니다.');
 				// console.log(res.data.boardId);
-				getIsClosed('Closed');
+				getNewDetails();
 			})
 			.catch((error) => {
 				console.log(error);

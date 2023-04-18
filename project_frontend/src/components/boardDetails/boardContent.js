@@ -32,9 +32,9 @@ const BoardContent = () => {
 	const params = useParams();
 	const navigate = useNavigate();
 	const [boardDetails, setBoardDetails] = useState('');
-	const [isClosed, setIsClosed] = useState(undefined);
-	const getIsClosed = (value) => {
-		setIsClosed(value);
+	const [isOnRecruitment, setIsOnRecruitment] = useState(1);
+	const getNewDetails = () => {
+		setIsOnRecruitment(0);
 	};
 	useEffect(() => {
 		axios
@@ -48,8 +48,9 @@ const BoardContent = () => {
 				console.log(error);
 				navigate('/');
 			});
-	}, [isClosed]);
-
+	}, [isOnRecruitment]);
+	
+	console.log(isOnRecruitment);
 	let items = ['활동 지역', '모집 구분', '시작 예정', '모집 상태'];
 	let values = [
 		boardDetails.region,
@@ -85,11 +86,11 @@ const BoardContent = () => {
 					{boardDetails.mine && (
 						<ButtonsWrap boardDetails={boardDetails}>
 							{/* boardDetails.onRecruitment 조회하여 마감 버튼 스타일할 것 */}
-							{boardDetails.onRecruitment && (
+							{boardDetails.onRecruitment!==0 && (
 								<>
 									<BoardContentButtonDiv
 										onClick={() => {
-											closeRecruitment(boardDetails.boardId, getIsClosed);
+											closeRecruitment(boardDetails.boardId, getNewDetails);
 										}}>
 										마감
 									</BoardContentButtonDiv>
