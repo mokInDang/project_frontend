@@ -86,7 +86,7 @@ const BoardContent = () => {
 					{boardDetails.mine && (
 						<ButtonsWrap boardDetails={boardDetails}>
 							{/* boardDetails.onRecruitment 조회하여 마감 버튼 스타일할 것 */}
-							{isOnRecruitment === 1 && (
+							{boardDetails.onRecruitment === true && (
 								<>
 									<BoardContentButtonDiv
 										onClick={() => {
