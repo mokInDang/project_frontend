@@ -113,31 +113,30 @@ const Header = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [isLogined, setIsLogined] = useState(false);
-	let userInfo = '';
+	let [userInfo, setUserInfo] = useState({ region: 'DEFAULT_REGION' });
 	const [view, setView] = useState(false);
 
 	useEffect(() => {
 		if (secureLocalStorage.getItem('accessToken')) {
 			setIsLogined(true);
+			setUserInfo(secureLocalStorage.getItem('userInfo'));
+			console.log(userInfo);
 		} else {
 			setIsLogined(false);
 		}
 	}, []);
-
-	const getUserInfo = () => {
-		if (isLogined) {
-			userInfo = secureLocalStorage.getItem('userInfo');
-		}
-	};
-
-	useEffect(() => {
-		getUserInfo();
-	});
+	
+	// const getUserInfo = () => {
+	// 	if (isLogined) {
+	// 		setUserInfo(secureLocalStorage.getItem('userInfo'));
+	// 	}
+	// };
 
 	useEffect(() => {
 		setView(false);
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로
 	// secureLocalStorage.setItem('accessToken', 'Bearer Token');
+
 	return (
 		<>
 			{location.pathname !== '/login' && (
@@ -156,7 +155,7 @@ const Header = () => {
 						</div>
 						{location.pathname !== '/api/auth/join' && (
 							<ButtonWrap>
-								{userInfo.region && userInfo.region !== 'DEFAULT_REGION' ? (
+								{isLogined && userInfo.region !== 'DEFAULT_REGION' ? (
 									<div className="myRegion">
 										<img
 											src={locationIcon}

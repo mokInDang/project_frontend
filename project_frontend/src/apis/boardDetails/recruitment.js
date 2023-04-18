@@ -8,7 +8,7 @@ const getRecruitment = (boardId, getBoardDetails, navigate) => {
 			getBoardDetails(res.data);
 		})
 		.catch((error) => {
-			alert('잘못된 접근입니다.');
+			alert('로그인 후 이용해주세요.');
 			console.log(error);
 			navigate('/');
 		});

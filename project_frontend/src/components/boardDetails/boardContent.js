@@ -47,7 +47,6 @@ const BoardContent = () => {
 		getRecruitment(params.boardId, getBoardDetails, navigate);
 	}, [isOnRecruitment]);
 
-	console.log(isOnRecruitment);
 	let items = ['활동 지역', '모집 구분', '시작 예정', '모집 상태'];
 	let values = [
 		boardDetails.region,
