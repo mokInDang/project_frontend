@@ -111,13 +111,18 @@ const TodayString = () => {
 	var todayString = year + '-' + month + '-' + day;
 	return todayString;
 };
-const CustomSelectActivity = ({ getSelectedActivity }) => {
+const CustomSelectActivity = ({ getSelectedActivity, value }) => {
 	const [showOptions, setShowOptions] = useState(false);
 	const [currentValue, setCurrentValue] = useState('');
 	const handleOnChangeSelectValue = (e) => {
 		const { innerText } = e.target;
 		setCurrentValue(innerText);
 	};
+	
+	useEffect(() => {
+		setCurrentValue(value);
+	}, []);
+
 	useEffect(() => {
 		getSelectedActivity(currentValue);
 	}, [currentValue]);
@@ -133,11 +138,16 @@ const CustomSelectActivity = ({ getSelectedActivity }) => {
 	);
 };
 
-const CustomSelectDate = ({ getSelectedDate }) => {
+const CustomSelectDate = ({ getSelectedDate, value }) => {
 	const [date, setDate] = useState('');
 	const onChange = (e) => {
 		setDate(e.target.value);
 	};
+
+	useEffect(() => {
+		setDate(value);
+	}, []);
+
 	useEffect(() => {
 		getSelectedDate(date);
 	}, [date]);

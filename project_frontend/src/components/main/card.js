@@ -1,17 +1,18 @@
 import { BoardItemCard } from './mainStyledComponents';
 import { WriterProfilePicDiv, VerticalBar } from '../../components';
 import { useNavigate } from 'react-router-dom';
-import { isLogined } from '../../utils';
+import { movePath } from '../../utils';
 const Card = (props) => {
 	const navigate = useNavigate();
-	const content = props.content.content;
-	const newContent = content
+	const contentBody = props.content.contentBody;
+	const newContent = contentBody
 		.replace(/<[^>]*>?/g, '')
 		.replace(/(<([^>]+)>)/gi, '');
 	return (
 		<BoardItemCard
+			isOnRecruitment={props.content.onRecruitment}
 			onClick={() =>
-				isLogined(navigate, `/boards/recruitment/${props.content.boardId}`)
+				movePath(navigate, `/boards/recruitment/${props.content.boardId}`)
 			}>
 			<div className="closed" />
 			<div className="category">
@@ -22,7 +23,7 @@ const Card = (props) => {
 				{props.content.activityCategory}
 			</div>
 			<div className="title">{props.content.title}</div>
-			<div className="content">{newContent}</div>
+			<div className="contentBody">{newContent}</div>
 			<div className="writerProfileWrap">
 				{props.content.region}
 				<hr />

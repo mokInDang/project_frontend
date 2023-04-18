@@ -109,48 +109,53 @@ const ProfileWrap = styled.div`
 	justify-content: end;
 	align-items: center;
 `;
-const Header = (props) => {
+const Header = () => {
 	const navigate = useNavigate();
-	const [view, setView] = useState(false);
 	const location = useLocation();
-	let userInfo = '';
-
-	const getUserInfo = () => {
-		if (props.isLogined) {
-			userInfo = secureLocalStorage.getItem('userInfo');
-		}
-	};
+	const [isLogined, setIsLogined] = useState(false);
+	let [userInfo, setUserInfo] = useState({ region: 'DEFAULT_REGION' });
+	const [view, setView] = useState(false);
 
 	useEffect(() => {
-		isLogined(props.getIsLogined, true, true);
-		getUserInfo();
-	});
+		if (secureLocalStorage.getItem('accessToken')) {
+			setIsLogined(true);
+			setUserInfo(secureLocalStorage.getItem('userInfo'));
+			console.log(userInfo);
+		} else {
+			setIsLogined(false);
+		}
+	}, []);
+	
+	// const getUserInfo = () => {
+	// 	if (isLogined) {
+	// 		setUserInfo(secureLocalStorage.getItem('userInfo'));
+	// 	}
+	// };
 
 	useEffect(() => {
 		setView(false);
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로
 	// secureLocalStorage.setItem('accessToken', 'Bearer Token');
+
 	return (
 		<>
 			{location.pathname !== '/login' && (
 				<Headerdiv>
 					<div className="headerWrapper">
 						<div className="logoWrapper">
-							<div>
-								<div
-									className="HomebuttonWrapper"
-									onClick={() => movePath(navigate, '/')}>
-									<img
-										src={homeIcon}
-										alt="homeIcon"
-									/>
-									우리동네줍깅
-								</div>
+							<div
+								className="HomebuttonWrapper"
+								onClick={() => movePath(navigate, '/')}>
+								<img
+									src={homeIcon}
+									alt="homeIcon"
+								/>
+								우리동네줍깅
 							</div>
 						</div>
 						{location.pathname !== '/api/auth/join' && (
 							<ButtonWrap>
-								{userInfo.region && userInfo.region !== 'DEFAULT_REGION' && (
+								{isLogined && userInfo.region !== 'DEFAULT_REGION' ? (
 									<div className="myRegion">
 										<img
 											src={locationIcon}
@@ -158,15 +163,18 @@ const Header = (props) => {
 										/>
 										<HeaderButton>{userInfo.region}</HeaderButton>
 									</div>
+								) : (
+									<></>
 								)}
 								<HeaderButton
 									className="newPost"
 									onClick={() =>
-										isLogined(navigate, '/boards/recruitment')
+										// isLogined(navigate, '/boards/recruitment')
+										navigate('/boards/recruitment')
 									}>
 									새 글 쓰기
 								</HeaderButton>
-								{props.isLogined ? (
+								{isLogined ? (
 									<ProfileWrap
 										onClick={() => {
 											setView(!view);

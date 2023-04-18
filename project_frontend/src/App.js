@@ -1,26 +1,18 @@
 import './App.css';
-import { Home, Login, BoardDetails, Welcome, Write } from './pages';
+import { Home, Login, BoardDetails, Welcome, PostRecruitment, PatchRecruitment } from './pages';
 import { Routes, Route } from 'react-router-dom';
 import { Header } from './components';
 import { useState, useEffect } from 'react';
 import { reissueToken } from './apis';
 
 function App() {
-	const [isLogined, setIsLogined] = useState(false);
-	const getIsLogined = (value) => {
-		setIsLogined(value);
-	};
-	useEffect(() => {
-		// 페이지 리로드 시 reissueToken 실행
-		console.log('App.js에서 reissueToken 실행');
-		reissueToken();
-	}, []);
+	// 페이지 리로드 시 reissueToken 실행
+	console.log('App.js에서 reissueToken 실행');
+	reissueToken();
+	
 	return (
 		<div className="App">
-			<Header
-				isLogined={isLogined}
-				getIsLogined={getIsLogined}
-			/>
+			<Header />
 			<Routes>
 				<Route
 					path="/"
@@ -36,7 +28,11 @@ function App() {
 				/>
 				<Route
 					path="/boards/recruitment"
-					element={<Write />}
+					element={<PostRecruitment />}
+				/>
+				<Route
+					path="/edit/recruitment/:boardId"
+					element={<PatchRecruitment />}
 				/>
 				<Route
 					path="/boards/recruitment/:boardId"

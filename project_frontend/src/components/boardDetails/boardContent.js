@@ -4,6 +4,7 @@ import axios from 'axios';
 import { HR } from '../write/writeFormComponents';
 import { BsArrowLeft } from 'react-icons/bs';
 import {
+	BoardDetailsWrap,
 	HeadingDiv,
 	WriterDiv,
 	WriterProfilePicDiv,
@@ -13,7 +14,14 @@ import {
 	ReplyDiv,
 	ReplyInput,
 	ReplySubmitButton,
+	ButtonsWrap,
+	BoardContentButtonDiv,
 } from './boardDetailsStyledComponents';
+import {
+	getRecruitment,
+	closeRecruitment,
+	deleteRecruitment,
+} from '../../apis';
 
 const DateString = (dateString, parseString) => {
 	let date = new Date(dateString);
@@ -25,33 +33,32 @@ const DateString = (dateString, parseString) => {
 };
 
 const BoardContent = () => {
+	const params = useParams();
 	const navigate = useNavigate();
 	const [boardDetails, setBoardDetails] = useState('');
-	let params = useParams();
+	const getBoardDetails = (value) => {
+		setBoardDetails(value);
+	};
+	const [isOnRecruitment, setIsOnRecruitment] = useState(1);
+	const getNewDetails = () => {
+		setIsOnRecruitment(0);
+	};
 	useEffect(() => {
-		axios
-			.get(`/api/boards/recruitment/${params.boardId}`)
-			.then((res) => {
-				console.log(res.data);
-				setBoardDetails(res.data);
-			})
-			.catch((error) => {
-				alert('잘못된 접근입니다.');
-				console.log(error);
-				navigate('/');
-			});
-	}, []);
+		getRecruitment(params.boardId, getBoardDetails, navigate);
+	}, [isOnRecruitment]);
 
-	let items = ['활동 지역', '모집 구분', '시작 예정'];
+	let items = ['활동 지역', '모집 구분', '시작 예정', '모집 상태'];
 	let values = [
 		boardDetails.region,
 		boardDetails.activityCategory,
 		DateString(boardDetails.startingDate, '.'),
+		boardDetails.onRecruitment ? '모집 중' : '마감됨',
 	];
+
 	return (
 		<>
 			{boardDetails ? (
-				<>
+				<BoardDetailsWrap>
 					<BsArrowLeft
 						style={{ margin: '3rem 1rem', cursor: 'pointer', fontSize: '5rem' }}
 						onClick={() => navigate(-1)}
@@ -73,6 +80,35 @@ const BoardContent = () => {
 						</div>
 					</WriterDiv>
 					<HR />
+					{boardDetails.mine && (
+						<ButtonsWrap boardDetails={boardDetails}>
+							{/* boardDetails.onRecruitment 조회하여 마감 버튼 스타일할 것 */}
+							{boardDetails.onRecruitment === true && (
+								<>
+									<BoardContentButtonDiv
+										onClick={() => {
+											closeRecruitment(boardDetails.boardId, getNewDetails);
+										}}>
+										마감
+									</BoardContentButtonDiv>
+									<BoardContentButtonDiv
+										onClick={() => {
+											navigate(`/edit/recruitment/${boardDetails.boardId}`, {
+												state: boardDetails,
+											});
+										}}>
+										수정
+									</BoardContentButtonDiv>
+								</>
+							)}
+							<BoardContentButtonDiv
+								onClick={() => {
+									deleteRecruitment(boardDetails.boardId, navigate);
+								}}>
+								삭제
+							</BoardContentButtonDiv>
+						</ButtonsWrap>
+					)}
 					<BoardInfo>
 						{items.map((item, i) => {
 							return (
@@ -86,7 +122,9 @@ const BoardContent = () => {
 					<ContentDiv>
 						<HeadingDiv fontSize="2.9rem">프로젝트 소개</HeadingDiv>
 						<HR />
-						<div dangerouslySetInnerHTML={{ __html: boardDetails.content }} />
+						<div
+							dangerouslySetInnerHTML={{ __html: boardDetails.contentBody }}
+						/>
 					</ContentDiv>
 					{/* 댓글 API 연결 후 댓글 Div 컴포넌트로 분리할 것! */}
 					<ReplyDiv>
@@ -96,7 +134,7 @@ const BoardContent = () => {
 						</ReplyInput>
 						<ReplySubmitButton>댓글 등록</ReplySubmitButton>
 					</ReplyDiv>
-				</>
+				</BoardDetailsWrap>
 			) : (
 				<></>
 			)}

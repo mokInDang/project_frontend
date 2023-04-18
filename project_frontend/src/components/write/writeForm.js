@@ -1,41 +1,18 @@
 import React, { useState } from 'react';
 import EditorComponent from './editorComponent';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import {
-	CustomSelectActivity,
-	CustomSelectDate,
-} from './customSelect';
+import { useNavigate } from 'react-router-dom';
+import { CustomSelectActivity, CustomSelectDate } from './customSelect';
 import { Button, ButtonWrap, HR, Label, P, Title } from './writeFormComponents';
 import { green1, green2 } from '../../assets/images';
+import { movePath } from '../../utils';
+import { writeRecruitment, EditRecruitment } from '../../apis';
 
-const WriteForm = () => {
+const WriteForm = (props) => {
+	const boardIdToEdit = props.boardIdToEdit;
 	const navigate = useNavigate();
-	const [form, setForm] = useState({
-		title: '',
-		content: '',
-		activityCategory: '',
-		startingDate: '',
-	});
+	const [form, setForm] = useState(props.form);
+	const { title, contentBody, activityCategory, startingDate } = form;
 
-	const { title, content, activityCategory, startingDate } = form;
-
-	const writePost = async () => {
-		console.log('writePost 실행');
-		console.log(form);
-		axios
-			.post(`/api/boards/recruitment`, JSON.stringify(form), {
-				headers: { 'Content-Type': 'application/json; charset=utf-8' },
-			})
-			.then((res) => {
-				console.log(res.data.boardId);
-				navigate(`/boards/recruitment/${res.data.boardId}`, { replace: true });
-			})
-			.catch((error) => {
-				console.log(error);
-				console.log(error.response.request.response);
-			});
-	};
 	const getSelectedActivity = (newSelectedActivity) => {
 		const nextForm = {
 			...form, // 기존값 복사 (spread operator)
@@ -51,13 +28,13 @@ const WriteForm = () => {
 		setForm(nextForm);
 	};
 
-	const getHtmlContent = (newContent) => {
-		if (newContent === '<p><br></p>') {
-			newContent = '';
+	const getHtmlContentBody = (newContentBody) => {
+		if (newContentBody === '<p><br></p>') {
+			newContentBody = '';
 		}
 		const nextForm = {
 			...form, // 기존값 복사 (spread operator)
-			content: newContent, // 덮어쓰기
+			contentBody: newContentBody, // 덮어쓰기
 		};
 		setForm(nextForm);
 	};
@@ -120,21 +97,27 @@ const WriteForm = () => {
 				value={title}
 				onChange={onChange}></Title>
 			<EditorComponent
-				name="content"
-				value={content}
-				getHtmlContent={getHtmlContent}></EditorComponent>
+				name="contentBody"
+				value={contentBody}
+				getHtmlContentBody={getHtmlContentBody}
+			/>
 			<ButtonWrap>
-				<Button name="cancel">
-					<Link
-						to="/"
-						style={{ textDecoration: 'none', color: '#767676' }}>
-						취소
-					</Link>
+				<Button
+					name="cancel"
+					onClick={() => {
+						if (window.confirm('작성을 취소하고 페이지를 벗어나시겠습니까?')) {
+							movePath(navigate, '/');
+						}
+					}}>
+					취소
 				</Button>
 				<Button
-					onClick={writePost}
+					onClick={() => {
+						if (!boardIdToEdit) writeRecruitment(form, navigate);
+						else EditRecruitment(boardIdToEdit, form, navigate);
+					}}
 					name="write">
-					글 등록
+					{!boardIdToEdit ? '글 등록' : '수정하기'}
 				</Button>
 			</ButtonWrap>
 		</div>
