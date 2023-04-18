@@ -29,6 +29,7 @@ const DateString = (dateString, parseString) => {
 };
 
 const BoardContent = () => {
+	const params = useParams();
 	const navigate = useNavigate();
 	const [boardDetails, setBoardDetails] = useState('');
 	useEffect(() => {
