@@ -77,32 +77,34 @@ const BoardContent = () => {
 						</div>
 					</WriterDiv>
 					<HR />
-					{boardDetails.mine ? (
+					{boardDetails.mine && (
 						<ButtonsWrap boardDetails={boardDetails}>
 							{/* boardDetails.onRecruitment 조회하여 마감 버튼 스타일할 것 */}
+							{boardDetails.onRecruitment && (
+								<>
+									<BoardContentButtonDiv
+										onClick={() => {
+											closeRecruitment(boardDetails.boardId);
+										}}>
+										마감
+									</BoardContentButtonDiv>
+									<BoardContentButtonDiv
+										onClick={() => {
+											navigate(`/edit/recruitment/${boardDetails.boardId}`, {
+												state: boardDetails,
+											});
+										}}>
+										수정
+									</BoardContentButtonDiv>
+								</>
+							)}
 							<BoardContentButtonDiv
 								onClick={() => {
-									closeRecruitment(boardDetails.boardId);
-								}}>
-								마감
-							</BoardContentButtonDiv>
-							<BoardContentButtonDiv
-								onClick={() => {
-									navigate(`/edit/recruitment/${boardDetails.boardId}`, {
-										state: boardDetails,
-									});
-								}}>
-								수정
-							</BoardContentButtonDiv>
-							<BoardContentButtonDiv
-								onClick={() => {
-									deleteRecruitment(boardDetails.boardId);
+									deleteRecruitment(boardDetails.boardId, navigate);
 								}}>
 								삭제
 							</BoardContentButtonDiv>
 						</ButtonsWrap>
-					) : (
-						<></>
 					)}
 					<BoardInfo>
 						{items.map((item, i) => {
