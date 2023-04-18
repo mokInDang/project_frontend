@@ -10,6 +10,7 @@ const Card = (props) => {
 		.replace(/(<([^>]+)>)/gi, '');
 	return (
 		<BoardItemCard
+			isOnRecruitment={props.content.onRecruitment}
 			onClick={() =>
 				movePath(navigate, `/boards/recruitment/${props.content.boardId}`)
 			}>

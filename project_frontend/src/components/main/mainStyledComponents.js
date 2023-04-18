@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { closed_stamp } from '../../assets/images';
 
 const BoardItemsWrap = styled.div`
 	display: grid;
@@ -55,13 +56,14 @@ const BoardItemCard = styled.div`
 	.closed {
 		width: 100%;
 		height: 100%;
-		background-color: grey;
+		background: rgba(129, 129, 129, 0.3) url(${closed_stamp}) no-repeat center
+			center;
+		background-size: 20rem;
 		position: absolute;
 		top: 0;
 		left: 0;
 		z-index: 1;
-		opacity: 0.4;
-		display: none;
+		display: ${(props) => (props.isOnRecruitment ? 'none' : 'block')};
 	}
 	.category {
 		color: #b3b3b3;
