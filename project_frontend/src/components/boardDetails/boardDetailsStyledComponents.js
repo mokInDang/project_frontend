@@ -71,14 +71,12 @@ const BoardInfo = styled.div`
 		@media (max-width: 1024px) {
 			display: block;
 		}
+		@media (max-width: 778px) {
+			display: flex;
+		}
 	}
 	.category {
 		color: #8a8a8a;
-	}
-	@media (min-width: 1440px) {
-		grid-template-columns: repeat(3, auto);
-		grid-template-rows: 1fr;
-		gap: 3rem;
 	}
 	@media (max-width: 778px) {
 		grid-template-columns: auto;
@@ -87,7 +85,6 @@ const BoardInfo = styled.div`
 	}
 `;
 const ReplyDiv = styled(ContentDiv)`
-	position: relative;
 `;
 const ReplyInput = styled.div`
 	margin: 2rem 0;
