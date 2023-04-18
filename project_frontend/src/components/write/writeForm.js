@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import EditorComponent from './editorComponent';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { CustomSelectActivity, CustomSelectDate } from './customSelect';
 import { Button, ButtonWrap, HR, Label, P, Title } from './writeFormComponents';
 import { green1, green2 } from '../../assets/images';
 import { movePath } from '../../utils';
-import { EditRecruitment } from '../../apis';
+import { writeRecruitment, EditRecruitment } from '../../apis';
 
 const WriteForm = (props) => {
 	const boardIdToEdit = props.boardIdToEdit;
@@ -14,20 +13,6 @@ const WriteForm = (props) => {
 	const [form, setForm] = useState(props.form);
 	const { title, contentBody, activityCategory, startingDate } = form;
 
-	const writeRecruitment = () => {
-		console.log('writeRecruitment 실행');
-		console.log(form);
-		axios
-			.post(`/api/boards/recruitment`, form)
-			.then((res) => {
-				console.log(res.data.boardId);
-				navigate(`/boards/recruitment/${res.data.boardId}`, { replace: true });
-			})
-			.catch((error) => {
-				console.log(error);
-				console.log(error.response.request.response);
-			});
-	};
 	const getSelectedActivity = (newSelectedActivity) => {
 		const nextForm = {
 			...form, // 기존값 복사 (spread operator)
@@ -128,7 +113,7 @@ const WriteForm = (props) => {
 				</Button>
 				<Button
 					onClick={() => {
-						if (!boardIdToEdit) writeRecruitment();
+						if (!boardIdToEdit) writeRecruitment(form, navigate);
 						else EditRecruitment(boardIdToEdit, form, navigate);
 					}}
 					name="write">
