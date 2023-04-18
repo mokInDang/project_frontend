@@ -15,12 +15,7 @@ function PostRecruitment() {
 
 	if (boardIdForEdit) {
 		{
-			formToEdit
-				? (initialForm = formToEdit)
-				: () => {
-						alert('잘못된 접근입니다.');
-						navigate(-1);
-				  };
+			formToEdit ? (initialForm = formToEdit) : navigate(-1);
 		}
 	}
 
