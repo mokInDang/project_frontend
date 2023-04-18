@@ -109,20 +109,28 @@ const ProfileWrap = styled.div`
 	justify-content: end;
 	align-items: center;
 `;
-const Header = (props) => {
+const Header = () => {
 	const navigate = useNavigate();
-	const [view, setView] = useState(false);
 	const location = useLocation();
+	const [isLogined, setIsLogined] = useState(false);
 	let userInfo = '';
+	const [view, setView] = useState(false);
+
+	useEffect(() => {
+		if (secureLocalStorage.getItem('accessToken')) {
+			setIsLogined(true);
+		} else {
+			setIsLogined(false);
+		}
+	}, []);
 
 	const getUserInfo = () => {
-		if (props.isLogined) {
+		if (isLogined) {
 			userInfo = secureLocalStorage.getItem('userInfo');
 		}
 	};
 
 	useEffect(() => {
-		isLogined(props.getIsLogined, true, true);
 		getUserInfo();
 	});
 
@@ -136,21 +144,19 @@ const Header = (props) => {
 				<Headerdiv>
 					<div className="headerWrapper">
 						<div className="logoWrapper">
-							<div>
-								<div
-									className="HomebuttonWrapper"
-									onClick={() => movePath(navigate, '/')}>
-									<img
-										src={homeIcon}
-										alt="homeIcon"
-									/>
-									우리동네줍깅
-								</div>
+							<div
+								className="HomebuttonWrapper"
+								onClick={() => movePath(navigate, '/')}>
+								<img
+									src={homeIcon}
+									alt="homeIcon"
+								/>
+								우리동네줍깅
 							</div>
 						</div>
 						{location.pathname !== '/api/auth/join' && (
 							<ButtonWrap>
-								{(userInfo.region && userInfo.region !== 'DEFAULT_REGION') && (
+								{userInfo.region && userInfo.region !== 'DEFAULT_REGION' ? (
 									<div className="myRegion">
 										<img
 											src={locationIcon}
@@ -158,6 +164,8 @@ const Header = (props) => {
 										/>
 										<HeaderButton>{userInfo.region}</HeaderButton>
 									</div>
+								) : (
+									<></>
 								)}
 								<HeaderButton
 									className="newPost"
@@ -167,7 +175,7 @@ const Header = (props) => {
 									}>
 									새 글 쓰기
 								</HeaderButton>
-								{props.isLogined ? (
+								{isLogined ? (
 									<ProfileWrap
 										onClick={() => {
 											setView(!view);

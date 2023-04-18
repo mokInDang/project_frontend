@@ -6,20 +6,13 @@ import { useState, useEffect } from 'react';
 import { reissueToken } from './apis';
 
 function App() {
-	const [isLogined, setIsLogined] = useState(false);
-	const getIsLogined = (value) => {
-		setIsLogined(value);
-	};
 	// 페이지 리로드 시 reissueToken 실행
 	console.log('App.js에서 reissueToken 실행');
 	reissueToken();
 	
 	return (
 		<div className="App">
-			<Header
-				isLogined={isLogined}
-				getIsLogined={getIsLogined}
-			/>
+			<Header />
 			<Routes>
 				<Route
 					path="/"

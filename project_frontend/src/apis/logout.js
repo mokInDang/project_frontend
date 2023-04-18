@@ -19,7 +19,6 @@ const onLogout = async () => {
 		})
 		.catch((error) => {
 			console.log(error);
-			console.log(error.status);
 			console.log('동네줍깅 로그아웃 실패');
 		});
 };
