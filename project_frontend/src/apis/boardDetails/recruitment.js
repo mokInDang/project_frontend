@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useNavigate } from 'react-router';
 
 const closeRecruitment = (boardId) => {
 	if (window.confirm('모집을 마감하시겠습니까?')) {
@@ -18,9 +17,14 @@ const closeRecruitment = (boardId) => {
 			});
 	}
 };
-const GetRecruitmentForEdit = (boardId) => {
-	const navigate = useNavigate();
-	let form = {};
+const GetRecruitmentForEdit = (boardId, navigate) => {
+	console.log('GetRecruitmentForEdit 실행');
+	let form = {
+		title: '',
+		contentBody: '',
+		activityCategory: '',
+		startingDate: '',
+	};
 	axios
 		.get(`/api/boards/recruitment/${boardId}`)
 		.then((res) => {
@@ -28,9 +32,10 @@ const GetRecruitmentForEdit = (boardId) => {
 			form = res.data;
 		})
 		.catch((error) => {
-			alert('잘못된 접근입니다.');
 			console.log(error);
-			navigate(-1);
+			console.log('기본 폼 리턴')
+			// alert('잘못된 접근입니다.');
+			// navigate(-1);
 		});
 	return form;
 };
