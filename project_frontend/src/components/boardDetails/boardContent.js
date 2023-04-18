@@ -32,6 +32,10 @@ const BoardContent = () => {
 	const params = useParams();
 	const navigate = useNavigate();
 	const [boardDetails, setBoardDetails] = useState('');
+	const [isClosed, setIsClosed] = useState(undefined);
+	const getIsClosed = (value) => {
+		setIsClosed(value);
+	};
 	useEffect(() => {
 		axios
 			.get(`/api/boards/recruitment/${params.boardId}`)
@@ -44,7 +48,7 @@ const BoardContent = () => {
 				console.log(error);
 				navigate('/');
 			});
-	}, []);
+	}, [isClosed]);
 
 	let items = ['활동 지역', '모집 구분', '시작 예정', '모집 상태'];
 	let values = [
@@ -85,7 +89,7 @@ const BoardContent = () => {
 								<>
 									<BoardContentButtonDiv
 										onClick={() => {
-											closeRecruitment(boardDetails.boardId);
+											closeRecruitment(boardDetails.boardId, getIsClosed);
 										}}>
 										마감
 									</BoardContentButtonDiv>
