@@ -31,7 +31,6 @@ const DateString = (dateString, parseString) => {
 const BoardContent = () => {
 	const navigate = useNavigate();
 	const [boardDetails, setBoardDetails] = useState('');
-	let params = useParams();
 	useEffect(() => {
 		axios
 			.get(`/api/boards/recruitment/${params.boardId}`)
@@ -46,11 +45,12 @@ const BoardContent = () => {
 			});
 	}, []);
 
-	let items = ['활동 지역', '모집 구분', '시작 예정'];
+	let items = ['활동 지역', '모집 구분', '시작 예정', '모집 상태'];
 	let values = [
 		boardDetails.region,
 		boardDetails.activityCategory,
 		DateString(boardDetails.startingDate, '.'),
+		boardDetails.onRecruitment ? '모집 중' : '마감됨',
 	];
 	return (
 		<>
@@ -119,7 +119,9 @@ const BoardContent = () => {
 					<ContentDiv>
 						<HeadingDiv fontSize="2.9rem">프로젝트 소개</HeadingDiv>
 						<HR />
-						<div dangerouslySetInnerHTML={{ __html: boardDetails.contentBody }} />
+						<div
+							dangerouslySetInnerHTML={{ __html: boardDetails.contentBody }}
+						/>
 					</ContentDiv>
 					{/* 댓글 API 연결 후 댓글 Div 컴포넌트로 분리할 것! */}
 					<ReplyDiv>

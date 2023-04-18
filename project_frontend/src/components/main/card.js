@@ -1,7 +1,7 @@
 import { BoardItemCard } from './mainStyledComponents';
 import { WriterProfilePicDiv, VerticalBar } from '../../components';
 import { useNavigate } from 'react-router-dom';
-import { isLogined } from '../../utils';
+import { movePath } from '../../utils';
 const Card = (props) => {
 	const navigate = useNavigate();
 	const contentBody = props.content.contentBody;
@@ -11,7 +11,7 @@ const Card = (props) => {
 	return (
 		<BoardItemCard
 			onClick={() =>
-				isLogined(navigate, `/boards/recruitment/${props.content.boardId}`)
+				movePath(navigate, `/boards/recruitment/${props.content.boardId}`)
 			}>
 			<div className="closed" />
 			<div className="category">
