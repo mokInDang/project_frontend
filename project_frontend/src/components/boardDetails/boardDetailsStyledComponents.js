@@ -47,6 +47,7 @@ const VerticalBar = styled.div`
 
 const ContentDiv = styled.div`
 	margin: 8rem 0;
+	font-size: 1.8rem;
 `;
 
 const BoardInfo = styled.div`
@@ -84,8 +85,7 @@ const BoardInfo = styled.div`
 		margin: 4rem 0;
 	}
 `;
-const ReplyDiv = styled(ContentDiv)`
-`;
+const ReplyDiv = styled(ContentDiv)``;
 const ReplyInput = styled.div`
 	margin: 2rem 0;
 	height: 10rem;
