@@ -9,10 +9,9 @@ import { green1, green2 } from '../../assets/images';
 const WriteForm = (props) => {
 	const navigate = useNavigate();
 	const [form, setForm] = useState(props.form);
+	const { title, contentBody, activityCategory, startingDate } = form;
 
-	let { title, content, activityCategory, startingDate } = form;
-
-	const writePost = async () => {
+	const writePost = () => {
 		console.log('writePost 실행');
 		console.log(form);
 		axios
@@ -44,13 +43,13 @@ const WriteForm = (props) => {
 		setForm(nextForm);
 	};
 
-	const getHtmlContent = (newContent) => {
-		if (newContent === '<p><br></p>') {
-			newContent = '';
+	const getHtmlContentBody = (newContentBody) => {
+		if (newContentBody === '<p><br></p>') {
+			newContentBody = '';
 		}
 		const nextForm = {
 			...form, // 기존값 복사 (spread operator)
-			content: newContent, // 덮어쓰기
+			contentBody: newContentBody, // 덮어쓰기
 		};
 		setForm(nextForm);
 	};
@@ -113,9 +112,11 @@ const WriteForm = (props) => {
 				value={title}
 				onChange={onChange}></Title>
 			<EditorComponent
-				name="content"
-				value={content}
-				getHtmlContent={getHtmlContent}></EditorComponent>
+				name="contentBody"
+				value={contentBody}
+				getHtmlContentBody={
+					getHtmlContentBody
+				}></EditorComponent>
 			<ButtonWrap>
 				<Button name="cancel">
 					<Link

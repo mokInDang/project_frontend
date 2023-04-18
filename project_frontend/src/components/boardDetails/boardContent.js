@@ -118,7 +118,7 @@ const BoardContent = () => {
 					<ContentDiv>
 						<HeadingDiv fontSize="2.9rem">프로젝트 소개</HeadingDiv>
 						<HR />
-						<div dangerouslySetInnerHTML={{ __html: boardDetails.content }} />
+						<div dangerouslySetInnerHTML={{ __html: boardDetails.contentBody }} />
 					</ContentDiv>
 					{/* 댓글 API 연결 후 댓글 Div 컴포넌트로 분리할 것! */}
 					<ReplyDiv>

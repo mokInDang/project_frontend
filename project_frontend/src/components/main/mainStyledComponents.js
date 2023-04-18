@@ -86,7 +86,7 @@ const BoardItemCard = styled.div`
 		-webkit-line-clamp: 2;
 		align-self: center;
 	}
-	.content {
+	.contentBody {
 		display: -webkit-box;
 		text-overflow: ellipsis;
 		width: 100%;
@@ -122,7 +122,7 @@ const BoardItemCard = styled.div`
 			line-height: 3rem;
 			-webkit-line-clamp: 1;
 		}
-		.content {
+		.contentBody {
 			font-size: 2rem;
 			line-height: 2.7rem;
 			height: 10.8rem;

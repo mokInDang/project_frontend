@@ -12,8 +12,8 @@ Size.whitelist = ['medium', 'large'];
 Quill.register(Size, true);
 Quill.register(Font, true);
 
-function EditorComponent({ getHtmlContent, value }) {
-	const [content, setContent] = useState('');
+function EditorComponent({ getHtmlContentBody, value }) {
+	const [contentBody, setContentBody] = useState('');
 	const modules = {
 		toolbar: [
 			[{ 'font': Font.whitelist }],
@@ -39,12 +39,12 @@ function EditorComponent({ getHtmlContent, value }) {
 		'background',
 	];
 	useEffect(() => {
-		setContent(value);
+		setContentBody(value);
 	}, []);
 
 	useEffect(() => {
-		getHtmlContent(content);
-	}, [content]);
+		getHtmlContentBody(contentBody);
+	}, [contentBody]);
 
 	return (
 		<QuillWrap>
@@ -53,8 +53,8 @@ function EditorComponent({ getHtmlContent, value }) {
 				theme="snow"
 				modules={modules}
 				formats={formats}
-				value={content}
-				onChange={setContent}
+				value={contentBody}
+				onChange={setContentBody}
 				placeholder="프로젝트에 대해 소개해주세요!"
 			/>
 		</QuillWrap>

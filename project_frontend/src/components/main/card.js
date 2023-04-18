@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { isLogined } from '../../utils';
 const Card = (props) => {
 	const navigate = useNavigate();
-	const content = props.content.content;
-	const newContent = content
+	const contentBody = props.content.contentBody;
+	const newContent = contentBody
 		.replace(/<[^>]*>?/g, '')
 		.replace(/(<([^>]+)>)/gi, '');
 	return (
@@ -22,7 +22,7 @@ const Card = (props) => {
 				{props.content.activityCategory}
 			</div>
 			<div className="title">{props.content.title}</div>
-			<div className="content">{newContent}</div>
+			<div className="contentBody">{newContent}</div>
 			<div className="writerProfileWrap">
 				{props.content.region}
 				<hr />
