@@ -10,11 +10,10 @@ function App() {
 	const getIsLogined = (value) => {
 		setIsLogined(value);
 	};
-	useEffect(() => {
-		// 페이지 리로드 시 reissueToken 실행
-		console.log('App.js에서 reissueToken 실행');
-		reissueToken();
-	}, []);
+	// 페이지 리로드 시 reissueToken 실행
+	console.log('App.js에서 reissueToken 실행');
+	reissueToken();
+	
 	return (
 		<div className="App">
 			<Header
