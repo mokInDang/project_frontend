@@ -1,4 +1,4 @@
-import Header from './header';
+import { Header, GlobalProfile } from './header';
 import Dropdown from './dropdown';
 import GetlocationButton from './getLocationButton';
 import JoinComment from './login/joinComment';
@@ -32,7 +32,6 @@ import {
 	ReplyInput,
 	ReplySubmitButton,
 } from './boardDetails/boardDetailsStyledComponents';
-import { Profile } from './header';
 export {
 	JoinComment,
 	Header,
@@ -48,7 +47,6 @@ export {
 export {
 	WriteWrapper,
 	BoardItemsWrap,
-	Profile,
 	KakaoLoginButton,
 	LoginPageWrap,
 	LoginComments,
@@ -65,4 +63,5 @@ export {
 	ReplySubmitButton,
 	TabWrapper,
 	TabDiv,
+	GlobalProfile,
 };

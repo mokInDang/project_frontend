@@ -82,12 +82,12 @@ const HeaderButton = styled.div`
 	cursor: pointer;
 `;
 
-const Profile = styled.div`
+const GlobalProfile = styled.div`
 	border-radius: 50%;
 	border: 1px solid rgba(0, 0, 0, 0.1);
 	margin-right: 0.5rem;
-	height: 5rem;
-	width: 5rem;
+	width: ${(props) => props.size};
+	height: ${(props) => props.size};
 	background: url(${(props) =>
 			props.src &&
 			props.src !== 'DEFAULT_PROFILE_IMAGE_URL' &&
@@ -96,7 +96,7 @@ const Profile = styled.div`
 				: 'https://s3.ap-northeast-2.amazonaws.com/dongnejupging.profile.image.bucket/profile_image/%EC%9E%84%EC%8B%9C%ED%94%84%EB%A1%9C%ED%95%84.PNG'})
 		no-repeat center/cover;
 `;
-export { Profile };
+
 const ButtonWrap = styled.div`
 	align-items: center;
 	display: flex;
@@ -179,7 +179,10 @@ const Header = () => {
 										onClick={() => {
 											setView(!view);
 										}}>
-										<Profile src={userInfo.profileImageUrl} />
+										<GlobalProfile
+											size="5rem"
+											src={userInfo.profileImageUrl}
+										/>
 										<AiFillCaretDown size={'3rem'} />
 										{view ? <Dropdown /> : ''}
 									</ProfileWrap>
@@ -196,4 +199,4 @@ const Header = () => {
 		</>
 	);
 };
-export default Header;
+export { Header, GlobalProfile };
