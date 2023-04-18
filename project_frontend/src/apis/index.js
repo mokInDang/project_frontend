@@ -6,6 +6,7 @@ import {
 } from './login/login';
 import { onLogout } from './logout';
 import {
+	getRecruitment,
 	writeRecruitment,
 	EditRecruitment,
 	closeRecruitment,
@@ -18,6 +19,7 @@ export {
 	onSilentRefresh,
 	reissueToken,
 	onLogout,
+	getRecruitment,
 	writeRecruitment,
 	EditRecruitment,
 	closeRecruitment,

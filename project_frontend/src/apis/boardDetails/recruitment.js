@@ -1,5 +1,19 @@
 import axios from 'axios';
 
+const getRecruitment = (boardId, getBoardDetails, navigate) => {
+	axios
+		.get(`/api/boards/recruitment/${boardId}`)
+		.then((res) => {
+			console.log(res.data);
+			getBoardDetails(res.data);
+		})
+		.catch((error) => {
+			alert('잘못된 접근입니다.');
+			console.log(error);
+			navigate('/');
+		});
+};
+
 const writeRecruitment = (contentBody, navigate) => {
 	console.log('writeRecruitment 실행');
 	console.log(contentBody);
@@ -75,6 +89,7 @@ const deleteRecruitment = (boardId, navigate) => {
 };
 
 export {
+	getRecruitment,
 	writeRecruitment,
 	EditRecruitment,
 	closeRecruitment,

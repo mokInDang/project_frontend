@@ -17,7 +17,11 @@ import {
 	ButtonsWrap,
 	BoardContentButtonDiv,
 } from './boardDetailsStyledComponents';
-import { closeRecruitment, deleteRecruitment } from '../../apis';
+import {
+	getRecruitment,
+	closeRecruitment,
+	deleteRecruitment,
+} from '../../apis';
 
 const DateString = (dateString, parseString) => {
 	let date = new Date(dateString);
@@ -32,24 +36,17 @@ const BoardContent = () => {
 	const params = useParams();
 	const navigate = useNavigate();
 	const [boardDetails, setBoardDetails] = useState('');
+	const getBoardDetails = (value) => {
+		setBoardDetails(value);
+	};
 	const [isOnRecruitment, setIsOnRecruitment] = useState(1);
 	const getNewDetails = () => {
 		setIsOnRecruitment(0);
 	};
 	useEffect(() => {
-		axios
-			.get(`/api/boards/recruitment/${params.boardId}`)
-			.then((res) => {
-				console.log(res.data);
-				setBoardDetails(res.data);
-			})
-			.catch((error) => {
-				alert('잘못된 접근입니다.');
-				console.log(error);
-				navigate('/');
-			});
+		getRecruitment(params.boardId, getBoardDetails, navigate);
 	}, [isOnRecruitment]);
-	
+
 	console.log(isOnRecruitment);
 	let items = ['활동 지역', '모집 구분', '시작 예정', '모집 상태'];
 	let values = [
@@ -58,6 +55,7 @@ const BoardContent = () => {
 		DateString(boardDetails.startingDate, '.'),
 		boardDetails.onRecruitment ? '모집 중' : '마감됨',
 	];
+
 	return (
 		<>
 			{boardDetails ? (
