@@ -1,11 +1,11 @@
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams, useLocation } from 'react-router';
 import { WriteForm, WriteWrapper } from '../components';
-import { GetRecruitmentForEdit } from '../apis';
 
 function PostRecruitment() {
-	const boardIdForEdit = useParams().boardId;
+	const formToEdit = useLocation().state;
 	const navigate = useNavigate();
-
+	console.log(formToEdit);
+	const boardIdForEdit = useParams().boardId;
 	let initialForm = {
 		activityCategory: '',
 		startingDate: '',
@@ -14,7 +14,14 @@ function PostRecruitment() {
 	};
 
 	if (boardIdForEdit) {
-		initialForm = GetRecruitmentForEdit(boardIdForEdit, navigate);
+		{
+			formToEdit
+				? (initialForm = formToEdit)
+				: () => {
+						alert('잘못된 접근입니다.');
+						navigate(-1);
+				  };
+		}
 	}
 
 	return (
