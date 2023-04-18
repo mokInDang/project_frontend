@@ -37,7 +37,7 @@ const EditRecruitment = (boardId, contentBody, navigate) => {
 			});
 	}
 };
-const deleteRecruitment = (boardId) => {
+const deleteRecruitment = (boardId, navigate) => {
 	if (window.confirm('게시글을 삭제하시겠습니까?')) {
 		// 모달창으로 수정할 것
 		console.log(`모집 게시글 삭제`);
@@ -46,6 +46,7 @@ const deleteRecruitment = (boardId) => {
 			.then((res) => {
 				alert('모집 게시글이 삭제되었습니다.');
 				console.log(res.data.boardId);
+				navigate('/', { replace: true });
 			})
 			.catch((error) => {
 				console.log(error);
