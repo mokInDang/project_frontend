@@ -90,5 +90,19 @@ const MyPageWrapper = styled.div`
 		box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.13);
 		cursor: pointer;
 	}
+	.getRegionButton {
+		font-size: 1.8rem;
+		background: rgba(36, 36, 36, 1);
+		color: #ffffff;
+		height: 4rem;
+		width: 15rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 0.8rem;
+		box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.13);
+		cursor: pointer;
+		margin: 0 2rem;
+	}
 `;
 export { MyPageWrapper };

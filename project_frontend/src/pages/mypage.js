@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { MyPageWrapper } from '../components';
 import { UserEdit, Location } from 'iconsax-react';
 import { GlobalProfile } from '../components';
-import { useNavigate, useLocation } from 'react-router-dom';
-import GetLocationButton from '../components/getLocationButton';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function MyPage() {
@@ -13,15 +12,48 @@ function MyPage() {
 		'alias': '',
 		'region': '',
 	});
+	const [myRegion, setMyRegion] = useState();
+	const locRef = useRef({ latitude: null, longitude: null });
+
+	const getLocation = () => {
+		window.navigator.geolocation.getCurrentPosition(success, error);
+		function success(pos) {
+			const coordsObj = {
+				latitude: null,
+				longitude: null,
+			};
+			coordsObj.latitude = pos.coords.latitude;
+			coordsObj.longitude = pos.coords.longitude;
+			locRef.current = coordsObj;
+			console.log(locRef.current);
+			// axios 요청으로 region 보내는 함수
+			axios
+				.patch(`/api/member/region`, JSON.stringify(locRef.current))
+				.then((res) => {
+					setMyRegion(res.region);
+				})
+				.catch((error) => {
+					console.log(error);
+					alert('위치 받아오기에 실패했습니다.');
+				});
+		}
+		function error(error) {
+			console.error(error);
+			alert('위치 액세스를 허용해주세요.');
+		}
+	};
+	
 	useEffect(() => {
 		axios
 			.get('api/member/mypage')
 			.then((res) => {
 				console.log(res.data);
 				setUserInfo(res.data);
+				setMyRegion(res.data.region);
 			})
 			.catch((error) => console.log(error));
 	}, []);
+
 	return (
 		<MyPageWrapper>
 			<div className="title">마이페이지</div>
@@ -56,10 +88,14 @@ function MyPage() {
 					<input
 						type="text"
 						name="region"
-						value={userInfo.region}
+						value={myRegion ? myRegion : userInfo.region}
 						readOnly
 					/>
-					<GetLocationButton className="button" />
+					<div
+						className="getRegionButton"
+						onClick={getLocation}>
+						내 위치 받아오기
+					</div>
 				</div>
 			</div>
 			<div
