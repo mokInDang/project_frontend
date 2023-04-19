@@ -10,8 +10,8 @@ function MyPage() {
 	const navigate = useNavigate();
 	const [userInfo, setUserInfo] = useState({
 		'profileImageUrl': 'DEFAULT_PROFILE_IMAGE_URL',
-		'alias': '홍길동',
-		'region': '동에번쩍서에번쩍',
+		'alias': '',
+		'region': '',
 	});
 	useEffect(() => {
 		axios
@@ -58,7 +58,6 @@ function MyPage() {
 						name="region"
 						value={userInfo.region}
 						readOnly
-						disabled
 					/>
 					<GetLocationButton className="button" />
 				</div>
