@@ -5,5 +5,6 @@ import PostRecruitment from './postRecruitment';
 import BoardDetails from './boardDetails';
 import PatchRecruitment from './patchRecruitment';
 import MyPage from './mypage';
+import MyInfoEdit from './myInfoEdit';
 
-export { Login, Home, Welcome, PostRecruitment, BoardDetails, PatchRecruitment, MyPage };
+export { Login, Home, Welcome, PostRecruitment, BoardDetails, PatchRecruitment, MyPage, MyInfoEdit };
