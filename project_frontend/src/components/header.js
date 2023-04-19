@@ -128,11 +128,11 @@ const Header = () => {
 	useEffect(() => {
 		setView(false);
 		if (secureLocalStorage.getItem('accessToken') !== null) setIsLogined(true);
-		console.log(`isLogined : ${isLogined}`);
 		if (location.pathname === '/mypage') getUserInfo();
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로, 페이지 이동 시
 
 	useEffect(() => {
+		console.log(`isLogined : ${isLogined}`);
 		getUserInfo();
 	}, [isLogined]);
 

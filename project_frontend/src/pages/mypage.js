@@ -28,7 +28,9 @@ function MyPage() {
 			console.log(locRef.current);
 			// axios 요청으로 region 보내는 함수
 			axios
-				.patch(`/api/member/region`, JSON.stringify(locRef.current))
+				.patch(`/api/member/region`, JSON.stringify(locRef.current), {
+					headers: { 'Content-Type': 'application/json; charset=utf-8' },
+				})
 				.then((res) => {
 					setMyRegion(res.region);
 				})
@@ -42,7 +44,7 @@ function MyPage() {
 			alert('위치 액세스를 허용해주세요.');
 		}
 	};
-	
+
 	useEffect(() => {
 		axios
 			.get('api/member/mypage')
