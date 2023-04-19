@@ -74,7 +74,21 @@ const MyPageWrapper = styled.div`
 			margin-right: 2rem;
 		}
 	}
+	.buttonsWrap {
+		display: flex;
+	}
 	.button {
+		width: 10rem;
+		height: 4rem;
+		margin: 3rem;
+		background: rgba(36, 36, 36, 1);
+		color: #ffffff;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 0.8rem;
+		box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.13);
+		cursor: pointer;
 	}
 `;
 export { MyPageWrapper };
