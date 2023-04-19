@@ -5,6 +5,10 @@ import { GlobalProfile } from '../components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import secureLocalStorage from 'react-secure-storage';
+import {
+	fileExtensionValid,
+	fileSizeValid,
+} from '../utils/fileUploadValidHandler';
 
 function MyInfoEdit() {
 	const navigate = useNavigate();
@@ -42,14 +46,24 @@ function MyInfoEdit() {
 		const { files } = e.target;
 		if (!files || !files[0]) return;
 		const uploadImage = files[0];
-		console.log(uploadImage.name);
+		if (!fileExtensionValid(uploadImage.name)) {
+			e.target.value = '';
+			alert('업로드 가능한 확장자가 아닙니다. 가능한 확장자: jpg, jpeg, png');
+			return;
+		}
+		if (!fileSizeValid(uploadImage.size)) {
+			e.target.value = '';
+			alert('업로드 가능한 최대 파일 크기는 5MB입니다.');
+			return;
+		}
 		setProfileImage(uploadImage); // 업로드한 이미지 ProfileImage에 저장
 		createImageURL(uploadImage); // 썸네일용 이미지 url 생성
 	};
 
 	const deleteProfileThumbnail = () => {
-		setProfileThumbnail('DEFAULT_PROFILE_IMAGE_URL');
+		setProfileThumbnail('');
 	};
+	
 	const onAliasChange = (e) => {
 		const newUserInfo = {
 			...userInfo, // 기존값 복사 (spread operator)
