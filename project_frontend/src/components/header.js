@@ -125,7 +125,7 @@ const Header = () => {
 			setIsLogined(false);
 		}
 	}, []);
-	
+
 	// const getUserInfo = () => {
 	// 	if (isLogined) {
 	// 		setUserInfo(secureLocalStorage.getItem('userInfo'));
@@ -143,14 +143,16 @@ const Header = () => {
 				<Headerdiv>
 					<div className="headerWrapper">
 						<div className="logoWrapper">
-							<div
-								className="HomebuttonWrapper"
-								onClick={() => movePath(navigate, '/')}>
-								<img
-									src={homeIcon}
-									alt="homeIcon"
-								/>
-								우리동네줍깅
+							<div>
+								<div
+									className="HomebuttonWrapper"
+									onClick={() => movePath(navigate, '/')}>
+									<img
+										src={homeIcon}
+										alt="homeIcon"
+									/>
+									우리동네줍깅
+								</div>
 							</div>
 						</div>
 						{location.pathname !== '/api/auth/join' && (
