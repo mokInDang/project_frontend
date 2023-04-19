@@ -53,7 +53,9 @@ function Dropdown() {
 					새 글 쓰기
 				</DropdownList>
 				<DropdownList>내 작성글</DropdownList>
-				<DropdownList>마이페이지</DropdownList>
+				<DropdownList onClick={() => navigate('/mypage')}>
+					마이페이지
+				</DropdownList>
 				<DropdownList onClick={onLogout}>로그아웃</DropdownList>
 			</DropdownDiv>
 		</DropDownWrapper>
