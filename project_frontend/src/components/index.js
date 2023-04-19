@@ -32,6 +32,8 @@ import {
 	ReplyInput,
 	ReplySubmitButton,
 } from './boardDetails/boardDetailsStyledComponents';
+import { MyPageWrapper } from './myPage/myPageStyledComponents';
+
 export {
 	JoinComment,
 	Header,
@@ -64,4 +66,5 @@ export {
 	TabWrapper,
 	TabDiv,
 	GlobalProfile,
+	MyPageWrapper
 };
