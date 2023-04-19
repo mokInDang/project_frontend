@@ -15,7 +15,7 @@ function MyInfoEdit() {
 	const location = useLocation();
 	const [userInfo, setUserInfo] = useState(location.state); // 마이페이지에서 state로 넘어온 회원정보
 	const [profileThumbnail, setProfileThumbnail] = useState(); // 업로드한 이미지의 썸네일
-	const [profileImage, setProfileImage] = useState(); // 실제 이미지 파일 저장
+	const [profileImage, setProfileImage] = useState(''); // 실제 이미지 파일 저장
 	const formData = new FormData();
 
 	const submitChangedProfile = () => {
@@ -34,7 +34,10 @@ function MyInfoEdit() {
 				secureLocalStorage.setItem('userInfo', res.data);
 				navigate('/mypage');
 			})
-			.catch(console.log('내 정보 수정에 실패했습니다.'));
+			.catch((error) => {
+				console.error(error);
+				console.log('내 정보 수정에 실패했습니다.');
+			});
 	};
 	const createImageURL = (fileBlob) => {
 		// createObjectURL 방식으로 프로필 이미지 썸네일 표시
@@ -60,10 +63,6 @@ function MyInfoEdit() {
 		createImageURL(uploadImage); // 썸네일용 이미지 url 생성
 	};
 
-	const deleteProfileThumbnail = () => {
-		setProfileThumbnail('');
-	};
-	
 	const onAliasChange = (e) => {
 		const newUserInfo = {
 			...userInfo, // 기존값 복사 (spread operator)
@@ -101,9 +100,9 @@ function MyInfoEdit() {
 								id="profileImg"
 								onChange={onImageChange}
 							/>
-							<div className="imageButton">
+							{/* <div className="imageButton">
 								<label onClick={deleteProfileThumbnail}>이미지 제거</label>
-							</div>
+							</div> */}
 						</div>
 					</div>
 					<div className="myInfoWrap">
