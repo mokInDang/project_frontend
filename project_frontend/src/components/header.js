@@ -80,6 +80,8 @@ const HeaderButton = styled.div`
 	height: 100%;
 	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
 	cursor: pointer;
+	display: flex;
+	align-items: center;
 `;
 
 const GlobalProfile = styled.div`
@@ -113,29 +115,27 @@ const Header = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [isLogined, setIsLogined] = useState(false);
-	let [userInfo, setUserInfo] = useState({ region: 'DEFAULT_REGION' });
+	const [userInfo, setUserInfo] = useState({});
 	const [view, setView] = useState(false);
 
 	useEffect(() => {
-		if (secureLocalStorage.getItem('accessToken')) {
-			setIsLogined(true);
-			setUserInfo(secureLocalStorage.getItem('userInfo'));
-			console.log(userInfo);
-		} else {
-			setIsLogined(false);
-		}
+		const isUserInfoExists = secureLocalStorage.getItem('userInfo');
+		if (isUserInfoExists !== null) setIsLogined(true);
+		console.log(`isLogined : ${isLogined}`);
+		getUserInfo();
 	}, []);
 
-	// const getUserInfo = () => {
-	// 	if (isLogined) {
-	// 		setUserInfo(secureLocalStorage.getItem('userInfo'));
-	// 	}
-	// };
-
+	const getUserInfo = () => {
+		if (isLogined) {
+			setUserInfo(secureLocalStorage.getItem('userInfo'));
+			console.log('getUserInfo 실행');
+			console.log(`userInfo : ${userInfo}`);
+		}
+	};
 	useEffect(() => {
 		setView(false);
+		if (location.pathname === '/mypage') getUserInfo();
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로
-	// secureLocalStorage.setItem('accessToken', 'Bearer Token');
 
 	return (
 		<>
@@ -157,13 +157,19 @@ const Header = () => {
 						</div>
 						{location.pathname !== '/api/auth/join' && (
 							<ButtonWrap>
-								{isLogined && userInfo.region !== 'DEFAULT_REGION' ? (
+								{isLogined && userInfo ? (
 									<div className="myRegion">
-										<img
-											src={locationIcon}
-											alt="locationIcon"
-										/>
-										<HeaderButton>{userInfo.region}</HeaderButton>
+										{userInfo.region !== 'DEFAULT_REGION' ? (
+											<HeaderButton>
+												<img
+													src={locationIcon}
+													alt="locationIcon"
+												/>
+												{userInfo.region}
+											</HeaderButton>
+										) : (
+											''
+										)}
 									</div>
 								) : (
 									<></>
@@ -176,7 +182,7 @@ const Header = () => {
 									}>
 									새 글 쓰기
 								</HeaderButton>
-								{isLogined ? (
+								{isLogined && userInfo ? (
 									<ProfileWrap
 										onClick={() => {
 											setView(!view);
