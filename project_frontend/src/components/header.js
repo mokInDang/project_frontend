@@ -118,13 +118,6 @@ const Header = () => {
 	const [userInfo, setUserInfo] = useState({});
 	const [view, setView] = useState(false);
 
-	useEffect(() => {
-		const isUserInfoExists = secureLocalStorage.getItem('userInfo');
-		if (isUserInfoExists !== null) setIsLogined(true);
-		console.log(`isLogined : ${isLogined}`);
-		getUserInfo();
-	}, []);
-
 	const getUserInfo = () => {
 		if (isLogined) {
 			setUserInfo(secureLocalStorage.getItem('userInfo'));
@@ -134,8 +127,14 @@ const Header = () => {
 	};
 	useEffect(() => {
 		setView(false);
+		if (secureLocalStorage.getItem('accessToken') !== null) setIsLogined(true);
+		console.log(`isLogined : ${isLogined}`);
 		if (location.pathname === '/mypage') getUserInfo();
-	}, [location.pathname]); // 페이지 이동 시 dropdown view false로
+	}, [location.pathname]); // 페이지 이동 시 dropdown view false로, 페이지 이동 시
+
+	useEffect(() => {
+		getUserInfo();
+	}, [isLogined]);
 
 	return (
 		<>
