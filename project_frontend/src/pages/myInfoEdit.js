@@ -3,16 +3,36 @@ import { MyPageWrapper } from '../components';
 import { UserEdit, Location } from 'iconsax-react';
 import { GlobalProfile } from '../components';
 import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
+import secureLocalStorage from 'react-secure-storage';
 
 function MyInfoEdit() {
 	const navigate = useNavigate();
 	const location = useLocation();
-	const [userInfo, setUserInfo] = useState({
-		'profileImageUrl': 'DEFAULT_PROFILE_IMAGE_URL',
-		'alias': '기본 닉네임',
-		'region': '기본 위치',
-	});
+	console.log(location.state);
+	const [userInfo, setUserInfo] = useState(location.state);
 	const [profileThumbnail, setProfileThumbnail] = useState();
+	const [profileImg, setProfileImg] = useState('DEFAULT_PROFILE_IMAGE_URL');
+	const formData = new FormData();
+
+	const submitChangedProfile = () => {
+		formData.append('profileImage', profileImg);
+		formData.append('alias', userInfo.alias);
+		console.log(formData.get('profileImage'));
+		console.log(formData.get('alias'));
+		axios
+			.patch('/api/member/edit-mypage', formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				},
+			})
+			.then((res) => {
+				console.log(res.data);
+				secureLocalStorage.setItem('userInfo', res.data);
+				navigate('/mypage');
+			})
+			.catch(console.log('내 정보 수정에 실패했습니다.'));
+	};
 	const createImageURL = (fileBlob) => {
 		// createObjectURL 방식
 		if (profileThumbnail) URL.revokeObjectURL(profileThumbnail);
@@ -24,6 +44,7 @@ function MyInfoEdit() {
 		if (!files || !files[0]) return;
 		const uploadImage = files[0];
 		// formdata 세팅하는 함수 넣을것
+		setProfileImg(uploadImage);
 		createImageURL(uploadImage);
 	};
 
@@ -39,9 +60,7 @@ function MyInfoEdit() {
 	};
 	return (
 		<MyPageWrapper>
-			<div className="title">
-				{location.pathname === '/mypage' ? '마이페이지' : '내 정보 수정'}
-			</div>
+			<div className="title">내 정보 수정</div>
 			<div className="profileImageWrap">
 				<GlobalProfile
 					src={profileThumbnail ? profileThumbnail : userInfo.profileImageUrl}
@@ -92,22 +111,22 @@ function MyInfoEdit() {
 					/>
 				</div>
 			</div>
-			<div>
-				<button
+			<div className="buttonsWrap">
+				<div
+					className="button"
 					onClick={() => {
 						navigate('/mypage');
 					}}>
 					취소
-				</button>
-				<button
+				</div>
+				<div
+					className="button"
 					onClick={() => {
-						console.log('완료버튼 클릭');
+						submitChangedProfile();
 					}}>
 					완료
-				</button>
+				</div>
 			</div>
-			<div>닉네임 변경 미리보기 : {userInfo.alias}</div>
-			<div>브라우저 주소 미리보기 : {location.pathname}</div>
 		</MyPageWrapper>
 	);
 }
