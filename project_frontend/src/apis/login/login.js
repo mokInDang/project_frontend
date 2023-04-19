@@ -14,6 +14,7 @@ const OnLogin = async (res) => {
 			},
 		})
 		.then((res) => {
+			secureLocalStorage.setItem('userInfo', res.data);
 			onLoginSuccess(res);
 			navigate('/');
 		})
@@ -27,7 +28,6 @@ const OnLogin = async (res) => {
 const onLoginSuccess = (res) => {
 	console.log('2. onLoginSuccess 실행');
 	secureLocalStorage.setItem('accessToken', res.headers.get('Authorization'));
-	secureLocalStorage.setItem('userInfo', res.data);
 	axios.defaults.headers.common['Authorization'] =
 		secureLocalStorage.getItem('accessToken');
 	setTimeout(() => onSilentRefresh(), JWT_EXPIRY_TIME - 60000);
