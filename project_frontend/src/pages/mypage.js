@@ -1,23 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MyPageWrapper } from '../components';
 import { UserEdit, Location } from 'iconsax-react';
 import { GlobalProfile } from '../components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import GetLocationButton from '../components/getLocationButton';
+import axios from 'axios';
 
 function MyPage() {
 	const navigate = useNavigate();
-	const location = useLocation();
 	const [userInfo, setUserInfo] = useState({
 		'profileImageUrl': 'DEFAULT_PROFILE_IMAGE_URL',
-		'alias': '기본 닉네임',
-		'region': '기본 위치',
+		'alias': '홍길동',
+		'region': '동에번쩍서에번쩍',
 	});
+	useEffect(() => {
+		axios
+			.get('api/member/mypage')
+			.then((res) => {
+				console.log(res.data);
+				setUserInfo(res.data);
+			})
+			.catch((error) => console.log(error));
+	}, []);
 	return (
 		<MyPageWrapper>
-			<div className="title">
-				{location.pathname === '/mypage' ? '마이페이지' : '내 정보 수정'}
-			</div>
+			<div className="title">마이페이지</div>
 			<div className="profileImageWrap">
 				<GlobalProfile
 					src={userInfo.profileImageUrl}
@@ -56,19 +63,14 @@ function MyPage() {
 					<GetLocationButton className="button" />
 				</div>
 			</div>
-			{location.pathname == '/mypage' && (
-				<div>
-					<button
-						onClick={() => {
-							navigate('/mypage/edit', { state: userInfo });
-						}}>
-						수정
-					</button>
-					<button onClick={() => {}}>회원 탈퇴</button>
-				</div>
-			)}
-			<div>닉네임 변경 미리보기 : {userInfo.alias}</div>
-			<div>브라우저 주소 미리보기 : {location.pathname}</div>
+			<div
+				className="button"
+				onClick={() => {
+					navigate('/mypage/edit', { state: userInfo });
+				}}>
+				수정
+			</div>
+			{/* <button onClick={() => {}}>회원 탈퇴</button> */}
 		</MyPageWrapper>
 	);
 }
