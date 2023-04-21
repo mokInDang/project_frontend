@@ -80,14 +80,16 @@ const HeaderButton = styled.div`
 	height: 100%;
 	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
 	cursor: pointer;
+	display: flex;
+	align-items: center;
 `;
 
-const Profile = styled.div`
+const GlobalProfile = styled.div`
 	border-radius: 50%;
 	border: 1px solid rgba(0, 0, 0, 0.1);
 	margin-right: 0.5rem;
-	height: 5rem;
-	width: 5rem;
+	width: ${(props) => props.size};
+	height: ${(props) => props.size};
 	background: url(${(props) =>
 			props.src &&
 			props.src !== 'DEFAULT_PROFILE_IMAGE_URL' &&
@@ -96,10 +98,13 @@ const Profile = styled.div`
 				: 'https://s3.ap-northeast-2.amazonaws.com/dongnejupging.profile.image.bucket/profile_image/%EC%9E%84%EC%8B%9C%ED%94%84%EB%A1%9C%ED%95%84.PNG'})
 		no-repeat center/cover;
 `;
-export { Profile };
+
 const ButtonWrap = styled.div`
 	align-items: center;
 	display: flex;
+	.myRegion {
+		cursor: pointer;
+	}
 `;
 
 const ProfileWrap = styled.div`
@@ -113,29 +118,26 @@ const Header = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [isLogined, setIsLogined] = useState(false);
-	let [userInfo, setUserInfo] = useState({ region: 'DEFAULT_REGION' });
+	const [userInfo, setUserInfo] = useState({});
 	const [view, setView] = useState(false);
 
-	useEffect(() => {
-		if (secureLocalStorage.getItem('accessToken')) {
-			setIsLogined(true);
+	const getUserInfo = () => {
+		if (isLogined) {
 			setUserInfo(secureLocalStorage.getItem('userInfo'));
-			console.log(userInfo);
-		} else {
-			setIsLogined(false);
+			console.log('getUserInfo 실행');
 		}
-	}, []);
-	
-	// const getUserInfo = () => {
-	// 	if (isLogined) {
-	// 		setUserInfo(secureLocalStorage.getItem('userInfo'));
-	// 	}
-	// };
-
+	};
 	useEffect(() => {
 		setView(false);
-	}, [location.pathname]); // 페이지 이동 시 dropdown view false로
-	// secureLocalStorage.setItem('accessToken', 'Bearer Token');
+		if (secureLocalStorage.getItem('accessToken') !== null && !isLogined)
+			setIsLogined(true);
+		if (location.pathname === '/mypage') getUserInfo();
+	}, [location.pathname]); // 페이지 이동 시 dropdown view false로, 페이지 이동 시
+
+	useEffect(() => {
+		console.log(`isLogined : ${isLogined}`);
+		getUserInfo();
+	}, [isLogined]);
 
 	return (
 		<>
@@ -143,25 +145,33 @@ const Header = () => {
 				<Headerdiv>
 					<div className="headerWrapper">
 						<div className="logoWrapper">
-							<div
-								className="HomebuttonWrapper"
-								onClick={() => movePath(navigate, '/')}>
-								<img
-									src={homeIcon}
-									alt="homeIcon"
-								/>
-								우리동네줍깅
+							<div>
+								<div
+									className="HomebuttonWrapper"
+									onClick={() => movePath(navigate, '/')}>
+									<img
+										src={homeIcon}
+										alt="homeIcon"
+									/>
+									우리동네줍깅
+								</div>
 							</div>
 						</div>
 						{location.pathname !== '/api/auth/join' && (
 							<ButtonWrap>
-								{isLogined && userInfo.region !== 'DEFAULT_REGION' ? (
+								{isLogined && userInfo ? (
 									<div className="myRegion">
-										<img
-											src={locationIcon}
-											alt="locationIcon"
-										/>
-										<HeaderButton>{userInfo.region}</HeaderButton>
+										{userInfo.region !== 'DEFAULT_REGION' ? (
+											<HeaderButton>
+												<img
+													src={locationIcon}
+													alt="locationIcon"
+												/>
+												{userInfo.region}
+											</HeaderButton>
+										) : (
+											''
+										)}
 									</div>
 								) : (
 									<></>
@@ -174,12 +184,15 @@ const Header = () => {
 									}>
 									새 글 쓰기
 								</HeaderButton>
-								{isLogined ? (
+								{isLogined && userInfo ? (
 									<ProfileWrap
 										onClick={() => {
 											setView(!view);
 										}}>
-										<Profile src={userInfo.profileImageUrl} />
+										<GlobalProfile
+											size="5rem"
+											src={userInfo.profileImageUrl}
+										/>
 										<AiFillCaretDown size={'3rem'} />
 										{view ? <Dropdown /> : ''}
 									</ProfileWrap>
@@ -196,4 +209,4 @@ const Header = () => {
 		</>
 	);
 };
-export default Header;
+export { Header, GlobalProfile };

@@ -1,4 +1,4 @@
-import { WriteWrapper, Profile } from '../../components';
+import { WriteWrapper, GlobalProfile } from '../../components';
 import styled from 'styled-components';
 
 const BoardWrapper = styled(WriteWrapper)`
@@ -32,9 +32,7 @@ const WriterDiv = styled.div`
 	}
 `;
 
-const WriterProfilePicDiv = styled(Profile)`
-	width: ${(props) => props.size};
-	height: ${(props) => props.size};
+const WriterProfilePicDiv = styled(GlobalProfile)`
 	margin: ${(props) => props.margin};
 	flex-shrink: 0;
 `;
