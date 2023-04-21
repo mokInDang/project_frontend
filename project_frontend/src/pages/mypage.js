@@ -12,7 +12,7 @@ function MyPage() {
 		'alias': '',
 		'region': '',
 	});
-	const [myRegion, setMyRegion] = useState();
+
 	const locRef = useRef({ latitude: null, longitude: null });
 
 	const getLocation = () => {
@@ -25,14 +25,13 @@ function MyPage() {
 			coordsObj.latitude = pos.coords.latitude;
 			coordsObj.longitude = pos.coords.longitude;
 			locRef.current = coordsObj;
-			console.log(locRef.current);
 			// axios 요청으로 region 보내는 함수
 			axios
 				.patch(`/api/member/region`, JSON.stringify(locRef.current), {
 					headers: { 'Content-Type': 'application/json; charset=utf-8' },
 				})
 				.then((res) => {
-					setMyRegion(res.region);
+					getUserInfo();
 				})
 				.catch((error) => {
 					console.log(error);
@@ -44,16 +43,17 @@ function MyPage() {
 			alert('위치 액세스를 허용해주세요.');
 		}
 	};
-
-	useEffect(() => {
-		axios
+	const getUserInfo = async () => {
+		await axios
 			.get('api/member/mypage')
 			.then((res) => {
 				console.log(res.data);
 				setUserInfo(res.data);
-				setMyRegion(res.data.region);
 			})
 			.catch((error) => console.log(error));
+	};
+	useEffect(() => {
+		getUserInfo();
 	}, []);
 
 	return (
@@ -90,7 +90,7 @@ function MyPage() {
 					<input
 						type="text"
 						name="region"
-						value={myRegion ? myRegion : userInfo.region}
+						value={userInfo.region}
 						readOnly
 					/>
 					<div
