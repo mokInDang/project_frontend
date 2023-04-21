@@ -102,6 +102,9 @@ const GlobalProfile = styled.div`
 const ButtonWrap = styled.div`
 	align-items: center;
 	display: flex;
+	.myRegion {
+		cursor: pointer;
+	}
 `;
 
 const ProfileWrap = styled.div`
@@ -122,12 +125,12 @@ const Header = () => {
 		if (isLogined) {
 			setUserInfo(secureLocalStorage.getItem('userInfo'));
 			console.log('getUserInfo 실행');
-			console.log(`userInfo : ${userInfo}`);
 		}
 	};
 	useEffect(() => {
 		setView(false);
-		if (secureLocalStorage.getItem('accessToken') !== null) setIsLogined(true);
+		if (secureLocalStorage.getItem('accessToken') !== null && !isLogined)
+			setIsLogined(true);
 		if (location.pathname === '/mypage') getUserInfo();
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로, 페이지 이동 시
 
