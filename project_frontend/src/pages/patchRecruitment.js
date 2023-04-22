@@ -25,7 +25,7 @@ function PatchRecruitment() {
 		form = formToEdit;
 		console.log(formToEdit);
 	}
-	
+
 	useEffect(() => {
 		if (!recruitmentToEdit) {
 			alert('잘못된 접근입니다.');
@@ -35,12 +35,14 @@ function PatchRecruitment() {
 
 	return (
 		<>
-			<WriteWrapper>
-				<WriteForm
-					form={form}
-					boardIdToEdit={boardIdToEdit}
-				/>
-			</WriteWrapper>
+			{recruitmentToEdit && (
+				<WriteWrapper>
+					<WriteForm
+						form={form}
+						boardIdToEdit={boardIdToEdit}
+					/>
+				</WriteWrapper>
+			)}
 		</>
 	);
 }
