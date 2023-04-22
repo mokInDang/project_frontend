@@ -1,4 +1,4 @@
-import { WriteWrapper, GlobalProfile } from '../../components';
+import { WriteWrapper, GlobalProfile } from '..';
 import styled from 'styled-components';
 
 const BoardWrapper = styled(WriteWrapper)`
