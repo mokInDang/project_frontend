@@ -100,6 +100,7 @@ const WriteForm = (props) => {
 				name="contentBody"
 				value={contentBody}
 				getHtmlContentBody={getHtmlContentBody}
+				placeholder={'프로젝트에 대해 소개해주세요!'}
 			/>
 			<ButtonWrap>
 				<Button
