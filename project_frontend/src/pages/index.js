@@ -8,6 +8,7 @@ import MyPage from './mypage';
 import MyInfoEdit from './myInfoEdit';
 import PostCertification from './postCertification';
 import CertificationDetails from './certificationDetails';
+import PatchCertification from './patchCertification';
 
 export {
 	Login,
@@ -20,4 +21,5 @@ export {
 	MyInfoEdit,
 	PostCertification,
 	CertificationDetails,
+	PatchCertification,
 };

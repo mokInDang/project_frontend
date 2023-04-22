@@ -10,6 +10,7 @@ import {
 	MyInfoEdit,
 	PostCertification,
 	CertificationDetails,
+	PatchCertification,
 } from './pages';
 import { Routes, Route } from 'react-router-dom';
 import { Header } from './components';
@@ -63,6 +64,10 @@ function App() {
 				<Route
 					path="/boards/certification/:boardId"
 					element={<CertificationDetails />}
+				/>
+				<Route
+					path="/edit/certification/:boardId"
+					element={<PatchCertification />}
 				/>
 				<Route
 					path="/*"
