@@ -49,7 +49,11 @@ function CertificationDetails() {
 			.then((res) => {
 				setCertificationDetails(res.data);
 			})
-			.catch((error) => console.log(error));
+			.catch((error) => {
+				console.log(error);
+				alert('잘못된 접근입니다.');
+				navigate(-1);
+			});
 	}, []);
 	useEffect(() => {
 		if (certificationDetails)
@@ -103,7 +107,18 @@ function CertificationDetails() {
 									}}>
 									수정
 								</BoardContentButtonDiv>
-								<BoardContentButtonDiv onClick={() => {}}>
+								<BoardContentButtonDiv
+									onClick={() => {
+										if (window.confirm('게시글을 삭제하시겠습니까?')) {
+											axios
+												.delete(`/api/boards/certification/${params.boardId}`)
+												.then(() => navigate(`/`, { replace: true }))
+												.catch((error) => {
+													console.log(error);
+													alert('게시글 삭제에 실패했습니다.');
+												});
+										}
+									}}>
 									삭제
 								</BoardContentButtonDiv>
 							</ButtonsWrap>
