@@ -8,6 +8,7 @@ import {
 	PatchRecruitment,
 	MyPage,
 	MyInfoEdit,
+	PostCertification
 } from './pages';
 import { Routes, Route } from 'react-router-dom';
 import { Header } from './components';
@@ -54,6 +55,10 @@ function App() {
 				<Route
 					path="/mypage/edit"
 					element={<MyInfoEdit />}
+				/>
+				<Route
+					path="/boards/certification"
+					element={<PostCertification />}
 				/>
 				<Route
 					path="/*"

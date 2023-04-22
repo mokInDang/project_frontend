@@ -33,6 +33,21 @@ import {
 	ReplySubmitButton,
 } from './boardDetails/boardDetailsStyledComponents';
 import { MyPageWrapper } from './myPage/myPageStyledComponents';
+import {
+	HR,
+	P,
+	Label,
+	Title,
+	Button,
+	ButtonWrap,
+	QuillWrap,
+} from './write/writeFormComponents';
+import {
+	ThumbnailsWrapper,
+	ThumbnailDiv,
+	ThumbnailedDiv,
+	FileUploader
+} from './postCertification/StyledComponents';
 
 export {
 	JoinComment,
@@ -66,5 +81,16 @@ export {
 	TabWrapper,
 	TabDiv,
 	GlobalProfile,
-	MyPageWrapper
+	MyPageWrapper,
+	HR,
+	P,
+	Label,
+	Title,
+	Button,
+	ButtonWrap,
+	QuillWrap,
+	ThumbnailsWrapper,
+	ThumbnailDiv,
+	ThumbnailedDiv,
+	FileUploader
 };
