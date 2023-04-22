@@ -8,11 +8,11 @@ import {
 	PatchRecruitment,
 	MyPage,
 	MyInfoEdit,
-	PostCertification
+	PostCertification,
+	CertificationDetails,
 } from './pages';
 import { Routes, Route } from 'react-router-dom';
 import { Header } from './components';
-import { useState, useEffect } from 'react';
 import { reissueToken } from './apis';
 
 function App() {
@@ -59,6 +59,10 @@ function App() {
 				<Route
 					path="/boards/certification"
 					element={<PostCertification />}
+				/>
+				<Route
+					path="/boards/certification/:boardId"
+					element={<CertificationDetails />}
 				/>
 				<Route
 					path="/*"

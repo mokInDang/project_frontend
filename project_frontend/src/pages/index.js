@@ -7,6 +7,7 @@ import PatchRecruitment from './patchRecruitment';
 import MyPage from './mypage';
 import MyInfoEdit from './myInfoEdit';
 import PostCertification from './postCertification';
+import CertificationDetails from './certificationDetails';
 
 export {
 	Login,
@@ -18,4 +19,5 @@ export {
 	MyPage,
 	MyInfoEdit,
 	PostCertification,
+	CertificationDetails,
 };
