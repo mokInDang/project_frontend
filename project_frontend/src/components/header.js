@@ -95,7 +95,7 @@ const GlobalProfile = styled.div`
 			props.src !== 'DEFAULT_PROFILE_IMAGE_URL' &&
 			props.src !== null
 				? props.src
-				: 'https://s3.ap-northeast-2.amazonaws.com/dongnejupging.profile.image.bucket/profile_image/%EC%9E%84%EC%8B%9C%ED%94%84%EB%A1%9C%ED%95%84.PNG'})
+				: 'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/default_profile.png'})
 		no-repeat center/cover;
 `;
 
