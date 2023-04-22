@@ -1,4 +1,4 @@
-const ALLOW_FILE_EXTENSION = 'jpg,jpeg,png';
+const ALLOW_FILE_EXTENSION = 'jpg,jpeg,png,gif,mp4';
 const FILE_SIZE_MAX_LIMIT = 5 * 1024 * 1024;
 
 const fileExtensionValid = (originalFileName) => {
