@@ -120,7 +120,7 @@ function PostCertification() {
 				},
 			})
 			.then((res) => {
-				navigate(`/boards/certification/${res.boardId}`);
+				navigate(`/boards/certification/${res.data.boardId}`);
 			})
 			.catch((error) => {
 				console.error(error);
