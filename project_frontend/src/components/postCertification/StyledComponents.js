@@ -2,22 +2,18 @@ import styled from 'styled-components';
 
 const ThumbnailsWrapper = styled.div`
 	display: flex;
-	width: 100%;
 	justify-content: ${(props) =>
 		props.items === 5 ? 'space-between' : 'flex-start'};
-	margin-top: 1.5rem;
-	margin-bottom: 2.5rem;
 	@media (max-width: 1024px) {
 		flex-wrap: wrap;
-		justify-content: flex-start;
 	}
 `;
 
 const ThumbnailDiv = styled.div`
 	border: 1px solid #969696;
-	width: 15%;
+	width: 17%;
 	flex-shrink: 0;
-	margin: 1rem;
+	margin: 2.5rem 0.5rem;
 	box-sizing: border-box;
 	position: relative;
 	:after {
@@ -41,7 +37,7 @@ const ThumbnailDiv = styled.div`
 		cursor: pointer;
 	}
 	@media (max-width: 1024px) {
-		width: 20%;
+		width: 17%;
 	}
 `;
 
