@@ -18,6 +18,7 @@ import {
 	fileSizeValid,
 } from '../utils/fileUploadValidHandler';
 import { RxPlus, RxCross2 } from 'react-icons/rx';
+import axios from 'axios';
 
 function PostCertification() {
 	let initialForm = {
@@ -25,28 +26,21 @@ function PostCertification() {
 		contentBody: '',
 	};
 
-	const [form, setForm] = useState(initialForm);
-	const [imageFiles, setImageFiles] = useState([]);
+	const [title, setTitle] = useState(initialForm.title);
+	const [contentBody, setContentbody] = useState(initialForm.contentBody);
+	const [imageFiles, setImageFiles] = useState('');
 	const [imageThumbnails, setImageThumbnails] = useState([]);
 	const selectFile = useRef();
 	const getHtmlContentBody = (newContentBody) => {
 		if (newContentBody === '<p><br></p>') {
 			newContentBody = '';
 		}
-		const nextForm = {
-			...form, // 기존값 복사 (spread operator)
-			contentBody: newContentBody, // 덮어쓰기
-		};
-		setForm(nextForm);
+		setContentbody(newContentBody);
 	};
 
 	const onChange = (e) => {
-		// input 태그에 사용되는 함수
-		const nextForm = {
-			...form, // 기존값 복사 (spread operator)
-			[e.target.name]: e.target.value, // 덮어쓰기
-		};
-		setForm(nextForm);
+		// input title에 사용되는 함수
+		setTitle(e.target.value);
 	};
 
 	const onImagesChange = (e) => {
@@ -56,7 +50,6 @@ function PostCertification() {
 		let imageListLength = imageFiles.length;
 		let remainFileCnt = maxFileCnt - imageListLength;
 		let curFileCnt = files.length;
-		console.log(imageListLength);
 		if (curFileCnt > remainFileCnt) {
 			e.target.value = '';
 			alert('업로드 가능한 최대 파일 개수는 5개입니다.');
@@ -78,10 +71,6 @@ function PostCertification() {
 		}
 		setImageFiles(Array.from(files)); // 업로드한 이미지 ProfileImage에 저장
 	};
-	useEffect(() => {
-		console.log(imageFiles);
-		console.log(imageThumbnails);
-	}, [imageFiles]);
 
 	const createImageURL = (fileBlob) => {
 		// createObjectURL 방식으로 프로필 이미지 썸네일 표시
@@ -91,8 +80,8 @@ function PostCertification() {
 		thumbnailsArray.push(url);
 		setImageThumbnails(thumbnailsArray);
 	};
+
 	const deleteImage = (i) => {
-		console.log('clicked');
 		let imagesArray = imageFiles;
 		delete imagesArray[i];
 		let newImagesArray = imagesArray.filter((element) => element !== undefined);
@@ -105,6 +94,34 @@ function PostCertification() {
 		);
 		setImageThumbnails(newThumbnailsArray);
 	};
+
+	const submitCertForm = () => {
+		const formData = new FormData();
+		if (imageFiles === '' || title === '' || contentBody === '') {
+			alert('제목과 본문, 한 장 이상의 사진은 필수입니다.');
+			return;
+		}
+		formData.append('title', title);
+		formData.append('files', imageFiles);
+		formData.append('contentBody', contentBody);
+		console.log(formData.get('title'));
+		console.log(formData.get('files'));
+		console.log(formData.get('contentBody'));
+		axios
+			.post('/api/boards/certification', formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				},
+			})
+			.then((res) => {
+				console.log(res.data);
+			})
+			.catch((error) => {
+				console.error(error);
+				console.log('글 작성에 실패했습니다.');
+			});
+	};
+
 	return (
 		<>
 			<WriteWrapper>
@@ -124,7 +141,7 @@ function PostCertification() {
 					type="text"
 					placeholder="글 제목을 입력해주세요."
 					name="title"
-					value={form.title}
+					value={title}
 					onChange={onChange}></Title>
 				<Label htmlFor="photos">
 					사진
@@ -165,7 +182,7 @@ function PostCertification() {
 				</FileUploader>
 				<EditorComponent
 					name="contentBody"
-					value={form.contentBody}
+					value={contentBody}
 					getHtmlContentBody={getHtmlContentBody}
 					placeholder={'진행했던 프로젝트를 인증해주세요!'}
 				/>
@@ -176,9 +193,7 @@ function PostCertification() {
 						취소
 					</Button>
 					<Button
-						onClick={() => {
-							console.log(form);
-						}}
+						onClick={submitCertForm}
 						name="write">
 						글 등록
 					</Button>
