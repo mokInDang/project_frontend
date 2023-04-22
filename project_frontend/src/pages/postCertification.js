@@ -28,7 +28,7 @@ function PostCertification() {
 
 	const [title, setTitle] = useState(initialForm.title);
 	const [contentBody, setContentbody] = useState(initialForm.contentBody);
-	const [imageFiles, setImageFiles] = useState('');
+	const [imageFiles, setImageFiles] = useState([]);
 	const [imageThumbnails, setImageThumbnails] = useState([]);
 	const selectFile = useRef();
 	const getHtmlContentBody = (newContentBody) => {
@@ -47,6 +47,7 @@ function PostCertification() {
 		const { files } = e.target;
 		if (!files || !files[0]) return;
 		let maxFileCnt = 5;
+		let imageList = imageFiles;
 		let imageListLength = imageFiles.length;
 		let remainFileCnt = maxFileCnt - imageListLength;
 		let curFileCnt = files.length;
@@ -68,8 +69,10 @@ function PostCertification() {
 				return;
 			}
 			createImageURL(imageFile); // 썸네일용 이미지 url 생성
+			imageList.push(imageFile);
 		}
-		setImageFiles(Array.from(files)); // 업로드한 이미지 ProfileImage에 저장
+		setImageFiles(Array.from(imageList)); // 업로드한 이미지 ProfileImage에 저장
+		console.log(imageFiles);
 	};
 
 	const createImageURL = (fileBlob) => {
@@ -97,7 +100,7 @@ function PostCertification() {
 
 	const submitCertForm = () => {
 		const formData = new FormData();
-		if (imageFiles === '' || title === '' || contentBody === '') {
+		if (imageFiles === [] || title === '' || contentBody === '') {
 			alert('제목과 본문, 한 장 이상의 사진은 필수입니다.');
 			return;
 		}
