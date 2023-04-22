@@ -94,9 +94,12 @@ function CertificationDetails() {
 								{/* certificationDetails.onRecruitment 조회하여 마감 버튼 스타일할 것 */}
 								<BoardContentButtonDiv
 									onClick={() => {
-										// navigate(`/edit/recruitment/${certificationDetails.boardId}`, {
-										// 	state: certificationDetails,
-										// });
+										navigate(
+											`/edit/certification/${certificationDetails.boardId}`,
+											{
+												state: certificationDetails,
+											}
+										);
 									}}>
 									수정
 								</BoardContentButtonDiv>
