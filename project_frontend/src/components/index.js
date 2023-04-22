@@ -31,7 +31,10 @@ import {
 	ReplyDiv,
 	ReplyInput,
 	ReplySubmitButton,
-} from './boardDetails/boardDetailsStyledComponents';
+	BoardDetailsWrap,
+	ButtonsWrap,
+	BoardContentButtonDiv,
+} from './boardDetails/StyledComponents';
 import { MyPageWrapper } from './myPage/myPageStyledComponents';
 import {
 	HR,
@@ -46,7 +49,7 @@ import {
 	ThumbnailsWrapper,
 	ThumbnailDiv,
 	ThumbnailedDiv,
-	FileUploader
+	FileUploader,
 } from './postCertification/StyledComponents';
 
 export {
@@ -92,5 +95,8 @@ export {
 	ThumbnailsWrapper,
 	ThumbnailDiv,
 	ThumbnailedDiv,
-	FileUploader
+	FileUploader,
+	BoardDetailsWrap,
+	ButtonsWrap,
+	BoardContentButtonDiv,
 };
