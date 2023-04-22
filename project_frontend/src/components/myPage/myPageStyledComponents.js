@@ -38,10 +38,8 @@ const MyPageWrapper = styled.div`
 		align-items: center;
 		border-radius: 0.8rem;
 		box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.13);
-		label {
-			cursor: pointer;
-			font-size: 1.6rem;
-		}
+		cursor: pointer;
+		font-size: 1.6rem;
 	}
 	.myInfoWrap {
 		font-size: 3rem;
