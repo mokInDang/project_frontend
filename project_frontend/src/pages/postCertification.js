@@ -12,20 +12,20 @@ import {
 	ThumbnailedDiv,
 	FileUploader,
 } from '../components';
-import { useEffect } from 'react';
 import {
 	fileExtensionValid,
 	fileSizeValid,
 } from '../utils/fileUploadValidHandler';
 import { RxPlus, RxCross2 } from 'react-icons/rx';
 import axios from 'axios';
+import { useNavigate } from 'react-router';
 
 function PostCertification() {
 	let initialForm = {
 		title: '',
 		contentBody: '',
 	};
-
+	const navigate = useNavigate();
 	const [title, setTitle] = useState(initialForm.title);
 	const [contentBody, setContentbody] = useState(initialForm.contentBody);
 	const [imageFiles, setImageFiles] = useState([]);
@@ -120,7 +120,7 @@ function PostCertification() {
 				},
 			})
 			.then((res) => {
-				console.log(res.data);
+				navigate(`/boards/certification/${res.boardId}`);
 			})
 			.catch((error) => {
 				console.error(error);
