@@ -102,7 +102,10 @@ function PostCertification() {
 			return;
 		}
 		formData.append('title', title);
-		formData.append('files', imageFiles);
+		console.log(imageFiles);
+		imageFiles.forEach((imageFile) => {
+			formData.append('files', imageFile);
+		});
 		formData.append('contentBody', contentBody);
 		console.log(formData.get('title'));
 		console.log(formData.get('files'));
