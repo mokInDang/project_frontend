@@ -18,16 +18,13 @@ import {
 } from '../utils/fileUploadValidHandler';
 import { RxPlus, RxCross2 } from 'react-icons/rx';
 import axios from 'axios';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
+import { movePath } from '../utils';
 
 function PostCertification() {
-	let initialForm = {
-		title: '',
-		contentBody: '',
-	};
 	const navigate = useNavigate();
-	const [title, setTitle] = useState(initialForm.title);
-	const [contentBody, setContentbody] = useState(initialForm.contentBody);
+	const [title, setTitle] = useState('');
+	const [contentBody, setContentbody] = useState('');
 	const [imageFiles, setImageFiles] = useState([]);
 	const [imageThumbnails, setImageThumbnails] = useState([]);
 	const selectFile = useRef();
@@ -195,7 +192,13 @@ function PostCertification() {
 				<ButtonWrap>
 					<Button
 						name="cancel"
-						onClick={() => {}}>
+						onClick={() => {
+							if (
+								window.confirm('작성을 취소하고 페이지를 벗어나시겠습니까?')
+							) {
+								movePath(navigate, -1);
+							}
+						}}>
 						취소
 					</Button>
 					<Button
