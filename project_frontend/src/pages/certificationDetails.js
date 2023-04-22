@@ -22,9 +22,9 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styled from 'styled-components';
 import axios from 'axios';
+import '../styles/index.css';
 
 const ImageSlide = styled.div`
-	margin: 3rem 0;
 	height: 60rem;
 	background: no-repeat center/contain url(${(props) => props.src});
 `;
@@ -109,7 +109,10 @@ function CertificationDetails() {
 							</ButtonsWrap>
 						)}
 						{certificationImages && (
-							<Slider {...settings}>
+							<Slider
+								dotsClass="test-css"
+								{...settings}
+								style={{ marginTop: '5rem' }}>
 								{certificationImages.map((certificationImageUrl, i) => {
 									return (
 										<ImageSlide
@@ -119,6 +122,7 @@ function CertificationDetails() {
 								})}
 							</Slider>
 						)}
+						<HR style={{ margin: '5rem 0' }}></HR>
 						<ContentDiv>
 							<div
 								dangerouslySetInnerHTML={{
