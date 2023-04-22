@@ -125,7 +125,6 @@ const ButtonsWrap = styled.div`
 	right: 2rem;
 	text-align: center;
 	justify-content: end;
-	width: 10rem;
 	font-size: 2rem;
 	font-weight: 700;
 	color: #000000b2;
