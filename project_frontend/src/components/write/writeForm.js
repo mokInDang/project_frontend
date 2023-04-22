@@ -107,7 +107,7 @@ const WriteForm = (props) => {
 					name="cancel"
 					onClick={() => {
 						if (window.confirm('작성을 취소하고 페이지를 벗어나시겠습니까?')) {
-							movePath(navigate, '/');
+							movePath(navigate, -1);
 						}
 					}}>
 					취소
