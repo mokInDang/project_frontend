@@ -42,17 +42,20 @@ function CertificationDetails() {
 		slidesToShow: 1,
 		slidesToScroll: 1,
 	};
+
 	useEffect(() => {
 		axios
 			.get(`/api/boards/certification/${params.boardId}`)
 			.then((res) => {
 				setCertificationDetails(res.data);
-				setCertificationImages(
-					certificationDetails.certificationBoardImagesUrl
-				);
 			})
 			.catch((error) => console.log(error));
-	});
+	}, []);
+	useEffect(() => {
+		if (certificationDetails)
+			setCertificationImages(certificationDetails.certificationBoardImagesUrl);
+	}, [certificationDetails]);
+
 	return (
 		<>
 			{certificationDetails && (
