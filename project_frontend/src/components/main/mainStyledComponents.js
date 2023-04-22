@@ -1,6 +1,19 @@
 import styled from 'styled-components';
 import { closed_stamp } from '../../assets/images';
 
+const CertificationCardsWrap = styled.div`
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 40rem);
+	justify-content: center;
+	align-content: center;
+	padding: 0 2rem;
+	margin-top: 2rem;
+	row-gap: 7rem;
+	column-gap: 7rem;
+	@media (min-width: 1920px) {
+		grid-template-columns: repeat(3, 40rem);
+	}
+`;
 const BoardItemsWrap = styled.div`
 	display: grid;
 	padding: 0 2rem;
@@ -170,4 +183,10 @@ const TabWrapper = styled.div`
 const TabDiv = styled.div`
 	color: #111111;
 `;
-export { BoardItemCard, BoardItemsWrap, TabWrapper, TabDiv };
+export {
+	BoardItemCard,
+	BoardItemsWrap,
+	TabWrapper,
+	TabDiv,
+	CertificationCardsWrap,
+};

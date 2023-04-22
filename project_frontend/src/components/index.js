@@ -51,6 +51,9 @@ import {
 	ThumbnailedDiv,
 	FileUploader,
 } from './postCertification/StyledComponents';
+import { CertificationCardInfiniteScroll } from './main/cerfiticationCardInfiniteScroll';
+import { CertificationCard } from './main/certificationCard';
+import { CertificationCardsWrap } from './main/mainStyledComponents';
 
 export {
 	JoinComment,
@@ -63,6 +66,8 @@ export {
 	InfiniteScroll,
 	Card,
 	BoardContent,
+	CertificationCardInfiniteScroll,
+	CertificationCard,
 };
 export {
 	WriteWrapper,
@@ -99,4 +104,5 @@ export {
 	BoardDetailsWrap,
 	ButtonsWrap,
 	BoardContentButtonDiv,
+	CertificationCardsWrap,
 };
