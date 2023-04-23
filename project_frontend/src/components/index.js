@@ -1,5 +1,5 @@
 import { Header, GlobalProfile } from './header';
-import Dropdown from './dropdown';
+import { Dropdown, NewPostDropDown } from './dropdown';
 import GetlocationButton from './getLocationButton';
 import JoinComment from './login/joinComment';
 import EditorComponent from './write/editorComponent';
@@ -68,6 +68,7 @@ export {
 	BoardContent,
 	CertificationCardInfiniteScroll,
 	CertificationCard,
+	NewPostDropDown,
 };
 export {
 	WriteWrapper,
