@@ -148,7 +148,7 @@ function PatchCertification() {
 							backgroundColor: '#81CC55',
 							borderRadius: '1rem',
 						}}></span>
-					프로젝트를 인증해주세요.
+					플로깅 활동을 인증해주세요.
 				</P>
 				<HR></HR>
 				<Label htmlFor="title">제목</Label>
@@ -199,7 +199,7 @@ function PatchCertification() {
 					name="contentBody"
 					value={contentBody}
 					getHtmlContentBody={getHtmlContentBody}
-					placeholder={'진행했던 프로젝트를 인증해주세요!'}
+					placeholder={'진행했던 플로깅 활동에 대해 작성해주세요!'}
 				/>
 				<ButtonWrap>
 					<Button
