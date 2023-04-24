@@ -10,9 +10,6 @@ import {
 	ButtonsWrap,
 	ContentDiv,
 	BoardContentButtonDiv,
-	ReplyDiv,
-	ReplyInput,
-	ReplySubmitButton,
 } from '../components';
 import { BsArrowLeft } from 'react-icons/bs';
 import { useNavigate, useParams } from 'react-router';
@@ -147,7 +144,10 @@ function CertificationDetails() {
 							/>
 						</ContentDiv>
 					</BoardDetailsWrap>
-					<Comments />
+					<Comments
+						boardType={'certification-board'}
+						boardId={params.boardId}
+					/>
 				</BoardWrapper>
 			)}
 		</>

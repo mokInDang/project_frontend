@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { HR } from '../write/writeFormComponents';
 import { BsArrowLeft } from 'react-icons/bs';
 import {
@@ -23,6 +22,7 @@ import {
 	deleteRecruitment,
 } from '../../apis';
 import { DateString } from '../../utils';
+import { Comments } from '../../pages/comments';
 
 const BoardContent = () => {
 	const params = useParams();
@@ -123,6 +123,10 @@ const BoardContent = () => {
 			) : (
 				<></>
 			)}
+			<Comments
+				boardType={'recruitment-board'}
+				boardId={params.boardId}
+			/>
 		</>
 	);
 };

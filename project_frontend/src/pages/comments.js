@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import {
-	BoardWrapper,
 	ReplyDiv,
 	HeadingDiv,
 	ReplyInput,
@@ -10,7 +9,6 @@ import {
 } from '../components';
 import axios from 'axios';
 import styled from 'styled-components';
-import { useLocation, useParams } from 'react-router-dom';
 
 const CommentDiv = styled.div`
 	font-style: normal;
@@ -83,24 +81,14 @@ const Comment = ({ comment }) => {
 const Comments = ({ boardType, boardId }) => {
 	const [comments, setComments] = useState();
 	const [commentBody, setCommentBody] = useState();
-	const location = useLocation();
-	const params = useParams();
 	const getCommentBody = (e) => {
 		setCommentBody(e.target.value);
 	};
 	const postComment = () => {
 		axios
-			.post(
-				// `/api/${boardType}/${boardId}/comments`,
-				`/api/${
-					location.pathname === 'certification'
-						? 'certification-board'
-						: 'recruitment-board'
-				}/${params.boardId}/comments`,
-				{
-					'commentBody': commentBody,
-				}
-			)
+			.post(`/api/${boardType}/${boardId}/comments`, {
+				'commentBody': commentBody,
+			})
 			.then(() => {
 				getComment();
 			})
@@ -110,14 +98,7 @@ const Comments = ({ boardType, boardId }) => {
 	};
 	const getComment = () => {
 		axios
-			// .get(`/api/${boardType}/${boardId}/comments`)
-			.get(
-				`/api/${
-					location.pathname === 'certification'
-						? 'certification-board'
-						: 'recruitment-board'
-				}/${params.boardId}/comments`
-			)
+			.get(`/api/${boardType}/${boardId}/comments`)
 			.then((res) => setComments(res.data.comments))
 			.catch((error) => {
 				console.log(error);
