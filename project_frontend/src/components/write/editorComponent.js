@@ -12,7 +12,7 @@ Size.whitelist = ['medium', 'large'];
 Quill.register(Size, true);
 Quill.register(Font, true);
 
-function EditorComponent({ getHtmlContentBody, value }) {
+function EditorComponent({ getHtmlContentBody, value, placeholder }) {
 	const [contentBody, setContentBody] = useState('');
 	const modules = {
 		toolbar: [
@@ -55,7 +55,7 @@ function EditorComponent({ getHtmlContentBody, value }) {
 				formats={formats}
 				value={contentBody}
 				onChange={setContentBody}
-				placeholder="프로젝트에 대해 소개해주세요!"
+				placeholder={placeholder}
 			/>
 		</QuillWrap>
 	);

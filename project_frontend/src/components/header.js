@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AiFillCaretDown } from 'react-icons/ai';
-import Dropdown from './dropdown';
+import { Dropdown, NewPostDropDown } from '../components';
 import { useState, useEffect } from 'react';
-import { movePath, isLogined } from '../utils';
+import { movePath } from '../utils';
 import { homeIcon } from '../assets/images';
 import secureLocalStorage from 'react-secure-storage';
 import { locationIcon } from '../assets/images';
@@ -37,6 +37,9 @@ const Headerdiv = styled.div`
 		flex-grow: 1;
 		.HomebuttonWrapper {
 			cursor: pointer;
+			@media (max-width: 500px) {
+				font-size: 2.5rem;
+			}
 		}
 		div {
 			display: flex;
@@ -65,6 +68,8 @@ const Headerdiv = styled.div`
 	}
 	.newPost {
 		margin-right: 5rem;
+		display: flex;
+		justify-content: center;
 		cursor: pointer;
 		@media (max-width: 778px) {
 			display: none;
@@ -82,6 +87,9 @@ const HeaderButton = styled.div`
 	cursor: pointer;
 	display: flex;
 	align-items: center;
+	@media (max-width: 500px) {
+		font-size: 2rem;
+	}
 `;
 
 const GlobalProfile = styled.div`
@@ -95,7 +103,7 @@ const GlobalProfile = styled.div`
 			props.src !== 'DEFAULT_PROFILE_IMAGE_URL' &&
 			props.src !== null
 				? props.src
-				: 'https://s3.ap-northeast-2.amazonaws.com/dongnejupging.profile.image.bucket/profile_image/%EC%9E%84%EC%8B%9C%ED%94%84%EB%A1%9C%ED%95%84.PNG'})
+				: 'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/default_profile.png'})
 		no-repeat center/cover;
 `;
 
@@ -119,7 +127,8 @@ const Header = () => {
 	const location = useLocation();
 	const [isLogined, setIsLogined] = useState(false);
 	const [userInfo, setUserInfo] = useState({});
-	const [view, setView] = useState(false);
+	const [dropdownView, setDropDownView] = useState(false);
+	const [newPostDropdownView, setNewPostDropDownView] = useState(false);
 
 	const getUserInfo = () => {
 		if (isLogined) {
@@ -128,7 +137,8 @@ const Header = () => {
 		}
 	};
 	useEffect(() => {
-		setView(false);
+		setDropDownView(false);
+		setNewPostDropDownView(false);
 		if (secureLocalStorage.getItem('accessToken') !== null && !isLogined)
 			setIsLogined(true);
 		if (location.pathname === '/mypage') getUserInfo();
@@ -178,23 +188,24 @@ const Header = () => {
 								)}
 								<HeaderButton
 									className="newPost"
-									onClick={() =>
-										// isLogined(navigate, '/boards/recruitment')
-										navigate('/boards/recruitment')
-									}>
-									새 글 쓰기
+									onClick={() => {
+										setNewPostDropDownView(!newPostDropdownView);
+										setDropDownView(false);
+									}}>
+									{newPostDropdownView ? <NewPostDropDown /> : ''}새 글 쓰기
 								</HeaderButton>
 								{isLogined && userInfo ? (
 									<ProfileWrap
 										onClick={() => {
-											setView(!view);
+											setDropDownView(!dropdownView);
+											setNewPostDropDownView(false);
 										}}>
 										<GlobalProfile
 											size="5rem"
 											src={userInfo.profileImageUrl}
 										/>
 										<AiFillCaretDown size={'3rem'} />
-										{view ? <Dropdown /> : ''}
+										{dropdownView ? <Dropdown /> : ''}
 									</ProfileWrap>
 								) : (
 									<HeaderButton onClick={() => movePath(navigate, '/login')}>

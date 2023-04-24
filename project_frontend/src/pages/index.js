@@ -6,5 +6,20 @@ import BoardDetails from './boardDetails';
 import PatchRecruitment from './patchRecruitment';
 import MyPage from './mypage';
 import MyInfoEdit from './myInfoEdit';
+import PostCertification from './postCertification';
+import CertificationDetails from './certificationDetails';
+import PatchCertification from './patchCertification';
 
-export { Login, Home, Welcome, PostRecruitment, BoardDetails, PatchRecruitment, MyPage, MyInfoEdit };
+export {
+	Login,
+	Home,
+	Welcome,
+	PostRecruitment,
+	BoardDetails,
+	PatchRecruitment,
+	MyPage,
+	MyInfoEdit,
+	PostCertification,
+	CertificationDetails,
+	PatchCertification,
+};

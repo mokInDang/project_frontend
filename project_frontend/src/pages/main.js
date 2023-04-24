@@ -1,11 +1,11 @@
 import React, { Fragment, useState } from 'react';
-import { InfiniteScroll } from '../components';
+import { InfiniteScroll, CertificationCardInfiniteScroll } from '../components';
 import { SlArrowDown } from 'react-icons/sl';
 import { TabWrapper, TabDiv } from '../components';
 import { ImFileEmpty, ImFileText2 } from 'react-icons/im';
-import GetLocationButton from '../components/getLocationButton';
 import { BannerSlide } from '../components/main/bannerSlider';
 import { isLogined } from '../utils';
+import { CiStar } from 'react-icons/ci';
 
 function Home() {
 	const [boardTab, setBoardTap] = useState(0);
@@ -67,7 +67,16 @@ function Home() {
 				{regionTab ? <InfiniteScroll regionTab={regionTab} /> : <></>}
 			</div>
 			<div style={!boardTab ? { display: 'none' } : { display: 'block' }}>
-				<GetLocationButton />
+				<TabWrapper>
+					<TabDiv>
+						<CiStar
+							size="4rem"
+							style={{ marginRight: '0.5rem' }}
+						/>
+						인증
+					</TabDiv>
+				</TabWrapper>
+				<CertificationCardInfiniteScroll />
 			</div>
 		</Fragment>
 	);

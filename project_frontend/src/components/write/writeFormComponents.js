@@ -26,6 +26,11 @@ const Label = styled.label`
 	line-height: 2.5rem;
 	font-size: 2.3rem;
 	line-height: 2.5rem;
+	span {
+		font-size: 1.2rem;
+		color: rgba(129, 204, 85, 1);
+		margin: 0 1rem;
+	}
 `;
 
 const Title = styled.input`

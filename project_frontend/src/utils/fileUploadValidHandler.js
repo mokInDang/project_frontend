@@ -1,4 +1,4 @@
-const ALLOW_FILE_EXTENSION = 'jpg,jpeg,png';
+const ALLOW_FILE_EXTENSION = 'jpg,jpeg,png,gif,mp4';
 const FILE_SIZE_MAX_LIMIT = 5 * 1024 * 1024;
 
 const fileExtensionValid = (originalFileName) => {
@@ -13,8 +13,6 @@ const fileExtensionValid = (originalFileName) => {
 const removeFileName = (originalFileName) => {
 	// 마지막 .의 위치 다음이 파일 확장자를 의미하므로 .의 위치 기억
 	const lastIndex = originalFileName.lastIndexOf('.');
-	console.log(lastIndex);
-
 	if (lastIndex < 0) {
 		// 파일 이름에 .이 존재하지 않는 경우 확장자가 존재하지 않으므로 빈 값 return
 		return '';

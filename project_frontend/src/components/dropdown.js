@@ -21,7 +21,7 @@ const DropdownDiv = styled.div`
 	box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.15);
 	display: flex;
 	flex-direction: column;
-	width: 22rem;
+	width: 20rem;
 	justify-content: space-around;
 `;
 
@@ -50,7 +50,15 @@ function Dropdown() {
 						// isLogined(navigate, '/boards/recruitment')
 						navigate('/boards/recruitment')
 					}>
-					새 글 쓰기
+					모집글 작성
+				</DropdownList>
+				<DropdownList
+					className="newPostList"
+					onClick={() =>
+						// isLogined(navigate, '/boards/recruitment')
+						navigate('/boards/certification')
+					}>
+					인증글 작성
 				</DropdownList>
 				<DropdownList>내 작성글</DropdownList>
 				<DropdownList onClick={() => navigate('/mypage')}>
@@ -62,4 +70,27 @@ function Dropdown() {
 	);
 }
 
-export default Dropdown;
+function NewPostDropDown() {
+	const navigate = useNavigate();
+	return (
+		<DropDownWrapper>
+			<DropdownDiv className="newPost">
+				<DropdownList
+					onClick={() =>
+						// isLogined(navigate, '/boards/recruitment')
+						navigate('/boards/recruitment')
+					}>
+					모집글 작성
+				</DropdownList>
+				<DropdownList
+					onClick={() =>
+						// isLogined(navigate, '/boards/recruitment')
+						navigate('/boards/certification')
+					}>
+					인증글 작성
+				</DropdownList>
+			</DropdownDiv>
+		</DropDownWrapper>
+	);
+}
+export { Dropdown, NewPostDropDown };

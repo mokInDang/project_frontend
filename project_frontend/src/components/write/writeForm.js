@@ -100,13 +100,14 @@ const WriteForm = (props) => {
 				name="contentBody"
 				value={contentBody}
 				getHtmlContentBody={getHtmlContentBody}
+				placeholder={'프로젝트에 대해 소개해주세요!'}
 			/>
 			<ButtonWrap>
 				<Button
 					name="cancel"
 					onClick={() => {
 						if (window.confirm('작성을 취소하고 페이지를 벗어나시겠습니까?')) {
-							movePath(navigate, '/');
+							movePath(navigate, -1);
 						}
 					}}>
 					취소

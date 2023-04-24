@@ -1,5 +1,5 @@
 import { Header, GlobalProfile } from './header';
-import Dropdown from './dropdown';
+import { Dropdown, NewPostDropDown } from './dropdown';
 import GetlocationButton from './getLocationButton';
 import JoinComment from './login/joinComment';
 import EditorComponent from './write/editorComponent';
@@ -31,8 +31,29 @@ import {
 	ReplyDiv,
 	ReplyInput,
 	ReplySubmitButton,
-} from './boardDetails/boardDetailsStyledComponents';
+	BoardDetailsWrap,
+	ButtonsWrap,
+	BoardContentButtonDiv,
+} from './boardDetails/StyledComponents';
 import { MyPageWrapper } from './myPage/myPageStyledComponents';
+import {
+	HR,
+	P,
+	Label,
+	Title,
+	Button,
+	ButtonWrap,
+	QuillWrap,
+} from './write/writeFormComponents';
+import {
+	ThumbnailsWrapper,
+	ThumbnailDiv,
+	ThumbnailedDiv,
+	FileUploader,
+} from './postCertification/StyledComponents';
+import { CertificationCardInfiniteScroll } from './main/cerfiticationCardInfiniteScroll';
+import { CertificationCard } from './main/certificationCard';
+import { CertificationCardsWrap } from './main/mainStyledComponents';
 
 export {
 	JoinComment,
@@ -45,6 +66,9 @@ export {
 	InfiniteScroll,
 	Card,
 	BoardContent,
+	CertificationCardInfiniteScroll,
+	CertificationCard,
+	NewPostDropDown,
 };
 export {
 	WriteWrapper,
@@ -66,5 +90,20 @@ export {
 	TabWrapper,
 	TabDiv,
 	GlobalProfile,
-	MyPageWrapper
+	MyPageWrapper,
+	HR,
+	P,
+	Label,
+	Title,
+	Button,
+	ButtonWrap,
+	QuillWrap,
+	ThumbnailsWrapper,
+	ThumbnailDiv,
+	ThumbnailedDiv,
+	FileUploader,
+	BoardDetailsWrap,
+	ButtonsWrap,
+	BoardContentButtonDiv,
+	CertificationCardsWrap,
 };

@@ -90,20 +90,20 @@ function MyInfoEdit() {
 							}
 							size="20rem"
 						/>
-						<div className="imageButtonsWrap">
-							<div className="imageButton">
-								<label htmlFor="profileImg">이미지 선택</label>
-							</div>
-							<input
-								type="file"
-								accept="image/*"
-								id="profileImg"
-								onChange={onImageChange}
-							/>
-							{/* <div className="imageButton">
+						{/* <div className="imageButtonsWrap"> */}
+						<label htmlFor="profileImg">
+							<div className="imageButton">이미지 선택</div>
+						</label>
+						<input
+							type="file"
+							accept="image/*"
+							id="profileImg"
+							onChange={onImageChange}
+						/>
+						{/* /<div className="imageButton">
 								<label onClick={deleteProfileThumbnail}>이미지 제거</label>
-							</div> */}
-						</div>
+							</div> 
+						</div> */}
 					</div>
 					<div className="myInfoWrap">
 						<div className="aliasWrap">
