@@ -119,13 +119,6 @@ const BoardContent = () => {
 						/>
 					</ContentDiv>
 					{/* 댓글 API 연결 후 댓글 Div 컴포넌트로 분리할 것! */}
-					<ReplyDiv>
-						<HeadingDiv fontSize="2.5rem">0개의 댓글이 있습니다.</HeadingDiv>
-						<ReplyInput>
-							<textarea />
-						</ReplyInput>
-						<ReplySubmitButton>댓글 등록</ReplySubmitButton>
-					</ReplyDiv>
 				</BoardDetailsWrap>
 			) : (
 				<></>

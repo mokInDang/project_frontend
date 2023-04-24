@@ -70,7 +70,6 @@ const Comment = ({ comment }) => {
 						****)
 					</div>
 					<div className="createdDatetime">
-						{comment.mine ? '글쓴이 | ' : ''}
 						{newDatetime(comment.createdDatetime)}
 						{comment.edited ? ' (수정됨)' : ''}
 					</div>
@@ -157,7 +156,7 @@ const Comments = ({ boardType, boardId }) => {
 	}, [comments]);
 
 	return (
-		<BoardWrapper>
+		<>
 			<ReplyDiv>
 				<HeadingDiv fontSize="2.5rem">
 					{comments ? comments.length : '0'}개의 댓글이 있습니다.
@@ -180,7 +179,7 @@ const Comments = ({ boardType, boardId }) => {
 						</div>
 					);
 				})}
-		</BoardWrapper>
+		</>
 	);
 };
 export { Comments };

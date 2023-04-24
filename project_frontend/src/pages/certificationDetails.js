@@ -23,6 +23,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import styled from 'styled-components';
 import axios from 'axios';
 import '../styles/index.css';
+import { Comments } from './comments';
 
 const ImageSlide = styled.div`
 	height: 60rem;
@@ -145,14 +146,8 @@ function CertificationDetails() {
 								}}
 							/>
 						</ContentDiv>
-						<ReplyDiv>
-							<HeadingDiv fontSize="2.5rem">0개의 댓글이 있습니다.</HeadingDiv>
-							<ReplyInput>
-								<textarea />
-							</ReplyInput>
-							<ReplySubmitButton>댓글 등록</ReplySubmitButton>
-						</ReplyDiv>
 					</BoardDetailsWrap>
+					<Comments />
 				</BoardWrapper>
 			)}
 		</>
