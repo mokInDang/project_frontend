@@ -40,8 +40,8 @@ const CommentWriterDiv = styled.div`
 	}
 	font-style: normal;
 	font-weight: 700;
-	font-size: 20px;
-	line-height: 22px;
+	font-size: 2rem;
+	line-height: 2.2rem;
 `;
 const Comment = ({ comment }) => {
 	function newDatetime(Datetime) {
@@ -61,6 +61,7 @@ const Comment = ({ comment }) => {
 				<WriterProfilePicDiv
 					size={'7rem'}
 					margin={'0 1.5rem 0 0'}
+					src={comment.writerProfileImageUrl}
 				/>
 				<CommentWriterDiv>
 					<div className="writerAlias">
