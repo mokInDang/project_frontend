@@ -87,20 +87,25 @@ const Comments = ({ boardType, boardId }) => {
 		setCommentBody(e.target.value);
 	};
 	const postComment = () => {
-		setIsLoading(true);
-		axios
-			.post(`/api/${boardType}/${boardId}/comments`, {
-				'commentBody': commentBody,
-			})
-			.then(() => {
-				setCommentBody('');
-				getComment();
-				setIsLoading(false);
-			})
-			.catch((error) => {
-				console.log(error);
-				setIsLoading(false);
-			});
+		var newCommentBody = commentBody.replace(/ /g, '');
+		if (newCommentBody !== '') {
+			setIsLoading(true);
+			axios
+				.post(`/api/${boardType}/${boardId}/comments`, {
+					'commentBody': commentBody,
+				})
+				.then(() => {
+					setCommentBody('');
+					getComment();
+					setIsLoading(false);
+				})
+				.catch((error) => {
+					console.log(error);
+					setIsLoading(false);
+				});
+		} else {
+			alert('댓글 본문은 공백 제외 1자 이상이어야 합니다.');
+		}
 	};
 	const getComment = () => {
 		axios
@@ -138,15 +143,11 @@ const Comments = ({ boardType, boardId }) => {
 		getComment();
 	}, []);
 
-	useEffect(() => {
-		console.log(comments);
-	}, [comments]);
-
 	return (
 		<>
 			<ReplyDiv>
 				<HeadingDiv fontSize="2.5rem">
-					{comments ? comments.length : '0'}개의 댓글이 있습니다.
+					{comments ? comments.length : ''}개의 댓글이 있습니다.
 				</HeadingDiv>
 				<ReplyInput>
 					<textarea
@@ -155,17 +156,18 @@ const Comments = ({ boardType, boardId }) => {
 					/>
 				</ReplyInput>
 				<div style={{ display: 'flex', flexDirection: 'column' }}>
-					<div
-						style={{
-							position: 'absolute',
-							backgroundColor: 'white',
-							opacity: '0.8',
-							width: '10rem',
-							height: '3.4rem',
-							right: '0',
-							borderRadius: '1.45rem',
-							display: `${isLoading ? 'block' : 'none'}`,
-						}}></div>
+					{isLoading && (
+						<div
+							style={{
+								position: 'absolute',
+								backgroundColor: 'white',
+								opacity: '0.8',
+								width: '10rem',
+								height: '3.4rem',
+								right: '0',
+								borderRadius: '1.45rem',
+							}}></div>
+					)}
 					<ReplySubmitButton onClick={postComment}>댓글 등록</ReplySubmitButton>
 				</div>
 			</ReplyDiv>
