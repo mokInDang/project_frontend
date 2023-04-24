@@ -15,7 +15,7 @@ import {
 import { Routes, Route } from 'react-router-dom';
 import { Header } from './components';
 import { reissueToken } from './apis';
-
+import { Comments } from './pages/comments';
 function App() {
 	// 페이지 리로드 시 reissueToken 실행
 	console.log('App.js에서 reissueToken 실행');
@@ -68,6 +68,14 @@ function App() {
 				<Route
 					path="/edit/certification/:boardId"
 					element={<PatchCertification />}
+				/>
+				<Route
+					path="/boards/certification/:boardId/comments"
+					element={<Comments />}
+				/>
+				<Route
+					path="/boards/recruitment/:boardId/comments"
+					element={<Comments />}
 				/>
 				<Route
 					path="/*"

@@ -83,7 +83,11 @@ const BoardInfo = styled.div`
 		margin: 4rem 0;
 	}
 `;
-const ReplyDiv = styled(ContentDiv)``;
+const ReplyDiv = styled(ContentDiv)`
+	display: flex;
+	flex-direction: column;
+	margin: 3rem 0;
+`;
 const ReplyInput = styled.div`
 	margin: 2rem 0;
 	height: 10rem;
@@ -103,8 +107,7 @@ const ReplyInput = styled.div`
 	}
 `;
 const ReplySubmitButton = styled.div`
-	position: absolute;
-	right: 0;
+	align-self: flex-end;
 	width: 10rem;
 	height: 3.4rem;
 	line-height: 3.4rem;
@@ -117,6 +120,7 @@ const ReplySubmitButton = styled.div`
 	font-weight: 500;
 	font-size: 1.5rem;
 	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.13);
+	cursor: pointer;
 `;
 const ButtonsWrap = styled.div`
 	position: absolute;
