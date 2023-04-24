@@ -50,83 +50,90 @@ const BoardContent = () => {
 	return (
 		<>
 			{boardDetails ? (
-				<BoardDetailsWrap>
-					<BsArrowLeft
-						style={{ margin: '3rem 1rem', cursor: 'pointer', fontSize: '5rem' }}
-						onClick={() => navigate(-1)}
-					/>
-					<HeadingDiv fontSize="4rem">{boardDetails.title}</HeadingDiv>
-					<WriterDiv>
-						<WriterProfilePicDiv
-							size="6rem"
-							margin="2rem 2rem 2rem 0"
-							src={boardDetails.writerProfileImageUrl}
+				<>
+					<BoardDetailsWrap>
+						<BsArrowLeft
+							style={{
+								margin: '3rem 1rem',
+								cursor: 'pointer',
+								fontSize: '5rem',
+							}}
+							onClick={() => navigate(-1)}
 						/>
-						<div>
-							{boardDetails.writerAlias}({boardDetails.firstFourLettersOfEmail}
-							****)
-						</div>
-						<VerticalBar id="verticalbar" />
-						<div className="startingDate">
-							{DateString(boardDetails.creatingDatetime, '.')}
-						</div>
-					</WriterDiv>
-					<HR />
-					{boardDetails.mine && (
-						<ButtonsWrap boardDetails={boardDetails}>
-							{/* boardDetails.onRecruitment 조회하여 마감 버튼 스타일할 것 */}
-							{boardDetails.onRecruitment === true && (
-								<>
-									<BoardContentButtonDiv
-										onClick={() => {
-											closeRecruitment(boardDetails.boardId, getNewDetails);
-										}}>
-										마감
-									</BoardContentButtonDiv>
-									<BoardContentButtonDiv
-										onClick={() => {
-											navigate(`/edit/recruitment/${boardDetails.boardId}`, {
-												state: boardDetails,
-											});
-										}}>
-										수정
-									</BoardContentButtonDiv>
-								</>
-							)}
-							<BoardContentButtonDiv
-								onClick={() => {
-									deleteRecruitment(boardDetails.boardId, navigate);
-								}}>
-								삭제
-							</BoardContentButtonDiv>
-						</ButtonsWrap>
-					)}
-					<BoardInfo>
-						{items.map((item, i) => {
-							return (
-								<div key={i}>
-									<div className="category">{item}</div>
-									<div>{values[i]}</div>
-								</div>
-							);
-						})}
-					</BoardInfo>
-					<ContentDiv>
-						<HeadingDiv fontSize="2.9rem">프로젝트 소개</HeadingDiv>
+						<HeadingDiv fontSize="4rem">{boardDetails.title}</HeadingDiv>
+						<WriterDiv>
+							<WriterProfilePicDiv
+								size="6rem"
+								margin="2rem 2rem 2rem 0"
+								src={boardDetails.writerProfileImageUrl}
+							/>
+							<div>
+								{boardDetails.writerAlias}(
+								{boardDetails.firstFourLettersOfEmail}
+								****)
+							</div>
+							<VerticalBar id="verticalbar" />
+							<div className="startingDate">
+								{DateString(boardDetails.creatingDatetime, '.')}
+							</div>
+						</WriterDiv>
 						<HR />
-						<div
-							dangerouslySetInnerHTML={{ __html: boardDetails.contentBody }}
-						/>
-					</ContentDiv>
-					{/* 댓글 API 연결 후 댓글 Div 컴포넌트로 분리할 것! */}
-				</BoardDetailsWrap>
+						{boardDetails.mine && (
+							<ButtonsWrap boardDetails={boardDetails}>
+								{/* boardDetails.onRecruitment 조회하여 마감 버튼 스타일할 것 */}
+								{boardDetails.onRecruitment === true && (
+									<>
+										<BoardContentButtonDiv
+											onClick={() => {
+												closeRecruitment(boardDetails.boardId, getNewDetails);
+											}}>
+											마감
+										</BoardContentButtonDiv>
+										<BoardContentButtonDiv
+											onClick={() => {
+												navigate(`/edit/recruitment/${boardDetails.boardId}`, {
+													state: boardDetails,
+												});
+											}}>
+											수정
+										</BoardContentButtonDiv>
+									</>
+								)}
+								<BoardContentButtonDiv
+									onClick={() => {
+										deleteRecruitment(boardDetails.boardId, navigate);
+									}}>
+									삭제
+								</BoardContentButtonDiv>
+							</ButtonsWrap>
+						)}
+						<BoardInfo>
+							{items.map((item, i) => {
+								return (
+									<div key={i}>
+										<div className="category">{item}</div>
+										<div>{values[i]}</div>
+									</div>
+								);
+							})}
+						</BoardInfo>
+						<ContentDiv>
+							<HeadingDiv fontSize="2.9rem">프로젝트 소개</HeadingDiv>
+							<HR />
+							<div
+								dangerouslySetInnerHTML={{ __html: boardDetails.contentBody }}
+							/>
+						</ContentDiv>
+						{/* 댓글 API 연결 후 댓글 Div 컴포넌트로 분리할 것! */}
+					</BoardDetailsWrap>
+					<Comments
+						boardType={'recruitment-board'}
+						boardId={params.boardId}
+					/>
+				</>
 			) : (
 				<></>
 			)}
-			<Comments
-				boardType={'recruitment-board'}
-				boardId={params.boardId}
-			/>
 		</>
 	);
 };
