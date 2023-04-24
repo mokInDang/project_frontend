@@ -99,7 +99,7 @@ const Comments = ({ boardType, boardId }) => {
 						: 'recruitment-board'
 				}/${params.boardId}/comments`,
 				{
-					'commentBody': { commentBody },
+					'commentBody': commentBody,
 				}
 			)
 			.then(() => {
