@@ -175,7 +175,6 @@ const Comments = ({ boardType, boardId }) => {
 						<div key={comment.commentId}>
 							<Comment comment={comment} />
 							<HR></HR>
-							<div>대댓글map함수로뿌려줄것</div>
 						</div>
 					);
 				})}

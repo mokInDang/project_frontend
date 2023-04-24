@@ -101,7 +101,7 @@ const ReplyInput = styled.div`
 		border: none;
 		resize: none;
 		outline: none;
-		font-family: NanumSquare_acR;
+		font-family: NanumSquare;
 		font-size: 1.5rem;
 		font-weight: 700;
 	}
