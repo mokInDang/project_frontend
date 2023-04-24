@@ -81,20 +81,25 @@ const Comment = ({ comment }) => {
 
 const Comments = ({ boardType, boardId }) => {
 	const [comments, setComments] = useState();
-	const [commentBody, setCommentBody] = useState();
+	const [commentBody, setCommentBody] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 	const getCommentBody = (e) => {
 		setCommentBody(e.target.value);
 	};
 	const postComment = () => {
+		setIsLoading(true);
 		axios
 			.post(`/api/${boardType}/${boardId}/comments`, {
 				'commentBody': commentBody,
 			})
 			.then(() => {
+				setCommentBody('');
 				getComment();
+				setIsLoading(false);
 			})
 			.catch((error) => {
 				console.log(error);
+				setIsLoading(false);
 			});
 	};
 	const getComment = () => {
@@ -149,7 +154,20 @@ const Comments = ({ boardType, boardId }) => {
 						onChange={getCommentBody}
 					/>
 				</ReplyInput>
-				<ReplySubmitButton onClick={postComment}>댓글 등록</ReplySubmitButton>
+				<div style={{ display: 'flex', flexDirection: 'column' }}>
+					<div
+						style={{
+							position: 'absolute',
+							backgroundColor: 'white',
+							opacity: '0.8',
+							width: '10rem',
+							height: '3.4rem',
+							right: '0',
+							borderRadius: '1.45rem',
+							display: `${isLoading ? 'block' : 'none'}`,
+						}}></div>
+					<ReplySubmitButton onClick={postComment}>댓글 등록</ReplySubmitButton>
+				</div>
 			</ReplyDiv>
 			{comments &&
 				comments.map((comment) => {

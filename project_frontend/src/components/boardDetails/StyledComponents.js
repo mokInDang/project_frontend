@@ -114,7 +114,7 @@ const ReplySubmitButton = styled.div`
 	text-align: center;
 	color: #ffffff;
 	background: #000000;
-	border-radius: 16px;
+	border-radius: 1.6rem;
 	box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.13);
 	font-family: 'NanumSquare';
 	font-weight: 500;
