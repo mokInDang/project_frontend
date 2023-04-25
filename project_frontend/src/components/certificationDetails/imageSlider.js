@@ -11,11 +11,12 @@ const LeftButtonDiv = styled.div`
 	position: absolute;
 	height: 100%;
 	width: 10%;
-	left: 1rem;
+	padding-left: 1rem;
 	z-index: 99;
 	text-align: left;
+	opacity: 0.6;
 	:hover {
-		background-color: rgba(1, 1, 1, 0.1);
+		opacity: 0.9;
 	}
 `;
 const RightButtonDiv = styled.div`
@@ -23,11 +24,12 @@ const RightButtonDiv = styled.div`
 	position: absolute;
 	height: 100%;
 	width: 10%;
-	right: 1rem;
+	padding-right: 1rem;
 	z-index: 99;
 	text-align: right;
+	opacity: 0.6;
 	:hover {
-		background-color: rgba(1, 1, 1, 0.1);
+		opacity: 0.9;
 	}
 `;
 const StyledImageSlide = styled(Slider)`
@@ -42,10 +44,7 @@ const StyledImageSlide = styled(Slider)`
 		display: none;
 	}
 `;
-const ImageDiv = styled.div`
-	background: no-repeat center/contain url(${(props) => props.src});
-	height: 60rem;
-`;
+
 const SlickButtonLeft = ({ currentSlide, slideCount, children, ...props }) => (
 	<LeftButtonDiv {...props}>
 		<RxChevronLeft
@@ -84,18 +83,6 @@ const ImageSlide = ({ children }) => {
 			dotsClass="test-css"
 			{...settings}>
 			{children}
-			<ImageDiv
-				className="image"
-				src="https://blog.kakaocdn.net/dn/tEMUl/btrDc6957nj/NwJoDw0EOapJNDSNRNZK8K/img.jpg"
-			/>
-			<ImageDiv
-				className="image"
-				src="https://img.freepik.com/free-photo/adorable-kitty-looking-like-it-want-to-hunt_23-2149167099.jpg?w=2000"
-			/>
-			<ImageDiv
-				className="image"
-				src="https://image.dongascience.com/Photo/2016/09/14750507361195.jpg"
-			/>
 		</StyledImageSlide>
 	);
 };
