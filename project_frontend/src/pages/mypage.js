@@ -49,7 +49,6 @@ function MyPage() {
 		await axios
 			.get('api/member/mypage')
 			.then((res) => {
-				console.log(res.data);
 				secureLocalStorage.setItem('userInfo', res.data);
 				setUserInfo(res.data);
 			})

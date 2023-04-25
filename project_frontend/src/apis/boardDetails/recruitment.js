@@ -4,7 +4,6 @@ const getRecruitment = (boardId, getBoardDetails, navigate) => {
 	axios
 		.get(`/api/boards/recruitment/${boardId}`)
 		.then((res) => {
-			console.log(res.data);
 			getBoardDetails(res.data);
 		})
 		.catch((error) => {
@@ -25,11 +24,9 @@ const writeRecruitment = (contentBody, navigate) => {
 		return;
 	}
 	console.log('writeRecruitment 실행');
-	console.log(contentBody);
 	axios
 		.post(`/api/boards/recruitment`, contentBody)
 		.then((res) => {
-			console.log(res.data.boardId);
 			navigate(`/boards/recruitment/${res.data.boardId}`, { replace: true });
 		})
 		.catch((error) => {
@@ -50,11 +47,9 @@ const EditRecruitment = (boardId, contentBody, navigate) => {
 	}
 	if (window.confirm('게시글 수정을 완료하시겠습니까?')) {
 		console.log('EditRecruitment 실행');
-		console.log(contentBody);
 		axios
 			.patch(`/api/boards/recruitment/${boardId}`, contentBody)
 			.then((res) => {
-				console.log(res.data.boardId);
 				navigate(`/boards/recruitment/${res.data.boardId}`, { replace: true });
 			})
 			.catch((error) => {
