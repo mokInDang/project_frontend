@@ -198,7 +198,10 @@ const Comment = ({ comment, getComments }) => {
 				<CommentBodyDiv>{comment.commentBody}</CommentBodyDiv>
 			</CommentWrap>
 			<HR style={{ marginBottom: 0 }}></HR>
-			<ReplyComments reply={comment.multiReplyCommentSelectionResponse} />
+			<ReplyComments
+				reply={comment.multiReplyCommentSelectionResponse}
+				getComments={getComments}
+			/>
 			{toWriteReply && (
 				<div>
 					<ReplyCommentWrap>
@@ -236,7 +239,7 @@ const Comment = ({ comment, getComments }) => {
 	);
 };
 
-const ReplyComments = ({ reply }) => {
+const ReplyComments = ({ reply, getComments }) => {
 	const [replyComments, setReplyComments] = useState([]);
 	useEffect(() => {
 		if (reply) {
@@ -252,6 +255,7 @@ const ReplyComments = ({ reply }) => {
 					replyComments.map((replyComment) => {
 						return (
 							<ReplyComment
+								getComments={getComments}
 								key={replyComment.replyCommentId}
 								replyComment={replyComment}></ReplyComment>
 						);
@@ -260,7 +264,18 @@ const ReplyComments = ({ reply }) => {
 		);
 	}
 };
-const ReplyComment = ({ replyComment }) => {
+const ReplyComment = ({ replyComment, getComments }) => {
+	const deleteReplyComment = () => {
+		axios
+			.delete(`/api/comments/reply-comments/${replyComment.replyCommentId}`)
+			.then(() => {
+				getComments();
+			})
+			.catch((error) => {
+				console.log(error);
+				alert('대댓글 삭제에 실패했습니다.');
+			});
+	};
 	return (
 		<ReplyCommentWrap>
 			<LowLevel></LowLevel>
@@ -286,6 +301,7 @@ const ReplyComment = ({ replyComment }) => {
 							<BoardContentButtonDiv
 								onClick={() => {
 									if (window.confirm('댓글을 삭제하시겠습니까?')) {
+										deleteReplyComment();
 									}
 								}}>
 								삭제
