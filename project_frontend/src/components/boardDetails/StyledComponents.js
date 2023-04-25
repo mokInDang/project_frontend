@@ -6,6 +6,7 @@ const BoardWrapper = styled(WriteWrapper)`
 	@media (max-width: 768px) {
 		margin: 1rem auto;
 	}
+	margin-bottom: 5rem;
 `;
 const BoardDetailsWrap = styled.div`
 	position: relative;
