@@ -108,9 +108,9 @@ function newDatetime(Datetime) {
 	return newDate;
 }
 const Comment = ({ comment, getComments }) => {
-	const postedReplyRef = useRef();
+	const replyRef = useRef();
 	const [toWriteReply, setToWriteReply] = useState(false);
-	const [replyCommentBody, setReplyCommentBody] = useState();
+	const [replyCommentBody, setReplyCommentBody] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const getReplyCommentBody = (e) => {
 		if (
@@ -131,6 +131,9 @@ const Comment = ({ comment, getComments }) => {
 				alert('댓글 삭제에 실패했습니다.');
 			});
 	};
+	const onMoveToReplyCommentInput = () => {
+		replyRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+	};
 	const postReplyComment = () => {
 		var newReplyCommentBody = replyCommentBody.trim();
 		if (newReplyCommentBody === '') {
@@ -146,6 +149,7 @@ const Comment = ({ comment, getComments }) => {
 				setReplyCommentBody('');
 				getComments();
 				setIsLoading(false);
+				setToWriteReply(false);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -154,7 +158,7 @@ const Comment = ({ comment, getComments }) => {
 			});
 	};
 	return (
-		<CommentDiv>
+		<CommentDiv ref={replyRef}>
 			<CommentWrap>
 				<CommentProfileDiv>
 					<WriterProfilePicDiv
@@ -182,7 +186,11 @@ const Comment = ({ comment, getComments }) => {
 								삭제
 							</BoardContentButtonDiv>
 						)}
-						<BoardContentButtonDiv onClick={() => setToWriteReply(true)}>
+						<BoardContentButtonDiv
+							onClick={() => {
+								setToWriteReply(true);
+								onMoveToReplyCommentInput();
+							}}>
 							대댓글 작성
 						</BoardContentButtonDiv>
 					</CommentButtonsWrap>
@@ -223,6 +231,7 @@ const Comment = ({ comment, getComments }) => {
 					</ButtonWrap>
 				</div>
 			)}
+			<div ref={replyRef}></div>
 		</CommentDiv>
 	);
 };
@@ -290,9 +299,13 @@ const ReplyComment = ({ replyComment }) => {
 	);
 };
 const Comments = ({ boardType, boardId }) => {
+	const commentRef = useRef();
 	const [comments, setComments] = useState();
 	const [commentBody, setCommentBody] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const onMoveToLastComment = () => {
+		commentRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+	};
 	const getCommentBody = (e) => {
 		if (
 			e.target.value.replace(/ /g, '') === '' ||
@@ -316,6 +329,7 @@ const Comments = ({ boardType, boardId }) => {
 				setCommentBody('');
 				getComments();
 				setIsLoading(false);
+				onMoveToLastComment();
 			})
 			.catch((error) => {
 				console.log(error);
@@ -441,6 +455,7 @@ const Comments = ({ boardType, boardId }) => {
 						</div>
 					);
 				})}
+			<div ref={commentRef}></div>
 		</>
 	);
 };
