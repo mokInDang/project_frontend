@@ -53,7 +53,7 @@ const WriteForm = (props) => {
 					src={green1}
 					alt="1"
 				/>
-				프로젝트 기본 정보를 입력해주세요.
+				플로깅 모집 시 필요한 정보를 입력해주세요.
 			</P>
 			<HR />
 			<div
@@ -84,21 +84,18 @@ const WriteForm = (props) => {
 					src={green2}
 					alt="2"
 				/>
-				프로젝트에 대해 소개해주세요.
+				진행할 플로깅 활동에 대해 설명해주세요.
 			</P>
 			<HR />
 			<Label htmlFor="title">제목</Label>
 			<Title
-				type="text"
-				placeholder="글 제목을 입력해주세요."
-				name="title"
 				value={title}
 				onChange={onChange}></Title>
 			<EditorComponent
 				name="contentBody"
 				value={contentBody}
 				getHtmlContentBody={getHtmlContentBody}
-				placeholder={'프로젝트에 대해 소개해주세요!'}
+				placeholder={'진행할 플로깅 활동에 대해 자유롭게 설명해주세요!'}
 			/>
 			<ButtonWrap>
 				<Button

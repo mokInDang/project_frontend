@@ -33,7 +33,12 @@ const Label = styled.label`
 	}
 `;
 
-const Title = styled.input`
+const Title = styled.input.attrs({
+	type: 'text',
+	placeholder: '글 제목을 입력해주세요.',
+	name: 'title',
+	maxLength: '40',
+})`
 	font-family: NanumSquareNeo;
 	margin-top: 2.5rem;
 	margin-bottom: 3.5rem;
