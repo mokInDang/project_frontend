@@ -19,10 +19,12 @@ function MyInfoEdit() {
 	const formData = new FormData();
 
 	const submitChangedProfile = () => {
+		if (profileImage === '' || userInfo.alias === '') {
+			alert('프로필 이미지를 지정해주세요. 닉네임은 공백일 수 없습니다.');
+			return;
+		}
 		formData.append('profileImage', profileImage);
 		formData.append('alias', userInfo.alias);
-		console.log(formData.get('profileImage'));
-		console.log(formData.get('alias'));
 		axios
 			.patch('/api/member/edit-mypage', formData, {
 				headers: {
