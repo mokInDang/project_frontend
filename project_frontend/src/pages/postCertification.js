@@ -62,7 +62,7 @@ function PostCertification() {
 			}
 			if (!fileSizeValid(imageFile.size)) {
 				e.target.value = '';
-				alert('업로드 가능한 최대 파일 크기는 파일 당 5MB입니다.');
+				alert('업로드 가능한 최대 파일 크기는 파일 당 10MB입니다.');
 				return;
 			}
 			createImageURL(imageFile); // 썸네일용 이미지 url 생성
