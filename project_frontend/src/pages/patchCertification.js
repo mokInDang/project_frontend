@@ -34,6 +34,8 @@ function PatchCertification() {
 	);
 	const [imageFiles, setImageFiles] = useState([]);
 	const [imageThumbnails, setImageThumbnails] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+
 	const selectFile = useRef();
 	const getHtmlContentBody = (newContentBody) => {
 		setContentbody(newContentBody);
@@ -109,6 +111,7 @@ function PatchCertification() {
 			formData.append('files', imageFile);
 		});
 		formData.append('contentBody', contentBody);
+		setIsLoading(true);
 		axios
 			.patch(`/api/boards/certification/${boardId}`, formData, {
 				headers: {
@@ -117,10 +120,12 @@ function PatchCertification() {
 			})
 			.then(() => {
 				navigate(`/boards/certification/${boardId}`);
+				setIsLoading(false);
 			})
 			.catch((error) => {
 				console.error(error);
-				console.log('글 작성에 실패했습니다.');
+				alert('글 작성에 실패했습니다.');
+				setIsLoading(false);
 			});
 	};
 	useEffect(() => {
@@ -191,7 +196,8 @@ function PatchCertification() {
 					getHtmlContentBody={getHtmlContentBody}
 					placeholder={'진행했던 플로깅 활동에 대해 작성해주세요!'}
 				/>
-				<ButtonWrap>
+				<ButtonWrap isLoading={isLoading}>
+					<div className="loading"></div>
 					<Button
 						name="cancel"
 						onClick={() => {

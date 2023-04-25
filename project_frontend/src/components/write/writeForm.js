@@ -11,6 +11,7 @@ const WriteForm = (props) => {
 	const boardIdToEdit = props.boardIdToEdit;
 	const navigate = useNavigate();
 	const [form, setForm] = useState(props.form);
+	const [isLoading, setIsLoading] = useState(false);
 	const { title, contentBody, activityCategory, startingDate } = form;
 
 	const getSelectedActivity = (newSelectedActivity) => {
@@ -97,7 +98,8 @@ const WriteForm = (props) => {
 				getHtmlContentBody={getHtmlContentBody}
 				placeholder={'진행할 플로깅 활동에 대해 자유롭게 설명해주세요!'}
 			/>
-			<ButtonWrap>
+			<ButtonWrap isLoading={isLoading}>
+				<div className="loading" />
 				<Button
 					name="cancel"
 					onClick={() => {
@@ -109,8 +111,8 @@ const WriteForm = (props) => {
 				</Button>
 				<Button
 					onClick={() => {
-						if (!boardIdToEdit) writeRecruitment(form, navigate);
-						else EditRecruitment(boardIdToEdit, form, navigate);
+						if (!boardIdToEdit) writeRecruitment(form, navigate, setIsLoading);
+						else EditRecruitment(boardIdToEdit, form, navigate, setIsLoading);
 					}}
 					name="write">
 					{!boardIdToEdit ? '글 등록' : '수정하기'}

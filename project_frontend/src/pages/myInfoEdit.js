@@ -32,7 +32,6 @@ function MyInfoEdit() {
 				},
 			})
 			.then((res) => {
-				console.log(res.data);
 				secureLocalStorage.setItem('userInfo', res.data);
 				navigate('/mypage');
 			})
