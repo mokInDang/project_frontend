@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const HR = styled.hr`
-	border: 1.8px solid rgba(153, 153, 153, 0.3);
+	border: 0.18rem solid rgba(153, 153, 153, 0.3);
 	margin-bottom: 2.5rem;
 	margin-bottom: 2.5rem;
 `;
