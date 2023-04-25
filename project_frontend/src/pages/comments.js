@@ -7,6 +7,8 @@ import {
 	WriterProfilePicDiv,
 	HR,
 	BoardContentButtonDiv,
+	ButtonWrap,
+	Button,
 } from '../components';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -15,11 +17,12 @@ const CommentDiv = styled.div`
 	font-style: normal;
 	font-weight: 700;
 	font-size: 2rem;
-	margin: 1rem 0;
-	padding: 1rem 0;
+`;
+const CommentWrap = styled.div`
+	padding-top: 2rem;
 `;
 const CommentBodyDiv = styled.div`
-	margin: 2rem;
+	margin: 1.5rem 2rem 0 2rem;
 	line-height: 2.5rem;
 	font-size: 2rem;
 	font-weight: 700;
@@ -27,12 +30,6 @@ const CommentBodyDiv = styled.div`
 	padding: 1rem;
 	box-sizing: border-box;
 `;
-const ReplyBody = styled(CommentBodyDiv)`
-	border: none;
-	padding: 0;
-	margin: 2rem 2rem 1rem 2rem;
-`;
-
 const CommentProfileDiv = styled.div`
 	display: flex;
 	align-items: center;
@@ -59,7 +56,6 @@ const CommentWriterDiv = styled.div`
 	font-size: 2rem;
 	line-height: 2.2rem;
 `;
-
 const CommentButtonsWrap = styled.div`
 	position: absolute;
 	display: flex;
@@ -82,6 +78,22 @@ const LowLevel = styled.div`
 	height: 2rem;
 	margin: 1rem;
 	flex-shrink: 0;
+`;
+const ReplyBodyWrap = styled.div`
+	background-color: rgba(217, 217, 217, 0.28);
+	flex-grow: 1;
+	border-radius: 3rem;
+	align-items: center;
+	padding: 1.5rem;
+`;
+const ReplyCommentWrap = styled.div`
+	display: flex;
+	margin-top: 2rem;
+`;
+const ReplyBody = styled(CommentBodyDiv)`
+	border: none;
+	padding: 0;
+	margin: 1.5rem 1.5rem 0.5rem 1.5rem;
 `;
 
 function newDatetime(Datetime) {
@@ -207,17 +219,6 @@ const ReplyComment = ({ replyComment }) => {
 		</ReplyCommentWrap>
 	);
 };
-const ReplyBodyWrap = styled.div`
-	background-color: rgba(217, 217, 217, 0.28);
-	flex-grow: 1;
-	border-radius: 3rem;
-	align-items: center;
-	padding: 1.5rem;
-`;
-const ReplyCommentWrap = styled.div`
-	display: flex;
-	margin-top: 2rem;
-`;
 const Comments = ({ boardType, boardId }) => {
 	const [comments, setComments] = useState();
 	const [commentBody, setCommentBody] = useState('');

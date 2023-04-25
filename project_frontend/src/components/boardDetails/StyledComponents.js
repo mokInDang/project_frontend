@@ -86,10 +86,11 @@ const BoardInfo = styled.div`
 const ReplyDiv = styled(ContentDiv)`
 	display: flex;
 	flex-direction: column;
-	margin: 3rem 0;
+	margin: 5rem 0;
 `;
 const ReplyInput = styled.div`
 	margin: 2rem 0;
+	width: 100%;
 	height: 10rem;
 	border: 2px solid rgba(162, 162, 162, 0.6);
 	border-radius: 10px;
@@ -102,7 +103,7 @@ const ReplyInput = styled.div`
 		resize: none;
 		outline: none;
 		font-family: NanumSquare;
-		font-size: 1.5rem;
+		font-size: 2rem;
 		font-weight: 700;
 	}
 `;
