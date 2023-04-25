@@ -54,6 +54,7 @@ import {
 import { CertificationCardInfiniteScroll } from './main/cerfiticationCardInfiniteScroll';
 import { CertificationCard } from './main/certificationCard';
 import { CertificationCardsWrap } from './main/mainStyledComponents';
+import { ImageSlide } from './certificationDetails/imageSlider';
 
 export {
 	JoinComment,
@@ -69,6 +70,7 @@ export {
 	CertificationCardInfiniteScroll,
 	CertificationCard,
 	NewPostDropDown,
+	ImageSlide,
 };
 export {
 	WriteWrapper,
