@@ -29,14 +29,12 @@ function PostCertification() {
 	const [imageThumbnails, setImageThumbnails] = useState([]);
 	const selectFile = useRef();
 	const getHtmlContentBody = (newContentBody) => {
-		if (newContentBody === '<p><br></p>') {
-			newContentBody = '';
-		}
 		setContentbody(newContentBody);
 	};
 
 	const onChange = (e) => {
 		// input title에 사용되는 함수
+		if (e.target.value.replace(/ /g, '') === '') e.target.value = '';
 		setTitle(e.target.value);
 	};
 
@@ -69,7 +67,6 @@ function PostCertification() {
 			imageList.push(imageFile);
 		}
 		setImageFiles(Array.from(imageList)); // 업로드한 이미지 ProfileImage에 저장
-		console.log(imageFiles);
 	};
 
 	const createImageURL = (fileBlob) => {
@@ -101,15 +98,11 @@ function PostCertification() {
 			alert('제목과 본문, 한 장 이상의 사진은 필수입니다.');
 			return;
 		}
-		formData.append('title', title);
-		console.log(imageFiles);
+		formData.append('title', title.trim());
 		imageFiles.forEach((imageFile) => {
 			formData.append('files', imageFile);
 		});
 		formData.append('contentBody', contentBody);
-		console.log(formData.get('title'));
-		console.log(formData.get('files'));
-		console.log(formData.get('contentBody'));
 		axios
 			.post('/api/boards/certification', formData, {
 				headers: {
@@ -141,9 +134,6 @@ function PostCertification() {
 				<HR></HR>
 				<Label htmlFor="title">제목</Label>
 				<Title
-					type="text"
-					placeholder="글 제목을 입력해주세요."
-					name="title"
 					value={title}
 					onChange={onChange}></Title>
 				<Label htmlFor="photos">

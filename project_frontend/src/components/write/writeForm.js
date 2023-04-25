@@ -29,9 +29,6 @@ const WriteForm = (props) => {
 	};
 
 	const getHtmlContentBody = (newContentBody) => {
-		if (newContentBody === '<p><br></p>') {
-			newContentBody = '';
-		}
 		const nextForm = {
 			...form, // 기존값 복사 (spread operator)
 			contentBody: newContentBody, // 덮어쓰기
@@ -41,6 +38,7 @@ const WriteForm = (props) => {
 
 	const onChange = (e) => {
 		// input 태그에 사용되는 함수
+		if (e.target.value.replace(/ /g, '') === '') e.target.value = '';
 		const nextForm = {
 			...form, // 기존값 복사 (spread operator)
 			[e.target.name]: e.target.value, // 덮어쓰기
