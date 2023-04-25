@@ -141,8 +141,11 @@ const Header = () => {
 		setNewPostDropDownView(false);
 		if (secureLocalStorage.getItem('accessToken') !== null && !isLogined)
 			setIsLogined(true);
-		if (location.pathname === '/mypage') getUserInfo();
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로, 페이지 이동 시
+
+	useEffect(() => {
+		if (location.pathname === '/mypage') getUserInfo();
+	});
 
 	useEffect(() => {
 		getUserInfo();
