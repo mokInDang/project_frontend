@@ -125,7 +125,7 @@ function CertificationDetails() {
 								})}
 							</ImageSlide>
 						)}
-						<HR style={{ margin: '5rem 0' }}></HR>
+						<HR style={{ marginTop: '10rem' }}></HR>
 						<ContentDiv>
 							<div
 								dangerouslySetInnerHTML={{

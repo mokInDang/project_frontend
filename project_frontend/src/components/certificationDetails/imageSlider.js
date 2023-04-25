@@ -11,7 +11,7 @@ const LeftButtonDiv = styled.div`
 	position: absolute;
 	height: 100%;
 	width: 10%;
-	padding-left: 1rem;
+	left: 0;
 	z-index: 99;
 	text-align: left;
 	opacity: 0.6;
@@ -24,7 +24,7 @@ const RightButtonDiv = styled.div`
 	position: absolute;
 	height: 100%;
 	width: 10%;
-	padding-right: 1rem;
+	right: 0rem;
 	z-index: 99;
 	text-align: right;
 	opacity: 0.6;
@@ -34,7 +34,7 @@ const RightButtonDiv = styled.div`
 `;
 const StyledImageSlide = styled(Slider)`
 	box-sizing: border-box;
-	margin-top: 5rem;
+	margin: 5rem 0;
 	height: 60rem;
 	width: 100%;
 	position: relative;
