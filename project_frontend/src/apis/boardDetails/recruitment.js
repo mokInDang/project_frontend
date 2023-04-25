@@ -15,6 +15,15 @@ const getRecruitment = (boardId, getBoardDetails, navigate) => {
 };
 
 const writeRecruitment = (contentBody, navigate) => {
+	if (
+		contentBody.activityCategory === '' ||
+		contentBody.title === '' ||
+		contentBody.contentBody === '' ||
+		contentBody.startingDate === ''
+	) {
+		alert('모집 구분, 시작 예정일, 제목, 본문 란을 모두 채워주세요.');
+		return;
+	}
 	console.log('writeRecruitment 실행');
 	console.log(contentBody);
 	axios
@@ -25,11 +34,20 @@ const writeRecruitment = (contentBody, navigate) => {
 		})
 		.catch((error) => {
 			console.log(error);
-			console.log(error.response.request.response);
+			alert('게시글 작성에 실패했습니다.');
 		});
 };
 
 const EditRecruitment = (boardId, contentBody, navigate) => {
+	if (
+		contentBody.activityCategory === '' ||
+		contentBody.title === '' ||
+		contentBody.contentBody === '' ||
+		contentBody.startingDate === ''
+	) {
+		alert('모집 구분, 시작 예정일, 제목, 본문 란을 모두 채워주세요.');
+		return;
+	}
 	if (window.confirm('게시글 수정을 완료하시겠습니까?')) {
 		console.log('EditRecruitment 실행');
 		console.log(contentBody);
