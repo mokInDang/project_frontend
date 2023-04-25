@@ -235,7 +235,7 @@ const Comments = ({ boardType, boardId }) => {
 			})
 			.then((res) => {
 				setCommentBody('');
-				getComment();
+				getComments();
 				setIsLoading(false);
 			})
 			.catch((error) => {
@@ -243,7 +243,7 @@ const Comments = ({ boardType, boardId }) => {
 				setIsLoading(false);
 			});
 	};
-	const getComment = () => {
+	const getComments = () => {
 		axios
 			.get(`/api/${boardType}/${boardId}/comments`)
 			.then((res) => setComments(res.data.comments))
@@ -319,7 +319,7 @@ const Comments = ({ boardType, boardId }) => {
 	};
 
 	useEffect(() => {
-		getComment();
+		getComments();
 	}, []);
 
 	return (
@@ -354,7 +354,10 @@ const Comments = ({ boardType, boardId }) => {
 				comments.map((comment) => {
 					return (
 						<div key={comment.commentId}>
-							<Comment comment={comment} />
+							<Comment
+								comment={comment}
+								getComments={getComments}
+							/>
 						</div>
 					);
 				})}
