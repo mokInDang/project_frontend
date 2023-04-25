@@ -108,6 +108,18 @@ function newDatetime(Datetime) {
 	return newDate;
 }
 const Comment = ({ comment, getComments }) => {
+	const postedReplyRef = useRef();
+	const [toWriteReply, setToWriteReply] = useState(false);
+	const [replyCommentBody, setReplyCommentBody] = useState();
+	const [isLoading, setIsLoading] = useState(false);
+	const getReplyCommentBody = (e) => {
+		if (
+			e.target.value.replace(/ /g, '') === '' ||
+			e.target.value.replace(/\n/g, '') === ''
+		)
+			e.target.value = '';
+		setReplyCommentBody(e.target.value);
+	};
 	const deleteComment = () => {
 		axios
 			.delete(`/api/comments/${comment.commentId}`)
@@ -119,40 +131,98 @@ const Comment = ({ comment, getComments }) => {
 				alert('댓글 삭제에 실패했습니다.');
 			});
 	};
+	const postReplyComment = () => {
+		var newReplyCommentBody = replyCommentBody.trim();
+		if (newReplyCommentBody === '') {
+			alert('댓글 본문을 입력해주세요.');
+			return;
+		}
+		setIsLoading(true);
+		axios
+			.post(`/api/comments/${comment.commentId}/reply-comment`, {
+				'replyCommentBody': newReplyCommentBody,
+			})
+			.then(() => {
+				setReplyCommentBody('');
+				getComments();
+				setIsLoading(false);
+			})
+			.catch((error) => {
+				console.log(error);
+				alert('대댓글 작성에 실패했습니다.');
+				setIsLoading(false);
+			});
+	};
 	return (
 		<CommentDiv>
-			<CommentProfileDiv>
-				<WriterProfilePicDiv
-					size={'7rem'}
-					margin={'0 1.5rem 0 0'}
-					src={comment.writerProfileImageUrl}
-				/>
-				<CommentWriterDiv>
-					<div className="writerAlias">
-						{comment.writerAlias} ({comment.firstFourLettersOfEmail}
-						****)
-					</div>
-					<div className="createdDatetime">
-						{newDatetime(comment.createdDatetime)}
-					</div>
-				</CommentWriterDiv>
-				<CommentButtonsWrap>
-					{comment.mine && (
-						<BoardContentButtonDiv
-							onClick={() => {
-								if (window.confirm('댓글을 삭제하시겠습니까?')) {
-									deleteComment();
-								}
-							}}>
-							삭제
+			<CommentWrap>
+				<CommentProfileDiv>
+					<WriterProfilePicDiv
+						size={'7rem'}
+						margin={'0 1.5rem 0 0'}
+						src={comment.writerProfileImageUrl}
+					/>
+					<CommentWriterDiv>
+						<div className="writerAlias">
+							{comment.writerAlias} ({comment.firstFourLettersOfEmail}
+							****)
+						</div>
+						<div className="createdDatetime">
+							{newDatetime(comment.createdDatetime)}
+						</div>
+					</CommentWriterDiv>
+					<CommentButtonsWrap>
+						{comment.mine && (
+							<BoardContentButtonDiv
+								onClick={() => {
+									if (window.confirm('댓글을 삭제하시겠습니까?')) {
+										deleteComment();
+									}
+								}}>
+								삭제
+							</BoardContentButtonDiv>
+						)}
+						<BoardContentButtonDiv onClick={() => setToWriteReply(true)}>
+							대댓글 작성
 						</BoardContentButtonDiv>
-					)}
-					<BoardContentButtonDiv>대댓글 작성</BoardContentButtonDiv>
-				</CommentButtonsWrap>
-			</CommentProfileDiv>
-			<CommentBodyDiv>{comment.commentBody}</CommentBodyDiv>
+					</CommentButtonsWrap>
+				</CommentProfileDiv>
+				<CommentBodyDiv>{comment.commentBody}</CommentBodyDiv>
+			</CommentWrap>
 			<HR style={{ marginBottom: 0 }}></HR>
 			<ReplyComments reply={comment.multiReplyCommentSelectionResponse} />
+			{toWriteReply && (
+				<div>
+					<ReplyCommentWrap>
+						<LowLevel></LowLevel>
+						<ReplyInput>
+							<textarea
+								value={replyCommentBody}
+								onChange={getReplyCommentBody}
+								maxLength={250}
+							/>
+						</ReplyInput>
+					</ReplyCommentWrap>
+					<ButtonWrap
+						style={{ marginTop: 0 }}
+						isLoading={isLoading}>
+						<div className="loading"></div>
+						<Button
+							name="cancel"
+							onClick={() => {
+								setToWriteReply(false);
+							}}>
+							취소
+						</Button>
+						<Button
+							onClick={() => {
+								postReplyComment();
+							}}>
+							대댓글 작성
+						</Button>
+					</ButtonWrap>
+				</div>
+			)}
 		</CommentDiv>
 	);
 };
@@ -242,13 +312,14 @@ const Comments = ({ boardType, boardId }) => {
 			.post(`/api/${boardType}/${boardId}/comments`, {
 				'commentBody': newCommentBody,
 			})
-			.then((res) => {
+			.then(() => {
 				setCommentBody('');
 				getComments();
 				setIsLoading(false);
 			})
 			.catch((error) => {
 				console.log(error);
+				alert('댓글 작성에 실패했습니다.');
 				setIsLoading(false);
 			});
 	};
@@ -272,8 +343,7 @@ const Comments = ({ boardType, boardId }) => {
 							'replyComments': [
 								{
 									'replyCommentId': 0,
-									'replyCommentBody':
-										'댓글 본문입니다.댓글 본문입니다.댓글 본문입니다.댓글 본문입니다.댓글 본문입니다.댓글 본문입니다.댓글 본문입니다.댓글 본문입니다.댓글 본문입니다.댓글 본문입니다.댓글 본문입니다.댓글 본문입니다.댓글 본문입니다.댓글 본문입니다.댓글 본문입니다.',
+									'replyCommentBody': '댓글 본문입니다.',
 									'createdDatetime': '2023-04-25T15:44:57.335Z',
 									'writerAlias': '작성자닉네임',
 									'edited': true,
@@ -339,6 +409,7 @@ const Comments = ({ boardType, boardId }) => {
 				</HeadingDiv>
 				<ReplyInput>
 					<textarea
+						maxLength={250}
 						value={commentBody}
 						onChange={getCommentBody}
 					/>
