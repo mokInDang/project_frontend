@@ -10,6 +10,7 @@ import {
 	ButtonsWrap,
 	ContentDiv,
 	BoardContentButtonDiv,
+	ImageSlide,
 } from '../components';
 import { BsArrowLeft } from 'react-icons/bs';
 import { useNavigate, useParams } from 'react-router';
@@ -22,7 +23,7 @@ import axios from 'axios';
 import '../styles/index.css';
 import { Comments } from './comments';
 
-const ImageSlide = styled.div`
+const ImageForSlide = styled.div`
 	height: 60rem;
 	background: no-repeat center/contain url(${(props) => props.src});
 `;
@@ -32,14 +33,6 @@ function CertificationDetails() {
 	const params = useParams();
 	const [certificationDetails, setCertificationDetails] = useState();
 	const [certificationImages, setCertificationImages] = useState([]);
-	var settings = {
-		arrows: true,
-		dots: true,
-		infinite: true,
-		speed: 500,
-		slidesToShow: 1,
-		slidesToScroll: 1,
-	};
 
 	useEffect(() => {
 		axios
@@ -122,18 +115,15 @@ function CertificationDetails() {
 							</ButtonsWrap>
 						)}
 						{certificationImages && (
-							<Slider
-								dotsClass="test-css"
-								{...settings}
-								style={{ marginTop: '5rem' }}>
+							<ImageSlide>
 								{certificationImages.map((certificationImageUrl, i) => {
 									return (
-										<ImageSlide
+										<ImageForSlide
 											key={i}
-											src={certificationImageUrl}></ImageSlide>
+											src={certificationImageUrl}></ImageForSlide>
 									);
 								})}
-							</Slider>
+							</ImageSlide>
 						)}
 						<HR style={{ margin: '5rem 0' }}></HR>
 						<ContentDiv>
