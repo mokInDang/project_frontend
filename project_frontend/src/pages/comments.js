@@ -97,7 +97,15 @@ function newDatetime(Datetime) {
 }
 const Comment = ({ comment, getComments }) => {
 	const deleteComment = () => {
-		axios.delete(`/api/comments/${comment.commentId}`).then(getComments());
+		axios
+			.delete(`/api/comments/${comment.commentId}`)
+			.then(() => {
+				getComments();
+			})
+			.catch((error) => {
+				console.log(error);
+				alert('댓글 삭제에 실패했습니다.');
+			});
 	};
 	return (
 		<CommentDiv>
