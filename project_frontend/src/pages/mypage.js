@@ -90,7 +90,11 @@ function MyPage() {
 					<input
 						type="text"
 						name="region"
-						value={userInfo.region}
+						value={
+							userInfo.region === 'DEFAULT_REGION'
+								? '위치를 설정해주세요.'
+								: userInfo.region
+						}
 						readOnly
 					/>
 					<div
