@@ -43,6 +43,13 @@ function EditorComponent({ getHtmlContentBody, value, placeholder }) {
 	}, []);
 
 	useEffect(() => {
+		if (
+			contentBody
+				.replace(/<[^>]*>?/g, '')
+				.replace(/(<([^>]+)>)/gi, '')
+				.trim() === ''
+		)
+			setContentBody('');
 		getHtmlContentBody(contentBody);
 	}, [contentBody]);
 
