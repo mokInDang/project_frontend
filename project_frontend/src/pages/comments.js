@@ -84,28 +84,33 @@ const Comments = ({ boardType, boardId }) => {
 	const [commentBody, setCommentBody] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const getCommentBody = (e) => {
+		console.log(commentBody.trim());
+		if (
+			e.target.value.replace(/ /g, '') === '' ||
+			e.target.value.replace(/\n/g, '') === ''
+		)
+			e.target.value = '';
 		setCommentBody(e.target.value);
 	};
 	const postComment = () => {
-		var newCommentBody = commentBody.replace(/ /g, '');
-		if (newCommentBody !== '') {
-			setIsLoading(true);
-			axios
-				.post(`/api/${boardType}/${boardId}/comments`, {
-					'commentBody': commentBody,
-				})
-				.then(() => {
-					setCommentBody('');
-					getComment();
-					setIsLoading(false);
-				})
-				.catch((error) => {
-					console.log(error);
-					setIsLoading(false);
-				});
-		} else {
-			alert('댓글 본문은 공백 제외 1자 이상이어야 합니다.');
+		var newCommentBody = commentBody.trim();
+		if (newCommentBody === '') {
+			alert('댓글 본문을 입력해주세요.');
+			return;
 		}
+		setIsLoading(true);
+		axios
+			.post(`/api/${boardType}/${boardId}/comments`, {
+				'commentBody': newCommentBody,
+			})
+			.then((res) => {
+				setCommentBody('');
+				getComment();
+				setIsLoading(false);
+			})
+			.catch((error) => {
+				setIsLoading(false);
+			});
 	};
 	const getComment = () => {
 		axios
