@@ -13,7 +13,7 @@ const getRecruitment = (boardId, getBoardDetails, navigate) => {
 		});
 };
 
-const writeRecruitment = (contentBody, navigate) => {
+const writeRecruitment = (contentBody, navigate, setIsLoading) => {
 	if (
 		contentBody.activityCategory === '' ||
 		contentBody.title === '' ||
@@ -23,6 +23,7 @@ const writeRecruitment = (contentBody, navigate) => {
 		alert('모집 구분, 시작 예정일, 제목, 본문 란을 모두 채워주세요.');
 		return;
 	}
+	setIsLoading(true);
 	console.log('writeRecruitment 실행');
 	axios
 		.post(`/api/boards/recruitment`, contentBody)
@@ -32,10 +33,11 @@ const writeRecruitment = (contentBody, navigate) => {
 		.catch((error) => {
 			console.log(error);
 			alert('게시글 작성에 실패했습니다.');
+			setIsLoading(false);
 		});
 };
 
-const EditRecruitment = (boardId, contentBody, navigate) => {
+const EditRecruitment = (boardId, contentBody, navigate, setIsLoading) => {
 	if (
 		contentBody.activityCategory === '' ||
 		contentBody.title === '' ||
@@ -46,6 +48,7 @@ const EditRecruitment = (boardId, contentBody, navigate) => {
 		return;
 	}
 	if (window.confirm('게시글 수정을 완료하시겠습니까?')) {
+		setIsLoading(true);
 		console.log('EditRecruitment 실행');
 		axios
 			.patch(`/api/boards/recruitment/${boardId}`, contentBody)
@@ -55,6 +58,7 @@ const EditRecruitment = (boardId, contentBody, navigate) => {
 			.catch((error) => {
 				console.log(error);
 				alert('게시글 수정에 실패하였습니다.');
+				setIsLoading(false);
 			});
 	}
 };

@@ -72,6 +72,15 @@ const ButtonWrap = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	margin-top: 2rem;
+	position: relative;
+	.loading {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-color: white;
+		opacity: 0.8;
+		display: ${(props) => (props.isLoading ? 'block' : 'none')};
+	}
 `;
 const Button = styled.div`
 	display: inline-block;
