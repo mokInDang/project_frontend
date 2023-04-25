@@ -23,7 +23,6 @@ function PatchRecruitment() {
 			contentBody: contentBody,
 		};
 		form = formToEdit;
-		console.log(formToEdit);
 	}
 
 	useEffect(() => {

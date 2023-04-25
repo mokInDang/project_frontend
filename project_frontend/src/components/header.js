@@ -58,6 +58,7 @@ const Headerdiv = styled.div`
 		text-shadow: none;
 		display: flex;
 		align-items: center;
+		cursor: default;
 		img {
 			width: 3.5rem;
 			margin: 1rem;
@@ -133,7 +134,6 @@ const Header = () => {
 	const getUserInfo = () => {
 		if (isLogined) {
 			setUserInfo(secureLocalStorage.getItem('userInfo'));
-			console.log('getUserInfo 실행');
 		}
 	};
 	useEffect(() => {
@@ -145,7 +145,6 @@ const Header = () => {
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로, 페이지 이동 시
 
 	useEffect(() => {
-		console.log(`isLogined : ${isLogined}`);
 		getUserInfo();
 	}, [isLogined]);
 

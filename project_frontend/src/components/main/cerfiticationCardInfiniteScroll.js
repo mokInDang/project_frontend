@@ -18,7 +18,6 @@ function CertificationCardInfiniteScroll() {
 				setBoardItems((data) => [...data, ...res.data.boards]);
 				setHasNext(res.data.hasNext);
 				setLoading(true);
-				console.log(res.data);
 			})
 			.catch((error) => {
 				console.log(error);

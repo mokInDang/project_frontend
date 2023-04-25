@@ -4,13 +4,14 @@ import { UserEdit, Location } from 'iconsax-react';
 import { GlobalProfile } from '../components';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import secureLocalStorage from 'react-secure-storage';
 
 function MyPage() {
 	const navigate = useNavigate();
 	const [userInfo, setUserInfo] = useState({
 		'profileImageUrl': 'DEFAULT_PROFILE_IMAGE_URL',
 		'alias': '',
-		'region': '',
+		'region': 'DEFAULT_REGION',
 	});
 
 	const locRef = useRef({ latitude: null, longitude: null });
@@ -30,8 +31,9 @@ function MyPage() {
 				.patch(`/api/member/region`, JSON.stringify(locRef.current), {
 					headers: { 'Content-Type': 'application/json; charset=utf-8' },
 				})
-				.then((res) => {
+				.then(() => {
 					getUserInfo();
+					alert("위치 받아오기에 성공했습니다.")
 				})
 				.catch((error) => {
 					console.log(error);
@@ -47,7 +49,7 @@ function MyPage() {
 		await axios
 			.get('api/member/mypage')
 			.then((res) => {
-				console.log(res.data);
+				secureLocalStorage.setItem('userInfo', res.data);
 				setUserInfo(res.data);
 			})
 			.catch((error) => console.log(error));
@@ -90,7 +92,11 @@ function MyPage() {
 					<input
 						type="text"
 						name="region"
-						value={userInfo.region}
+						value={
+							userInfo.region === 'DEFAULT_REGION'
+								? '위치를 설정해주세요.'
+								: userInfo.region
+						}
 						readOnly
 					/>
 					<div
