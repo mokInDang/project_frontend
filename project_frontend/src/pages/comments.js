@@ -300,7 +300,7 @@ const ReplyComment = ({ replyComment, getComments }) => {
 						{replyComment.mine && (
 							<BoardContentButtonDiv
 								onClick={() => {
-									if (window.confirm('댓글을 삭제하시겠습니까?')) {
+									if (window.confirm('대댓글을 삭제하시겠습니까?')) {
 										deleteReplyComment();
 									}
 								}}>
@@ -463,12 +463,11 @@ const Comments = ({ boardType, boardId }) => {
 			{comments &&
 				comments.map((comment) => {
 					return (
-						<div key={comment.commentId}>
-							<Comment
-								comment={comment}
-								getComments={getComments}
-							/>
-						</div>
+						<Comment
+							key={comment.commentId}
+							comment={comment}
+							getComments={getComments}
+						/>
 					);
 				})}
 			<div ref={commentRef}></div>
