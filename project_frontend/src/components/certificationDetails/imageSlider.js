@@ -10,7 +10,7 @@ const LeftButtonDiv = styled.div`
 	align-items: center;
 	position: absolute;
 	height: 100%;
-	width: 10%;
+	width: 6rem;
 	left: 0;
 	z-index: 99;
 	text-align: left;
@@ -23,7 +23,7 @@ const RightButtonDiv = styled.div`
 	display: flex;
 	position: absolute;
 	height: 100%;
-	width: 10%;
+	width: 6rem;
 	right: 0rem;
 	z-index: 99;
 	text-align: right;
