@@ -134,7 +134,7 @@ const BannerSlide = () => {
 					</div>
 				</div>
 			</BannerDiv>
-			<BannerDiv color="#6CC55A">
+			<BannerDiv color="#81cc55">
 				<div className="banner2">
 					<div className="banner2_text">
 						우리 동네 쓰레기는 우리가 줍자!

@@ -22,7 +22,7 @@ function Home() {
 					}}
 					className="recruitment">
 					<SlArrowDown style={{ marginRight: '2rem' }} />
-					<span>구인 게시판</span>
+					<span>플로깅 모집</span>
 				</TabDiv>
 				<TabDiv
 					onClick={(e) => {
@@ -31,7 +31,7 @@ function Home() {
 					}}
 					className="proofShots">
 					<SlArrowDown style={{ marginRight: '2rem' }} />
-					<span>인증 게시판</span>
+					<span>플로깅 인증</span>
 				</TabDiv>
 			</TabWrapper>
 			<div style={boardTab ? { display: 'none' } : { display: 'block' }}>
