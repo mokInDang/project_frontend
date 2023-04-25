@@ -38,7 +38,7 @@ function MyInfoEdit() {
 			})
 			.catch((error) => {
 				console.error(error);
-				console.log('내 정보 수정에 실패했습니다.');
+				alert('내 정보 수정에 실패했습니다.');
 			});
 	};
 	const createImageURL = (fileBlob) => {
@@ -66,9 +66,10 @@ function MyInfoEdit() {
 	};
 
 	const onAliasChange = (e) => {
+		let reg = /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/ ]/gim;
 		const newUserInfo = {
 			...userInfo, // 기존값 복사 (spread operator)
-			[e.target.name]: e.target.value, // 덮어쓰기
+			[e.target.name]: e.target.value.replace(reg, ''), // 덮어쓰기
 		};
 		setUserInfo(newUserInfo);
 	};
