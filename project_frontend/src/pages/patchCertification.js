@@ -120,7 +120,6 @@ function PatchCertification() {
 			})
 			.then(() => {
 				navigate(`/boards/certification/${boardId}`);
-				setIsLoading(false);
 			})
 			.catch((error) => {
 				console.error(error);

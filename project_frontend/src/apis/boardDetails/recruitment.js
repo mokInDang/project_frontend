@@ -29,7 +29,6 @@ const writeRecruitment = (contentBody, navigate, setIsLoading) => {
 		.post(`/api/boards/recruitment`, contentBody)
 		.then((res) => {
 			navigate(`/boards/recruitment/${res.data.boardId}`, { replace: true });
-			setIsLoading(false);
 		})
 		.catch((error) => {
 			console.log(error);
@@ -55,7 +54,6 @@ const EditRecruitment = (boardId, contentBody, navigate, setIsLoading) => {
 			.patch(`/api/boards/recruitment/${boardId}`, contentBody)
 			.then((res) => {
 				navigate(`/boards/recruitment/${res.data.boardId}`, { replace: true });
-				setIsLoading(false);
 			})
 			.catch((error) => {
 				console.log(error);

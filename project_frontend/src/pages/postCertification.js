@@ -114,7 +114,6 @@ function PostCertification() {
 			})
 			.then((res) => {
 				navigate(`/boards/certification/${res.data.boardId}`);
-				setIsLoading(false);
 			})
 			.catch((error) => {
 				console.error(error);
