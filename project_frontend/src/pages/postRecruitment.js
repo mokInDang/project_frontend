@@ -11,9 +11,7 @@ function PostRecruitment() {
 	return (
 		<>
 			<WriteWrapper>
-				<WriteForm
-					form={form}
-				/>
+				<WriteForm form={form} />
 			</WriteWrapper>
 		</>
 	);

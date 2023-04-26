@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const MyPageWrapper = styled.div`
 	margin: 8rem auto;
 	width: 62.5%;
+	height: 70rem;
 	word-break: break-all;
 	font-size: 1.8rem;
 	@media (max-width: 768px) {
