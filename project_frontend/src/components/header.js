@@ -11,6 +11,13 @@ import { locationIcon } from '../assets/images';
 const Headerdiv = styled.div`
 	width: 100%;
 	justify-content: center;
+	position: sticky;
+	position: -webkit-sticky;
+	background-color: white;
+	top: 0;
+	z-index: 100;
+	box-shadow: 1rem 0 2rem 1rem rgba(0, 0, 0, 0.05);
+	-webkit-box-shadow: 1rem 0 2rem 1rem rgba(0, 0, 0, 0.05);
 
 	.headerWrapper {
 		box-sizing: border-box;

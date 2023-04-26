@@ -10,11 +10,8 @@ import {
 	VerticalBar,
 	ContentDiv,
 	BoardInfo,
-	ReplyDiv,
-	ReplyInput,
-	ReplySubmitButton,
-	ButtonsWrap,
 	BoardContentButtonDiv,
+	ButtonsWrap,
 } from './StyledComponents';
 import {
 	getRecruitment,
