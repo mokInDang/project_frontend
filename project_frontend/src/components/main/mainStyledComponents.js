@@ -51,6 +51,7 @@ const BoardItemCard = styled.div`
 	overflow: hidden;
 
 	:hover {
+		cursor: pointer;
 		transform: scale(1.01);
 		-webkit-transform: scale(1.01);
 		-moz-transform: scale(1.01);

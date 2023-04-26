@@ -44,6 +44,16 @@ const CertificationItemCard = styled.div`
 		margin-bottom: 2rem;
 		color: rgba(0, 0, 0, 0.9);
 	}
+	transition: all 0.2s ease-in-out;
+	:hover {
+		cursor: pointer;
+		transform: scale(1.01);
+		-webkit-transform: scale(1.01);
+		-moz-transform: scale(1.01);
+		-ms-transform: scale(1.01);
+		-o-transform: scale(1.01);
+		background-color: rgba(129, 204, 85, 0.01);
+	}
 `;
 const CertificationCard = (props) => {
 	const navigate = useNavigate();
