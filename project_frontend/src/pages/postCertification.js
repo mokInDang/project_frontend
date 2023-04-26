@@ -35,8 +35,9 @@ function PostCertification() {
 			newContentBody === '<p><br></p>' ||
 			newContentBody.replace(/(<([^>]+)>)/gi, '').replace(/\s/g, '') === ''
 		) {
-			setContentbody(newContentBody);
+			newContentBody = '';
 		}
+		setContentbody(newContentBody);
 	};
 
 	const onChange = (e) => {
