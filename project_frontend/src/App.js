@@ -66,18 +66,18 @@ function App() {
 							element={<PostRecruitment />}
 						/>
 						<Route
-							path="/edit/recruitment/:boardId"
-							element={<PatchRecruitment />}
-						/>
-						<Route
 							path="/boards/certification"
 							element={<PostCertification />}
 						/>
-						<Route
-							path="/edit/certification/:boardId"
-							element={<PatchCertification />}
-						/>
 					</Route>
+					<Route
+						path="/edit/recruitment/:boardId"
+						element={<PatchRecruitment />}
+					/>
+					<Route
+						path="/edit/certification/:boardId"
+						element={<PatchCertification />}
+					/>
 				</Route>
 				{/* Comments도 추후 PrivateRoutes 안으로 옮길 것 */}
 				<Route
