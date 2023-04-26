@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { onLogout } from '../apis';
 import { useNavigate } from 'react-router-dom';
-import { movePath, isLogined } from '../utils';
 
 const DropDownWrapper = styled.div`
 	z-index: 10000;

@@ -38,6 +38,12 @@ function PatchCertification() {
 
 	const selectFile = useRef();
 	const getHtmlContentBody = (newContentBody) => {
+		if (
+			newContentBody === '<p><br></p>' ||
+			newContentBody.replace(/(<([^>]+)>)/gi, '').replace(/\s/g, '') === ''
+		) {
+			newContentBody = '';
+		}
 		setContentbody(newContentBody);
 	};
 

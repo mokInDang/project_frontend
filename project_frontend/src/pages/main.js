@@ -6,11 +6,12 @@ import { ImFileEmpty, ImFileText2 } from 'react-icons/im';
 import { BannerSlide } from '../components/main/bannerSlider';
 import { isLogined } from '../utils';
 import { CiStar } from 'react-icons/ci';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
 	const [boardTab, setBoardTap] = useState(0);
 	const [regionTab, setRegionTap] = useState(0);
-
+	const navigate = useNavigate();
 	return (
 		<Fragment>
 			<BannerSlide />
@@ -51,7 +52,7 @@ function Home() {
 					<TabDiv
 						onClick={(e) => {
 							e.preventDefault();
-							isLogined(setRegionTap, 1);
+							isLogined(setRegionTap, 1, navigate);
 						}}
 						className="myRegion">
 						<ImFileText2
