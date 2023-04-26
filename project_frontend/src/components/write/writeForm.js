@@ -30,6 +30,12 @@ const WriteForm = (props) => {
 	};
 
 	const getHtmlContentBody = (newContentBody) => {
+		if (
+			newContentBody === '<p><br></p>' ||
+			newContentBody.replace(/(<([^>]+)>)/gi, '').replace(/\s/g, '') === ''
+		) {
+			newContentBody = '';
+		}
 		const nextForm = {
 			...form, // 기존값 복사 (spread operator)
 			contentBody: newContentBody, // 덮어쓰기

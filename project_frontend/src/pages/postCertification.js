@@ -31,7 +31,12 @@ function PostCertification() {
 
 	const selectFile = useRef();
 	const getHtmlContentBody = (newContentBody) => {
-		setContentbody(newContentBody);
+		if (
+			newContentBody === '<p><br></p>' ||
+			newContentBody.replace(/(<([^>]+)>)/gi, '').replace(/\s/g, '') === ''
+		) {
+			setContentbody(newContentBody);
+		}
 	};
 
 	const onChange = (e) => {
