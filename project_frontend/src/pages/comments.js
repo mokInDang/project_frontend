@@ -234,6 +234,8 @@ const Comment = ({ comment, getComments }) => {
 					</ButtonWrap>
 				</div>
 			)}
+			{comment.multiReplyCommentSelectionResponse.countOfReplyComments !==
+				0 && <HR style={{ marginBottom: 0, marginTop: '2rem' }}></HR>}
 			<div ref={replyRef}></div>
 		</CommentDiv>
 	);
@@ -250,17 +252,18 @@ const ReplyComments = ({ reply, getComments }) => {
 	if (replyComments === []) return <></>;
 	else {
 		return (
-			<div style={{ display: 'flex', width: '100%', flexDirection: 'column' }}>
-				{replyComments &&
-					replyComments.map((replyComment) => {
-						return (
+			<>
+				{replyComments.map((replyComment) => {
+					return (
+						<>
 							<ReplyComment
 								getComments={getComments}
 								key={replyComment.replyCommentId}
 								replyComment={replyComment}></ReplyComment>
-						);
-					})}
-			</div>
+						</>
+					);
+				})}
+			</>
 		);
 	}
 };
