@@ -112,11 +112,11 @@ function PatchCertification() {
 			alert('제목과 본문, 한 장 이상의 사진은 필수입니다.');
 			return;
 		}
-		formData.append('title', title.trim());
+		formData.set('title', title.trim());
 		imageFiles.forEach((imageFile) => {
 			formData.append('files', imageFile);
 		});
-		formData.append('contentBody', contentBody);
+		formData.set('contentBody', contentBody);
 		setIsLoading(true);
 		axios
 			.patch(`/api/boards/certification/${boardId}`, formData, {

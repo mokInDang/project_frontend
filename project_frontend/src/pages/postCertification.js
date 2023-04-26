@@ -18,7 +18,7 @@ import {
 } from '../utils/fileUploadValidHandler';
 import { RxPlus, RxCross2 } from 'react-icons/rx';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { movePath } from '../utils';
 
 function PostCertification() {
@@ -106,11 +106,11 @@ function PostCertification() {
 			alert('제목과 본문, 한 장 이상의 사진은 필수입니다.');
 			return;
 		}
-		formData.append('title', title.trim());
+		formData.set('title', title.trim());
 		imageFiles.forEach((imageFile) => {
 			formData.append('files', imageFile);
 		});
-		formData.append('contentBody', contentBody);
+		formData.set('contentBody', contentBody);
 		setIsLoading(true);
 		axios
 			.post('/api/boards/certification', formData, {
