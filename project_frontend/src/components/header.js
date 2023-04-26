@@ -65,7 +65,6 @@ const Headerdiv = styled.div`
 		text-shadow: none;
 		display: flex;
 		align-items: center;
-		cursor: default;
 		img {
 			width: 3.5rem;
 			margin: 1rem;
@@ -83,6 +82,7 @@ const Headerdiv = styled.div`
 			display: none;
 		}
 	}
+	.region
 `;
 
 const HeaderButton = styled.div`
@@ -119,7 +119,7 @@ const ButtonWrap = styled.div`
 	align-items: center;
 	display: flex;
 	.myRegion {
-		cursor: pointer;
+		cursor: default;
 	}
 `;
 

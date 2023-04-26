@@ -170,6 +170,9 @@ const TabWrapper = styled.div`
 		display: flex;
 		align-items: center;
 	}
+	.certificationTab {
+		cursor: default;
+	}
 	color: #3a3a3a;
 	${(props) =>
 		props.boardTab
