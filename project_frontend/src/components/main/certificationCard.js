@@ -37,8 +37,8 @@ const CertificationItemCard = styled.div`
 		overflow: hidden;
 		-webkit-box-orient: vertical;
 		font-size: 2.5rem;
-		line-height: 2.5rem;
-		height: 3rem;
+		line-height: 3.5rem;
+		height: 3.5rem;
 		-webkit-line-clamp: 1;
 		text-overflow: ellipsis;
 		margin-bottom: 2rem;
