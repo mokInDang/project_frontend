@@ -16,7 +16,11 @@ const OnLogin = async (res) => {
 		.then((res) => {
 			secureLocalStorage.setItem('userInfo', res.data);
 			onLoginSuccess(res);
+			const userInfo = secureLocalStorage.getItem('userInfo');
 			navigate('/');
+			if(userInfo.region === "DEFAULT_REGION"){
+				alert("마이페이지에서 내 위치 인증 후 게시글 작성이 가능합니다.\n(모바일의 경우 위치 인증 시 핸드폰의 GPS를 켜주세요.)")
+			}
 		})
 		.catch((error) => {
 			console.log(error);
