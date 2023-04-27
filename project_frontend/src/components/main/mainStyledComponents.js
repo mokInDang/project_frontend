@@ -92,8 +92,8 @@ const BoardItemCard = styled.div`
 	}
 	.title {
 		font-size: 2rem;
-		height: 4.4rem;
-		line-height: 2.2rem;
+		height: 5rem;
+		line-height: 2.5rem;
 		text-overflow: ellipsis;
 		display: -webkit-box;
 		overflow: hidden;
