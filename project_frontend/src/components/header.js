@@ -11,6 +11,13 @@ import { locationIcon } from '../assets/images';
 const Headerdiv = styled.div`
 	width: 100%;
 	justify-content: center;
+	position: sticky;
+	position: -webkit-sticky;
+	background-color: white;
+	top: 0;
+	z-index: 100;
+	box-shadow: 1rem 0 2rem 1rem rgba(0, 0, 0, 0.05);
+	-webkit-box-shadow: 1rem 0 2rem 1rem rgba(0, 0, 0, 0.05);
 
 	.headerWrapper {
 		box-sizing: border-box;
@@ -58,7 +65,6 @@ const Headerdiv = styled.div`
 		text-shadow: none;
 		display: flex;
 		align-items: center;
-		cursor: default;
 		img {
 			width: 3.5rem;
 			margin: 1rem;
@@ -76,6 +82,7 @@ const Headerdiv = styled.div`
 			display: none;
 		}
 	}
+	.region
 `;
 
 const HeaderButton = styled.div`
@@ -112,7 +119,7 @@ const ButtonWrap = styled.div`
 	align-items: center;
 	display: flex;
 	.myRegion {
-		cursor: pointer;
+		cursor: default;
 	}
 `;
 

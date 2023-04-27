@@ -69,7 +69,7 @@ function Home() {
 			</div>
 			<div style={!boardTab ? { display: 'none' } : { display: 'block' }}>
 				<TabWrapper>
-					<TabDiv>
+					<TabDiv className='certificationTab'>
 						<CiStar
 							size="4rem"
 							style={{ marginRight: '0.5rem' }}

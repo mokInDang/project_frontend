@@ -51,6 +51,7 @@ const BoardItemCard = styled.div`
 	overflow: hidden;
 
 	:hover {
+		cursor: pointer;
 		transform: scale(1.01);
 		-webkit-transform: scale(1.01);
 		-moz-transform: scale(1.01);
@@ -169,6 +170,9 @@ const TabWrapper = styled.div`
 		cursor: pointer;
 		display: flex;
 		align-items: center;
+	}
+	.certificationTab {
+		cursor: default;
 	}
 	color: #3a3a3a;
 	${(props) =>
