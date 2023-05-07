@@ -1,4 +1,4 @@
-import { Header } from './header/header';
+import { Navigator } from './navigator/navigator';
 import { Dropdown, NewPostDropDown } from './dropdown';
 import GetlocationButton from './getLocationButton';
 import JoinComment from './login/joinComment';
@@ -60,11 +60,11 @@ import {
 	HeaderButton,
 	HeaderButtonWrap,
 	ProfileWrap,
-} from './header/headerStyledComponents';
+} from './navigator/navigatorStyledComponents';
 import { GlobalProfile } from './globalStyledComponents';
 export {
 	JoinComment,
-	Header,
+	Navigator,
 	EditorComponent,
 	WriteForm,
 	GetlocationButton,

@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { Dropdown, NewPostDropDown } from '..';
@@ -13,9 +12,9 @@ import {
 	HeaderButtonWrap,
 	ProfileWrap,
 	GlobalProfile,
-} from '../../components';
+} from '..';
 
-const Header = () => {
+const Navigator = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [isLogined, setIsLogined] = useState(false);
@@ -47,14 +46,16 @@ const Header = () => {
 		<>
 			{location.pathname !== '/login' && (
 				<Headerdiv>
-					<div className='headerWrapper'>
-						<div className='logoWrapper'>
+					<div className="headerWrapper">
+						<div className="logoWrapper">
 							<div>
 								<div
-									className='HomebuttonWrapper'
-									onClick={() => movePath(navigate, '/')}
-								>
-									<img src={homeIcon} alt='homeIcon' />
+									className="HomebuttonWrapper"
+									onClick={() => movePath(navigate, '/')}>
+									<img
+										src={homeIcon}
+										alt="homeIcon"
+									/>
 									우리동네줍깅
 								</div>
 							</div>
@@ -62,10 +63,13 @@ const Header = () => {
 						{location.pathname !== '/api/auth/join' && (
 							<HeaderButtonWrap>
 								{isLogined && userInfo ? (
-									<div className='myRegion'>
+									<div className="myRegion">
 										{userInfo.region !== 'DEFAULT_REGION' ? (
 											<HeaderButton>
-												<img src={locationIcon} alt='locationIcon' />
+												<img
+													src={locationIcon}
+													alt="locationIcon"
+												/>
 												{userInfo.region}
 											</HeaderButton>
 										) : (
@@ -76,12 +80,11 @@ const Header = () => {
 									<></>
 								)}
 								<HeaderButton
-									className='newPost'
+									className="newPost"
 									onClick={() => {
 										setNewPostDropDownView(!newPostDropdownView);
 										setDropDownView(false);
-									}}
-								>
+									}}>
 									{newPostDropdownView ? <NewPostDropDown /> : ''}새 글 쓰기
 								</HeaderButton>
 								{isLogined && userInfo ? (
@@ -89,12 +92,11 @@ const Header = () => {
 										onClick={() => {
 											setDropDownView(!dropdownView);
 											setNewPostDropDownView(false);
-										}}
-									>
+										}}>
 										<GlobalProfile
-											size='5rem'
+											size="5rem"
 											src={userInfo.profileImageUrl}
-											margin='0 0.5rem 0 0'
+											margin="0 0.5rem 0 0"
 										/>
 										<AiFillCaretDown size={'3rem'} />
 										{dropdownView ? <Dropdown /> : ''}
@@ -112,4 +114,4 @@ const Header = () => {
 		</>
 	);
 };
-export { Header };
+export { Navigator };
