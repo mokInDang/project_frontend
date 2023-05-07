@@ -12,7 +12,7 @@ import {
 	CertificationDetails,
 	PatchCertification,
 } from './pages';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Navigator } from './components';
 import { reissueToken } from './apis';
 import { Comments } from './pages/comments';
@@ -28,9 +28,11 @@ function App() {
 			<Routes>
 				{/* 인증 여부 상관 없이 접속 가능한 페이지 정의 */}
 				<Route
-					path="/"
+					exact
+					path="/*"
 					element={<Home />}
 				/>
+
 				<Route element={<PrivateRoutes authentication={false} />}>
 					{/* 인증을 반드시 하지 않아야만 접속 가능한 페이지 정의 */}
 					<Route
@@ -87,10 +89,6 @@ function App() {
 				<Route
 					path="/boards/recruitment/:boardId/comments"
 					element={<Comments />}
-				/>
-				<Route
-					path="/*"
-					element={<div>404 not found</div>}
 				/>
 			</Routes>
 		</div>

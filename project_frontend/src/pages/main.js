@@ -1,24 +1,31 @@
-import React, { Fragment, useState } from 'react';
-import { InfiniteScroll, CertificationCardInfiniteScroll } from '../components';
+import React, { Fragment, useState, useEffect } from 'react';
+import {
+	RecruitmentInfiniteScroll,
+	CertificationCardInfiniteScroll,
+} from '../components';
 import { SlArrowDown } from 'react-icons/sl';
 import { TabWrapper, TabDiv } from '../components';
-import { ImFileEmpty, ImFileText2 } from 'react-icons/im';
 import { BannerSlide } from '../components/main/bannerSlider';
-import { isLogined } from '../utils';
-import { CiStar } from 'react-icons/ci';
-import { useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 function Home() {
 	const [boardTab, setBoardTap] = useState(0);
-	const [regionTab, setRegionTap] = useState(0);
 	const navigate = useNavigate();
+	const location = useLocation();
+	useEffect(() => {
+		!boardTab ? navigate('/') : navigate('certification');
+	}, [boardTab]);
+	useEffect(() => {
+		if (location.pathname == '/') {
+			setBoardTap(0);
+		}
+	}, [location.pathname]);
 	return (
 		<Fragment>
 			<BannerSlide />
 			<TabWrapper boardTab={boardTab}>
 				<TabDiv
-					onClick={(e) => {
-						e.preventDefault();
+					onClick={() => {
 						setBoardTap(0);
 					}}
 					className="recruitment">
@@ -26,8 +33,7 @@ function Home() {
 					<span>플로깅 모집</span>
 				</TabDiv>
 				<TabDiv
-					onClick={(e) => {
-						e.preventDefault();
+					onClick={() => {
 						setBoardTap(1);
 					}}
 					className="proofShots">
@@ -35,50 +41,16 @@ function Home() {
 					<span>플로깅 인증</span>
 				</TabDiv>
 			</TabWrapper>
-			<div style={boardTab ? { display: 'none' } : { display: 'block' }}>
-				<TabWrapper regionTab={regionTab}>
-					<TabDiv
-						onClick={(e) => {
-							e.preventDefault();
-							setRegionTap(0);
-						}}
-						className="entireRegion">
-						<ImFileEmpty
-							size="2.5rem"
-							style={{ marginRight: '1rem' }}
-						/>
-						전체
-					</TabDiv>
-					<TabDiv
-						onClick={(e) => {
-							e.preventDefault();
-							isLogined(setRegionTap, 1, navigate);
-						}}
-						className="myRegion">
-						<ImFileText2
-							size="2.5rem"
-							style={{ marginRight: '1rem' }}
-						/>
-						내 지역
-					</TabDiv>
-				</TabWrapper>
-				<div style={regionTab ? { display: 'none' } : { display: 'block' }}>
-					<InfiniteScroll regionTab={regionTab} />
-				</div>
-				{regionTab ? <InfiniteScroll regionTab={regionTab} /> : <></>}
+			<div style={{ display: !boardTab ? 'block' : 'none' }}>
+				<RecruitmentInfiniteScroll />
 			</div>
-			<div style={!boardTab ? { display: 'none' } : { display: 'block' }}>
-				<TabWrapper>
-					<TabDiv className='certificationTab'>
-						<CiStar
-							size="4rem"
-							style={{ marginRight: '0.5rem' }}
-						/>
-						인증
-					</TabDiv>
-				</TabWrapper>
-				<CertificationCardInfiniteScroll />
-			</div>
+			<Routes>
+				<Route
+					exact
+					path={'certification'}
+					element={<CertificationCardInfiniteScroll />}
+				/>
+			</Routes>
 		</Fragment>
 	);
 }

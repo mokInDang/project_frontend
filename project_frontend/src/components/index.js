@@ -62,6 +62,7 @@ import {
 	ProfileWrap,
 } from './navigator/navigatorStyledComponents';
 import { GlobalProfile } from './globalStyledComponents';
+import { RecruitmentInfiniteScroll } from './main/recruitmentInfiniteScroll';
 export {
 	JoinComment,
 	Navigator,
@@ -78,6 +79,7 @@ export {
 	NewPostDropDown,
 	ImageSlide,
 	Loading,
+	RecruitmentInfiniteScroll,
 };
 export {
 	WriteWrapper,
