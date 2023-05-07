@@ -178,7 +178,7 @@ const TabWrapper = styled.div`
 	}
 	color: #3a3a3a;
 	${(props) =>
-		props.boardTab
+		props.boardTab === '/certification'
 			? '.recruitment{color:#dddddd}'
 			: '.proofShots{color:#dddddd}'}
 	${(props) =>

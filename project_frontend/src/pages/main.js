@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import {
 	RecruitmentInfiniteScroll,
 	CertificationCardInfiniteScroll,
@@ -9,24 +9,15 @@ import { BannerSlide } from '../components/main/bannerSlider';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 function Home() {
-	const [boardTab, setBoardTap] = useState(0);
 	const navigate = useNavigate();
 	const location = useLocation();
-	useEffect(() => {
-		!boardTab ? navigate('/') : navigate('certification');
-	}, [boardTab]);
-	useEffect(() => {
-		if (location.pathname == '/') {
-			setBoardTap(0);
-		}
-	}, [location.pathname]);
 	return (
 		<Fragment>
 			<BannerSlide />
-			<TabWrapper boardTab={boardTab}>
+			<TabWrapper boardTab={location.pathname}>
 				<TabDiv
 					onClick={() => {
-						setBoardTap(0);
+						navigate('/');
 					}}
 					className="recruitment">
 					<SlArrowDown style={{ marginRight: '2rem' }} />
@@ -34,17 +25,19 @@ function Home() {
 				</TabDiv>
 				<TabDiv
 					onClick={() => {
-						setBoardTap(1);
+						navigate('certification');
 					}}
 					className="proofShots">
 					<SlArrowDown style={{ marginRight: '2rem' }} />
 					<span>플로깅 인증</span>
 				</TabDiv>
 			</TabWrapper>
-			<div style={{ display: !boardTab ? 'block' : 'none' }}>
-				<RecruitmentInfiniteScroll />
-			</div>
 			<Routes>
+				<Route
+					exact
+					path={'/'}
+					element={<RecruitmentInfiniteScroll />}
+				/>
 				<Route
 					exact
 					path={'certification'}
