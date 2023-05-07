@@ -89,22 +89,23 @@ function MyInfoEdit() {
 			<MyPageWrapper>
 				{location.state && (
 					<>
-						<div className="title">내 정보 수정</div>
-						<div className="profileImageWrap">
+						<div className='title'>내 정보 수정</div>
+						<div className='profileImageWrap'>
 							<GlobalProfile
 								src={
 									profileThumbnail ? profileThumbnail : userInfo.profileImageUrl
 								}
-								size="20rem"
+								size='20rem'
+								margin='0 0.5rem 0 0'
 							/>
 							{/* <div className="imageButtonsWrap"> */}
-							<label htmlFor="profileImg">
-								<div className="imageButton">이미지 선택</div>
+							<label htmlFor='profileImg'>
+								<div className='imageButton'>이미지 선택</div>
 							</label>
 							<input
-								type="file"
-								accept="image/*"
-								id="profileImg"
+								type='file'
+								accept='image/*'
+								id='profileImg'
 								onChange={onImageChange}
 							/>
 							{/* /<div className="imageButton">
@@ -112,31 +113,31 @@ function MyInfoEdit() {
 							</div> 
 						</div> */}
 						</div>
-						<div className="myInfoWrap">
-							<div className="aliasWrap">
+						<div className='myInfoWrap'>
+							<div className='aliasWrap'>
 								<UserEdit
 									size={53}
-									color="rgba(58, 58, 58, 1)"
-									className="icons"
+									color='rgba(58, 58, 58, 1)'
+									className='icons'
 								/>
-								<label htmlFor="alias">닉네임</label>
+								<label htmlFor='alias'>닉네임</label>
 								<input
-									type="text"
-									name="alias"
+									type='text'
+									name='alias'
 									value={userInfo.alias}
 									onChange={onAliasChange}
 								/>
 							</div>
-							<div className="myRegionWrap">
+							<div className='myRegionWrap'>
 								<Location
 									size={53}
-									color="rgba(58, 58, 58, 1)"
-									className="icons"
+									color='rgba(58, 58, 58, 1)'
+									className='icons'
 								/>
-								<label htmlFor="region">나의 위치</label>
+								<label htmlFor='region'>나의 위치</label>
 								<input
-									type="text"
-									name="region"
+									type='text'
+									name='region'
 									value={
 										userInfo.region === 'DEFAULT_REGION'
 											? '위치를 설정해주세요.'
@@ -146,19 +147,21 @@ function MyInfoEdit() {
 								/>
 							</div>
 						</div>
-						<div className="buttonsWrap">
+						<div className='buttonsWrap'>
 							<div
-								className="button"
+								className='button'
 								onClick={() => {
 									navigate('/mypage');
-								}}>
+								}}
+							>
 								취소
 							</div>
 							<div
-								className="button"
+								className='button'
 								onClick={() => {
 									submitChangedProfile();
-								}}>
+								}}
+							>
 								완료
 							</div>
 						</div>

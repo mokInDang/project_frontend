@@ -4,7 +4,7 @@ import {
 	HeadingDiv,
 	ReplyInput,
 	ReplySubmitButton,
-	WriterProfilePicDiv,
+	GlobalProfile,
 	HR,
 	BoardContentButtonDiv,
 	ButtonWrap,
@@ -143,7 +143,7 @@ const Comment = ({ comment, getComments }) => {
 		setIsLoading(true);
 		axios
 			.post(`/api/comments/${comment.commentId}/reply-comment`, {
-				'replyCommentBody': newReplyCommentBody,
+				replyCommentBody: newReplyCommentBody,
 			})
 			.then(() => {
 				setReplyCommentBody('');
@@ -161,17 +161,17 @@ const Comment = ({ comment, getComments }) => {
 		<CommentDiv ref={replyRef}>
 			<CommentWrap>
 				<CommentProfileDiv>
-					<WriterProfilePicDiv
+					<GlobalProfile
 						size={'7rem'}
 						margin={'0 1.5rem 0 0'}
 						src={comment.writerProfileImageUrl}
 					/>
 					<CommentWriterDiv>
-						<div className="writerAlias">
+						<div className='writerAlias'>
 							{comment.writerAlias} ({comment.firstFourLettersOfEmail}
 							****)
 						</div>
-						<div className="createdDatetime">
+						<div className='createdDatetime'>
 							{newDatetime(comment.createdDatetime)}
 						</div>
 					</CommentWriterDiv>
@@ -182,7 +182,8 @@ const Comment = ({ comment, getComments }) => {
 									if (window.confirm('댓글을 삭제하시겠습니까?')) {
 										deleteComment();
 									}
-								}}>
+								}}
+							>
 								삭제
 							</BoardContentButtonDiv>
 						)}
@@ -190,7 +191,8 @@ const Comment = ({ comment, getComments }) => {
 							onClick={() => {
 								setToWriteReply(true);
 								onMoveToReplyCommentInput();
-							}}>
+							}}
+						>
 							대댓글 작성
 						</BoardContentButtonDiv>
 					</CommentButtonsWrap>
@@ -214,21 +216,21 @@ const Comment = ({ comment, getComments }) => {
 							/>
 						</ReplyInput>
 					</ReplyCommentWrap>
-					<ButtonWrap
-						style={{ marginTop: 0 }}
-						isLoading={isLoading}>
-						<div className="loading"></div>
+					<ButtonWrap style={{ marginTop: 0 }} isLoading={isLoading}>
+						<div className='loading'></div>
 						<Button
-							name="cancel"
+							name='cancel'
 							onClick={() => {
 								setToWriteReply(false);
-							}}>
+							}}
+						>
 							취소
 						</Button>
 						<Button
 							onClick={() => {
 								postReplyComment();
-							}}>
+							}}
+						>
 							대댓글 작성
 						</Button>
 					</ButtonWrap>
@@ -259,7 +261,8 @@ const ReplyComments = ({ reply, getComments }) => {
 							<ReplyComment
 								getComments={getComments}
 								key={replyComment.replyCommentId}
-								replyComment={replyComment}></ReplyComment>
+								replyComment={replyComment}
+							></ReplyComment>
 						</>
 					);
 				})}
@@ -284,18 +287,18 @@ const ReplyComment = ({ replyComment, getComments }) => {
 			<LowLevel></LowLevel>
 			<ReplyBodyWrap>
 				<CommentProfileDiv>
-					<WriterProfilePicDiv
+					<GlobalProfile
 						size={'7rem'}
 						margin={'0 1.5rem 0 0'}
 						src={replyComment.writerProfileImageUrl}
 						style={{ border: 'none' }}
 					/>
 					<CommentWriterDiv>
-						<div className="writerAlias">
+						<div className='writerAlias'>
 							{replyComment.writerAlias} ({replyComment.firstFourLettersOfEmail}
 							****)
 						</div>
-						<div className="createdDatetime">
+						<div className='createdDatetime'>
 							{newDatetime(replyComment.createdDatetime)}
 						</div>
 					</CommentWriterDiv>
@@ -306,7 +309,8 @@ const ReplyComment = ({ replyComment, getComments }) => {
 									if (window.confirm('대댓글을 삭제하시겠습니까?')) {
 										deleteReplyComment();
 									}
-								}}>
+								}}
+							>
 								삭제
 							</BoardContentButtonDiv>
 						)}
@@ -342,7 +346,7 @@ const Comments = ({ boardType, boardId }) => {
 		setIsLoading(true);
 		axios
 			.post(`/api/${boardType}/${boardId}/comments`, {
-				'commentBody': newCommentBody,
+				commentBody: newCommentBody,
 			})
 			.then(() => {
 				setCommentBody('');
@@ -364,66 +368,66 @@ const Comments = ({ boardType, boardId }) => {
 				console.log(error);
 				setComments([
 					{
-						'commentId': 0,
-						'commentBody': '댓글 본문입니다.',
-						'createdDatetime': '2023-04-24T05:24:34.066Z',
-						'writerAlias': '음냠냐',
-						'edited': false,
-						'firstFourLettersOfEmail': 'pany',
-						'writerProfileImageUrl': '',
-						'mine': true,
-						'multiReplyCommentSelectionResponse': {
-							'replyComments': [
+						commentId: 0,
+						commentBody: '댓글 본문입니다.',
+						createdDatetime: '2023-04-24T05:24:34.066Z',
+						writerAlias: '음냠냐',
+						edited: false,
+						firstFourLettersOfEmail: 'pany',
+						writerProfileImageUrl: '',
+						mine: true,
+						multiReplyCommentSelectionResponse: {
+							replyComments: [
 								{
-									'replyCommentId': 0,
-									'replyCommentBody': '댓글 본문입니다.',
-									'createdDatetime': '2023-04-25T15:44:57.335Z',
-									'writerAlias': '작성자닉네임',
-									'edited': true,
-									'firstFourLettersOfEmail': 'string',
-									'writerProfileImageUrl': '',
-									'mine': true,
+									replyCommentId: 0,
+									replyCommentBody: '댓글 본문입니다.',
+									createdDatetime: '2023-04-25T15:44:57.335Z',
+									writerAlias: '작성자닉네임',
+									edited: true,
+									firstFourLettersOfEmail: 'string',
+									writerProfileImageUrl: '',
+									mine: true,
 								},
 								{
-									'replyCommentId': 1,
-									'replyCommentBody': '댓글 본문입니다.',
-									'createdDatetime': '2023-04-25T15:44:57.335Z',
-									'writerAlias': '작성자닉네임',
-									'edited': true,
-									'firstFourLettersOfEmail': 'string',
-									'writerProfileImageUrl': '',
-									'mine': true,
+									replyCommentId: 1,
+									replyCommentBody: '댓글 본문입니다.',
+									createdDatetime: '2023-04-25T15:44:57.335Z',
+									writerAlias: '작성자닉네임',
+									edited: true,
+									firstFourLettersOfEmail: 'string',
+									writerProfileImageUrl: '',
+									mine: true,
 								},
 							],
-							'countOfReplyComments': 2,
+							countOfReplyComments: 2,
 						},
 					},
 					{
-						'commentId': 1,
-						'commentBody': '댓글 본문입니다.',
-						'createdDatetime': '2023-04-25T05:24:34.066Z',
-						'writerAlias': '으르렁',
-						'edited': true,
-						'firstFourLettersOfEmail': 'doko',
-						'writerProfileImageUrl': '',
-						'mine': false,
-						'multiReplyCommentSelectionResponse': {
-							'replyComments': [],
-							'countOfReplyComments': 0,
+						commentId: 1,
+						commentBody: '댓글 본문입니다.',
+						createdDatetime: '2023-04-25T05:24:34.066Z',
+						writerAlias: '으르렁',
+						edited: true,
+						firstFourLettersOfEmail: 'doko',
+						writerProfileImageUrl: '',
+						mine: false,
+						multiReplyCommentSelectionResponse: {
+							replyComments: [],
+							countOfReplyComments: 0,
 						},
 					},
 					{
-						'commentId': 2,
-						'commentBody': '댓글 본문입니다.',
-						'createdDatetime': '2023-04-25T05:24:34.066Z',
-						'writerAlias': '똥개',
-						'edited': true,
-						'firstFourLettersOfEmail': 'doko',
-						'writerProfileImageUrl': '',
-						'mine': false,
-						'multiReplyCommentSelectionResponse': {
-							'replyComments': [],
-							'countOfReplyComments': 0,
+						commentId: 2,
+						commentBody: '댓글 본문입니다.',
+						createdDatetime: '2023-04-25T05:24:34.066Z',
+						writerAlias: '똥개',
+						edited: true,
+						firstFourLettersOfEmail: 'doko',
+						writerProfileImageUrl: '',
+						mine: false,
+						multiReplyCommentSelectionResponse: {
+							replyComments: [],
+							countOfReplyComments: 0,
 						},
 					},
 				]);
@@ -437,7 +441,7 @@ const Comments = ({ boardType, boardId }) => {
 	return (
 		<>
 			<ReplyDiv>
-				<HeadingDiv fontSize="2.5rem">
+				<HeadingDiv fontSize='2.5rem'>
 					{comments ? comments.length : ''}개의 댓글이 있습니다.
 				</HeadingDiv>
 				<ReplyInput>
@@ -458,7 +462,8 @@ const Comments = ({ boardType, boardId }) => {
 								height: '3.4rem',
 								right: '0',
 								borderRadius: '1.45rem',
-							}}></div>
+							}}
+						></div>
 					)}
 					<ReplySubmitButton onClick={postComment}>댓글 등록</ReplySubmitButton>
 				</div>

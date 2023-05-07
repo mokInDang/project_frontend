@@ -13,7 +13,7 @@ import {
 	PatchCertification,
 } from './pages';
 import { Routes, Route } from 'react-router-dom';
-import { Header } from './components';
+import { Navigator } from './components';
 import { reissueToken } from './apis';
 import { Comments } from './pages/comments';
 import { PrivateRoutes, RegionRequiredRoutes } from './utils';
@@ -24,7 +24,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<Header />
+			<Navigator />
 			<Routes>
 				{/* 인증 여부 상관 없이 접속 가능한 페이지 정의 */}
 				<Route

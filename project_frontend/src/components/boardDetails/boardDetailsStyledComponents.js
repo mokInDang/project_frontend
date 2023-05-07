@@ -1,6 +1,5 @@
-import { WriteWrapper, GlobalProfile } from '..';
+import { WriteWrapper } from '../../components';
 import styled from 'styled-components';
-
 const BoardWrapper = styled(WriteWrapper)`
 	margin: 2.75rem auto;
 	@media (max-width: 768px) {
@@ -31,11 +30,6 @@ const WriterDiv = styled.div`
 	.startingDate {
 		color: #696868;
 	}
-`;
-
-const WriterProfilePicDiv = styled(GlobalProfile)`
-	margin: ${(props) => props.margin};
-	flex-shrink: 0;
 `;
 
 const VerticalBar = styled.div`
@@ -148,7 +142,6 @@ export {
 	BoardDetailsWrap,
 	HeadingDiv,
 	WriterDiv,
-	WriterProfilePicDiv,
 	VerticalBar,
 	ContentDiv,
 	BoardInfo,

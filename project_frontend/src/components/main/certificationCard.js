@@ -1,4 +1,4 @@
-import { WriterProfilePicDiv } from '..';
+import { GlobalProfile } from '..';
 import { useNavigate } from 'react-router-dom';
 import { movePath } from '../../utils';
 import styled from 'styled-components';
@@ -72,10 +72,10 @@ const CertificationCard = (props) => {
 				<hr />
 				<div className="contentBody">{props.content.title}</div>
 				<div className="writerProfile">
-					<WriterProfilePicDiv
+					<GlobalProfile
 						size="4rem"
 						margin="0 1.5rem 0 0"
-						src={props.content.writerProfileUrl}></WriterProfilePicDiv>
+						src={props.content.writerProfileUrl}></GlobalProfile>
 					{props.content.writerAlias}({props.content.firstFourLettersOfEmail}
 					****)
 				</div>
