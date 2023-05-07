@@ -9,17 +9,17 @@ import secureLocalStorage from 'react-secure-storage';
 function MyPage() {
 	const navigate = useNavigate();
 	const [userInfo, setUserInfo] = useState({
-		'profileImageUrl': 'DEFAULT_PROFILE_IMAGE_URL',
-		'alias': '',
-		'region': 'DEFAULT_REGION',
+		profileImageUrl: 'DEFAULT_PROFILE_IMAGE_URL',
+		alias: '',
+		region: 'DEFAULT_REGION',
 	});
 	const [isLoading, setIsLoading] = useState(false);
 	const locRef = useRef({ latitude: null, longitude: null });
 
 	const getLocation = () => {
+		setIsLoading(true);
 		window.navigator.geolocation.getCurrentPosition(success, error);
 		function success(pos) {
-			setIsLoading(true);
 			const coordsObj = {
 				latitude: null,
 				longitude: null,
@@ -46,6 +46,7 @@ function MyPage() {
 		function error(error) {
 			console.error(error);
 			alert('위치 액세스를 허용해주세요.');
+			setIsLoading(false);
 		}
 	};
 	const getUserInfo = async () => {
@@ -65,38 +66,22 @@ function MyPage() {
 		<>
 			<Loading isLoading={isLoading} />
 			<MyPageWrapper>
-				<div className="title">마이페이지</div>
-				<div className="profileImageWrap">
-					<GlobalProfile
-						src={userInfo.profileImageUrl}
-						size="20rem"
-					/>
+				<div className='title'>마이페이지</div>
+				<div className='profileImageWrap'>
+					<GlobalProfile src={userInfo.profileImageUrl} size='20rem' />
 				</div>
-				<div className="myInfoWrap">
-					<div className="aliasWrap">
-						<UserEdit
-							size={53}
-							color="rgba(58, 58, 58, 1)"
-							className="icons"
-						/>
-						<label htmlFor="alias">닉네임</label>
-						<input
-							type="text"
-							name="alias"
-							value={userInfo.alias}
-							readOnly
-						/>
+				<div className='myInfoWrap'>
+					<div className='aliasWrap'>
+						<UserEdit size={53} color='rgba(58, 58, 58, 1)' className='icons' />
+						<label htmlFor='alias'>닉네임</label>
+						<input type='text' name='alias' value={userInfo.alias} readOnly />
 					</div>
-					<div className="myRegionWrap">
-						<Location
-							size={53}
-							color="rgba(58, 58, 58, 1)"
-							className="icons"
-						/>
-						<label htmlFor="region">나의 위치</label>
+					<div className='myRegionWrap'>
+						<Location size={53} color='rgba(58, 58, 58, 1)' className='icons' />
+						<label htmlFor='region'>나의 위치</label>
 						<input
-							type="text"
-							name="region"
+							type='text'
+							name='region'
 							value={
 								userInfo.region === 'DEFAULT_REGION'
 									? '위치를 설정해주세요.'
@@ -104,18 +89,17 @@ function MyPage() {
 							}
 							readOnly
 						/>
-						<div
-							className="getRegionButton"
-							onClick={getLocation}>
+						<div className='getRegionButton' onClick={getLocation}>
 							내 위치 받아오기
 						</div>
 					</div>
 				</div>
 				<div
-					className="button"
+					className='button'
 					onClick={() => {
 						navigate('/mypage/edit', { state: userInfo });
-					}}>
+					}}
+				>
 					수정
 				</div>
 				{/* <button onClick={() => {}}>회원 탈퇴</button> */}

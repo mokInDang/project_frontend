@@ -115,7 +115,7 @@ const BoardContent = () => {
 							})}
 						</BoardInfo>
 						<ContentDiv>
-							<HeadingDiv fontSize="2.9rem">프로젝트 소개</HeadingDiv>
+							<HeadingDiv fontSize="2.9rem">플로깅 활동 소개</HeadingDiv>
 							<HR />
 							<div
 								dangerouslySetInnerHTML={{ __html: boardDetails.contentBody }}
