@@ -1,4 +1,4 @@
-import { Header, GlobalProfile } from './header';
+import { Header } from './header/header';
 import { Dropdown, NewPostDropDown } from './dropdown';
 import GetlocationButton from './getLocationButton';
 import JoinComment from './login/joinComment';
@@ -24,7 +24,6 @@ import {
 	BoardWrapper,
 	HeadingDiv,
 	WriterDiv,
-	WriterProfilePicDiv,
 	VerticalBar,
 	ContentDiv,
 	BoardInfo,
@@ -34,7 +33,7 @@ import {
 	BoardDetailsWrap,
 	ButtonsWrap,
 	BoardContentButtonDiv,
-} from './boardDetails/StyledComponents';
+} from './boardDetails/boardDetailsStyledComponents';
 import { MyPageWrapper } from './myPage/myPageStyledComponents';
 import {
 	HR,
@@ -56,7 +55,13 @@ import { CertificationCard } from './main/certificationCard';
 import { CertificationCardsWrap } from './main/mainStyledComponents';
 import { ImageSlide } from './certificationDetails/imageSlider';
 import { Loading } from './loading';
-
+import {
+	Headerdiv,
+	HeaderButton,
+	HeaderButtonWrap,
+	ProfileWrap,
+} from './header/headerStyledComponents';
+import { GlobalProfile } from './globalStyledComponents';
 export {
 	JoinComment,
 	Header,
@@ -84,7 +89,6 @@ export {
 	BoardWrapper,
 	HeadingDiv,
 	WriterDiv,
-	WriterProfilePicDiv,
 	VerticalBar,
 	ContentDiv,
 	BoardInfo,
@@ -93,7 +97,6 @@ export {
 	ReplySubmitButton,
 	TabWrapper,
 	TabDiv,
-	GlobalProfile,
 	MyPageWrapper,
 	HR,
 	P,
@@ -110,4 +113,9 @@ export {
 	ButtonsWrap,
 	BoardContentButtonDiv,
 	CertificationCardsWrap,
+	Headerdiv,
+	HeaderButton,
+	GlobalProfile,
+	HeaderButtonWrap,
+	ProfileWrap,
 };
