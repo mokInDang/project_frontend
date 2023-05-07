@@ -68,7 +68,11 @@ function MyPage() {
 			<MyPageWrapper>
 				<div className='title'>마이페이지</div>
 				<div className='profileImageWrap'>
-					<GlobalProfile src={userInfo.profileImageUrl} size='20rem' />
+					<GlobalProfile
+						src={userInfo.profileImageUrl}
+						size='20rem'
+						margin='0 0.5rem 0 0'
+					/>
 				</div>
 				<div className='myInfoWrap'>
 					<div className='aliasWrap'>

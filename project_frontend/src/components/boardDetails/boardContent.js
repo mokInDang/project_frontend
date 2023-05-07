@@ -6,18 +6,18 @@ import {
 	BoardDetailsWrap,
 	HeadingDiv,
 	WriterDiv,
-	WriterProfilePicDiv,
 	VerticalBar,
 	ContentDiv,
 	BoardInfo,
 	BoardContentButtonDiv,
 	ButtonsWrap,
-} from './StyledComponents';
+} from './boardDetailsStyledComponents';
 import {
 	getRecruitment,
 	closeRecruitment,
 	deleteRecruitment,
 } from '../../apis';
+import { GlobalProfile } from '../../components';
 import { DateString } from '../../utils';
 import { Comments } from '../../pages/comments';
 
@@ -57,11 +57,11 @@ const BoardContent = () => {
 							}}
 							onClick={() => navigate(-1)}
 						/>
-						<HeadingDiv fontSize="4rem">{boardDetails.title}</HeadingDiv>
+						<HeadingDiv fontSize='4rem'>{boardDetails.title}</HeadingDiv>
 						<WriterDiv>
-							<WriterProfilePicDiv
-								size="6rem"
-								margin="2rem 2rem 2rem 0"
+							<GlobalProfile
+								size='6rem'
+								margin='2rem 2rem 2rem 0'
 								src={boardDetails.writerProfileImageUrl}
 							/>
 							<div>
@@ -69,8 +69,8 @@ const BoardContent = () => {
 								{boardDetails.firstFourLettersOfEmail}
 								****)
 							</div>
-							<VerticalBar id="verticalbar" />
-							<div className="startingDate">
+							<VerticalBar id='verticalbar' />
+							<div className='startingDate'>
 								{DateString(boardDetails.creatingDatetime, '.')}
 							</div>
 						</WriterDiv>
@@ -83,7 +83,8 @@ const BoardContent = () => {
 										<BoardContentButtonDiv
 											onClick={() => {
 												closeRecruitment(boardDetails.boardId, getNewDetails);
-											}}>
+											}}
+										>
 											마감
 										</BoardContentButtonDiv>
 										<BoardContentButtonDiv
@@ -91,7 +92,8 @@ const BoardContent = () => {
 												navigate(`/edit/recruitment/${boardDetails.boardId}`, {
 													state: boardDetails,
 												});
-											}}>
+											}}
+										>
 											수정
 										</BoardContentButtonDiv>
 									</>
@@ -99,7 +101,8 @@ const BoardContent = () => {
 								<BoardContentButtonDiv
 									onClick={() => {
 										deleteRecruitment(boardDetails.boardId, navigate);
-									}}>
+									}}
+								>
 									삭제
 								</BoardContentButtonDiv>
 							</ButtonsWrap>
@@ -108,7 +111,7 @@ const BoardContent = () => {
 							{items.map((item, i) => {
 								return (
 									<div key={i}>
-										<div className="category">{item}</div>
+										<div className='category'>{item}</div>
 										<div>{values[i]}</div>
 									</div>
 								);
@@ -123,10 +126,7 @@ const BoardContent = () => {
 						</ContentDiv>
 						{/* 댓글 API 연결 후 댓글 Div 컴포넌트로 분리할 것! */}
 					</BoardDetailsWrap>
-					<Comments
-						boardType={'recruitment-board'}
-						boardId={params.boardId}
-					/>
+					<Comments boardType={'recruitment-board'} boardId={params.boardId} />
 				</>
 			) : (
 				<></>

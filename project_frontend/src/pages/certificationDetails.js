@@ -4,7 +4,7 @@ import {
 	BoardDetailsWrap,
 	VerticalBar,
 	HeadingDiv,
-	WriterProfilePicDiv,
+	GlobalProfile,
 	WriterDiv,
 	HR,
 	ButtonsWrap,
@@ -68,7 +68,7 @@ function CertificationDetails() {
 							{certificationDetails.title}
 						</HeadingDiv>
 						<WriterDiv>
-							<WriterProfilePicDiv
+							<GlobalProfile
 								size="6rem"
 								margin="2rem 2rem 2rem 0"
 								src={certificationDetails.writerProfileImageUrl}

@@ -1,5 +1,5 @@
 import { BoardItemCard } from './mainStyledComponents';
-import { WriterProfilePicDiv, VerticalBar } from '../../components';
+import { GlobalProfile, VerticalBar } from '../../components';
 import { useNavigate } from 'react-router-dom';
 import { movePath } from '../../utils';
 const Card = (props) => {
@@ -30,11 +30,11 @@ const Card = (props) => {
 				{props.content.region}
 				<hr />
 				<div className='writerProfile'>
-					<WriterProfilePicDiv
+					<GlobalProfile
 						size='4.6rem'
 						margin='1rem 1.5rem 1rem 0'
 						src={props.content.writerProfileUrl}
-					></WriterProfilePicDiv>
+					></GlobalProfile>
 					{props.content.writerAlias}({props.content.firstFourLettersOfEmail}
 					****)
 				</div>
