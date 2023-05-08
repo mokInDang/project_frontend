@@ -46,7 +46,7 @@ const BoardItemCard = styled.div`
 	padding: 4rem 3rem 2rem 3rem;
 	box-sizing: border-box;
 	background-color: rgba(255, 255, 255, 0.8);
-	border: 2px solid #b3b3b3;
+	border: 0.2rem solid #b3b3b3;
 	border-radius: 4rem;
 	transition: all 0.2s ease-in-out;
 
@@ -136,7 +136,21 @@ const BoardItemCard = styled.div`
 	.writerProfile {
 		align-items: center;
 		display: flex;
+		flex-direction: row;
 	}
+	.numofComments {
+		font-size: 2rem;
+		display: flex;
+		align-items: center;
+		color: rgba(40, 40, 40, 0.5);
+		span {
+			margin: 0 1rem;
+		}
+		svg {
+			transform: scaleX(-1);
+		}
+	}
+
 	@media (max-width: 796px) {
 		.category {
 			font-size: 1.8rem;

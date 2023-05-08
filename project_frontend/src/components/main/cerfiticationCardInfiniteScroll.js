@@ -1,9 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import {
-	CertificationCard,
-	CertificationCardsWrap,
-} from '../index';
+import { CertificationCard, CertificationCardsWrap } from '../index';
 
 function CertificationCardInfiniteScroll() {
 	const [boardItems, setBoardItems] = useState([]);
@@ -13,7 +10,7 @@ function CertificationCardInfiniteScroll() {
 
 	const getBoardItems = async (pageNumber) => {
 		await axios
-			.get(`/api/boards/certification?page=${pageNumber}&size=3&sort=id,DESC`)
+			.get(`/api/boards/certification?page=${pageNumber}&size=4&sort=id,DESC`)
 			.then((res) => {
 				setBoardItems((data) => [...data, ...res.data.boards]);
 				setHasNext(res.data.hasNext);
@@ -54,16 +51,17 @@ function CertificationCardInfiniteScroll() {
 	return (
 		<div>
 			<CertificationCardsWrap>
-				{boardItems.map((boardItem) => (
+				{boardItems.map((boardItem, i) => (
 					<CertificationCard
 						key={boardItem.boardId}
-						content={boardItem}></CertificationCard>
+						tapeNumber={i}
+						boardItem={boardItem}></CertificationCard>
 				))}
 			</CertificationCardsWrap>
 			{/* <div>{boardItems.length}</div> */}
 			<div
 				ref={pageEnd}
-				style={{ marginBottom: '40px' }}></div>
+				style={{ marginBottom: '5rem' }}></div>
 		</div>
 	);
 }
