@@ -5,15 +5,15 @@ import { InfiniteScroll } from './infiniteScroll';
 import { TabWrapper, TabDiv } from '../../components';
 import { useNavigate } from 'react-router';
 const RecruitmentInfiniteScroll = () => {
-	const [regionTab, setRegionTap] = useState(0);
+	const [regionTab, setRegionTab] = useState('all');
 	const navigate = useNavigate();
 	return (
 		<>
 			<TabWrapper regionTab={regionTab}>
 				<TabDiv
 					onClick={(e) => {
-						e.preventDefault();
-						setRegionTap(0);
+						// e.preventDefault();
+						setRegionTab('all');
 					}}
 					className="regionTab entireRegion">
 					<ImFileEmpty
@@ -25,7 +25,7 @@ const RecruitmentInfiniteScroll = () => {
 				<TabDiv
 					onClick={(e) => {
 						e.preventDefault();
-						isLogined(setRegionTap, 1, navigate);
+						isLogined(setRegionTab, 'myRegion', navigate);
 					}}
 					className="regionTab myRegion">
 					<ImFileText2
@@ -35,7 +35,15 @@ const RecruitmentInfiniteScroll = () => {
 					내 지역
 				</TabDiv>
 			</TabWrapper>
-			<InfiniteScroll regionTab={regionTab} />
+			<InfiniteScroll
+				style={regionTab === 'all' ? { display: 'block' } : { display: 'none' }}
+				regionTab={regionTab}
+			/>
+			{regionTab === 'myRegion' ? (
+				<InfiniteScroll regionTab={regionTab} />
+			) : (
+				<></>
+			)}
 		</>
 	);
 };

@@ -216,13 +216,13 @@ const TabWrapper = styled.div`
 	}
 	.entireRegion {
 		${(props) =>
-			props.regionTab
+			props.regionTab === 'myRegion'
 				? 'color: #dddddd;'
 				: 'background-color: rgba(179, 179, 179, 0.5); box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);'}
 	}
 	.myRegion {
 		${(props) =>
-			!props.regionTab
+			props.regionTab === 'all'
 				? 'color:#dddddd;'
 				: 'background-color: rgba(179, 179, 179, 0.5); box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);'}
 	}
