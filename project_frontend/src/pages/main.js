@@ -3,7 +3,6 @@ import {
 	CertificationCardInfiniteScroll,
 } from '../components';
 import { SlArrowRight } from 'react-icons/sl';
-import { ImQuill } from 'react-icons/im';
 import { TabWrapper, TabDiv } from '../components';
 import { BannerSlide } from '../components/main/bannerSlider';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
@@ -47,7 +46,6 @@ function Home() {
 									? navigate('/boards/recruitment')
 									: navigate('/boards/certification');
 							}}>
-							<ImQuill style={{ marginRight: '2rem' }} />
 							<span>새 글 쓰기</span>
 						</TabDiv>
 					</div>

@@ -15,7 +15,7 @@ const RecruitmentInfiniteScroll = () => {
 						e.preventDefault();
 						setRegionTap(0);
 					}}
-					className="entireRegion">
+					className="regionTab entireRegion">
 					<ImFileEmpty
 						size="2.5rem"
 						style={{ marginRight: '1rem' }}
@@ -27,7 +27,7 @@ const RecruitmentInfiniteScroll = () => {
 						e.preventDefault();
 						isLogined(setRegionTap, 1, navigate);
 					}}
-					className="myRegion">
+					className="regionTab myRegion">
 					<ImFileText2
 						size="2.5rem"
 						style={{ marginRight: '1rem' }}
