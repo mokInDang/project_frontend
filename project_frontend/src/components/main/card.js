@@ -1,42 +1,47 @@
 import { BoardItemCard } from './mainStyledComponents';
 import { GlobalProfile, VerticalBar } from '../../components';
 import { useNavigate } from 'react-router-dom';
+import { Message } from 'iconsax-react';
 import { movePath } from '../../utils';
-const Card = (props) => {
+const Card = ({ content }) => {
 	const navigate = useNavigate();
-	const contentBody = props.content.contentBody;
+	const contentBody = content.contentBody;
 	const newContent = contentBody
 		.replace(/<[^>]*>?/g, '')
 		.replace(/(<([^>]+)>)/gi, '')
 		.replace(/&nbsp;/gi, ' ');
 	return (
 		<BoardItemCard
-			isOnRecruitment={props.content.onRecruitment}
+			isOnRecruitment={content.onRecruitment}
 			onClick={() =>
-				movePath(navigate, `/boards/recruitment/${props.content.boardId}`)
-			}
-		>
-			<div className='closed' />
-			<div className='category'>
+				movePath(navigate, `/boards/recruitment/${content.boardId}`)
+			}>
+			<div className="closed" />
+			<div className="category">
 				시작 예정일
 				<VerticalBar />
-				{props.content.startingDate}
+				{content.startingDate}
 				<VerticalBar />
-				{props.content.activityCategory}
+				{content.activityCategory}
 			</div>
-			<div className='title'>{props.content.title}</div>
-			<div className='contentBody'>{newContent}</div>
-			<div className='writerProfileWrap'>
-				{props.content.region}
+			<div className="title">{content.title}</div>
+			<div className="contentBody">{newContent}</div>
+			<div className="writerProfileWrap">
+				{content.region}
 				<hr />
-				<div className='writerProfile'>
-					<GlobalProfile
-						size='4.6rem'
-						margin='1rem 1.5rem 1rem 0'
-						src={props.content.writerProfileUrl}
-					></GlobalProfile>
-					{props.content.writerAlias}({props.content.firstFourLettersOfEmail}
-					****)
+				<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+					<div className="writerProfile">
+						<GlobalProfile
+							size="4.6rem"
+							margin="1rem 1.5rem 1rem 0"
+							src={content.writerProfileUrl}></GlobalProfile>
+						{content.writerAlias}({content.firstFourLettersOfEmail}
+						****)
+					</div>
+					<div className="numofComments">
+						<Message size="2.5rem"></Message>
+						<span>{content.countOfCommentAndReplyComment}</span>
+					</div>
 				</div>
 			</div>
 		</BoardItemCard>
