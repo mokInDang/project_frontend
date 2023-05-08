@@ -20,7 +20,6 @@ const Navigator = () => {
 	const [isLogined, setIsLogined] = useState(false);
 	const [userInfo, setUserInfo] = useState({});
 	const [dropdownView, setDropDownView] = useState(false);
-	const [newPostDropdownView, setNewPostDropDownView] = useState(false);
 
 	const getUserInfo = () => {
 		if (isLogined) {
@@ -29,7 +28,6 @@ const Navigator = () => {
 	};
 	useEffect(() => {
 		setDropDownView(false);
-		setNewPostDropDownView(false);
 		if (secureLocalStorage.getItem('accessToken') !== null && !isLogined)
 			setIsLogined(true);
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로, 페이지 이동 시
@@ -79,19 +77,10 @@ const Navigator = () => {
 								) : (
 									<></>
 								)}
-								<HeaderButton
-									className="newPost"
-									onClick={() => {
-										setNewPostDropDownView(!newPostDropdownView);
-										setDropDownView(false);
-									}}>
-									{newPostDropdownView ? <NewPostDropDown /> : ''}새 글 쓰기
-								</HeaderButton>
 								{isLogined && userInfo ? (
 									<ProfileWrap
 										onClick={() => {
 											setDropDownView(!dropdownView);
-											setNewPostDropDownView(false);
 										}}>
 										<GlobalProfile
 											size="5rem"

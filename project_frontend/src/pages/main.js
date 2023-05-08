@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
 import {
 	RecruitmentInfiniteScroll,
 	CertificationCardInfiniteScroll,
 } from '../components';
-import { SlArrowDown } from 'react-icons/sl';
+import { SlArrowRight } from 'react-icons/sl';
+import { ImQuill } from 'react-icons/im';
 import { TabWrapper, TabDiv } from '../components';
 import { BannerSlide } from '../components/main/bannerSlider';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
@@ -12,25 +12,46 @@ function Home() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	return (
-		<Fragment>
+		<>
 			<BannerSlide />
 			<TabWrapper boardTab={location.pathname}>
-				<TabDiv
-					onClick={() => {
-						navigate('/');
-					}}
-					className="recruitment">
-					<SlArrowDown style={{ marginRight: '2rem' }} />
-					<span>플로깅 모집</span>
-				</TabDiv>
-				<TabDiv
-					onClick={() => {
-						navigate('certification');
-					}}
-					className="proofShots">
-					<SlArrowDown style={{ marginRight: '2rem' }} />
-					<span>플로깅 인증</span>
-				</TabDiv>
+				<div className="mainCategory">
+					<div>
+						<TabDiv
+							onClick={() => {
+								navigate('/');
+							}}
+							className="recruitment">
+							<SlArrowRight
+								style={{ marginRight: '2rem' }}
+								className="recruitmentarrow"
+							/>
+							<span>플로깅 모집</span>
+						</TabDiv>
+						<TabDiv
+							onClick={() => {
+								navigate('certification');
+							}}
+							className="certification">
+							<SlArrowRight
+								style={{ marginRight: '2rem' }}
+								className="certificationarrow"
+							/>
+							<span>플로깅 인증</span>
+						</TabDiv>
+					</div>
+					<div>
+						<TabDiv
+							onClick={() => {
+								location.pathname === '/'
+									? navigate('/boards/recruitment')
+									: navigate('/boards/certification');
+							}}>
+							<ImQuill style={{ marginRight: '2rem' }} />
+							<span>새 글 쓰기</span>
+						</TabDiv>
+					</div>
+				</div>
 			</TabWrapper>
 			<Routes>
 				<Route
@@ -44,7 +65,7 @@ function Home() {
 					element={<CertificationCardInfiniteScroll />}
 				/>
 			</Routes>
-		</Fragment>
+		</>
 	);
 }
 export default Home;
