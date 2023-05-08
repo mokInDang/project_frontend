@@ -3,15 +3,22 @@ import { closed_stamp } from '../../assets/images';
 
 const CertificationCardsWrap = styled.div`
 	display: grid;
-	grid-template-columns: repeat(auto-fill, 40rem);
+	width: 80%;
+	grid-template-columns: repeat(auto-fill, 39rem);
 	justify-content: center;
 	align-content: center;
-	padding: 0 2rem;
-	margin-top: 2rem;
+	margin: 0 auto;
+	margin-top: 5rem;
 	row-gap: 7rem;
-	column-gap: 7rem;
+	column-gap: 3rem;
+	@media (min-width: 1440px) {
+		grid-template-columns: repeat(3, 39rem);
+	}
 	@media (min-width: 1920px) {
-		grid-template-columns: repeat(3, 40rem);
+		grid-template-columns: repeat(4, 39rem);
+	}
+	@media (max-width: 425px) {
+		grid-template-columns: Minmax(35rem, 95%);
 	}
 `;
 const BoardItemsWrap = styled.div`
@@ -83,7 +90,7 @@ const BoardItemCard = styled.div`
 		color: #b3b3b3;
 		font-size: 1.4rem;
 		display: flex;
-		letter-spacing: 0.075rem;
+		// letter-spacing: 0.075rem;
 		flex-shrink: 0;
 		transition: all 0.1s ease-in-out;
 		@media (max-width: 355px) {
@@ -101,7 +108,7 @@ const BoardItemCard = styled.div`
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 2;
 		align-self: center;
-		letter-spacing: 0.05rem;
+		// letter-spacing: 0.05rem;
 	}
 	.contentBody {
 		display: -webkit-box;
@@ -114,7 +121,7 @@ const BoardItemCard = styled.div`
 		overflow: hidden;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 5;
-		letter-spacing: 0.05rem;
+		// letter-spacing: 0.05rem;
 	}
 	.writerProfileWrap {
 		margin-top: 3rem;
@@ -155,12 +162,19 @@ const TabWrapper = styled.div`
 	display: flex;
 	width: 100%;
 	max-width: 160rem;
+	padding: 0 10rem;
 	margin: 0 auto;
-	padding: 0 2rem;
 	box-sizing: border-box;
-	flex-direction: row;
 	font-size: 2.5rem;
 	font-weight: 700;
+	flex-wrap: wrap;
+
+	@media only screen and (min-width: 1560px) {
+		padding: 0 2rem;
+	}
+	@media only screen and (max-width: 1380px) {
+		padding: 0 2rem;
+	}
 	@media only screen and (max-width: 778px) {
 		font-size: 2.4rem;
 	}
@@ -168,26 +182,56 @@ const TabWrapper = styled.div`
 		font-size: 2.2rem;
 	}
 	div {
-		margin: 1.5rem 3rem;
-		cursor: pointer;
 		display: flex;
 		align-items: center;
 	}
-	.certificationTab {
-		cursor: default;
+	.certificationarrow {
+		transition: all 0.2s ease;
+		${(props) =>
+			props.boardTab === '/certification' ? 'transform:rotateZ(90deg)' : ''}
+	}
+	.recruitmentarrow {
+		transition: all 0.2s ease;
+		${(props) => (props.boardTab === '/' ? 'transform:rotateZ(90deg)' : '')}
+	}
+	.mainCategory {
+		flex-wrap: wrap;
+		margin: 0;
+		width: 100%;
+		justify-content: space-between;
+		div {
+			flex-wrap: wrap;
+		}
 	}
 	color: #3a3a3a;
 	${(props) =>
 		props.boardTab === '/certification'
 			? '.recruitment{color:#dddddd}'
-			: '.proofShots{color:#dddddd}'}
-	${(props) =>
-		props.regionTab
-			? '.entireRegion{color:#dddddd}'
-			: '.myRegion{color:#dddddd}'}
+			: '.certification{color:#dddddd}'}
+	.regionTab {
+		margin: 1rem;
+		padding: 1.3rem 3rem;
+		border-top-left-radius: 2rem;
+		border-top-right-radius: 2rem;
+	}
+	.entireRegion {
+		${(props) =>
+			props.regionTab
+				? 'color: #dddddd;'
+				: 'background-color: rgba(179, 179, 179, 0.5); box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);'}
+	}
+	.myRegion {
+		${(props) =>
+			!props.regionTab
+				? 'color:#dddddd;'
+				: 'background-color: rgba(179, 179, 179, 0.5); box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);'}
+	}
 `;
 const TabDiv = styled.div`
+	margin: 1.5rem 3rem;
 	color: #111111;
+	cursor: pointer;
+	align-self: flex-start;
 `;
 export {
 	BoardItemCard,
