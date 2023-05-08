@@ -7,9 +7,11 @@ import green2 from './2.png';
 import homeIcon from './homeIcon.png';
 import locationIcon from './location.png';
 import banner1 from './banner.png';
-import banner2_trash from './banner2_trash.png'
-import banner2_human from './banner2_human.png'
-import closed_stamp from './closed_stamp.png'
+import banner2_trash from './banner2_trash.png';
+import banner2_human from './banner2_human.png';
+import closed_stamp from './closed_stamp.png';
+import tape_green from './tape_green.png';
+import tape_pastelgreen from './tape_pastelgreen.png';
 // import { ReactComponent as entireRegionIcon } from './entireregion.svg';
 // import { ReactComponent as myRegionIcon } from './myregion.svg';
 
@@ -25,7 +27,9 @@ export {
 	banner1,
 	banner2_trash,
 	banner2_human,
-	closed_stamp
+	closed_stamp,
+	tape_green,
+	tape_pastelgreen,
 	// entireRegionIcon,
 	// myRegionIcon,
 };
