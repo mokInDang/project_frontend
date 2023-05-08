@@ -2,21 +2,35 @@ import { GlobalProfile } from '..';
 import { useNavigate } from 'react-router-dom';
 import { movePath } from '../../utils';
 import styled from 'styled-components';
+import { tape_green, tape_pastelgreen } from '../../assets/images';
+import { BsImage } from 'react-icons/bs';
 
 const CertificationItemCard = styled.div`
-	border: 2px solid #b3b3b3;
 	box-sizing: border-box;
-	font-size: 1.65rem;
+	font-size: 1.4rem;
 	font-weight: 700;
 	word-break: break-word;
 	color: rgba(0, 0, 0, 0.7);
-	border-radius: 1rem;
+	background: {#ffffff};
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+	z-index: 2;
+	transform: scale(1);
+
 	.thumbnail {
-		margin: 2rem;
+		box-shadow: inset 0px 0px 1.5rem rgba(0, 0, 0, 0.3);
+		box-sizing: border-box;
+		margin: 2.2rem;
+		margin-bottom: 1.5rem;
 		height: 35rem;
-		background: no-repeat black center/cover url(${(props) => props.src});
-		margin-bottom: 2rem;
-		border-radius: 1rem;
+		overflow: hidden;
+		img {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			z-index: -1;
+			background: rgba(217, 217, 217, 0.5);
+		}
 	}
 	.writerProfileWrap {
 		padding: 0 2rem 2rem 2rem;
@@ -26,20 +40,20 @@ const CertificationItemCard = styled.div`
 		align-items: center;
 		margin: 0;
 	}
-	hr {
-		border: 1.5px solid #b3b3b3;
-		margin-top: 0;
-		margin-bottom: 2rem;
+	.line {
+		border-bottom: 1px solid #b3b3b3;
+		height: 1px;
+		opacity: 0.3;
+		margin: 1rem 0;
 	}
 	.contentBody {
-		font-family: NanumSquareNeo;
 		display: -webkit-box;
 		overflow: hidden;
 		-webkit-box-orient: vertical;
-		font-size: 2.5rem;
-		line-height: 3.5rem;
-		height: 3.5rem;
-		-webkit-line-clamp: 1;
+		font-size: 1.7rem;
+		line-height: 2.5rem;
+		height: 5rem;
+		-webkit-line-clamp: 2;
 		text-overflow: ellipsis;
 		margin-bottom: 2rem;
 		color: rgba(0, 0, 0, 0.9);
@@ -52,33 +66,58 @@ const CertificationItemCard = styled.div`
 		-moz-transform: scale(1.01);
 		-ms-transform: scale(1.01);
 		-o-transform: scale(1.01);
-		background-color: rgba(129, 204, 85, 0.01);
 	}
 `;
-const CertificationCard = (props) => {
+const Tape = styled.div`
+	position: absolute;
+	width: 17.5rem;
+	height: 4rem;
+	z-index: 3;
+	top: -1rem;
+	left: 50%;
+	transform: translate3d(-50%, -50%, 0)
+		${(props) => {
+			if (props.tapeNumber === 0) return 'rotate(-3.5deg)';
+			if (props.tapeNumber === 1) return 'rotate(4.53deg)';
+			if (props.tapeNumber === 2) return 'rotate(1.43deg)';
+			if (props.tapeNumber === 3) return 'rotate(-1.7deg)';
+		}};
+	background: url(${(props) => {
+			if (props.tapeNumber % 2) return tape_pastelgreen;
+			else return tape_green;
+		}})
+		no-repeat center/contain;
+`;
+const CertificationCard = ({ boardItem, tapeNumber }) => {
 	const navigate = useNavigate();
-	const { contentBody } = props.content;
-	const newContent = contentBody
+	const newContent = boardItem.contentBody
 		.replace(/<[^>]*>?/g, '')
 		.replace(/(<([^>]+)>)/gi, '');
 	return (
 		<CertificationItemCard
-			src={props.content.mainImageUrl}
 			onClick={() =>
-				movePath(navigate, `/boards/certification/${props.content.boardId}`)
+				movePath(navigate, `/boards/certification/${boardItem.boardId}`)
 			}>
-			<div className="thumbnail"></div>
+			<Tape tapeNumber={tapeNumber % 4} />
+			<div className="thumbnail">
+				<img
+					src={boardItem.mainImageUrl}
+					loading="lazy"></img>
+			</div>
 			<div className="writerProfileWrap">
-				<hr />
-				<div className="contentBody">{props.content.title}</div>
 				<div className="writerProfile">
 					<GlobalProfile
 						size="4rem"
 						margin="0 1.5rem 0 0"
-						src={props.content.writerProfileUrl}></GlobalProfile>
-					{props.content.writerAlias}({props.content.firstFourLettersOfEmail}
+						src={boardItem.writerProfileUrl}></GlobalProfile>
+					{boardItem.writerAlias}({boardItem.firstFourLettersOfEmail}
 					****)
 				</div>
+				<div
+					className="line"
+					role="presentation"
+				/>
+				<div className="contentBody">{newContent}</div>
 			</div>
 		</CertificationItemCard>
 	);
