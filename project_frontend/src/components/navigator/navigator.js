@@ -51,7 +51,7 @@ const Navigator = () => {
 							<div>
 								<div
 									className="HomebuttonWrapper"
-									onClick={() => movePath(navigate, '/')}>
+									onClick={() => navigate('/')}>
 									<img
 										src={homeIcon}
 										alt="homeIcon"
