@@ -41,16 +41,11 @@ const RecruitmentInfiniteScroll = () => {
 				}>
 				<InfiniteScroll regionTab={regionTab} />
 			</div>
-			<div
-				style={
-					regionTab === 'myRegion' ? { display: 'block' } : { display: 'none' }
-				}>
 				{regionTab === 'myRegion' ? (
 					<InfiniteScroll regionTab={regionTab} />
 				) : (
 					<></>
 				)}
-			</div>
 		</>
 	);
 };
