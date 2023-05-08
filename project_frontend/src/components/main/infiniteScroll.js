@@ -2,17 +2,17 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { Card, BoardItemsWrap } from '../index';
 
-function InfiniteScroll({regionTab}) {
+function InfiniteScroll(props) {
 	const [boardItems, setBoardItems] = useState([]);
+	const regionTab = props.regionTab;
 	const [pageNumber, setPageNumber] = useState(0);
 	const [loading, setLoading] = useState(false);
 	const [hasNext, setHasNext] = useState(true);
-
 	const getBoardItems = async (pageNumber) => {
 		await axios
 			.get(
 				`/api/boards/recruitment/${
-					regionTab ? 'region' : ''
+					regionTab === 'myRegion' ? 'region' : ''
 				}?page=${pageNumber}&size=12&sort=id,DESC`
 			)
 			.then((res) => {
@@ -24,7 +24,7 @@ function InfiniteScroll({regionTab}) {
 				console.log(error);
 			});
 	};
-
+	
 	useEffect(() => {
 		if (hasNext) {
 			getBoardItems(pageNumber);
