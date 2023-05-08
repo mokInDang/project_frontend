@@ -155,12 +155,19 @@ const TabWrapper = styled.div`
 	display: flex;
 	width: 100%;
 	max-width: 160rem;
+	padding: 0 10rem;
 	margin: 0 auto;
-	padding: 0 2rem;
 	box-sizing: border-box;
-	flex-direction: row;
 	font-size: 2.5rem;
 	font-weight: 700;
+	flex-wrap: wrap;
+
+	@media only screen and (min-width: 1560px) {
+		padding: 0 2rem;
+	}
+	@media only screen and (max-width: 1380px) {
+		padding: 0 2rem;
+	}
 	@media only screen and (max-width: 778px) {
 		font-size: 2.4rem;
 	}
@@ -168,26 +175,42 @@ const TabWrapper = styled.div`
 		font-size: 2.2rem;
 	}
 	div {
-		margin: 1.5rem 3rem;
-		cursor: pointer;
 		display: flex;
 		align-items: center;
 	}
-	.certificationTab {
-		cursor: default;
+	.certificationarrow {
+		transition: all 0.2s ease;
+		${(props) =>
+			props.boardTab === '/certification' ? 'transform:rotateZ(90deg)' : ''}
+	}
+	.recruitmentarrow {
+		transition: all 0.2s ease;
+		${(props) => (props.boardTab === '/' ? 'transform:rotateZ(90deg)' : '')}
+	}
+	.mainCategory {
+		flex-wrap: wrap;
+		margin: 0;
+		width: 100%;
+		justify-content: space-between;
+		div {
+			flex-wrap: wrap;
+		}
 	}
 	color: #3a3a3a;
 	${(props) =>
 		props.boardTab === '/certification'
 			? '.recruitment{color:#dddddd}'
-			: '.proofShots{color:#dddddd}'}
+			: '.certification{color:#dddddd}'}
 	${(props) =>
 		props.regionTab
 			? '.entireRegion{color:#dddddd}'
 			: '.myRegion{color:#dddddd}'}
 `;
 const TabDiv = styled.div`
+	margin: 1.5rem 3rem;
 	color: #111111;
+	cursor: pointer;
+	align-self: flex-start;
 `;
 export {
 	BoardItemCard,
