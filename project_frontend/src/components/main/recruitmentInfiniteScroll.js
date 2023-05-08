@@ -35,15 +35,22 @@ const RecruitmentInfiniteScroll = () => {
 					내 지역
 				</TabDiv>
 			</TabWrapper>
-			<InfiniteScroll
-				style={regionTab === 'all' ? { display: 'block' } : { display: 'none' }}
-				regionTab={regionTab}
-			/>
-			{regionTab === 'myRegion' ? (
+			<div
+				style={
+					regionTab === 'all' ? { display: 'block' } : { display: 'none' }
+				}>
 				<InfiniteScroll regionTab={regionTab} />
-			) : (
-				<></>
-			)}
+			</div>
+			<div
+				style={
+					regionTab === 'myRegion' ? { display: 'block' } : { display: 'none' }
+				}>
+				{regionTab === 'myRegion' ? (
+					<InfiniteScroll regionTab={regionTab} />
+				) : (
+					<></>
+				)}
+			</div>
 		</>
 	);
 };

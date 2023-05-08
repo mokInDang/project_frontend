@@ -9,12 +9,6 @@ function InfiniteScroll(props) {
 	const [loading, setLoading] = useState(false);
 	const [hasNext, setHasNext] = useState(true);
 	const getBoardItems = async (pageNumber) => {
-		console.log(regionTab);
-		console.log(
-			`/api/boards/recruitment/${
-				regionTab === 'myRegion' ? 'region' : ''
-			}?page=${pageNumber}&size=12&sort=id,DESC`
-		);
 		await axios
 			.get(
 				`/api/boards/recruitment/${
