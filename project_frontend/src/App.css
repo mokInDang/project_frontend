@@ -4,6 +4,7 @@
 	-moz-user-select: none;
 	-ms-use-select: none;
 	user-select: none;
+	letter-spacing: -0.1rem;
 }
 
 * :focus {

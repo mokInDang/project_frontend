@@ -76,5 +76,5 @@
 	src: local(※), url('./NanumSquareNeo_Variable.woff') format('woff');
 }
 body {
-	font-family: '나눔스퀘어', 'NanumSquare';
+	font-family: '나눔스퀘어', 'NanumSquare', sans-serif;
 }
