@@ -1,10 +1,80 @@
 @font-face {
 	font-family: 'NanumSquare';
-	src: url('./NanumSquare_acR.ttf') format('truetype');
-	letter-spacing: 0.05rem;
+	transform: skew(-0.001deg);
+	src: local(※), url(NanumSquareR.woff2) format('woff2'),
+		url(NanumSquareR.woff) format('woff'),
+		url(NanumSquareR.ttf) format('truetype');
 }
 @font-face {
+	font-family: 'NanumSquareR';
+	transform: skew(-0.001deg);
+	src: local(※), url(NanumSquareR.woff2) format('woff2'),
+		url(NanumSquareR.woff) format('woff'),
+		url(NanumSquareR.ttf) format('truetype');
+}
+@font-face {
+	font-family: 'NanumSquareB';
+	font-weight: 700;
+	transform: skew(-0.001deg);
+	src: local(※), url(NanumSquareB.woff2) format('woff2'),
+		url(NanumSquareB.woff) format('woff'),
+		url(NanumSquareB.ttf) format('truetype');
+}
+@font-face {
+	font-family: 'NanumSquareEB';
+	font-weight: 800;
+	transform: skew(-0.001deg);
+	src: local(※), url(NanumSquareEB.woff2) format('woff2'),
+		url(NanumSquareEB.woff) format('woff'),
+		url(NanumSquareEB.ttf) format('truetype');
+}
+@font-face {
+	font-family: 'NanumSquareL';
+	font-weight: 300;
+	transform: skew(-0.001deg);
+	src: local(※), url(NanumSquareL.woff2) format('woff2'),
+		url(NanumSquareL.woff) format('woff'),
+		url(NanumSquareL.ttf) format('truetype');
+}
+/* AC */
+@font-face {
+	font-family: 'NanumSquareAc';
+	font-weight: 400;
+	transform: skew(-0.001deg);
+	src: local(※), url(NanumSquareAcR.woff2) format('woff2'),
+		url(NanumSquareAcR.woff) format('woff'),
+		url(NanumSquareAcR.ttf) format('truetype');
+}
+@font-face {
+	font-family: 'NanumSquareAc';
+	font-weight: 700;
+	transform: skew(-0.001deg);
+	src: local(※), url(NanumSquareAcB.woff2) format('woff2'),
+		url(NanumSquareAcB.woff) format('woff'),
+		url(NanumSquareAcB.ttf) format('truetype');
+}
+@font-face {
+	font-family: 'NanumSquareAc';
+	font-weight: 800;
+	transform: skew(-0.001deg);
+	src: local(※), url(NanumSquareAcEB.woff2) format('woff2'),
+		url(NanumSquareAcEB.woff) format('woff'),
+		url(NanumSquareAcEB.ttf) format('truetype');
+}
+@font-face {
+	font-family: 'NanumSquareAc';
+	font-weight: 300;
+	transform: skew(-0.001deg);
+	src: local(※), url(NanumSquareAcL.woff2) format('woff2'),
+		url(NanumSquareAcL.woff) format('woff'),
+		url(NanumSquareAcL.ttf) format('truetype');
+}
+
+@font-face {
 	font-family: 'NanumSquareNeo';
-	src: url('./NanumSquareNeo_Variable.woff') format('woff');
-	letter-spacing: 0.05rem;
+	transform: skew(-0.001deg);
+	src: local(※), url('./NanumSquareNeo_Variable.woff') format('woff');
+}
+body {
+	font-family: '나눔스퀘어', 'NanumSquare';
 }
