@@ -5,8 +5,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
-import GlobalStyle from './styles/fonts';
-import './styles/fonts/fonts.css';
 
 axios.defaults.baseURL = 'https://dev.dongnejupging.xyz';
 axios.defaults.withCredentials = true;
@@ -14,7 +12,6 @@ axios.defaults.withCredentials = true;
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<BrowserRouter>
-		<GlobalStyle />
 		<App />
 	</BrowserRouter>
 );
