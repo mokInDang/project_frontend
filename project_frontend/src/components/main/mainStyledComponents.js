@@ -49,8 +49,8 @@ const BoardItemCard = styled.div`
 	border: 0.2rem solid #b3b3b3;
 	border-radius: 4rem;
 	transition: all 0.2s ease-in-out;
+	transform: scale(1);
 
-	font-style: normal;
 	font-weight: 700;
 	word-break: break-word;
 
@@ -90,9 +90,13 @@ const BoardItemCard = styled.div`
 		color: #b3b3b3;
 		font-size: 1.4rem;
 		display: flex;
-		// letter-spacing: 0.075rem;
+		flex-direction: row;
+		letter-spacing: 0.05rem;
 		flex-shrink: 0;
-		transition: all 0.1s ease-in-out;
+		align-items: center;
+		.bar {
+			height: 1.4rem;
+		}
 		@media (max-width: 355px) {
 			font-size: 1.3rem;
 		}
@@ -137,6 +141,7 @@ const BoardItemCard = styled.div`
 		align-items: center;
 		display: flex;
 		flex-direction: row;
+		flex-shrink: 0;
 	}
 	.numofComments {
 		font-size: 2rem;
@@ -144,7 +149,7 @@ const BoardItemCard = styled.div`
 		align-items: center;
 		color: rgba(40, 40, 40, 0.5);
 		span {
-			margin: 0 1rem;
+			margin-left: 0.5rem;
 		}
 		svg {
 			transform: scaleX(-1);
