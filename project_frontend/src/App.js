@@ -13,7 +13,7 @@ import {
 	PatchCertification,
 } from './pages';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { Navigator } from './components';
+import { Navigator, Map } from './components';
 import { reissueToken } from './apis';
 import { Comments } from './pages/comments';
 import { PrivateRoutes, RegionRequiredRoutes } from './utils';
@@ -31,6 +31,11 @@ function App() {
 					exact
 					path="/*"
 					element={<Home />}
+				/>
+				<Route
+					exact
+					path="/map"
+					element={<Map />}
 				/>
 
 				<Route element={<PrivateRoutes authentication={false} />}>

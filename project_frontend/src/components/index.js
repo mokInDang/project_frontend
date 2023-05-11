@@ -63,6 +63,7 @@ import {
 } from './navigator/navigatorStyledComponents';
 import { GlobalProfile } from './globalStyledComponents';
 import { RecruitmentInfiniteScroll } from './main/recruitmentInfiniteScroll';
+import { Map } from './map';
 export {
 	JoinComment,
 	Navigator,
@@ -80,6 +81,7 @@ export {
 	ImageSlide,
 	Loading,
 	RecruitmentInfiniteScroll,
+	Map
 };
 export {
 	WriteWrapper,
