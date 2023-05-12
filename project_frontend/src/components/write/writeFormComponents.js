@@ -5,7 +5,7 @@ const HR = styled.hr`
 	margin-bottom: 2.5rem;
 `;
 
-const P = styled.p`
+const P = styled.div`
 	font-family: NanumSquareNeo;
 	font-style: normal;
 	font-weight: 900;
@@ -18,6 +18,22 @@ const P = styled.p`
 	text-indent: 1rem;
 	text-indent: 1rem;
 	color: #000000;
+`;
+
+const NumDiv = styled.div`
+	position: relative;
+	width: 3rem;
+	height: 3rem;
+	border-radius: 3rem;
+	text-align: center;
+	color: white;
+	background-color: #81cc55;
+	display: flex;
+	flex-shrink: 0;
+	span {
+		margin: 0 auto;
+		
+	}
 `;
 const Label = styled.label`
 	font-weight: 700;
@@ -97,4 +113,4 @@ const Button = styled.div`
 	background: ${(props) => (props.name === 'cancel' ? '#DDDDDD' : '#000000')};
     color: ${(props) => (props.name === 'cancel' ? '#767676' : '#ffffff')};
 `;
-export { HR, P, Label, Title, Button, ButtonWrap, QuillWrap };
+export { HR, P, Label, Title, Button, ButtonWrap, QuillWrap, NumDiv };

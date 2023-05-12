@@ -18,15 +18,25 @@ const SelectBox = styled.div`
 
 	&::before {
 		content: '⌵';
+		display: ${(props) => (props.selectBox ? 'block' : 'none')};
 		position: absolute;
 		top: 1.4rem;
 		right: 2rem;
 		color: #bdbdbd;
 		font-size: 2rem;
 	}
+	input {
+		border: none;
+		height: 100%;
+		width: 100%;
+		background: transparent;
+		text-indent: 2rem;
+		outline: none;
+		font-family: NanumSquare;
+		font-size: 1.8rem;
+	}
 `;
-const Label = styled.label`
-	font-size: 1.4rem;
+const Placeholder = styled.label`
 	margin-left: 0.4rem;
 	text-align: center;
 	font-family: NanumSquareNeo;
@@ -118,7 +128,7 @@ const CustomSelectActivity = ({ getSelectedActivity, value }) => {
 		const { innerText } = e.target;
 		setCurrentValue(innerText);
 	};
-	
+
 	useEffect(() => {
 		setCurrentValue(value);
 	}, []);
@@ -128,8 +138,10 @@ const CustomSelectActivity = ({ getSelectedActivity, value }) => {
 	}, [currentValue]);
 
 	return (
-		<SelectBox onClick={() => setShowOptions((prev) => !prev)}>
-			<Label>{currentValue ? currentValue : '산책/달리기'}</Label>
+		<SelectBox
+			selectBox={true}
+			onClick={() => setShowOptions((prev) => !prev)}>
+			<Placeholder>{currentValue ? currentValue : '산책/달리기'}</Placeholder>
 			<SelectOptions show={showOptions}>
 				<Option onClick={handleOnChangeSelectValue}>산책</Option>
 				<Option onClick={handleOnChangeSelectValue}>달리기</Option>
@@ -161,4 +173,10 @@ const CustomSelectDate = ({ getSelectedDate, value }) => {
 	);
 }; // 추후 react-datepicker 라이브러리로 변경할 것
 
-export { CustomSelectActivity, CustomSelectDate, TodayString };
+export {
+	CustomSelectActivity,
+	CustomSelectDate,
+	TodayString,
+	SelectBox,
+	Placeholder,
+};

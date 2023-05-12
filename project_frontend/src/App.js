@@ -38,6 +38,10 @@ function App() {
 					element={<Map />}
 				/>
 
+				<Route
+					path="/boards/recruitment"
+					element={<PostRecruitment />}
+				/>
 				<Route element={<PrivateRoutes authentication={false} />}>
 					{/* 인증을 반드시 하지 않아야만 접속 가능한 페이지 정의 */}
 					<Route

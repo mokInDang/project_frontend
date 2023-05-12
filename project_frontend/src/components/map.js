@@ -4,12 +4,13 @@ import { useLocation } from 'react-router';
 import styled from 'styled-components';
 
 const MapWrapper = styled.div`
-	width: 70rem;
+	width: 100%;
 	height: 40rem;
 	box-sizing: border-box;
 	border: 0.1rem solid #ccc;
 	font-size: 1.5rem;
 	padding: 1.5rem;
+	margin: 1rem auto;
 	font-family: NanumSquareNeo;
 	border-radius: 0.5rem;
 	background-color: #fff;

@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import EditorComponent from './editorComponent';
 import { useNavigate } from 'react-router-dom';
-import { CustomSelectActivity, CustomSelectDate } from './customSelect';
-import { Button, ButtonWrap, HR, Label, P, Title } from './writeFormComponents';
+import {
+	Button,
+	ButtonWrap,
+	HR,
+	Label,
+	P,
+	Title,
+	NumDiv,
+} from './writeFormComponents';
 import { green1, green2 } from '../../assets/images';
 import { movePath } from '../../utils';
 import { writeRecruitment, EditRecruitment } from '../../apis';
+import { CustomSelectActivity, CustomSelectDate, Map, SelectBox } from '..';
+import { AiOutlineSearch } from 'react-icons/ai';
 
 const WriteForm = (props) => {
 	const boardIdToEdit = props.boardIdToEdit;
@@ -56,10 +65,9 @@ const WriteForm = (props) => {
 	return (
 		<div>
 			<P>
-				<img
-					src={green1}
-					alt="1"
-				/>
+				<NumDiv>
+					<span>1</span>
+				</NumDiv>
 				플로깅 모집 시 필요한 정보를 입력해주세요.
 			</P>
 			<HR />
@@ -87,10 +95,34 @@ const WriteForm = (props) => {
 				</div>
 			</div>
 			<P>
-				<img
-					src={green2}
-					alt="2"
-				/>
+				<NumDiv>
+					<span>2</span>
+				</NumDiv>
+				플로깅할 위치를 지정해주세요.
+			</P>
+			<HR />
+			<Label htmlFor="title">위치 검색</Label>
+			<div>
+				<SelectBox
+					selectBox={false}
+					style={{ width: '48%', cursor: 'text' }}>
+					<input type="text"></input>
+					<AiOutlineSearch
+						size="3rem"
+						style={{
+							position: 'absolute',
+							zIndex: 2,
+							right: '1rem',
+							cursor: 'pointer',
+						}}
+					/>
+				</SelectBox>
+			</div>
+			<Map />
+			<P>
+				<NumDiv>
+					<span>3</span>
+				</NumDiv>
 				진행할 플로깅 활동에 대해 설명해주세요.
 			</P>
 			<HR />
