@@ -6,6 +6,9 @@ function PostRecruitment() {
 		startingDate: '',
 		title: '',
 		contentBody: '',
+		address: '',
+		x: '',
+		y: '',
 	};
 
 	return (

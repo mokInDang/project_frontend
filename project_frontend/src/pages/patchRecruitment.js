@@ -11,6 +11,9 @@ function PatchRecruitment() {
 		startingDate: '',
 		title: '',
 		contentBody: '',
+		address: '',
+		x: '',
+		y: '',
 	};
 
 	if (recruitmentToEdit && boardIdToEdit) {
@@ -36,10 +39,7 @@ function PatchRecruitment() {
 		<>
 			{recruitmentToEdit && (
 				<WriteWrapper>
-					<WriteForm
-						form={form}
-						boardIdToEdit={boardIdToEdit}
-					/>
+					<WriteForm form={form} boardIdToEdit={boardIdToEdit} />
 				</WriteWrapper>
 			)}
 		</>
