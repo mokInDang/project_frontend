@@ -13,15 +13,17 @@ import {
 import { green1, green2 } from '../../assets/images';
 import { movePath } from '../../utils';
 import { writeRecruitment, EditRecruitment } from '../../apis';
-import { CustomSelectActivity, CustomSelectDate, Map, SelectBox } from '..';
-import { AiOutlineSearch } from 'react-icons/ai';
+import { CustomSelectActivity, CustomSelectDate, Map } from '..';
+
 
 const WriteForm = (props) => {
 	const boardIdToEdit = props.boardIdToEdit;
 	const navigate = useNavigate();
 	const [form, setForm] = useState(props.form);
 	const [isLoading, setIsLoading] = useState(false);
-	const { title, contentBody, activityCategory, startingDate } = form;
+	const [keyword, setKeyword] = useState('');
+	const { title, contentBody, activityCategory, startingDate, address, x, y } =
+		form;
 
 	const getSelectedActivity = (newSelectedActivity) => {
 		const nextForm = {
@@ -61,7 +63,6 @@ const WriteForm = (props) => {
 		};
 		setForm(nextForm);
 	};
-
 	return (
 		<div>
 			<P>
@@ -76,19 +77,20 @@ const WriteForm = (props) => {
 					display: 'flex',
 					justifyContent: 'space-between',
 					marginBottom: '7rem',
-				}}>
+				}}
+			>
 				<div style={{ display: 'inline-block', width: '48%' }}>
-					<Label htmlFor="activityCategory">모집 구분</Label>
+					<Label htmlFor='activityCategory'>모집 구분</Label>
 					<CustomSelectActivity
-						name="activityCategory"
+						name='activityCategory'
 						value={activityCategory}
 						getSelectedActivity={getSelectedActivity}
 					/>
 				</div>
 				<div style={{ display: 'inline-block', width: '48%' }}>
-					<Label htmlFor="startingDate">시작 예정일</Label>
+					<Label htmlFor='startingDate'>시작 예정일</Label>
 					<CustomSelectDate
-						name="startingDate"
+						name='startingDate'
 						value={startingDate}
 						getSelectedDate={getSelectedDate}
 					/>
@@ -101,23 +103,7 @@ const WriteForm = (props) => {
 				플로깅할 위치를 지정해주세요.
 			</P>
 			<HR />
-			<Label htmlFor="title">위치 검색</Label>
-			<div>
-				<SelectBox
-					selectBox={false}
-					style={{ width: '48%', cursor: 'text' }}>
-					<input type="text"></input>
-					<AiOutlineSearch
-						size="3rem"
-						style={{
-							position: 'absolute',
-							zIndex: 2,
-							right: '1rem',
-							cursor: 'pointer',
-						}}
-					/>
-				</SelectBox>
-			</div>
+			<Label htmlFor='title'>위치 검색</Label>
 			<Map />
 			<P>
 				<NumDiv>
@@ -126,25 +112,24 @@ const WriteForm = (props) => {
 				진행할 플로깅 활동에 대해 설명해주세요.
 			</P>
 			<HR />
-			<Label htmlFor="title">제목</Label>
-			<Title
-				value={title}
-				onChange={onChange}></Title>
+			<Label htmlFor='title'>제목</Label>
+			<Title value={title} onChange={onChange}></Title>
 			<EditorComponent
-				name="contentBody"
+				name='contentBody'
 				value={contentBody}
 				getHtmlContentBody={getHtmlContentBody}
 				placeholder={'진행할 플로깅 활동에 대해 자유롭게 설명해주세요!'}
 			/>
 			<ButtonWrap isLoading={isLoading}>
-				<div className="loading" />
+				<div className='loading' />
 				<Button
-					name="cancel"
+					name='cancel'
 					onClick={() => {
 						if (window.confirm('작성을 취소하고 페이지를 벗어나시겠습니까?')) {
 							movePath(navigate, -1);
 						}
-					}}>
+					}}
+				>
 					취소
 				</Button>
 				<Button
@@ -152,7 +137,8 @@ const WriteForm = (props) => {
 						if (!boardIdToEdit) writeRecruitment(form, navigate, setIsLoading);
 						else EditRecruitment(boardIdToEdit, form, navigate, setIsLoading);
 					}}
-					name="write">
+					name='write'
+				>
 					{!boardIdToEdit ? '글 등록' : '수정하기'}
 				</Button>
 			</ButtonWrap>

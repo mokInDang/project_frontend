@@ -5,7 +5,7 @@ const SelectBox = styled.div`
 	margin-top: 2rem;
 	content: '산책/달리기';
 	position: relative;
-	width: 100%;
+	width: ${(props) => (props.selectBox ? '100%' : '48%')};
 	height: 5.5rem;
 	background-color: #ffffff;
 	cursor: pointer;
@@ -15,7 +15,9 @@ const SelectBox = styled.div`
 	text-indent: 2rem;
 	align-items: center;
 	display: flex;
-
+	@media (max-width: 778px) {
+		width: 100%;
+	}
 	&::before {
 		content: '⌵';
 		display: ${(props) => (props.selectBox ? 'block' : 'none')};
@@ -138,9 +140,7 @@ const CustomSelectActivity = ({ getSelectedActivity, value }) => {
 	}, [currentValue]);
 
 	return (
-		<SelectBox
-			selectBox={true}
-			onClick={() => setShowOptions((prev) => !prev)}>
+		<SelectBox selectBox={true} onClick={() => setShowOptions((prev) => !prev)}>
 			<Placeholder>{currentValue ? currentValue : '산책/달리기'}</Placeholder>
 			<SelectOptions show={showOptions}>
 				<Option onClick={handleOnChangeSelectValue}>산책</Option>
@@ -165,11 +165,12 @@ const CustomSelectDate = ({ getSelectedDate, value }) => {
 	}, [date]);
 	return (
 		<DateSelector
-			placeholder="연도-월-일"
-			type="date"
+			placeholder='연도-월-일'
+			type='date'
 			value={date}
 			onChange={onChange}
-			min={TodayString()}></DateSelector>
+			min={TodayString()}
+		></DateSelector>
 	);
 }; // 추후 react-datepicker 라이브러리로 변경할 것
 

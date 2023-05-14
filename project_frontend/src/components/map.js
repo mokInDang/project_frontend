@@ -2,21 +2,30 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import styled from 'styled-components';
+import { SelectBox } from '../components';
+import { AiOutlineSearch } from 'react-icons/ai';
 
 const MapWrapper = styled.div`
-	width: 100%;
+	width: 75rem;
 	height: 40rem;
 	box-sizing: border-box;
 	border: 0.1rem solid #ccc;
 	font-size: 1.5rem;
 	padding: 1.5rem;
-	margin: 1rem auto;
+	margin-top: 2rem;
+	margin-bottom: 5rem;
 	font-family: NanumSquareNeo;
 	border-radius: 0.5rem;
 	background-color: #fff;
-	@media (max-width: 778px) {
-		width: 95%;
+	@media (max-width: 75rem) {
+		width: 100%;
+		height: 35rem;
+	}
+	@media (max-width: 600px) {
 		height: 30rem;
+	}
+	@media (max-width: 375px) {
+		height: 25rem;
 	}
 	#map {
 		display: flex;
@@ -44,14 +53,14 @@ const MapWrapper = styled.div`
 		span {
 			display: block;
 			text-align: center;
-			background: rgba(87, 200, 77, 1);
+			background: #ccc;
 			padding: 0.5rem 1rem;
 			font-size: 1.2rem;
 			font-weight: bold;
 			border-radius: 0 0 1rem 1rem;
 		}
 		.selected {
-			background: red;
+			background: rgba(87, 200, 77, 1);
 		}
 		:after {
 			display: block;
@@ -70,12 +79,11 @@ const MapWrapper = styled.div`
 		}
 	}
 `;
-const Map = ({ keyword }) => {
+const Map = () => {
 	const [address, setAddress] = useState('');
 	const [x, setX] = useState();
 	const [y, setY] = useState();
 	var clickedOverlay = null;
-
 	useEffect(() => {
 		// 지도를 생성합니다
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
@@ -89,8 +97,25 @@ const Map = ({ keyword }) => {
 		// 장소 검색 객체를 생성합니다
 		var ps = new kakao.maps.services.Places();
 
+		var searchInput = document.getElementById('searchInput');
+		searchInput.onkeyup = function (e) {
+			var key = e.key;
+			if (key === 'Enter' && e.target.value !== '') {
+				searchPlaces(e.target.value);
+			}
+		};
+		var searchButton = document.getElementById('searchButton');
+		searchButton.onclick = function () {
+			searchPlaces(searchInput.value);
+		};
 		// 키워드로 장소를 검색합니다
-		ps.keywordSearch('숭실대학교', placesSearchCB);
+		function searchPlaces(keyword) {
+			if (!keyword.replace(/^\s+|\s+$/g, '')) {
+				alert('키워드를 입력해주세요!');
+				return false;
+			}
+			ps.keywordSearch(keyword, placesSearchCB);
+		}
 
 		function placesSearchCB(data, status) {
 			if (status === kakao.maps.services.Status.OK) {
@@ -169,7 +194,8 @@ const Map = ({ keyword }) => {
 					content: content,
 					position: markerPosition, // 커스텀 오버레이를 표시할 좌표
 					xAnchor: 0.5, // 컨텐츠의 x 위치
-					yAnchor: -0.3, // 컨텐츠의 y 위치
+					yAnchor: -0.2, // 컨텐츠의 y 위치
+					zIndex: 3,
 				});
 
 				customOverlay.setMap(null);
@@ -180,8 +206,10 @@ const Map = ({ keyword }) => {
 					// 클릭된 마커 객체가 null이 아니면
 					// 클릭된 마커의 이미지를 기본 이미지로 변경하고
 					!!selectedMarker && selectedMarker.setImage(normalImage);
+					!!selectedMarker && selectedMarker.setZIndex(1);
 					// 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
 					marker.setImage(clickImage);
+					marker.setZIndex(2);
 				}
 				// 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
 				selectedMarker = marker;
@@ -190,13 +218,33 @@ const Map = ({ keyword }) => {
 		}
 	}, []);
 	useEffect(() => {
-		console.log(address + ' ' + x + ' ' + y);
+		if (address !== '') {
+			console.log(address + ' ' + x + ' ' + y);
+		}
 	}, [address]);
 	// 지도를 표시할 div와 지도 옵션으로 지도를 생성합니다
 	return (
-		<MapWrapper>
-			<div id="map"></div>
-		</MapWrapper>
+		<>
+			<div>
+				<SelectBox selectBox={false} style={{ cursor: 'text' }}>
+					<input type='text' id='searchInput'></input>
+					<AiOutlineSearch
+						id='searchButton'
+						size='3rem'
+						color='#999999'
+						style={{
+							position: 'absolute',
+							zIndex: 2,
+							right: '1rem',
+							cursor: 'pointer',
+						}}
+					/>
+				</SelectBox>
+			</div>{' '}
+			<MapWrapper>
+				<div id='map'></div>
+			</MapWrapper>
+		</>
 	);
 };
 export { Map };
