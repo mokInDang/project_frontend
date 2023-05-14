@@ -68,7 +68,7 @@ import {
 } from './navigator/navigatorStyledComponents';
 import { GlobalProfile } from './globalStyledComponents';
 import { RecruitmentInfiniteScroll } from './main/recruitmentInfiniteScroll';
-import { Map } from './map';
+import { Map, BoardDetailsMap } from './map';
 export {
 	JoinComment,
 	Navigator,
@@ -87,6 +87,7 @@ export {
 	Loading,
 	RecruitmentInfiniteScroll,
 	Map,
+	BoardDetailsMap,
 	CustomSelectDate,
 };
 export {

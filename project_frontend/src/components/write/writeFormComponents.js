@@ -31,8 +31,8 @@ const NumDiv = styled.div`
 	display: flex;
 	flex-shrink: 0;
 	span {
-		margin: 0 auto;
-		
+		top: 0.5rem;
+		right: 0.5rem;
 	}
 `;
 const Label = styled.label`
