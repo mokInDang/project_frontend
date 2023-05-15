@@ -258,12 +258,10 @@ const ReplyComments = ({ reply, getComments }) => {
 			<>
 				{replyComments.map((replyComment) => {
 					return (
-						<>
-							<ReplyComment
-								getComments={getComments}
-								key={replyComment.replyCommentId}
-								replyComment={replyComment}></ReplyComment>
-						</>
+						<ReplyComment
+							getComments={getComments}
+							key={replyComment.replyCommentId}
+							replyComment={replyComment}></ReplyComment>
 					);
 				})}
 			</>

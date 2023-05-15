@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 
 const SelectBox = styled.div`
+	display: flex;
 	margin-top: 2rem;
 	content: '산책/달리기';
 	position: relative;
@@ -30,12 +31,15 @@ const SelectBox = styled.div`
 	input {
 		border: none;
 		height: 100%;
-		width: 100%;
+		margin-left: 2rem;
+		flex-grow: 1;
 		background: transparent;
-		text-indent: 2rem;
 		outline: none;
 		font-family: NanumSquare;
 		font-size: 1.8rem;
+	}
+	svg {
+		margin: 0 1rem;
 	}
 `;
 const Placeholder = styled.label`
@@ -169,8 +173,7 @@ const CustomSelectDate = ({ getSelectedDate, value }) => {
 			type='date'
 			value={date}
 			onChange={onChange}
-			min={TodayString()}
-		></DateSelector>
+			min={TodayString()}></DateSelector>
 	);
 }; // 추후 react-datepicker 라이브러리로 변경할 것
 
