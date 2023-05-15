@@ -33,10 +33,10 @@ const CommentBodyDiv = styled.div`
 const CommentProfileDiv = styled.div`
 	display: flex;
 	align-items: center;
-
 	position: relative;
 `;
 const CommentWriterDiv = styled.div`
+	word-break: keep-all;
 	.writerAlias {
 		font-family: 'NanumSquareNeo';
 		font-weight: 900;
@@ -55,20 +55,25 @@ const CommentWriterDiv = styled.div`
 	font-weight: 700;
 	font-size: 2rem;
 	line-height: 2.2rem;
+	@media (max-width: 600px) {
+	}
 `;
 const CommentButtonsWrap = styled.div`
-	position: absolute;
+	flex-grow: 1;
+	flex-wrap: wrap;
 	display: flex;
-	top: 0;
-	right: 0;
 	text-align: center;
 	justify-content: end;
 	justify-self: flex-end;
+	align-self: flex-start;
+	align-items: baseline;
 	font-size: 2rem;
 	font-weight: 700;
 	color: #000000b2;
-	@media (max-width: 1024px) {
-		right: 0rem;
+	@media (max-width: 600px) {
+		flex-shrink: 1;
+		text-align: right;
+		align-items: stretch;
 	}
 `;
 const LowLevel = styled.div`
@@ -176,25 +181,23 @@ const Comment = ({ comment, getComments }) => {
 						</div>
 					</CommentWriterDiv>
 					<CommentButtonsWrap>
+						<BoardContentButtonDiv
+							onClick={() => {
+								setToWriteReply(true);
+								onMoveToReplyCommentInput();
+							}}>
+							대댓글 작성
+						</BoardContentButtonDiv>
 						{comment.mine && (
 							<BoardContentButtonDiv
 								onClick={() => {
 									if (window.confirm('댓글을 삭제하시겠습니까?')) {
 										deleteComment();
 									}
-								}}
-							>
+								}}>
 								삭제
 							</BoardContentButtonDiv>
 						)}
-						<BoardContentButtonDiv
-							onClick={() => {
-								setToWriteReply(true);
-								onMoveToReplyCommentInput();
-							}}
-						>
-							대댓글 작성
-						</BoardContentButtonDiv>
 					</CommentButtonsWrap>
 				</CommentProfileDiv>
 				<CommentBodyDiv>{comment.commentBody}</CommentBodyDiv>
@@ -222,15 +225,13 @@ const Comment = ({ comment, getComments }) => {
 							name='cancel'
 							onClick={() => {
 								setToWriteReply(false);
-							}}
-						>
+							}}>
 							취소
 						</Button>
 						<Button
 							onClick={() => {
 								postReplyComment();
-							}}
-						>
+							}}>
 							대댓글 작성
 						</Button>
 					</ButtonWrap>
@@ -261,8 +262,7 @@ const ReplyComments = ({ reply, getComments }) => {
 							<ReplyComment
 								getComments={getComments}
 								key={replyComment.replyCommentId}
-								replyComment={replyComment}
-							></ReplyComment>
+								replyComment={replyComment}></ReplyComment>
 						</>
 					);
 				})}
@@ -309,8 +309,7 @@ const ReplyComment = ({ replyComment, getComments }) => {
 									if (window.confirm('대댓글을 삭제하시겠습니까?')) {
 										deleteReplyComment();
 									}
-								}}
-							>
+								}}>
 								삭제
 							</BoardContentButtonDiv>
 						)}
@@ -384,7 +383,7 @@ const Comments = ({ boardType, boardId }) => {
 									createdDatetime: '2023-04-25T15:44:57.335Z',
 									writerAlias: '작성자닉네임',
 									edited: true,
-									firstFourLettersOfEmail: 'string',
+									firstFourLettersOfEmail: 'stri',
 									writerProfileImageUrl: '',
 									mine: true,
 								},
@@ -394,7 +393,7 @@ const Comments = ({ boardType, boardId }) => {
 									createdDatetime: '2023-04-25T15:44:57.335Z',
 									writerAlias: '작성자닉네임',
 									edited: true,
-									firstFourLettersOfEmail: 'string',
+									firstFourLettersOfEmail: 'stri',
 									writerProfileImageUrl: '',
 									mine: true,
 								},
@@ -462,8 +461,7 @@ const Comments = ({ boardType, boardId }) => {
 								height: '3.4rem',
 								right: '0',
 								borderRadius: '1.45rem',
-							}}
-						></div>
+							}}></div>
 					)}
 					<ReplySubmitButton onClick={postComment}>댓글 등록</ReplySubmitButton>
 				</div>
