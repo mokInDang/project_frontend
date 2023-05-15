@@ -12,7 +12,7 @@ const GlobalProfile = styled.div`
 			props.src !== 'DEFAULT_PROFILE_IMAGE_URL' &&
 			props.src !== null
 				? props.src
-				: 'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/default_profile.png'})
+				: 'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/profileimage2.png'})
 		no-repeat center/cover;
 `;
 
