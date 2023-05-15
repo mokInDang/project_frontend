@@ -36,7 +36,6 @@ const MapWrapper = styled.div`
 	.customoverlay {
 		position: relative;
 		background: #fff;
-		position: relative;
 		border-radius: 1rem;
 		opacity: 0.9;
 		border: 1px solid #aaa;
@@ -79,16 +78,16 @@ const MapWrapper = styled.div`
 		}
 	}
 `;
-const Map = () => {
-	const [address, setAddress] = useState('');
-	const [x, setX] = useState();
-	const [y, setY] = useState();
+const Map = ({ getMeetingPlace }) => {
+	const [meetingAddress, setMeetingAddress] = useState('');
+	const [latitude, setLatitude] = useState();
+	const [longitude, setLongitude] = useState();
 	var clickedOverlay = null;
 	useEffect(() => {
 		// 지도를 생성합니다
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 			mapOption = {
-				center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+				center: new kakao.maps.LatLng(37.495853033944364, 126.95781764313084), // 지도의 중심좌표
 				level: 3, // 지도의 확대 레벨
 			};
 		var map = new kakao.maps.Map(mapContainer, mapOption);
@@ -168,34 +167,33 @@ const Map = () => {
 				}
 				// 커스텀 오버레이를 생성하고 지도에 표시
 				var content = document.createElement('div');
-				var title = document.createElement('span');
-				var selectSpan = document.createElement('span');
-				var textNode = document.createTextNode('선택하기');
 				content.className = 'customoverlay';
+				var title = document.createElement('span');
 				title.className = 'title';
 				title.appendChild(document.createTextNode(place.place_name));
 				content.appendChild(title);
+				var selectSpan = document.createElement('span');
+				var textNode = document.createTextNode('선택하기');
 				selectSpan.appendChild(textNode);
 				content.appendChild(selectSpan);
 				content.onclick = function () {
 					selectSpan.className = 'selected';
 					var selectedTextNode = document.createTextNode('선택됨');
 					textNode.replaceWith(selectedTextNode);
-					const address = place.road_address_name
+					const meetingAddress = place.road_address_name
 						? place.road_address_name + ' ' + place.place_name
 						: place.address_name + ' ' + place.place_name;
-					setY(place.y);
-					setX(place.x);
-					setAddress(address);
+					setLatitude(place.y);
+					setLongitude(place.x);
+					setMeetingAddress(meetingAddress);
 				};
 
 				var customOverlay = new kakao.maps.CustomOverlay({
 					clickable: true, // 커스텀 오버레이 클릭 시 지도에 이벤트를 전파하지 않도록 설정
 					content: content,
 					position: markerPosition, // 커스텀 오버레이를 표시할 좌표
-					xAnchor: 0.5, // 컨텐츠의 x 위치
-					yAnchor: -0.2, // 컨텐츠의 y 위치
 					zIndex: 3,
+					yAnchor: -0.1,
 				});
 
 				customOverlay.setMap(null);
@@ -218,10 +216,11 @@ const Map = () => {
 		}
 	}, []);
 	useEffect(() => {
-		if (address !== '') {
-			console.log(address + ' ' + x + ' ' + y);
+		if (meetingAddress !== '') {
+			console.log(meetingAddress + ' ' + latitude + ' ' + longitude);
+			getMeetingPlace(latitude, longitude, meetingAddress);
 		}
-	}, [address]);
+	}, [meetingAddress]);
 	// 지도를 표시할 div와 지도 옵션으로 지도를 생성합니다
 	return (
 		<>

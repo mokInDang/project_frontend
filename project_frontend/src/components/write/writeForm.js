@@ -15,20 +15,34 @@ import { movePath } from '../../utils';
 import { writeRecruitment, EditRecruitment } from '../../apis';
 import { CustomSelectActivity, CustomSelectDate, Map } from '..';
 
-
 const WriteForm = (props) => {
 	const boardIdToEdit = props.boardIdToEdit;
 	const navigate = useNavigate();
 	const [form, setForm] = useState(props.form);
 	const [isLoading, setIsLoading] = useState(false);
-	const [keyword, setKeyword] = useState('');
-	const { title, contentBody, activityCategory, startingDate, address, x, y } =
-		form;
+	const {
+		title,
+		contentBody,
+		activityCategory,
+		startingDate,
+		longitude,
+		latitude,
+		meetingAddress,
+	} = form;
 
 	const getSelectedActivity = (newSelectedActivity) => {
 		const nextForm = {
 			...form, // 기존값 복사 (spread operator)
 			activityCategory: newSelectedActivity, // 덮어쓰기
+		};
+		setForm(nextForm);
+	};
+	const getMeetingPlace = (newLatitude, newLongitude, newMeetingAddress) => {
+		const nextForm = {
+			...form, // 기존값 복사 (spread operator)
+			latitude: newLatitude,
+			longitude: newLongitude,
+			meetingAddress: newMeetingAddress, // 덮어쓰기
 		};
 		setForm(nextForm);
 	};
@@ -77,8 +91,7 @@ const WriteForm = (props) => {
 					display: 'flex',
 					justifyContent: 'space-between',
 					marginBottom: '7rem',
-				}}
-			>
+				}}>
 				<div style={{ display: 'inline-block', width: '48%' }}>
 					<Label htmlFor='activityCategory'>모집 구분</Label>
 					<CustomSelectActivity
@@ -104,7 +117,7 @@ const WriteForm = (props) => {
 			</P>
 			<HR />
 			<Label htmlFor='title'>위치 검색</Label>
-			<Map />
+			<Map getMeetingPlace={getMeetingPlace} />
 			<P>
 				<NumDiv>
 					<span>3</span>
@@ -128,8 +141,7 @@ const WriteForm = (props) => {
 						if (window.confirm('작성을 취소하고 페이지를 벗어나시겠습니까?')) {
 							movePath(navigate, -1);
 						}
-					}}
-				>
+					}}>
 					취소
 				</Button>
 				<Button
@@ -137,8 +149,7 @@ const WriteForm = (props) => {
 						if (!boardIdToEdit) writeRecruitment(form, navigate, setIsLoading);
 						else EditRecruitment(boardIdToEdit, form, navigate, setIsLoading);
 					}}
-					name='write'
-				>
+					name='write'>
 					{!boardIdToEdit ? '글 등록' : '수정하기'}
 				</Button>
 			</ButtonWrap>
