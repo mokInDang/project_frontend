@@ -28,7 +28,6 @@ function MyInfoEdit() {
 			return;
 		}
 		setIsLoading(true);
-		console.log(userInfo);
 		axios
 			.patch('/api/member/edit-mypage', userInfo)
 			.then((res) => {
