@@ -5,7 +5,12 @@ import JoinComment from './login/joinComment';
 import EditorComponent from './write/editorComponent';
 import WriteForm from './write/writeForm';
 import WriteWrapper from './write/writeWrapper';
-import { CustomSelectActivity } from './write/customSelect';
+import {
+	CustomSelectActivity,
+	CustomSelectDate,
+	SelectBox,
+	Placeholder,
+} from './write/customSelect';
 import { InfiniteScroll } from './main/infiniteScroll';
 import {
 	BoardItemsWrap,
@@ -63,6 +68,7 @@ import {
 } from './navigator/navigatorStyledComponents';
 import { GlobalProfile } from './globalStyledComponents';
 import { RecruitmentInfiniteScroll } from './main/recruitmentInfiniteScroll';
+import { Map, BoardDetailsMap } from './map';
 export {
 	JoinComment,
 	Navigator,
@@ -80,6 +86,9 @@ export {
 	ImageSlide,
 	Loading,
 	RecruitmentInfiniteScroll,
+	Map,
+	BoardDetailsMap,
+	CustomSelectDate,
 };
 export {
 	WriteWrapper,
@@ -120,4 +129,6 @@ export {
 	GlobalProfile,
 	HeaderButtonWrap,
 	ProfileWrap,
+	SelectBox,
+	Placeholder,
 };

@@ -7,18 +7,20 @@ const getRecruitment = (boardId, getBoardDetails, navigate) => {
 			getBoardDetails(res.data);
 		})
 		.catch((error) => {
-			alert('로그인 후 이용해주세요.');
+			alert('게시글 받아오기에 실패했습니다.');
 			console.log(error);
 			navigate('/');
 		});
 };
 
-const writeRecruitment = (contentBody, navigate, setIsLoading) => {
+const writeRecruitment = (form, navigate, setIsLoading) => {
+	console.log(form);
 	if (
-		contentBody.activityCategory === '' ||
-		contentBody.title === '' ||
-		contentBody.contentBody === '' ||
-		contentBody.startingDate === ''
+		form.activityCategory === '' ||
+		form.title === '' ||
+		form.contentBody === '' ||
+		form.startingDate === '' ||
+		form.meetingPlaceCreationRequest === ''
 	) {
 		alert('모집 구분, 시작 예정일, 제목, 본문 란을 모두 채워주세요.');
 		return;
@@ -26,7 +28,7 @@ const writeRecruitment = (contentBody, navigate, setIsLoading) => {
 	setIsLoading(true);
 	console.log('writeRecruitment 실행');
 	axios
-		.post(`/api/boards/recruitment`, contentBody)
+		.post(`/api/boards/recruitment`, form)
 		.then((res) => {
 			navigate(`/boards/recruitment/${res.data.boardId}`, { replace: true });
 		})
@@ -37,12 +39,13 @@ const writeRecruitment = (contentBody, navigate, setIsLoading) => {
 		});
 };
 
-const EditRecruitment = (boardId, contentBody, navigate, setIsLoading) => {
+const EditRecruitment = (boardId, form, navigate, setIsLoading) => {
 	if (
-		contentBody.activityCategory === '' ||
-		contentBody.title === '' ||
-		contentBody.contentBody === '' ||
-		contentBody.startingDate === ''
+		form.activityCategory === '' ||
+		form.title === '' ||
+		form.contentBody === '' ||
+		form.startingDate === '' ||
+		form.meetingPlaceModificationRequest === ''
 	) {
 		alert('모집 구분, 시작 예정일, 제목, 본문 란을 모두 채워주세요.');
 		return;
@@ -51,7 +54,7 @@ const EditRecruitment = (boardId, contentBody, navigate, setIsLoading) => {
 		setIsLoading(true);
 		console.log('EditRecruitment 실행');
 		axios
-			.patch(`/api/boards/recruitment/${boardId}`, contentBody)
+			.patch(`/api/boards/recruitment/${boardId}`, form)
 			.then((res) => {
 				navigate(`/boards/recruitment/${res.data.boardId}`, { replace: true });
 			})

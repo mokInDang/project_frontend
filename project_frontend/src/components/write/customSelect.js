@@ -2,10 +2,11 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 
 const SelectBox = styled.div`
+	display: flex;
 	margin-top: 2rem;
 	content: '산책/달리기';
 	position: relative;
-	width: 100%;
+	width: ${(props) => (props.selectBox ? '100%' : '48%')};
 	height: 5.5rem;
 	background-color: #ffffff;
 	cursor: pointer;
@@ -15,18 +16,33 @@ const SelectBox = styled.div`
 	text-indent: 2rem;
 	align-items: center;
 	display: flex;
-
+	@media (max-width: 778px) {
+		width: 100%;
+	}
 	&::before {
 		content: '⌵';
+		display: ${(props) => (props.selectBox ? 'block' : 'none')};
 		position: absolute;
 		top: 1.4rem;
 		right: 2rem;
 		color: #bdbdbd;
 		font-size: 2rem;
 	}
+	input {
+		border: none;
+		height: 100%;
+		margin-left: 2rem;
+		flex-grow: 1;
+		background: transparent;
+		outline: none;
+		font-family: NanumSquare;
+		font-size: 1.8rem;
+	}
+	svg {
+		margin: 0 1rem;
+	}
 `;
-const Label = styled.label`
-	font-size: 1.4rem;
+const Placeholder = styled.label`
 	margin-left: 0.4rem;
 	text-align: center;
 	font-family: NanumSquareNeo;
@@ -118,7 +134,7 @@ const CustomSelectActivity = ({ getSelectedActivity, value }) => {
 		const { innerText } = e.target;
 		setCurrentValue(innerText);
 	};
-	
+
 	useEffect(() => {
 		setCurrentValue(value);
 	}, []);
@@ -128,8 +144,8 @@ const CustomSelectActivity = ({ getSelectedActivity, value }) => {
 	}, [currentValue]);
 
 	return (
-		<SelectBox onClick={() => setShowOptions((prev) => !prev)}>
-			<Label>{currentValue ? currentValue : '산책/달리기'}</Label>
+		<SelectBox selectBox={true} onClick={() => setShowOptions((prev) => !prev)}>
+			<Placeholder>{currentValue ? currentValue : '산책/달리기'}</Placeholder>
 			<SelectOptions show={showOptions}>
 				<Option onClick={handleOnChangeSelectValue}>산책</Option>
 				<Option onClick={handleOnChangeSelectValue}>달리기</Option>
@@ -153,12 +169,18 @@ const CustomSelectDate = ({ getSelectedDate, value }) => {
 	}, [date]);
 	return (
 		<DateSelector
-			placeholder="연도-월-일"
-			type="date"
+			placeholder='연도-월-일'
+			type='date'
 			value={date}
 			onChange={onChange}
 			min={TodayString()}></DateSelector>
 	);
 }; // 추후 react-datepicker 라이브러리로 변경할 것
 
-export { CustomSelectActivity, CustomSelectDate, TodayString };
+export {
+	CustomSelectActivity,
+	CustomSelectDate,
+	TodayString,
+	SelectBox,
+	Placeholder,
+};

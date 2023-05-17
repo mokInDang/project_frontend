@@ -9,6 +9,9 @@ const BoardWrapper = styled(WriteWrapper)`
 `;
 const BoardDetailsWrap = styled.div`
 	position: relative;
+	.BoardInfoHR {
+		margin: 0;
+	}
 `;
 const HeadingDiv = styled.div`
 	font-family: 'NanumSquareNeo';
@@ -26,6 +29,7 @@ const WriterDiv = styled.div`
 	div {
 		display: flex;
 		flex-wrap: wrap;
+		word-break: keep-all;
 	}
 	.startingDate {
 		color: #696868;
@@ -44,10 +48,12 @@ const ContentDiv = styled.div`
 `;
 
 const BoardInfo = styled.div`
+	position: relative;
 	display: grid;
 	grid-template-columns: auto auto;
 	grid-template-rows: auto auto;
-	gap: 4rem;
+	row-gap: 4rem;
+	column-gap: 7rem;
 	justify-content: flex-start;
 
 	font-family: NanumSquareNeo;
@@ -55,13 +61,12 @@ const BoardInfo = styled.div`
 	font-size: 2.3rem;
 	line-height: 160%;
 
-	margin: 6rem 0;
+	padding: 6rem 0;
 	transition: ease 0.2s;
-	div {
+	.boardInfoLabel {
 		display: flex;
 		flex-wrap: wrap;
 		color: #302f2f;
-		margin-right: 3.2rem;
 		@media (max-width: 1024px) {
 			display: block;
 		}
@@ -69,13 +74,17 @@ const BoardInfo = styled.div`
 			display: flex;
 		}
 	}
+	.ButtonsWrap {
+		margin-right: 0;
+	}
 	.category {
 		color: #8a8a8a;
+		margin-right: 3.2rem;
 	}
 	@media (max-width: 778px) {
 		grid-template-columns: auto;
 		gap: 2rem;
-		margin: 4rem 0;
+		padding: 4rem 0;
 	}
 `;
 const ReplyDiv = styled(ContentDiv)`
@@ -120,16 +129,18 @@ const ReplySubmitButton = styled.div`
 `;
 const ButtonsWrap = styled.div`
 	position: absolute;
+	font-family: NanumSquare;
 	display: flex;
-	top: 31.5rem;
-	right: 2rem;
+	top: 1.5rem;
 	text-align: center;
+	right: 0;
+	margin-right: 0;
 	justify-content: end;
 	font-size: 2rem;
 	font-weight: 700;
 	color: #000000b2;
 	@media (max-width: 1024px) {
-		right: 0rem;
+		display: block;
 	}
 `;
 const BoardContentButtonDiv = styled.div`

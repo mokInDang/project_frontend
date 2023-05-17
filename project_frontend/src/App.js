@@ -13,7 +13,7 @@ import {
 	PatchCertification,
 } from './pages';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { Navigator } from './components';
+import { Navigator, Map, BoardDetailsMap } from './components';
 import { reissueToken } from './apis';
 import { Comments } from './pages/comments';
 import { PrivateRoutes, RegionRequiredRoutes } from './utils';
@@ -23,71 +23,53 @@ function App() {
 	reissueToken();
 
 	return (
-		<div className="App">
+		<div className='App'>
 			<Navigator />
 			<Routes>
-				{/* 인증 여부 상관 없이 접속 가능한 페이지 정의 */}
-				<Route
-					exact
-					path="/*"
-					element={<Home />}
-				/>
+				{/* 인증 여부 상관 없이 접근 가능한 페이지 정의 */}
+				<Route exact path='/*' element={<Home />} />
 
 				<Route element={<PrivateRoutes authentication={false} />}>
-					{/* 인증을 반드시 하지 않아야만 접속 가능한 페이지 정의 */}
-					<Route
-						path="/login"
-						element={<Login />}
-					/>
+					{/* 인증을 반드시 하지 않아야만 접근 가능한 페이지 정의 */}
+					<Route path='/login' element={<Login />} />
 				</Route>
-				<Route
-					path="/api/auth/join"
-					element={<Welcome />}
-				/>
+				<Route path='/api/auth/join' element={<Welcome />} />
+				
 				<Route element={<PrivateRoutes authentication={true} />}>
-					{/* 인증을 반드시 해야만 접속 가능한 페이지 정의 */}
+					{/* 인증을 반드시 해야만 접근 가능한 페이지 정의 */}
+					<Route path='/mypage' element={<MyPage />} />
+					<Route path='/mypage/edit' element={<MyInfoEdit />} />
 					<Route
-						path="/mypage"
-						element={<MyPage />}
-					/>
-					<Route
-						path="/mypage/edit"
-						element={<MyInfoEdit />}
-					/>
-					<Route
-						path="/boards/recruitment/:boardId"
+						path='/boards/recruitment/:boardId'
 						element={<BoardDetails />}
 					/>
 					<Route
-						path="/boards/certification/:boardId"
+						path='/boards/certification/:boardId'
 						element={<CertificationDetails />}
 					/>
 					<Route element={<RegionRequiredRoutes />}>
+						<Route path='/boards/recruitment' element={<PostRecruitment />} />
 						<Route
-							path="/boards/recruitment"
-							element={<PostRecruitment />}
-						/>
-						<Route
-							path="/boards/certification"
+							path='/boards/certification'
 							element={<PostCertification />}
 						/>
 					</Route>
 					<Route
-						path="/edit/recruitment/:boardId"
+						path='/edit/recruitment/:boardId'
 						element={<PatchRecruitment />}
 					/>
 					<Route
-						path="/edit/certification/:boardId"
+						path='/edit/certification/:boardId'
 						element={<PatchCertification />}
 					/>
 				</Route>
 				{/* Comments도 추후 PrivateRoutes 안으로 옮길 것 */}
 				<Route
-					path="/boards/certification/:boardId/comments"
+					path='/boards/certification/:boardId/comments'
 					element={<Comments />}
 				/>
 				<Route
-					path="/boards/recruitment/:boardId/comments"
+					path='/boards/recruitment/:boardId/comments'
 					element={<Comments />}
 				/>
 			</Routes>

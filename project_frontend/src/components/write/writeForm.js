@@ -1,25 +1,70 @@
 import React, { useState } from 'react';
 import EditorComponent from './editorComponent';
 import { useNavigate } from 'react-router-dom';
-import { CustomSelectActivity, CustomSelectDate } from './customSelect';
-import { Button, ButtonWrap, HR, Label, P, Title } from './writeFormComponents';
-import { green1, green2 } from '../../assets/images';
+import {
+	Button,
+	ButtonWrap,
+	HR,
+	Label,
+	P,
+	Title,
+	NumDiv,
+} from './writeFormComponents';
 import { movePath } from '../../utils';
 import { writeRecruitment, EditRecruitment } from '../../apis';
+import { CustomSelectActivity, CustomSelectDate, Map } from '..';
 
 const WriteForm = (props) => {
 	const boardIdToEdit = props.boardIdToEdit;
 	const navigate = useNavigate();
 	const [form, setForm] = useState(props.form);
 	const [isLoading, setIsLoading] = useState(false);
-	const { title, contentBody, activityCategory, startingDate } = form;
-
+	const {
+		title,
+		contentBody,
+		activityCategory,
+		startingDate,
+		meetingPlaceCreationRequest,
+		meetingPlaceModificationRequest,
+	} = form;
+	var meetingPlace = {};
+	if (meetingPlaceModificationRequest !== undefined) {
+		const { latitude, longitude, meetingAddress } =
+			meetingPlaceModificationRequest;
+		meetingPlace = { latitude, longitude, meetingAddress };
+	} else {
+		const { latitude, longitude, meetingAddress } = meetingPlaceCreationRequest;
+		meetingPlace = { latitude, longitude, meetingAddress };
+	}
 	const getSelectedActivity = (newSelectedActivity) => {
 		const nextForm = {
 			...form, // 기존값 복사 (spread operator)
 			activityCategory: newSelectedActivity, // 덮어쓰기
 		};
 		setForm(nextForm);
+	};
+	const getMeetingPlace = (newLatitude, newLongitude, newMeetingAddress) => {
+		if (meetingPlaceModificationRequest !== undefined) {
+			const nextForm = {
+				...form, // 기존값 복사 (spread operator)// 덮어쓰기
+				meetingPlaceModificationRequest: {
+					latitude: newLatitude,
+					longitude: newLongitude,
+					meetingAddress: newMeetingAddress,
+				},
+			};
+			setForm(nextForm);
+		} else {
+			const nextForm = {
+				...form, // 기존값 복사 (spread operator)// 덮어쓰기
+				meetingPlaceCreationRequest: {
+					latitude: newLatitude,
+					longitude: newLongitude,
+					meetingAddress: newMeetingAddress,
+				},
+			};
+			setForm(nextForm);
+		}
 	};
 	const getSelectedDate = (newSelectedDate) => {
 		const nextForm = {
@@ -52,14 +97,12 @@ const WriteForm = (props) => {
 		};
 		setForm(nextForm);
 	};
-
 	return (
 		<div>
 			<P>
-				<img
-					src={green1}
-					alt="1"
-				/>
+				<NumDiv>
+					<span>1</span>
+				</NumDiv>
 				플로깅 모집 시 필요한 정보를 입력해주세요.
 			</P>
 			<HR />
@@ -70,44 +113,50 @@ const WriteForm = (props) => {
 					marginBottom: '7rem',
 				}}>
 				<div style={{ display: 'inline-block', width: '48%' }}>
-					<Label htmlFor="activityCategory">모집 구분</Label>
+					<Label htmlFor='activityCategory'>모집 구분</Label>
 					<CustomSelectActivity
-						name="activityCategory"
+						name='activityCategory'
 						value={activityCategory}
 						getSelectedActivity={getSelectedActivity}
 					/>
 				</div>
 				<div style={{ display: 'inline-block', width: '48%' }}>
-					<Label htmlFor="startingDate">시작 예정일</Label>
+					<Label htmlFor='startingDate'>시작 예정일</Label>
 					<CustomSelectDate
-						name="startingDate"
+						name='startingDate'
 						value={startingDate}
 						getSelectedDate={getSelectedDate}
 					/>
 				</div>
 			</div>
 			<P>
-				<img
-					src={green2}
-					alt="2"
-				/>
+				<NumDiv>
+					<span>2</span>
+				</NumDiv>
+				플로깅할 위치를 지정해주세요.
+			</P>
+			<HR />
+			<Label htmlFor='title'>위치 검색</Label>
+			<Map getMeetingPlace={getMeetingPlace} meetingPlace={meetingPlace} />
+			<P>
+				<NumDiv>
+					<span>3</span>
+				</NumDiv>
 				진행할 플로깅 활동에 대해 설명해주세요.
 			</P>
 			<HR />
-			<Label htmlFor="title">제목</Label>
-			<Title
-				value={title}
-				onChange={onChange}></Title>
+			<Label htmlFor='title'>제목</Label>
+			<Title value={title} onChange={onChange}></Title>
 			<EditorComponent
-				name="contentBody"
+				name='contentBody'
 				value={contentBody}
 				getHtmlContentBody={getHtmlContentBody}
 				placeholder={'진행할 플로깅 활동에 대해 자유롭게 설명해주세요!'}
 			/>
 			<ButtonWrap isLoading={isLoading}>
-				<div className="loading" />
+				<div className='loading' />
 				<Button
-					name="cancel"
+					name='cancel'
 					onClick={() => {
 						if (window.confirm('작성을 취소하고 페이지를 벗어나시겠습니까?')) {
 							movePath(navigate, -1);
@@ -120,7 +169,7 @@ const WriteForm = (props) => {
 						if (!boardIdToEdit) writeRecruitment(form, navigate, setIsLoading);
 						else EditRecruitment(boardIdToEdit, form, navigate, setIsLoading);
 					}}
-					name="write">
+					name='write'>
 					{!boardIdToEdit ? '글 등록' : '수정하기'}
 				</Button>
 			</ButtonWrap>

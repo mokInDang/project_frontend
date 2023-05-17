@@ -17,7 +17,7 @@ import {
 	closeRecruitment,
 	deleteRecruitment,
 } from '../../apis';
-import { GlobalProfile } from '../../components';
+import { GlobalProfile, BoardDetailsMap } from '../../components';
 import { DateString } from '../../utils';
 import { Comments } from '../../pages/comments';
 
@@ -74,57 +74,68 @@ const BoardContent = () => {
 								{DateString(boardDetails.creatingDatetime, '.')}
 							</div>
 						</WriterDiv>
-						<HR />
-						{boardDetails.mine && (
-							<ButtonsWrap boardDetails={boardDetails}>
-								{/* boardDetails.onRecruitment 조회하여 마감 버튼 스타일할 것 */}
-								{boardDetails.onRecruitment === true && (
-									<>
+						<HR className='BoardInfoHR' />
+						<div>
+							<BoardInfo>
+								{boardDetails.mine && (
+									<ButtonsWrap
+										boardDetails={boardDetails}
+										className='ButtonsWrap'>
+										{/* boardDetails.onRecruitment 조회하여 마감 버튼 스타일할 것 */}
+										{boardDetails.onRecruitment === true && (
+											<>
+												<BoardContentButtonDiv
+													onClick={() => {
+														closeRecruitment(
+															boardDetails.boardId,
+															getNewDetails
+														);
+													}}>
+													마감
+												</BoardContentButtonDiv>
+												<BoardContentButtonDiv
+													onClick={() => {
+														navigate(
+															`/edit/recruitment/${boardDetails.boardId}`,
+															{
+																state: boardDetails,
+															}
+														);
+													}}>
+													수정
+												</BoardContentButtonDiv>
+											</>
+										)}
 										<BoardContentButtonDiv
 											onClick={() => {
-												closeRecruitment(boardDetails.boardId, getNewDetails);
-											}}
-										>
-											마감
+												deleteRecruitment(boardDetails.boardId, navigate);
+											}}>
+											삭제
 										</BoardContentButtonDiv>
-										<BoardContentButtonDiv
-											onClick={() => {
-												navigate(`/edit/recruitment/${boardDetails.boardId}`, {
-													state: boardDetails,
-												});
-											}}
-										>
-											수정
-										</BoardContentButtonDiv>
-									</>
+									</ButtonsWrap>
 								)}
-								<BoardContentButtonDiv
-									onClick={() => {
-										deleteRecruitment(boardDetails.boardId, navigate);
-									}}
-								>
-									삭제
-								</BoardContentButtonDiv>
-							</ButtonsWrap>
-						)}
-						<BoardInfo>
-							{items.map((item, i) => {
-								return (
-									<div key={i}>
-										<div className='category'>{item}</div>
-										<div>{values[i]}</div>
-									</div>
-								);
-							})}
-						</BoardInfo>
+								{items.map((item, i) => {
+									return (
+										<div key={i} className='boardInfoLabel'>
+											<div className='category'>{item}</div>
+											<div>{values[i]}</div>
+										</div>
+									);
+								})}
+							</BoardInfo>
+						</div>
+						<HeadingDiv fontSize='2.9rem'>플로깅 위치</HeadingDiv>
+						<HR style={{ marginTop: '2rem', marginBottom: '5rem' }} />
+						<BoardDetailsMap
+							meetingPlaceResponse={boardDetails.meetingPlaceResponse}
+						/>
 						<ContentDiv>
-							<HeadingDiv fontSize="2.9rem">플로깅 활동 소개</HeadingDiv>
-							<HR />
+							<HeadingDiv fontSize='2.9rem'>플로깅 활동 소개</HeadingDiv>
+							<HR style={{ marginTop: '2rem' }} />
 							<div
 								dangerouslySetInnerHTML={{ __html: boardDetails.contentBody }}
 							/>
 						</ContentDiv>
-						{/* 댓글 API 연결 후 댓글 Div 컴포넌트로 분리할 것! */}
 					</BoardDetailsWrap>
 					<Comments boardType={'recruitment-board'} boardId={params.boardId} />
 				</>

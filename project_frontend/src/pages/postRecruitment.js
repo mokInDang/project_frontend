@@ -6,6 +6,11 @@ function PostRecruitment() {
 		startingDate: '',
 		title: '',
 		contentBody: '',
+		meetingPlaceCreationRequest: {
+			longitude: '',
+			latitude: '',
+			meetingAddress: '',
+		},
 	};
 
 	return (
