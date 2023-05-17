@@ -85,7 +85,6 @@ function PostCertification() {
 				},
 			})
 			.then((res) => {
-				setIsLoading(false);
 				imageList.push(res.data.imageUrl);
 			})
 			.catch((error) => {
@@ -125,9 +124,6 @@ function PostCertification() {
 				setIsLoading(false);
 			});
 	};
-	useEffect(() => {
-		console.log(imageUrls);
-	}, [imageUrls]);
 	return (
 		<>
 			<WriteWrapper>
