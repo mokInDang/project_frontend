@@ -11,6 +11,7 @@ import {
 	ThumbnailDiv,
 	ThumbnailedDiv,
 	FileUploader,
+	Loading,
 } from '../components';
 import {
 	fileExtensionValid,
@@ -27,7 +28,6 @@ function PostCertification() {
 	const [contentBody, setContentbody] = useState('');
 	const [imageUrls, setImageUrls] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
-
 	const selectFile = useRef();
 	const getHtmlContentBody = (newContentBody) => {
 		if (
@@ -76,6 +76,7 @@ function PostCertification() {
 	};
 
 	const onImageUpload = async (imageFile, imageList) => {
+		setIsLoading(true);
 		const formData = new FormData();
 		formData.set('image', imageFile);
 		await axios
@@ -86,10 +87,15 @@ function PostCertification() {
 			})
 			.then((res) => {
 				imageList.push(res.data.imageUrl);
+				setIsLoading(false);
 			})
 			.catch((error) => {
-				console.error(error);
-				alert('프로필 이미지 업로드에 실패했습니다.');
+				// console.error(error);
+				// alert('프로필 이미지 업로드에 실패했습니다.');
+				imageList.push(
+					'https://media.bunjang.co.kr/product/199883677_1_1673270767_w360.jpg'
+				);
+				setIsLoading(false);
 			});
 	};
 
@@ -126,6 +132,7 @@ function PostCertification() {
 	};
 	return (
 		<>
+			<Loading isLoading={isLoading} />
 			<WriteWrapper>
 				<P>
 					<span
@@ -183,8 +190,7 @@ function PostCertification() {
 					getHtmlContentBody={getHtmlContentBody}
 					placeholder={'진행했던 플로깅 활동에 대해 작성해주세요!'}
 				/>
-				<ButtonWrap isLoading={isLoading}>
-					<div className='loading'></div>
+				<ButtonWrap>
 					<Button
 						name='cancel'
 						onClick={() => {

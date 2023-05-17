@@ -3,7 +3,7 @@ import { onLogout } from '../apis';
 import { useNavigate } from 'react-router-dom';
 
 const DropDownWrapper = styled.div`
-	z-index: 10000;
+	z-index: 101;
 	position: absolute;
 	top: 8rem;
 	@media (min-width: 1600px) {
