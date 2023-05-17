@@ -361,6 +361,10 @@ const BoardDetailsMap = ({ meetingPlaceResponse }) => {
 			});
 			marker.setMap(map);
 
+			kakao.maps.event.addListener(marker, 'click', function () {
+				window.open(`https://map.kakao.com/link/map/${placeID}`, '_blank');
+			});
+			
 			var content = document.createElement('div');
 			content.className = 'customoverlay';
 			var title = document.createElement('span');
@@ -374,9 +378,6 @@ const BoardDetailsMap = ({ meetingPlaceResponse }) => {
 			});
 			customOverlay.setMap(map);
 		}
-		kakao.maps.event.addListener(marker, 'click', function () {
-			window.open(`https://map.kakao.com/link/map/${placeID}`, '_blank');
-		});
 		kakao.maps.event.addListener(map, 'click', function () {
 			window.open(`https://map.kakao.com/link/map/${placeID}`, '_blank');
 		});
