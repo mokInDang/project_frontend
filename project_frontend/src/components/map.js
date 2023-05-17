@@ -78,16 +78,31 @@ const MapWrapper = styled.div`
 		}
 	}
 `;
-const Map = ({ getMeetingPlace }) => {
-	const [meetingAddress, setMeetingAddress] = useState('');
-	const [latitude, setLatitude] = useState();
-	const [longitude, setLongitude] = useState();
+const Map = ({ getMeetingPlace, meetingPlace }) => {
+	const [meetingAddress, setMeetingAddress] = useState(
+		meetingPlace.meetingAddress
+	);
+	const [keyword, setKeyword] = useState(meetingAddress);
+	const [latitude, setLatitude] = useState(meetingPlace.latitude);
+	const [longitude, setLongitude] = useState(meetingPlace.longitude);
 	var clickedOverlay = null;
+	const onChange = (e) => {
+		// input title에 사용되는 함수
+		if (e.target.value.replace(/ /g, '') === '') e.target.value = '';
+		setKeyword(e.target.value);
+	};
 	useEffect(() => {
 		// 지도를 생성합니다
+		var searchword = meetingAddress;
+		const defaultPosition = new kakao.maps.LatLng(
+			37.495853033944364,
+			126.95781764313084
+		);
+		const position = new kakao.maps.LatLng(latitude, longitude);
+
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 			mapOption = {
-				center: new kakao.maps.LatLng(37.495853033944364, 126.95781764313084), // 지도의 중심좌표
+				center: defaultPosition, // 지도의 중심좌표
 				level: 3, // 지도의 확대 레벨
 			};
 		var map = new kakao.maps.Map(mapContainer, mapOption);
@@ -96,16 +111,25 @@ const Map = ({ getMeetingPlace }) => {
 		// 장소 검색 객체를 생성합니다
 		var ps = new kakao.maps.services.Places();
 
+		if (latitude !== '' && longitude !== '' && meetingAddress !== '') {
+			map.setCenter(position);
+			ps.keywordSearch(meetingAddress, placesSearchCB);
+		}
+
 		var searchInput = document.getElementById('searchInput');
 		searchInput.onkeyup = function (e) {
 			var key = e.key;
 			if (key === 'Enter' && e.target.value !== '') {
 				searchPlaces(e.target.value);
+				console.log(`searchPlaces(${e.target.value})`);
+				searchword = e.target.value;
 			}
 		};
 		var searchButton = document.getElementById('searchButton');
 		searchButton.onclick = function () {
 			searchPlaces(searchInput.value);
+			console.log(`searchPlaces(${searchInput.value})`);
+			searchword = searchInput.value;
 		};
 		// 키워드로 장소를 검색합니다
 		function searchPlaces(keyword) {
@@ -121,10 +145,16 @@ const Map = ({ getMeetingPlace }) => {
 				// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
 				// LatLngBounds 객체에 좌표를 추가합니다
 				var bounds = new kakao.maps.LatLngBounds();
-
-				for (var i = 0; i < data.length; i++) {
-					DisplayMarker(data[i]);
-					bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+				var selected = false;
+				if (meetingAddress !== '' && meetingAddress === searchword) {
+					DisplaySavedMarker(data[0]);
+					bounds.extend(new kakao.maps.LatLng(data[0].y, data[0].x));
+					selected = true;
+				} else {
+					for (var i = 0; i < data.length; i++) {
+						DisplayMarker(data[i], selected);
+						bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+					}
 				}
 
 				// 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
@@ -137,11 +167,50 @@ const Map = ({ getMeetingPlace }) => {
 				return;
 			}
 		}
+		var clickImage = new kakao.maps.MarkerImage(
+			'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
+			new kakao.maps.Size(31, 35),
+			new kakao.maps.Point(13, 34)
+		);
 
+		var savedContent = document.createElement('div');
+		savedContent.className = 'customoverlay';
+		var title = document.createElement('span');
+		title.className = 'title';
+		savedContent.appendChild(title);
+		var selectSpan = document.createElement('span');
+		selectSpan.className = 'selected';
+		var selectedTextNode = document.createTextNode('선택됨');
+		selectSpan.appendChild(selectedTextNode);
+		savedContent.appendChild(selectSpan);
+		var selectedMarker = new kakao.maps.Marker({
+			image: clickImage,
+			zIndex: 2,
+		});
+
+		var savedCustomOverlay = new kakao.maps.CustomOverlay({
+			clickable: true, // 커스텀 오버레이 클릭 시 지도에 이벤트를 전파하지 않도록 설정
+			content: savedContent,
+			zIndex: 3,
+			yAnchor: -0.1,
+		});
+
+		function DisplaySavedMarker(place) {
+			const markerPosition = new kakao.maps.LatLng(place.y, place.x);
+			map.setDraggable(false);
+			title.appendChild(document.createTextNode(place.place_name));
+			// 마커를 생성하고 지도에 표시합니다. 이미지는 기본 마커 이미지를 사용합니다
+			selectedMarker.setPosition(markerPosition);
+			selectedMarker.setMap(map);
+
+			savedCustomOverlay.setPosition(markerPosition);
+			savedCustomOverlay.setMap(map);
+		}
 		// 지도에 마커를 표시하는 함수입니다
 		function DisplayMarker(place) {
 			const markerPosition = new kakao.maps.LatLng(place.y, place.x);
-
+			selectedMarker.setMap(null);
+			savedCustomOverlay.setMap(null);
 			var normalImage = new kakao.maps.MarkerImage(
 				'https://t1.daumcdn.net/mapjsapi/images/marker.png',
 				new kakao.maps.Size(25, 35),
@@ -165,7 +234,7 @@ const Map = ({ getMeetingPlace }) => {
 				if (clickedOverlay) {
 					clickedOverlay.setMap(null);
 				}
-				// 커스텀 오버레이를 생성하고 지도에 표시
+
 				var content = document.createElement('div');
 				content.className = 'customoverlay';
 				var title = document.createElement('span');
@@ -199,7 +268,6 @@ const Map = ({ getMeetingPlace }) => {
 				customOverlay.setMap(null);
 				// 마커에 클릭이벤트를 등록합니다
 				customOverlay.setMap(map);
-				// marker.setImage(markerImage);
 				if (!selectedMarker || selectedMarker !== marker) {
 					// 클릭된 마커 객체가 null이 아니면
 					// 클릭된 마커의 이미지를 기본 이미지로 변경하고
@@ -226,15 +294,18 @@ const Map = ({ getMeetingPlace }) => {
 		<>
 			<div>
 				<SelectBox selectBox={false} style={{ cursor: 'text' }}>
-					<input type='text' id='searchInput'></input>
+					<input
+						type='text'
+						id='searchInput'
+						value={keyword}
+						onChange={onChange}
+						placeholder='플로깅할 위치 검색'></input>
 					<AiOutlineSearch
 						id='searchButton'
 						size='3rem'
 						color='#999999'
 						style={{
-							position: 'absolute',
 							zIndex: 2,
-							right: '1rem',
 							cursor: 'pointer',
 						}}
 					/>
