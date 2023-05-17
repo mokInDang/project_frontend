@@ -353,7 +353,7 @@ const BoardDetailsMap = ({ meetingPlaceResponse }) => {
 				// placeID 저장하기
 				placeID = data[0].id;
 				bounds.extend(new kakao.maps.LatLng(data[0].y, data[0].x));
-				DisplayMarker(data[0]);
+				DisplayBoardDetailsMarker();
 				// 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
 				map.setBounds(bounds);
 			} else if (status === kakao.maps.services.Status.ZERO_RESULT) {
@@ -364,8 +364,7 @@ const BoardDetailsMap = ({ meetingPlaceResponse }) => {
 				return;
 			}
 		}
-		function DisplayMarker(place) {
-			const markerPosition = new kakao.maps.LatLng(place.y, place.x);
+		function DisplayBoardDetailsMarker() {
 			// 마커를 생성하고 지도에 표시합니다.
 			var marker = new kakao.maps.Marker({
 				position: position,
@@ -379,7 +378,7 @@ const BoardDetailsMap = ({ meetingPlaceResponse }) => {
 			title.appendChild(document.createTextNode(meetingAddress));
 			content.appendChild(title);
 			var customOverlay = new kakao.maps.CustomOverlay({
-				position: markerPosition,
+				position: position,
 				content: content,
 				yAnchor: -0.25,
 			});
