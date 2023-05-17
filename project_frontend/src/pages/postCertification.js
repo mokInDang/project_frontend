@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { EditorComponent, WriteWrapper } from '../components';
 import {
 	P,
@@ -45,11 +45,11 @@ function PostCertification() {
 		setTitle(e.target.value);
 	};
 
-	const onImagesChange = (e) => {
+	const onImagesChange = async (e) => {
 		const { files } = e.target;
 		if (!files || !files[0]) return;
 		let maxFileCnt = 5;
-		let imageList = Array.from(imageUrls);
+		let imageList = imageUrls;
 		let imageListLength = imageUrls.length;
 		let remainFileCnt = maxFileCnt - imageListLength;
 		let curFileCnt = files.length;
@@ -70,14 +70,15 @@ function PostCertification() {
 				alert('업로드 가능한 최대 파일 크기는 파일 당 10MB입니다.');
 				return;
 			}
-			onImageUpload(imageFile, imageList);
+			await onImageUpload(imageFile, imageList);
 		}
+		setImageUrls(Array.from(imageList));
 	};
 
-	const onImageUpload = (image, imageList) => {
+	const onImageUpload = async (imageFile, imageList) => {
 		const formData = new FormData();
-		formData.set('image', image);
-		axios
+		formData.set('image', imageFile);
+		await axios
 			.post('/api/image/certification-image', formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
@@ -86,7 +87,6 @@ function PostCertification() {
 			.then((res) => {
 				setIsLoading(false);
 				imageList.push(res.data.imageUrl);
-				setImageUrls(imageList); // 업로드한 이미지 imageUrls에 저장
 			})
 			.catch((error) => {
 				console.error(error);
@@ -95,10 +95,12 @@ function PostCertification() {
 	};
 
 	const onImageDelete = (i) => {
-		let imagesArray = imageUrls;
-		delete imagesArray[i];
-		let newImagesArray = imagesArray.filter((element) => element !== undefined);
-		setImageUrls(newImagesArray);
+		let imageUrlsArray = imageUrls;
+		delete imageUrlsArray[i];
+		let newImageUrlsArray = imageUrlsArray.filter(
+			(element) => element !== undefined
+		);
+		setImageUrls(newImageUrlsArray);
 	};
 
 	const submitCertForm = () => {
@@ -123,7 +125,9 @@ function PostCertification() {
 				setIsLoading(false);
 			});
 	};
-
+	useEffect(() => {
+		console.log(imageUrls);
+	}, [imageUrls]);
 	return (
 		<>
 			<WriteWrapper>
