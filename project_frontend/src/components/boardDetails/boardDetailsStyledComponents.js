@@ -29,6 +29,7 @@ const WriterDiv = styled.div`
 	div {
 		display: flex;
 		flex-wrap: wrap;
+		word-break: keep-all;
 	}
 	.startingDate {
 		color: #696868;

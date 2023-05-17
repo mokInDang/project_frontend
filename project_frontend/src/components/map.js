@@ -318,21 +318,76 @@ const Map = ({ getMeetingPlace, meetingPlace }) => {
 	);
 };
 
-const BoardDetailsMap = () => {
+const BoardDetailsMap = ({ meetingPlaceResponse }) => {
+	const { latitude, longitude, meetingAddress } = meetingPlaceResponse;
+	var placeID = '';
+	var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 	useEffect(() => {
 		// 지도를 생성합니다
+		var position = new kakao.maps.LatLng(latitude, longitude);
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 			mapOption = {
-				center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+				center: position, // 지도의 중심좌표
 				level: 3, // 지도의 확대 레벨
 			};
 		var map = new kakao.maps.Map(mapContainer, mapOption);
-		var markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
-		// 마커를 생성합니다
-		var marker = new kakao.maps.Marker({
-			position: markerPosition,
+
+		// 장소 검색 객체를 생성합니다
+		var ps = new kakao.maps.services.Places();
+		searchPlaces(meetingAddress);
+		// 키워드로 장소를 검색합니다
+		function searchPlaces(keyword) {
+			if (!keyword.replace(/^\s+|\s+$/g, '')) {
+				alert('키워드를 입력해주세요!');
+				return false;
+			}
+			ps.keywordSearch(keyword, placesSearchCB);
+		}
+
+		function placesSearchCB(data, status) {
+			if (status === kakao.maps.services.Status.OK) {
+				// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+				// LatLngBounds 객체에 좌표를 추가합니다
+				var bounds = new kakao.maps.LatLngBounds();
+
+				// placeID 저장하기
+				placeID = data[0].id;
+				bounds.extend(new kakao.maps.LatLng(data[0].y, data[0].x));
+				DisplayMarker(data[0]);
+				// 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+				map.setBounds(bounds);
+			} else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+				alert('검색 결과가 존재하지 않습니다.');
+				return;
+			} else if (status === kakao.maps.services.Status.ERROR) {
+				alert('검색 결과 중 오류가 발생했습니다.');
+				return;
+			}
+		}
+		function DisplayMarker(place) {
+			const markerPosition = new kakao.maps.LatLng(place.y, place.x);
+			// 마커를 생성하고 지도에 표시합니다.
+			var marker = new kakao.maps.Marker({
+				position: position,
+			});
+			marker.setMap(map);
+
+			var content = document.createElement('div');
+			content.className = 'customoverlay';
+			var title = document.createElement('span');
+			title.className = 'title';
+			title.appendChild(document.createTextNode(meetingAddress));
+			content.appendChild(title);
+			var customOverlay = new kakao.maps.CustomOverlay({
+				position: markerPosition,
+				content: content,
+				yAnchor: -0.25,
+			});
+			customOverlay.setMap(map);
+		}
+		kakao.maps.event.addListener(map, 'click', function () {
+			window.open(`https://map.kakao.com/link/map/${placeID}`, '_blank');
 		});
-		marker.setMap(map);
 	}, []);
 	return (
 		<>

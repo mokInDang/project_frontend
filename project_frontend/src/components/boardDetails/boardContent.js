@@ -125,8 +125,10 @@ const BoardContent = () => {
 							</BoardInfo>
 						</div>
 						<HeadingDiv fontSize='2.9rem'>플로깅 위치</HeadingDiv>
-						<HR style={{ marginTop: '2rem' }} />
-						<BoardDetailsMap />
+						<HR style={{ marginTop: '2rem', marginBottom: '5rem' }} />
+						<BoardDetailsMap
+							meetingPlaceResponse={boardDetails.meetingPlaceResponse}
+						/>
 						<ContentDiv>
 							<HeadingDiv fontSize='2.9rem'>플로깅 활동 소개</HeadingDiv>
 							<HR style={{ marginTop: '2rem' }} />
