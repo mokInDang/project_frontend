@@ -49,7 +49,7 @@ function PostCertification() {
 		const { files } = e.target;
 		if (!files || !files[0]) return;
 		let maxFileCnt = 5;
-		let imageList = imageUrls;
+		let imageList = Array.from(imageUrls);
 		let imageListLength = imageUrls.length;
 		let remainFileCnt = maxFileCnt - imageListLength;
 		let curFileCnt = files.length;
@@ -71,7 +71,6 @@ function PostCertification() {
 				return;
 			}
 			onImageUpload(imageFile, imageList);
-			console.log(imageList);
 		}
 	};
 
@@ -149,13 +148,13 @@ function PostCertification() {
 					</span>
 				</Label>
 				<ThumbnailsWrapper items={imageUrls.length}>
-					{imageUrls.map((imageFile, i) => (
+					{imageUrls.map((imageUrl, i) => (
 						<ThumbnailedDiv
 							onClick={() => {
 								onImageDelete(i);
 							}}
 							key={i}
-							imageFile={imageFile}>
+							imageUrl={imageUrl}>
 							<div className='content'>
 								<RxCross2></RxCross2>
 							</div>
