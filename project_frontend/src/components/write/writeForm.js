@@ -47,7 +47,7 @@ const WriteForm = (props) => {
 		if (meetingPlaceModificationRequest !== undefined) {
 			const nextForm = {
 				...form, // 기존값 복사 (spread operator)// 덮어쓰기
-				meetingPlaceModification: {
+				meetingPlaceModificationRequest: {
 					latitude: newLatitude,
 					longitude: newLongitude,
 					meetingAddress: newMeetingAddress,
