@@ -26,18 +26,17 @@ function App() {
 		<div className='App'>
 			<Navigator />
 			<Routes>
-				{/* 인증 여부 상관 없이 접속 가능한 페이지 정의 */}
+				{/* 인증 여부 상관 없이 접근 가능한 페이지 정의 */}
 				<Route exact path='/*' element={<Home />} />
-				<Route exact path='/map' element={<BoardDetailsMap />} />
 
-				<Route path='/boards/recruitment' element={<PostRecruitment />} />
 				<Route element={<PrivateRoutes authentication={false} />}>
-					{/* 인증을 반드시 하지 않아야만 접속 가능한 페이지 정의 */}
+					{/* 인증을 반드시 하지 않아야만 접근 가능한 페이지 정의 */}
 					<Route path='/login' element={<Login />} />
 				</Route>
 				<Route path='/api/auth/join' element={<Welcome />} />
+				
 				<Route element={<PrivateRoutes authentication={true} />}>
-					{/* 인증을 반드시 해야만 접속 가능한 페이지 정의 */}
+					{/* 인증을 반드시 해야만 접근 가능한 페이지 정의 */}
 					<Route path='/mypage' element={<MyPage />} />
 					<Route path='/mypage/edit' element={<MyInfoEdit />} />
 					<Route
