@@ -71,8 +71,8 @@ function PostCertification() {
 				return;
 			}
 			onImageUpload(imageFile, imageList);
+			console.log(imageList);
 		}
-		setImageUrls(imageList); // 업로드한 이미지 imageUrls에 저장
 	};
 
 	const onImageUpload = (image, imageList) => {
@@ -87,7 +87,7 @@ function PostCertification() {
 			.then((res) => {
 				setIsLoading(false);
 				imageList.push(res.data.imageUrl);
-				console.log(res.data);
+				setImageUrls(imageList); // 업로드한 이미지 imageUrls에 저장
 			})
 			.catch((error) => {
 				console.error(error);
@@ -125,7 +125,6 @@ function PostCertification() {
 			});
 	};
 
-	console.log(imageUrls);
 	return (
 		<>
 			<WriteWrapper>
