@@ -11,19 +11,33 @@ function PatchRecruitment() {
 		startingDate: '',
 		title: '',
 		contentBody: '',
-		address: '',
-		x: '',
-		y: '',
+		meetingPlaceModificationRequest: {
+			longitude: '',
+			latitude: '',
+			meetingAddress: '',
+		},
 	};
 
 	if (recruitmentToEdit && boardIdToEdit) {
-		let { activityCategory, startingDate, title, contentBody } =
-			recruitmentToEdit;
+		let {
+			activityCategory,
+			startingDate,
+			title,
+			contentBody,
+			meetingPlaceResponse,
+		} = recruitmentToEdit;
+		let { longitude, latitude, meetingAddress } = meetingPlaceResponse;
+		
 		const formToEdit = {
 			activityCategory: activityCategory,
 			startingDate: startingDate,
 			title: title,
 			contentBody: contentBody,
+			meetingPlaceModificationRequest: {
+				longitude: longitude,
+				latitude: latitude,
+				meetingAddress: meetingAddress,
+			},
 		};
 		form = formToEdit;
 	}

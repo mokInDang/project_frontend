@@ -10,7 +10,6 @@ import {
 	Title,
 	NumDiv,
 } from './writeFormComponents';
-import { green1, green2 } from '../../assets/images';
 import { movePath } from '../../utils';
 import { writeRecruitment, EditRecruitment } from '../../apis';
 import { CustomSelectActivity, CustomSelectDate, Map } from '..';
@@ -25,11 +24,18 @@ const WriteForm = (props) => {
 		contentBody,
 		activityCategory,
 		startingDate,
-		longitude,
-		latitude,
-		meetingAddress,
+		meetingPlaceCreationRequest,
+		meetingPlaceModificationRequest,
 	} = form;
-
+	var meetingPlace = {};
+	if (meetingPlaceModificationRequest !== undefined) {
+		const { latitude, longitude, meetingAddress } =
+			meetingPlaceModificationRequest;
+		meetingPlace = { latitude, longitude, meetingAddress };
+	} else {
+		const { latitude, longitude, meetingAddress } = meetingPlaceCreationRequest;
+		meetingPlace = { latitude, longitude, meetingAddress };
+	}
 	const getSelectedActivity = (newSelectedActivity) => {
 		const nextForm = {
 			...form, // 기존값 복사 (spread operator)
@@ -38,13 +44,27 @@ const WriteForm = (props) => {
 		setForm(nextForm);
 	};
 	const getMeetingPlace = (newLatitude, newLongitude, newMeetingAddress) => {
-		const nextForm = {
-			...form, // 기존값 복사 (spread operator)
-			latitude: newLatitude,
-			longitude: newLongitude,
-			meetingAddress: newMeetingAddress, // 덮어쓰기
-		};
-		setForm(nextForm);
+		if (meetingPlaceModificationRequest !== undefined) {
+			const nextForm = {
+				...form, // 기존값 복사 (spread operator)// 덮어쓰기
+				meetingPlaceModification: {
+					latitude: newLatitude,
+					longitude: newLongitude,
+					meetingAddress: newMeetingAddress,
+				},
+			};
+			setForm(nextForm);
+		} else {
+			const nextForm = {
+				...form, // 기존값 복사 (spread operator)// 덮어쓰기
+				meetingPlaceCreationRequest: {
+					latitude: newLatitude,
+					longitude: newLongitude,
+					meetingAddress: newMeetingAddress,
+				},
+			};
+			setForm(nextForm);
+		}
 	};
 	const getSelectedDate = (newSelectedDate) => {
 		const nextForm = {
@@ -117,7 +137,7 @@ const WriteForm = (props) => {
 			</P>
 			<HR />
 			<Label htmlFor='title'>위치 검색</Label>
-			<Map getMeetingPlace={getMeetingPlace} />
+			<Map getMeetingPlace={getMeetingPlace} meetingPlace={meetingPlace} />
 			<P>
 				<NumDiv>
 					<span>3</span>
