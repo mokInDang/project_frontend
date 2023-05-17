@@ -121,14 +121,12 @@ const Map = ({ getMeetingPlace, meetingPlace }) => {
 			var key = e.key;
 			if (key === 'Enter' && e.target.value !== '') {
 				searchPlaces(e.target.value);
-				console.log(`searchPlaces(${e.target.value})`);
 				searchword = e.target.value;
 			}
 		};
 		var searchButton = document.getElementById('searchButton');
 		searchButton.onclick = function () {
 			searchPlaces(searchInput.value);
-			console.log(`searchPlaces(${searchInput.value})`);
 			searchword = searchInput.value;
 		};
 		// 키워드로 장소를 검색합니다
@@ -285,7 +283,6 @@ const Map = ({ getMeetingPlace, meetingPlace }) => {
 	}, []);
 	useEffect(() => {
 		if (meetingAddress !== '') {
-			console.log(meetingAddress + ' ' + latitude + ' ' + longitude);
 			getMeetingPlace(latitude, longitude, meetingAddress);
 		}
 	}, [meetingAddress]);
