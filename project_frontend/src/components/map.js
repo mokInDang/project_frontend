@@ -343,16 +343,9 @@ const BoardDetailsMap = ({ meetingPlaceResponse }) => {
 
 		function placesSearchCB(data, status) {
 			if (status === kakao.maps.services.Status.OK) {
-				// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-				// LatLngBounds 객체에 좌표를 추가합니다
-				var bounds = new kakao.maps.LatLngBounds();
-
 				// placeID 저장하기
 				placeID = data[0].id;
-				bounds.extend(new kakao.maps.LatLng(data[0].y, data[0].x));
 				DisplayBoardDetailsMarker();
-				// 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-				map.setBounds(bounds);
 			} else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 				alert('검색 결과가 존재하지 않습니다.');
 				return;
@@ -381,7 +374,6 @@ const BoardDetailsMap = ({ meetingPlaceResponse }) => {
 			});
 			customOverlay.setMap(map);
 		}
-
 		kakao.maps.event.addListener(marker, 'click', function () {
 			window.open(`https://map.kakao.com/link/map/${placeID}`, '_blank');
 		});
