@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import EditorComponent from './editorComponent';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -12,13 +12,17 @@ import {
 } from './writeFormComponents';
 import { movePath } from '../../utils';
 import { writeRecruitment, EditRecruitment } from '../../apis';
-import { CustomSelectActivity, CustomSelectDate, Map } from '..';
+import { CustomSelectActivity, CustomSelectDate, Map, WriteWrapper } from '..';
 
 const WriteForm = (props) => {
 	const boardIdToEdit = props.boardIdToEdit;
 	const navigate = useNavigate();
 	const [form, setForm] = useState(props.form);
 	const [isLoading, setIsLoading] = useState(false);
+	useEffect(() => {
+		console.log(isLoading);
+		props.getIsLoading(isLoading);
+	}, [isLoading]);
 	const {
 		title,
 		contentBody,
@@ -97,8 +101,9 @@ const WriteForm = (props) => {
 		};
 		setForm(nextForm);
 	};
+
 	return (
-		<div>
+		<WriteWrapper>
 			<P>
 				<NumDiv>
 					<span>1</span>
@@ -173,7 +178,7 @@ const WriteForm = (props) => {
 					{!boardIdToEdit ? '글 등록' : '수정하기'}
 				</Button>
 			</ButtonWrap>
-		</div>
+		</WriteWrapper>
 	);
 };
 

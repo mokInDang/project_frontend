@@ -11,7 +11,7 @@ import {
 	EditRecruitment,
 	closeRecruitment,
 	deleteRecruitment,
-} from './boardDetails/recruitment';
+} from './boards/recruitment';
 
 export {
 	OnLogin,
