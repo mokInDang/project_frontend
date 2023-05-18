@@ -10,7 +10,7 @@ const LoadingWrapper = styled(MyPageWrapper)`
 	margin: 0;
 	top: 0;
 	opacity: 0.7;
-	position: absolute;
+	position: fixed;
 	z-index: 102;
 	width: 100%;
 	.barLoader {

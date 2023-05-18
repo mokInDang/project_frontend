@@ -1,8 +1,9 @@
 import { useNavigate, useParams, useLocation } from 'react-router';
-import { WriteForm, WriteWrapper } from '../components';
-import { useEffect } from 'react';
+import { Loading, WriteForm } from '../components';
+import { useEffect, useState } from 'react';
 
 function PatchRecruitment() {
+	const [isLoading, setIsLoading] = useState(false);
 	const navigate = useNavigate();
 	const recruitmentToEdit = useLocation().state;
 	const boardIdToEdit = useParams().boardId;
@@ -27,7 +28,7 @@ function PatchRecruitment() {
 			meetingPlaceResponse,
 		} = recruitmentToEdit;
 		let { longitude, latitude, meetingAddress } = meetingPlaceResponse;
-		
+
 		const formToEdit = {
 			activityCategory: activityCategory,
 			startingDate: startingDate,
@@ -51,10 +52,9 @@ function PatchRecruitment() {
 
 	return (
 		<>
+			<Loading isLoading={isLoading} />
 			{recruitmentToEdit && (
-				<WriteWrapper>
-					<WriteForm form={form} boardIdToEdit={boardIdToEdit} />
-				</WriteWrapper>
+				<WriteForm form={form} boardIdToEdit={boardIdToEdit} />
 			)}
 		</>
 	);

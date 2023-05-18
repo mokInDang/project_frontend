@@ -1,6 +1,7 @@
-import { WriteForm, WriteWrapper } from '../components';
-
+import { Loading, WriteForm } from '../components';
+import { useState } from 'react';
 function PostRecruitment() {
+	const [isLoading, setIsLoading] = useState(false);
 	let form = {
 		activityCategory: '',
 		startingDate: '',
@@ -15,9 +16,8 @@ function PostRecruitment() {
 
 	return (
 		<>
-			<WriteWrapper>
-				<WriteForm form={form} />
-			</WriteWrapper>
+			<Loading isLoading={isLoading} />
+			<WriteForm form={form} getIsLoading={setIsLoading} />
 		</>
 	);
 }
