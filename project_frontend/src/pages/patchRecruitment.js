@@ -54,7 +54,11 @@ function PatchRecruitment() {
 		<>
 			<Loading isLoading={isLoading} />
 			{recruitmentToEdit && (
-				<WriteForm form={form} boardIdToEdit={boardIdToEdit} />
+				<WriteForm
+					form={form}
+					boardIdToEdit={boardIdToEdit}
+					getIsLoading={setIsLoading}
+				/>
 			)}
 		</>
 	);
