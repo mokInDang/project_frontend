@@ -113,7 +113,6 @@ const BoardItemCard = styled.div`
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 2;
 		align-self: center;
-		// letter-spacing: 0.05rem;
 	}
 	.contentBody {
 		display: -webkit-box;
@@ -126,7 +125,6 @@ const BoardItemCard = styled.div`
 		overflow: hidden;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 5;
-		// letter-spacing: 0.05rem;
 	}
 	.writerProfileWrap {
 		margin-top: 3rem;

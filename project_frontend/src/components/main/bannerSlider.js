@@ -22,12 +22,11 @@ const BannerDiv = styled.div`
 		justify-content: center;
 		align-items: center;
 		font-size: 3.3rem;
-		letter-spacing: 0.2rem;
+		letter-spacing: 0.1rem;
 		span {
 			font-family: NanumSquareNeo;
 			font-weight: 900;
 			font-size: 5rem;
-			letter-spacing: 0.1rem;
 		}
 	}
 	.banner2 {
