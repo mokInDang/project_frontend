@@ -14,7 +14,6 @@ const BannerDiv = styled.div`
 	font-size: 4rem;
 	font-weight: 700;
 	line-height: 6rem;
-	letter-spacing: 0.1rem;
 	text-align: center;
 
 	.banner1 {
@@ -27,6 +26,7 @@ const BannerDiv = styled.div`
 			font-family: NanumSquareNeo;
 			font-weight: 900;
 			font-size: 5rem;
+			letter-spacing: 0.1rem;
 		}
 	}
 	.banner2 {
@@ -34,6 +34,7 @@ const BannerDiv = styled.div`
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		letter-spacing: 0.1rem;
 	}
 	.banner2_text {
 		font-family: NanumSquareNeo;
@@ -119,14 +120,9 @@ const BannerSlide = () => {
 		pauseOnHover: true,
 	};
 	return (
-		<Slider
-			{...settings}
-			dotsClass="test-css"
-			style={{ marginBottom: '3rem' }}>
-			<BannerDiv
-				color="#81cc55"
-				image={banner1}>
-				<div className="banner1">
+		<Slider {...settings} dotsClass='test-css' style={{ marginBottom: '3rem' }}>
+			<BannerDiv color='#81cc55' image={banner1}>
+				<div className='banner1'>
 					<div>
 						<span>환경도 건강도 동시</span>에 챙기자!
 						<br />
@@ -134,23 +130,17 @@ const BannerSlide = () => {
 					</div>
 				</div>
 			</BannerDiv>
-			<BannerDiv color="#81cc55">
-				<div className="banner2">
-					<div className="banner2_text">
+			<BannerDiv color='#81cc55'>
+				<div className='banner2'>
+					<div className='banner2_text'>
 						우리 동네 쓰레기는 우리가 줍자!
 						<br />
 						<span>환경도 보존하고 친구도 만나고!</span>
 						<br />
 						지금 함께 하세요!
 					</div>
-					<img
-						className="image"
-						src={banner2_trash}
-					/>
-					<img
-						className="image"
-						src={banner2_human}
-					/>
+					<img className='image' src={banner2_trash} />
+					<img className='image' src={banner2_human} />
 				</div>
 			</BannerDiv>
 		</Slider>

@@ -43,7 +43,22 @@ function CertificationDetails() {
 			.catch((error) => {
 				console.log(error);
 				alert('잘못된 접근입니다.');
-				navigate(-1);
+				// navigate(-1);
+				setCertificationDetails({
+					'boardId': 17,
+					'title': '흠냐루리ㅣ',
+					'contentBody': '<p>이미쥐쥐 </p>',
+					'creatingDatetime': '2023-05-20T20:29:59.792583',
+					'modifiedTime': '2023-05-20T20:29:59.792583',
+					'writerAlias': '얼라리',
+					'firstFourLettersOfEmail': 'pany',
+					'writerProfileImageUrl':
+						'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/profileimage2.png',
+					'certificationBoardImagesUrl': [
+						'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/certificationBoard_image/b650d363-db56-4a4d-87dc-69f8fe4b2092.png',
+					],
+					'mine': true,
+				});
 			});
 	}, []);
 	useEffect(() => {
@@ -64,13 +79,13 @@ function CertificationDetails() {
 							}}
 							onClick={() => navigate(-1)}
 						/>
-						<HeadingDiv fontSize="4rem">
+						<HeadingDiv fontSize='4rem'>
 							{certificationDetails.title}
 						</HeadingDiv>
 						<WriterDiv>
 							<GlobalProfile
-								size="6rem"
-								margin="2rem 2rem 2rem 0"
+								size='6rem'
+								margin='2rem 2rem 2rem 0'
 								src={certificationDetails.writerProfileImageUrl}
 							/>
 							<div>
@@ -78,41 +93,43 @@ function CertificationDetails() {
 								{certificationDetails.firstFourLettersOfEmail}
 								****)
 							</div>
-							<VerticalBar id="verticalbar" />
-							<div className="startingDate">
+							<VerticalBar id='verticalbar' />
+							<div className='startingDate'>
 								{DateString(certificationDetails.creatingDatetime, '.')}
 							</div>
 						</WriterDiv>
-						<HR></HR>
+						<HR className='BoardInfoHR' />
 						{certificationDetails.mine && (
-							<ButtonsWrap>
-								{/* certificationDetails.onRecruitment 조회하여 마감 버튼 스타일할 것 */}
-								<BoardContentButtonDiv
-									onClick={() => {
-										navigate(
-											`/edit/certification/${certificationDetails.boardId}`,
-											{
-												state: certificationDetails,
+							<div style={{ position: 'relative' }}>
+								<ButtonsWrap>
+									{/* certificationDetails.onRecruitment 조회하여 마감 버튼 스타일할 것 */}
+									<BoardContentButtonDiv
+										onClick={() => {
+											navigate(
+												`/edit/certification/${certificationDetails.boardId}`,
+												{
+													state: certificationDetails,
+												}
+											);
+										}}>
+										수정
+									</BoardContentButtonDiv>
+									<BoardContentButtonDiv
+										onClick={() => {
+											if (window.confirm('게시글을 삭제하시겠습니까?')) {
+												axios
+													.delete(`/api/boards/certification/${params.boardId}`)
+													.then(() => navigate(`/`, { replace: true }))
+													.catch((error) => {
+														console.log(error);
+														alert('게시글 삭제에 실패했습니다.');
+													});
 											}
-										);
-									}}>
-									수정
-								</BoardContentButtonDiv>
-								<BoardContentButtonDiv
-									onClick={() => {
-										if (window.confirm('게시글을 삭제하시겠습니까?')) {
-											axios
-												.delete(`/api/boards/certification/${params.boardId}`)
-												.then(() => navigate(`/`, { replace: true }))
-												.catch((error) => {
-													console.log(error);
-													alert('게시글 삭제에 실패했습니다.');
-												});
-										}
-									}}>
-									삭제
-								</BoardContentButtonDiv>
-							</ButtonsWrap>
+										}}>
+										삭제
+									</BoardContentButtonDiv>
+								</ButtonsWrap>
+							</div>
 						)}
 						{certificationImages && (
 							<ImageSlide>

@@ -147,6 +147,7 @@ const BoardContentButtonDiv = styled.div`
 	flex-shrink: 0;
 	margin: 0 2rem;
 	cursor: pointer;
+	margin-bottom: 1rem;
 `;
 export {
 	BoardWrapper,
