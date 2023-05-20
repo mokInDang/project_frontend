@@ -15,7 +15,6 @@ import {
 import { BsArrowLeft } from 'react-icons/bs';
 import { useNavigate, useParams } from 'react-router';
 import { DateString } from '../utils';
-import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styled from 'styled-components';
@@ -64,13 +63,13 @@ function CertificationDetails() {
 							}}
 							onClick={() => navigate(-1)}
 						/>
-						<HeadingDiv fontSize="4rem">
+						<HeadingDiv fontSize='4rem'>
 							{certificationDetails.title}
 						</HeadingDiv>
 						<WriterDiv>
 							<GlobalProfile
-								size="6rem"
-								margin="2rem 2rem 2rem 0"
+								size='6rem'
+								margin='2rem 2rem 2rem 0'
 								src={certificationDetails.writerProfileImageUrl}
 							/>
 							<div>
@@ -78,41 +77,43 @@ function CertificationDetails() {
 								{certificationDetails.firstFourLettersOfEmail}
 								****)
 							</div>
-							<VerticalBar id="verticalbar" />
-							<div className="startingDate">
+							<VerticalBar id='verticalbar' />
+							<div className='startingDate'>
 								{DateString(certificationDetails.creatingDatetime, '.')}
 							</div>
 						</WriterDiv>
-						<HR></HR>
+						<HR className='BoardInfoHR' />
 						{certificationDetails.mine && (
-							<ButtonsWrap>
-								{/* certificationDetails.onRecruitment 조회하여 마감 버튼 스타일할 것 */}
-								<BoardContentButtonDiv
-									onClick={() => {
-										navigate(
-											`/edit/certification/${certificationDetails.boardId}`,
-											{
-												state: certificationDetails,
+							<div style={{ position: 'relative' }}>
+								<ButtonsWrap>
+									{/* certificationDetails.onRecruitment 조회하여 마감 버튼 스타일할 것 */}
+									<BoardContentButtonDiv
+										onClick={() => {
+											navigate(
+												`/edit/certification/${certificationDetails.boardId}`,
+												{
+													state: certificationDetails,
+												}
+											);
+										}}>
+										수정
+									</BoardContentButtonDiv>
+									<BoardContentButtonDiv
+										onClick={() => {
+											if (window.confirm('게시글을 삭제하시겠습니까?')) {
+												axios
+													.delete(`/api/boards/certification/${params.boardId}`)
+													.then(() => navigate(`/`, { replace: true }))
+													.catch((error) => {
+														console.log(error);
+														alert('게시글 삭제에 실패했습니다.');
+													});
 											}
-										);
-									}}>
-									수정
-								</BoardContentButtonDiv>
-								<BoardContentButtonDiv
-									onClick={() => {
-										if (window.confirm('게시글을 삭제하시겠습니까?')) {
-											axios
-												.delete(`/api/boards/certification/${params.boardId}`)
-												.then(() => navigate(`/`, { replace: true }))
-												.catch((error) => {
-													console.log(error);
-													alert('게시글 삭제에 실패했습니다.');
-												});
-										}
-									}}>
-									삭제
-								</BoardContentButtonDiv>
-							</ButtonsWrap>
+										}}>
+										삭제
+									</BoardContentButtonDiv>
+								</ButtonsWrap>
+							</div>
 						)}
 						{certificationImages && (
 							<ImageSlide>

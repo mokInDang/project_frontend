@@ -20,7 +20,6 @@ const WriteForm = (props) => {
 	const [form, setForm] = useState(props.form);
 	const [isLoading, setIsLoading] = useState(false);
 	useEffect(() => {
-		console.log(isLoading);
 		props.getIsLoading(isLoading);
 	}, [isLoading]);
 	const {

@@ -12,6 +12,7 @@ import banner2_human from './banner2_human.png';
 import closed_stamp from './closed_stamp.png';
 import tape_green from './tape_green.png';
 import tape_pastelgreen from './tape_pastelgreen.png';
+import logo from './logo.png';
 // import { ReactComponent as entireRegionIcon } from './entireregion.svg';
 // import { ReactComponent as myRegionIcon } from './myregion.svg';
 
@@ -30,6 +31,7 @@ export {
 	closed_stamp,
 	tape_green,
 	tape_pastelgreen,
+	logo,
 	// entireRegionIcon,
 	// myRegionIcon,
 };

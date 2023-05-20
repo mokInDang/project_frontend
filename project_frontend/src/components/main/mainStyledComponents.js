@@ -31,7 +31,7 @@ const BoardItemsWrap = styled.div`
 	align-content: center;
 	row-gap: 7rem;
 	column-gap: 4rem;
-	@media (max-width: 796px) {
+	@media (max-width: 425px) {
 		grid-template-columns: Minmax(35rem, 95%);
 	}
 	@media (min-width: 1920px) {
@@ -94,6 +94,7 @@ const BoardItemCard = styled.div`
 		letter-spacing: 0.05rem;
 		flex-shrink: 0;
 		align-items: center;
+		font-weight: 900;
 		.bar {
 			height: 1.4rem;
 		}
@@ -112,7 +113,6 @@ const BoardItemCard = styled.div`
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 2;
 		align-self: center;
-		// letter-spacing: 0.05rem;
 	}
 	.contentBody {
 		display: -webkit-box;
@@ -125,7 +125,6 @@ const BoardItemCard = styled.div`
 		overflow: hidden;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 5;
-		// letter-spacing: 0.05rem;
 	}
 	.writerProfileWrap {
 		margin-top: 3rem;
@@ -156,7 +155,7 @@ const BoardItemCard = styled.div`
 		}
 	}
 
-	@media (max-width: 796px) {
+	@media (max-width: 425px) {
 		.category {
 			font-size: 1.8rem;
 		}

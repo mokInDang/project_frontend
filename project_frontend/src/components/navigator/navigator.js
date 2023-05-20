@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { movePath } from '../../utils';
 import { homeIcon } from '../../assets/images';
 import secureLocalStorage from 'react-secure-storage';
-import { locationIcon } from '../../assets/images';
+import { locationIcon, logo } from '../../assets/images';
 import {
 	Headerdiv,
 	HeaderButton,
@@ -44,30 +44,23 @@ const Navigator = () => {
 		<>
 			{location.pathname !== '/login' && (
 				<Headerdiv>
-					<div className="headerWrapper">
-						<div className="logoWrapper">
+					<div className='headerWrapper'>
+						<div className='logoWrapper'>
 							<div>
 								<div
-									className="HomebuttonWrapper"
+									className='HomebuttonWrapper'
 									onClick={() => navigate('/')}>
-									<img
-										src={homeIcon}
-										alt="homeIcon"
-									/>
-									우리동네줍깅
+									<img src={logo} alt='logo' />
 								</div>
 							</div>
 						</div>
 						{location.pathname !== '/api/auth/join' && (
 							<HeaderButtonWrap>
 								{isLogined && userInfo ? (
-									<div className="myRegion">
+									<div className='myRegion'>
 										{userInfo.region !== 'DEFAULT_REGION' ? (
 											<HeaderButton>
-												<img
-													src={locationIcon}
-													alt="locationIcon"
-												/>
+												<img src={locationIcon} alt='locationIcon' />
 												{userInfo.region}
 											</HeaderButton>
 										) : (
@@ -83,9 +76,9 @@ const Navigator = () => {
 											setDropDownView(!dropdownView);
 										}}>
 										<GlobalProfile
-											size="5rem"
+											size='5rem'
 											src={userInfo.profileImageUrl}
-											margin="0 0.5rem 0 0"
+											margin='0 0.5rem 0 0'
 										/>
 										<AiFillCaretDown size={'3rem'} />
 										{dropdownView ? <Dropdown /> : ''}

@@ -129,6 +129,7 @@ const ReplySubmitButton = styled.div`
 `;
 const ButtonsWrap = styled.div`
 	position: absolute;
+	z-index: 99;
 	font-family: NanumSquare;
 	display: flex;
 	top: 1.5rem;
@@ -147,6 +148,7 @@ const BoardContentButtonDiv = styled.div`
 	flex-shrink: 0;
 	margin: 0 2rem;
 	cursor: pointer;
+	margin-bottom: 1rem;
 `;
 export {
 	BoardWrapper,

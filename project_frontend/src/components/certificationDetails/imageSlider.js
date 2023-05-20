@@ -12,7 +12,7 @@ const LeftButtonDiv = styled.div`
 	height: 100%;
 	width: 6rem;
 	left: 0;
-	z-index: 99;
+	z-index: 98;
 	text-align: left;
 	opacity: 0.6;
 	:hover {
@@ -25,7 +25,7 @@ const RightButtonDiv = styled.div`
 	height: 100%;
 	width: 6rem;
 	right: 0rem;
-	z-index: 99;
+	z-index: 98;
 	text-align: right;
 	opacity: 0.6;
 	:hover {
