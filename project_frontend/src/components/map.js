@@ -366,6 +366,7 @@ const BoardDetailsMap = ({ meetingPlaceResponse }) => {
 
 			kakao.maps.event.addListener(marker, 'click', function () {
 				window.open(`https://map.kakao.com/link/map/${placeID}`, '_blank');
+				map.setCenter(position);
 			});
 
 			var content = document.createElement('div');
@@ -379,6 +380,9 @@ const BoardDetailsMap = ({ meetingPlaceResponse }) => {
 			var textNode = document.createTextNode('카카오맵에서 확인하기');
 			selectSpan.appendChild(textNode);
 			content.appendChild(selectSpan);
+			content.onclick = function () {
+				window.open(`https://map.kakao.com/link/map/${placeID}`, '_blank');
+			};
 			var customOverlay = new kakao.maps.CustomOverlay({
 				position: position,
 				content: content,
@@ -387,7 +391,7 @@ const BoardDetailsMap = ({ meetingPlaceResponse }) => {
 			customOverlay.setMap(map);
 		}
 		kakao.maps.event.addListener(map, 'click', function () {
-			window.open(`https://map.kakao.com/link/map/${placeID}`, '_blank');
+			map.setCenter(position);
 		});
 	}, []);
 	return (
