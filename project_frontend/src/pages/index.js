@@ -9,6 +9,7 @@ import MyInfoEdit from './myInfoEdit';
 import PostCertification from './postCertification';
 import CertificationDetails from './certificationDetails';
 import PatchCertification from './patchCertification';
+import MyRegionBoardsMap from './myRegionBoardsMap';
 
 export {
 	Login,
@@ -22,4 +23,5 @@ export {
 	PostCertification,
 	CertificationDetails,
 	PatchCertification,
+	MyRegionBoardsMap,
 };
