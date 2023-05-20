@@ -1,5 +1,5 @@
 import { useNavigate, useLocation, useParams } from 'react-router';
-import { WriteWrapper, CertificationWriteForm, Loading } from '../components';
+import { CertificationWriteForm, Loading } from '../components';
 import { useEffect, useState } from 'react';
 
 function PatchCertification() {
@@ -11,16 +11,17 @@ function PatchCertification() {
 	let form = {
 		title: '',
 		contentBody: '',
-		imageUrls: [],
+		fileUrls: [],
 	};
 
 	if (certificationToEdit && boardIdToEdit) {
-		let { title, contentBody, imageUrls } = certificationToEdit;
+		let { title, contentBody, certificationBoardImagesUrl } =
+			certificationToEdit;
 
 		const formToEdit = {
 			title: title,
 			contentBody: contentBody,
-			imageUrls: imageUrls,
+			fileUrls: certificationBoardImagesUrl,
 		};
 		form = formToEdit;
 	}
@@ -35,11 +36,11 @@ function PatchCertification() {
 	return (
 		<>
 			<Loading isLoading={isLoading} />
-				<CertificationWriteForm
-					form={form}
-					getIsLoading={setIsLoading}
-					boardIdToEdit={boardIdToEdit}
-				/>
+			<CertificationWriteForm
+				form={form}
+				getIsLoading={setIsLoading}
+				boardIdToEdit={boardIdToEdit}
+			/>
 		</>
 	);
 }

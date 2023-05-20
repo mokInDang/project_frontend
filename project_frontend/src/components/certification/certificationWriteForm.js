@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router';
 function CertificationWriteForm(props) {
 	const boardIdToEdit = props.boardIdToEdit;
 	const [form, setForm] = useState(props.form);
-	const { title, contentBody, imageUrls } = form;
+	const { title, contentBody, fileUrls } = form;
 	const navigate = useNavigate();
 	const [isLoading, setIsLoading] = useState(false);
 	useEffect(() => {
@@ -53,10 +53,11 @@ function CertificationWriteForm(props) {
 
 	const onImagesChange = async (e) => {
 		const { files } = e.target;
+		let isFailed = false;
 		if (!files || !files[0]) return;
 		let maxFileCnt = 5;
-		let imageList = imageUrls;
-		let imageListLength = imageUrls.length;
+		let imageList = fileUrls;
+		let imageListLength = fileUrls.length;
 		let remainFileCnt = maxFileCnt - imageListLength;
 		let curFileCnt = files.length;
 		if (curFileCnt > remainFileCnt) {
@@ -76,21 +77,21 @@ function CertificationWriteForm(props) {
 				alert('업로드 가능한 최대 파일 크기는 파일 당 10MB입니다.');
 				return;
 			}
-			await onImageUpload(imageFile, imageList);
+			await onImageUpload(imageFile, imageList, isFailed);
 		}
-		if (imageList === imageUrls) {
-			alert('이미지 업로드에 실패했습니다.');
-			setIsLoading(false);
+
+		if (isFailed) {
+			alert('일부 이미지 업로드에 실패했습니다.');
 			return;
 		}
 		const nextForm = {
 			...form, // 기존값 복사 (spread operator)
-			imageUrls: Array.from(imageList), // 덮어쓰기
+			fileUrls: Array.from(imageList), // 덮어쓰기
 		};
 		setForm(nextForm);
 	};
 
-	const onImageUpload = async (imageFile, imageList) => {
+	const onImageUpload = async (imageFile, imageList, isFailed) => {
 		setIsLoading(true);
 		const formData = new FormData();
 		formData.set('image', imageFile);
@@ -103,29 +104,29 @@ function CertificationWriteForm(props) {
 			.then((res) => {
 				imageList.push(res.data.imageUrl);
 				setIsLoading(false);
-				return;
 			})
 			.catch((error) => {
 				console.log(error);
+				isFailed = true;
 			});
 	};
 
 	const onImageDelete = (i) => {
-		let imageUrlsArray = imageUrls;
+		let imageUrlsArray = fileUrls;
 		delete imageUrlsArray[i];
 		let newImageUrlsArray = imageUrlsArray.filter(
 			(element) => element !== undefined
 		);
 		const nextForm = {
 			...form, // 기존값 복사 (spread operator)
-			imageUrls: newImageUrlsArray, // 덮어쓰기
+			fileUrls: newImageUrlsArray, // 덮어쓰기
 		};
 		setForm(nextForm);
 	};
 
 	const postCertForm = (form) => {
-		const { imageUrls, title, contentBody } = form;
-		if (imageUrls === [] || title === '' || contentBody === '') {
+		const { fileUrls, title, contentBody } = form;
+		if (fileUrls === [] || title === '' || contentBody === '') {
 			alert('제목과 본문, 한 장 이상의 사진은 필수입니다.');
 			return;
 		}
@@ -143,8 +144,8 @@ function CertificationWriteForm(props) {
 	};
 
 	const patchCertForm = (boardIdToEdit, form) => {
-		const { imageUrls, title, contentBody } = form;
-		if (imageUrls === [] || title === '' || contentBody === '') {
+		const { fileUrls, title, contentBody } = form;
+		if (fileUrls === [] || title === '' || contentBody === '') {
 			alert('제목과 본문, 한 장 이상의 사진은 필수입니다.');
 			return;
 		}
@@ -182,8 +183,8 @@ function CertificationWriteForm(props) {
 					있습니다.
 				</span>
 			</Label>
-			<ThumbnailsWrapper items={imageUrls.length}>
-				{imageUrls.map((imageUrl, i) => (
+			<ThumbnailsWrapper items={fileUrls.length}>
+				{fileUrls.map((imageUrl, i) => (
 					<ThumbnailedDiv
 						onClick={() => {
 							onImageDelete(i);
@@ -195,7 +196,7 @@ function CertificationWriteForm(props) {
 						</div>
 					</ThumbnailedDiv>
 				))}
-				{imageUrls.length < 5 && (
+				{fileUrls.length < 5 && (
 					<ThumbnailDiv onClick={() => selectFile.current.click()}>
 						<div className='content'>
 							<RxPlus></RxPlus>

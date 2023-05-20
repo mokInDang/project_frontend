@@ -6,7 +6,7 @@ function PostCertification() {
 	let form = {
 		title: '',
 		contentBody: '',
-		imageUrls: [],
+		fileUrls: [],
 	};
 
 	return (
