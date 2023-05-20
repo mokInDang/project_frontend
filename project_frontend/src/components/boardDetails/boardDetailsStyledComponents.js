@@ -129,6 +129,7 @@ const ReplySubmitButton = styled.div`
 `;
 const ButtonsWrap = styled.div`
 	position: absolute;
+	z-index: 99;
 	font-family: NanumSquare;
 	display: flex;
 	top: 1.5rem;
