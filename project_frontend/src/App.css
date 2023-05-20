@@ -1,26 +1,18 @@
-.App {
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-use-select: none;
-	user-select: none;
-	font-family: 'NanumSquare';
-	letter-spacing: -0.1rem;
-}
 @font-face {
 	font-family: 'NanumSquare';
-	src: url('./assets/fonts/NanumSquareR.eot'),
-		url('./assets/fonts/NanumSquareOTF_acR.woff2') format('woff2'),
-		url('./assets/fonts/NanumSquareR.woff') format('woff'),
-		url('./assets/fonts/NanumSquareR.otf') format('opentype'),
-		url('./assets/fonts/NanumSquareR.ttf') format('truetype');
+	src: url('assets/fonts/NanumSquareR.eot'),
+		url('assets/fonts/NanumSquareOTF_acR.woff2') format('woff2'),
+		url('assets/fonts/NanumSquareR.woff') format('woff'),
+		url('assets/fonts/NanumSquareR.otf') format('opentype'),
+		url('assets/fonts/NanumSquareR.ttf') format('truetype');
 	font-display: swap;
 	-webkit-transform: skew(-0.001deg);
 }
 @font-face {
 	font-family: 'NanumSquare';
 	font-weight: 700;
-	src: url('./assets/fonts/NanumSquareB.eot'),
-		url('assets/fonts/NanumSquareB.woff2') format('woff2'),
+	src: url('assets/fonts/NanumSquareB.eot'),
+		url('assets/fonts/NanumSquareOTF_acB.woff2') format('woff2'),
 		url('assets/fonts/NanumSquareB.woff') format('woff'),
 		url('assets/fonts/NanumSquareB.otf') format('opentype'),
 		url('assets/fonts/NanumSquareB.ttf') format('truetype');
@@ -29,11 +21,11 @@
 @font-face {
 	font-family: 'NanumSquare';
 	font-weight: 800;
-	src: url('./assets/fonts/NanumSquareEB.eot'),
-		url('./assets/fonts/NanumSquareEB.woff2') format('woff2'),
-		url('./assets/fonts/NanumSquareEB.woff') format('woff'),
-		url('./assets/fonts/NanumSquareEB.otf') format('opentype'),
-		url('./assets/fonts/NanumSquareEB.ttf') format('truetype');
+	src: url('assets/fonts/NanumSquareEB.eot'),
+		url('assets/fonts/NanumSquareOTF_acEB.woff2') format('woff2'),
+		url('assets/fonts/NanumSquareEB.woff') format('woff'),
+		url('assets/fonts/NanumSquareEB.otf') format('opentype'),
+		url('assets/fonts/NanumSquareEB.ttf') format('truetype');
 	font-display: swap;
 }
 @font-face {
@@ -42,16 +34,23 @@
 	src: url('assets/fonts/NanumSquareL.eot');
 	src: local('☺'),
 		url('assets/fonts/NanumSquareL.eot?#iefix') format('embedded-opentype'),
-		url('assets/fonts/NanumSquareL.woff2') format('woff2'),
+		url('assets/fonts/NanumSquareOTF_acL.woff2') format('woff2'),
 		url('assets/fonts/NanumSquareL.woff') format('woff'),
 		url('assets/fonts/NanumSquareL.otf') format('opentype'),
 		url('assets/fonts/NanumSquareL.ttf') format('truetype');
 	font-display: swap;
 }
-
 @font-face {
 	font-family: 'NanumSquareNeo';
 	src: local('☺'),
 		url('assets/fonts/NanumSquareNeo_Variable.woff') format('woff');
 	font-display: swap;
+}
+
+.App {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-use-select: none;
+	user-select: none;
+	font-family: 'NanumSquare';
 }

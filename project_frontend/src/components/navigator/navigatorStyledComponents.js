@@ -46,8 +46,7 @@ const Headerdiv = styled.div`
 			font-weight: 900;
 			font-size: 3rem;
 			img {
-				width: 3.5rem;
-				margin-right: 2rem;
+				height: 4.5rem;
 			}
 		}
 	}
@@ -107,9 +106,4 @@ const ProfileWrap = styled.div`
 	align-items: center;
 `;
 
-export {
-	Headerdiv,
-	HeaderButton,
-	HeaderButtonWrap,
-	ProfileWrap,
-};
+export { Headerdiv, HeaderButton, HeaderButtonWrap, ProfileWrap };

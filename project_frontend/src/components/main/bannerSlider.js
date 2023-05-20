@@ -21,7 +21,8 @@ const BannerDiv = styled.div`
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		font-size: 3.2rem;
+		font-size: 3.3rem;
+		letter-spacing: 0.2rem;
 		span {
 			font-family: NanumSquareNeo;
 			font-weight: 900;
