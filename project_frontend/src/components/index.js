@@ -54,7 +54,7 @@ import {
 	ThumbnailDiv,
 	ThumbnailedDiv,
 	FileUploader,
-} from './postCertification/StyledComponents';
+} from './certification/StyledComponents';
 import { CertificationCardInfiniteScroll } from './main/cerfiticationCardInfiniteScroll';
 import { CertificationCard } from './main/certificationCard';
 import { CertificationCardsWrap } from './main/mainStyledComponents';
@@ -69,6 +69,7 @@ import {
 import { GlobalProfile } from './globalStyledComponents';
 import { RecruitmentInfiniteScroll } from './main/recruitmentInfiniteScroll';
 import { Map, BoardDetailsMap } from './map';
+import { CertificationWriteForm } from './certification/certificationWriteForm';
 export {
 	JoinComment,
 	Navigator,
@@ -89,6 +90,7 @@ export {
 	Map,
 	BoardDetailsMap,
 	CustomSelectDate,
+	CertificationWriteForm,
 };
 export {
 	WriteWrapper,

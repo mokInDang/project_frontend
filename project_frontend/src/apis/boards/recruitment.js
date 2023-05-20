@@ -19,10 +19,13 @@ const writeRecruitment = (form, navigate, setIsLoading) => {
 		form.activityCategory === '' ||
 		form.title === '' ||
 		form.contentBody === '' ||
-		form.startingDate === '' ||
-		form.meetingPlaceCreationRequest === ''
+		form.startingDate === ''
 	) {
 		alert('모집 구분, 시작 예정일, 제목, 본문 란을 모두 채워주세요.');
+		return;
+	}
+	if (form.meetingPlaceCreationRequest.meetingAddress === '') {
+		alert('플로깅할 위치를 지정해주세요.');
 		return;
 	}
 	setIsLoading(true);
@@ -31,6 +34,7 @@ const writeRecruitment = (form, navigate, setIsLoading) => {
 		.post(`/api/boards/recruitment`, form)
 		.then((res) => {
 			navigate(`/boards/recruitment/${res.data.boardId}`, { replace: true });
+			setIsLoading(false);
 		})
 		.catch((error) => {
 			console.log(error);
@@ -44,10 +48,13 @@ const EditRecruitment = (boardId, form, navigate, setIsLoading) => {
 		form.activityCategory === '' ||
 		form.title === '' ||
 		form.contentBody === '' ||
-		form.startingDate === '' ||
-		form.meetingPlaceModificationRequest === ''
+		form.startingDate === ''
 	) {
 		alert('모집 구분, 시작 예정일, 제목, 본문 란을 모두 채워주세요.');
+		return;
+	}
+	if (form.meetingPlaceModificationRequest.meetingAddress === '') {
+		alert('플로깅할 위치를 지정해주세요.');
 		return;
 	}
 	if (window.confirm('게시글 수정을 완료하시겠습니까?')) {
@@ -57,6 +64,7 @@ const EditRecruitment = (boardId, form, navigate, setIsLoading) => {
 			.patch(`/api/boards/recruitment/${boardId}`, form)
 			.then((res) => {
 				navigate(`/boards/recruitment/${res.data.boardId}`, { replace: true });
+				setIsLoading(false);
 			})
 			.catch((error) => {
 				console.log(error);

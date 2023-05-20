@@ -43,7 +43,7 @@ const ThumbnailDiv = styled.div`
 
 const ThumbnailedDiv = styled(ThumbnailDiv)`
 	overflow: hidden;
-	background: no-repeat center/contain url(${(props) => props.imageThumbnail});
+	background: no-repeat center/contain url(${(props) => props.imageUrl});
 	background-color: #fff;
 	.content {
 		display: none;
