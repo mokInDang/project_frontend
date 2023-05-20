@@ -61,6 +61,9 @@ const MapWrapper = styled.div`
 		.selected {
 			background: rgba(87, 200, 77, 1);
 		}
+		.moveToKakaoMap {
+			background: #ffdb00;
+		}
 		:after {
 			display: block;
 			content: '';
@@ -364,13 +367,18 @@ const BoardDetailsMap = ({ meetingPlaceResponse }) => {
 			kakao.maps.event.addListener(marker, 'click', function () {
 				window.open(`https://map.kakao.com/link/map/${placeID}`, '_blank');
 			});
-			
+
 			var content = document.createElement('div');
 			content.className = 'customoverlay';
 			var title = document.createElement('span');
 			title.className = 'title';
 			title.appendChild(document.createTextNode(meetingAddress));
 			content.appendChild(title);
+			var selectSpan = document.createElement('span');
+			selectSpan.className = 'moveToKakaoMap';
+			var textNode = document.createTextNode('카카오맵에서 확인하기');
+			selectSpan.appendChild(textNode);
+			content.appendChild(selectSpan);
 			var customOverlay = new kakao.maps.CustomOverlay({
 				position: position,
 				content: content,
