@@ -411,7 +411,6 @@ const MyRegionMap = ({ places, isLoaded }) => {
 	useEffect(() => {
 		if (isLoaded) {
 			var selectedMarker = null;
-			console.log(myRegionRecruitments.length);
 			// 지도를 생성합니다
 			const defaultPosition = new kakao.maps.LatLng(
 				37.495853033944364,
@@ -489,7 +488,9 @@ const MyRegionMap = ({ places, isLoaded }) => {
 					selectSpan.appendChild(textNode);
 					content.appendChild(selectSpan);
 					content.onclick = function () {
-						navigate(`/boards/recruitment/${recruitmentBoardIdResponse}`);
+						navigate(
+							`/boards/recruitment/${recruitmentBoardIdResponse.boardId}`
+						);
 					};
 
 					var customOverlay = new kakao.maps.CustomOverlay({
