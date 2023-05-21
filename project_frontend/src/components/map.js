@@ -488,9 +488,8 @@ const MyRegionMap = ({ places, isLoaded }) => {
 					selectSpan.appendChild(textNode);
 					content.appendChild(selectSpan);
 					content.onclick = function () {
-						navigate(
-							`/boards/recruitment/${recruitmentBoardIdResponse.boardId}`
-						);
+						var boardId = JSON.stringify(recruitmentBoardIdResponse.boardId);
+						navigate(`/boards/recruitment/${boardId}`);
 					};
 
 					var customOverlay = new kakao.maps.CustomOverlay({
