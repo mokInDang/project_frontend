@@ -30,7 +30,6 @@ function App() {
 				{/* 인증 여부 상관 없이 접근 가능한 페이지 정의 */}
 				<Route exact path='/*' element={<Home />} />
 				<Route
-					exact
 					path='/boards/recruitment/myregion'
 					element={<MyRegionBoardsMap />}
 				/>

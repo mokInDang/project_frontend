@@ -1,9 +1,11 @@
 /*global kakao*/
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { SelectBox } from '../components';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
+
+const { kakao } = window;
 
 const MapWrapper = styled.div`
 	width: 75rem;
@@ -402,4 +404,131 @@ const BoardDetailsMap = ({ meetingPlaceResponse }) => {
 		</>
 	);
 };
-export { Map, BoardDetailsMap };
+const MyRegionMap = ({ places, isLoaded }) => {
+	const [myRegionRecruitments, setMyRegionRecruitments] = useState(places);
+	var clickedOverlay = null;
+	const navigate = useNavigate();
+	useEffect(() => {
+		if (isLoaded) {
+			var selectedMarker = null;
+			console.log(myRegionRecruitments.length);
+			// 지도를 생성합니다
+			const defaultPosition = new kakao.maps.LatLng(
+				37.495853033944364,
+				126.95781764313084
+			);
+
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+				mapOption = {
+					center: defaultPosition, // 지도의 중심좌표
+					level: 3, // 지도의 확대 레벨
+				};
+			var map = new kakao.maps.Map(mapContainer, mapOption);
+			var clickImage = new kakao.maps.MarkerImage(
+				'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
+				new kakao.maps.Size(31, 35),
+				new kakao.maps.Point(13, 34)
+			);
+			var selectedMarker = new kakao.maps.Marker({
+				image: clickImage,
+				zIndex: 2,
+			});
+			var bounds = new kakao.maps.LatLngBounds();
+			for (var i = 0; i < myRegionRecruitments.length; i++) {
+				bounds.extend(
+					new kakao.maps.LatLng(
+						myRegionRecruitments[i].meetingPlaceResponse.latitude,
+						myRegionRecruitments[i].meetingPlaceResponse.longitude
+					)
+				);
+				DisplayMarker(myRegionRecruitments[i]);
+			}
+			map.setBounds(bounds);
+			function DisplayMarker(myRegionRecruitments) {
+				const { recruitmentBoardIdResponse, meetingPlaceResponse, title } =
+					myRegionRecruitments;
+				var titleText = document.createTextNode(title);
+				const markerPosition = new kakao.maps.LatLng(
+					meetingPlaceResponse.latitude,
+					meetingPlaceResponse.longitude
+				);
+				selectedMarker.setMap(null);
+				var normalImage = new kakao.maps.MarkerImage(
+					'https://t1.daumcdn.net/mapjsapi/images/marker.png',
+					new kakao.maps.Size(25, 35),
+					new kakao.maps.Point(13, 34)
+				);
+				var clickImage = new kakao.maps.MarkerImage(
+					'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
+					new kakao.maps.Size(31, 35),
+					new kakao.maps.Point(13, 34)
+				);
+
+				// 마커를 생성하고 지도에 표시합니다. 이미지는 기본 마커 이미지를 사용합니다
+				var marker = new kakao.maps.Marker({
+					map: map,
+					position: markerPosition,
+					image: normalImage,
+				});
+
+				kakao.maps.event.addListener(marker, 'click', function () {
+					map.panTo(markerPosition);
+					if (clickedOverlay) {
+						clickedOverlay.setMap(null);
+					}
+					var content = document.createElement('div');
+					content.className = 'customoverlay';
+					var title = document.createElement('span');
+					title.className = 'title';
+					title.appendChild(titleText);
+					content.appendChild(title);
+					var selectSpan = document.createElement('span');
+					var textNode = document.createTextNode(
+						meetingPlaceResponse.meetingAddress
+					);
+					selectSpan.appendChild(textNode);
+					content.appendChild(selectSpan);
+					content.onclick = function () {
+						navigate(`/boards/recruitment/${recruitmentBoardIdResponse}`);
+					};
+
+					var customOverlay = new kakao.maps.CustomOverlay({
+						clickable: true, // 커스텀 오버레이 클릭 시 지도에 이벤트를 전파하지 않도록 설정
+						content: content,
+						position: markerPosition, // 커스텀 오버레이를 표시할 좌표
+						zIndex: 3,
+						yAnchor: -0.1,
+					});
+
+					customOverlay.setMap(null);
+					customOverlay.setMap(map);
+					if (!selectedMarker || selectedMarker !== marker) {
+						// 클릭된 마커 객체가 null이 아니면
+						// 클릭된 마커의 이미지를 기본 이미지로 변경하고
+						!!selectedMarker && selectedMarker.setImage(normalImage);
+						!!selectedMarker && selectedMarker.setZIndex(1);
+						// 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
+						marker.setImage(clickImage);
+						marker.setZIndex(2);
+					}
+					// 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
+					selectedMarker = marker;
+					clickedOverlay = customOverlay;
+				});
+			}
+		}
+	}, [myRegionRecruitments]);
+	useEffect(() => {
+		if (places !== []) {
+			setMyRegionRecruitments(places);
+		}
+	}, [places]);
+	return (
+		<>
+			<MapWrapper style={{ width: '90%', height: '50vh', margin: '3rem auto' }}>
+				<div id='map'></div>
+			</MapWrapper>
+		</>
+	);
+};
+export { Map, BoardDetailsMap, MyRegionMap };

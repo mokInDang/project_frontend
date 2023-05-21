@@ -68,7 +68,7 @@ import {
 } from './navigator/navigatorStyledComponents';
 import { GlobalProfile } from './globalStyledComponents';
 import { RecruitmentInfiniteScroll } from './main/recruitmentInfiniteScroll';
-import { Map, BoardDetailsMap } from './map';
+import { Map, BoardDetailsMap, MyRegionMap } from './map';
 import { CertificationWriteForm } from './certification/certificationWriteForm';
 export {
 	JoinComment,
@@ -89,6 +89,7 @@ export {
 	RecruitmentInfiniteScroll,
 	Map,
 	BoardDetailsMap,
+	MyRegionMap,
 	CustomSelectDate,
 	CertificationWriteForm,
 };
