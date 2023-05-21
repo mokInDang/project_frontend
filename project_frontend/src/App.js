@@ -29,10 +29,6 @@ function App() {
 			<Routes>
 				{/* 인증 여부 상관 없이 접근 가능한 페이지 정의 */}
 				<Route exact path='/*' element={<Home />} />
-				<Route
-					path='/boards/recruitment/myregion'
-					element={<MyRegionBoardsMap />}
-				/>
 
 				<Route element={<PrivateRoutes authentication={false} />}>
 					{/* 인증을 반드시 하지 않아야만 접근 가능한 페이지 정의 */}
@@ -57,6 +53,10 @@ function App() {
 						<Route
 							path='/boards/certification'
 							element={<PostCertification />}
+						/>
+						<Route
+							path='/boards/recruitment/myregion'
+							element={<MyRegionBoardsMap />}
 						/>
 					</Route>
 					<Route
