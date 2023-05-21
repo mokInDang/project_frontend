@@ -57,12 +57,14 @@ const Navigator = () => {
 						{location.pathname !== '/api/auth/join' && (
 							<HeaderButtonWrap>
 								{isLogined && userInfo ? (
-									<div className='myRegion'>
+									<div className='myRegion myRegionMapButton'>
 										{userInfo.region !== 'DEFAULT_REGION' ? (
-											<HeaderButton onClick={() => navigate(`/myregionmap`)}>
-												<img src={locationIcon} alt='locationIcon' />
-												{userInfo.region}
-											</HeaderButton>
+											<>
+												<HeaderButton onClick={() => navigate(`/myregionmap`)}>
+													<img src={locationIcon} alt='locationIcon' />
+													{userInfo.region}
+												</HeaderButton>
+											</>
 										) : (
 											''
 										)}
@@ -84,9 +86,11 @@ const Navigator = () => {
 										{dropdownView ? <Dropdown /> : ''}
 									</ProfileWrap>
 								) : (
-									<HeaderButton onClick={() => movePath(navigate, '/login')}>
-										로그인
-									</HeaderButton>
+									<>
+										<HeaderButton onClick={() => movePath(navigate, '/login')}>
+											로그인
+										</HeaderButton>
+									</>
 								)}
 							</HeaderButtonWrap>
 						)}
