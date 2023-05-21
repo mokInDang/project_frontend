@@ -54,10 +54,7 @@ function App() {
 							path='/boards/certification'
 							element={<PostCertification />}
 						/>
-						<Route
-							path='/boards/recruitment/myregion'
-							element={<MyRegionBoardsMap />}
-						/>
+						<Route path='/myregionmap' element={<MyRegionBoardsMap />} />
 					</Route>
 					<Route
 						path='/edit/recruitment/:boardId'

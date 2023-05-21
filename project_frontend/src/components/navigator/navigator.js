@@ -59,8 +59,7 @@ const Navigator = () => {
 								{isLogined && userInfo ? (
 									<div className='myRegion'>
 										{userInfo.region !== 'DEFAULT_REGION' ? (
-											<HeaderButton
-												onClick={navigate(`/boards/recruitment/myregion`)}>
+											<HeaderButton onClick={() => navigate(`/myregionmap`)}>
 												<img src={locationIcon} alt='locationIcon' />
 												{userInfo.region}
 											</HeaderButton>
