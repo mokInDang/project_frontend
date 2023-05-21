@@ -57,11 +57,10 @@ const Navigator = () => {
 						{location.pathname !== '/api/auth/join' && (
 							<HeaderButtonWrap>
 								{isLogined && userInfo ? (
-									<div
-										className='myRegion'
-										onClick={navigate(`/boards/recruitment/myregion`)}>
+									<div className='myRegion'>
 										{userInfo.region !== 'DEFAULT_REGION' ? (
-											<HeaderButton>
+											<HeaderButton
+												onClick={navigate(`/boards/recruitment/myregion`)}>
 												<img src={locationIcon} alt='locationIcon' />
 												{userInfo.region}
 											</HeaderButton>

@@ -13,8 +13,8 @@ import {
 	PatchCertification,
 	MyRegionBoardsMap,
 } from './pages';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import { Navigator, Map, BoardDetailsMap } from './components';
+import { Routes, Route } from 'react-router-dom';
+import { Navigator } from './components';
 import { reissueToken } from './apis';
 import { Comments } from './pages/comments';
 import { PrivateRoutes, RegionRequiredRoutes } from './utils';
