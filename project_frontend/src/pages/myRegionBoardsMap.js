@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 import { MyRegionMap } from '../components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import secureLocalStorage from 'react-secure-storage';
 function MyRegionBoardsMap() {
 	const navigate = useNavigate();
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [places, setPlaces] = useState([]);
+	const userInfo = secureLocalStorage.getItem('userInfo');
 	const getRecruitments = () => {
 		axios
 			.get('/api/boards/recruitment/places?page=0&size=30&sort=id')
@@ -50,6 +52,11 @@ function MyRegionBoardsMap() {
 	useEffect(() => {
 		console.log(places);
 	}, [places]);
-	return <MyRegionMap places={places} isLoaded={isLoaded}></MyRegionMap>;
+	return (
+		<MyRegionMap
+			places={places}
+			isLoaded={isLoaded}
+			region={userInfo.region ? userInfo.region : ''}></MyRegionMap>
+	);
 }
 export default MyRegionBoardsMap;

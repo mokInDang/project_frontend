@@ -6,7 +6,22 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
 const { kakao } = window;
-
+const MyRegionWrapper = styled.div`
+	width: 90%;
+	height: 80vh;
+	margin: 0 auto;
+	margin-top: 5rem;
+	h1 {
+		font-family: NanumSquareNeo;
+		font-size: 4rem;
+		line-height: 4rem;
+		margin: 0;
+	}
+	h2 {
+		font-size: 1.8rem;
+		color: green;
+	}
+`;
 const MapWrapper = styled.div`
 	width: 75rem;
 	height: 40rem;
@@ -404,13 +419,12 @@ const BoardDetailsMap = ({ meetingPlaceResponse }) => {
 		</>
 	);
 };
-const MyRegionMap = ({ places, isLoaded }) => {
+const MyRegionMap = ({ places, isLoaded, region }) => {
 	const [myRegionRecruitments, setMyRegionRecruitments] = useState(places);
 	var clickedOverlay = null;
 	const navigate = useNavigate();
 	useEffect(() => {
 		if (isLoaded) {
-			var selectedMarker = null;
 			// 지도를 생성합니다
 			const defaultPosition = new kakao.maps.LatLng(
 				37.495853033944364,
@@ -428,10 +442,6 @@ const MyRegionMap = ({ places, isLoaded }) => {
 				new kakao.maps.Size(31, 35),
 				new kakao.maps.Point(13, 34)
 			);
-			var selectedMarker = new kakao.maps.Marker({
-				image: clickImage,
-				zIndex: 2,
-			});
 			var bounds = new kakao.maps.LatLngBounds();
 			for (var i = 0; i < myRegionRecruitments.length; i++) {
 				bounds.extend(
@@ -451,18 +461,11 @@ const MyRegionMap = ({ places, isLoaded }) => {
 					meetingPlaceResponse.latitude,
 					meetingPlaceResponse.longitude
 				);
-				selectedMarker.setMap(null);
 				var normalImage = new kakao.maps.MarkerImage(
 					'https://t1.daumcdn.net/mapjsapi/images/marker.png',
-					new kakao.maps.Size(25, 35),
-					new kakao.maps.Point(13, 34)
+					new kakao.maps.Size(37, 52.5),
+					new kakao.maps.Point(17, 35)
 				);
-				var clickImage = new kakao.maps.MarkerImage(
-					'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
-					new kakao.maps.Size(31, 35),
-					new kakao.maps.Point(13, 34)
-				);
-
 				// 마커를 생성하고 지도에 표시합니다. 이미지는 기본 마커 이미지를 사용합니다
 				var marker = new kakao.maps.Marker({
 					map: map,
@@ -497,22 +500,11 @@ const MyRegionMap = ({ places, isLoaded }) => {
 						content: content,
 						position: markerPosition, // 커스텀 오버레이를 표시할 좌표
 						zIndex: 3,
-						yAnchor: -0.1,
+						yAnchor: -0.4,
 					});
 
 					customOverlay.setMap(null);
 					customOverlay.setMap(map);
-					if (!selectedMarker || selectedMarker !== marker) {
-						// 클릭된 마커 객체가 null이 아니면
-						// 클릭된 마커의 이미지를 기본 이미지로 변경하고
-						!!selectedMarker && selectedMarker.setImage(normalImage);
-						!!selectedMarker && selectedMarker.setZIndex(1);
-						// 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
-						marker.setImage(clickImage);
-						marker.setZIndex(2);
-					}
-					// 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
-					selectedMarker = marker;
 					clickedOverlay = customOverlay;
 				});
 			}
@@ -524,11 +516,13 @@ const MyRegionMap = ({ places, isLoaded }) => {
 		}
 	}, [places]);
 	return (
-		<>
-			<MapWrapper style={{ width: '90%', height: '50vh', margin: '3rem auto' }}>
+		<MyRegionWrapper>
+			<h1>{region} 한 눈에 보기</h1>
+			<h2>마커 클릭 시 게시글 정보를 볼 수 있습니다.</h2>
+			<MapWrapper style={{ width: '100%', height: '70vh' }}>
 				<div id='map'></div>
 			</MapWrapper>
-		</>
+		</MyRegionWrapper>
 	);
 };
 export { Map, BoardDetailsMap, MyRegionMap };
