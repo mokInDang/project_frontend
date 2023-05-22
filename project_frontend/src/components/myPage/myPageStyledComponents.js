@@ -1,17 +1,11 @@
 import styled from 'styled-components';
-
 const MyPageWrapper = styled.div`
+	position: relative;
 	margin: 8rem auto;
-	width: 62.5%;
-	height: 70rem;
+	text-align: center;
+	width: 90%;
 	word-break: break-all;
 	font-size: 1.8rem;
-	@media (max-width: 768px) {
-		width: 70%;
-	}
-	@media (max-width: 425px) {
-		width: 85%;
-	}
 	#profileImg {
 		display: none;
 	}
@@ -22,11 +16,15 @@ const MyPageWrapper = styled.div`
 		font-family: NanumSquareNeo;
 		font-size: 4rem;
 		font-weight: 900;
+		.titleText {
+			background-color: white;
+		}
 	}
 	.profileImageWrap {
 		display: flex;
 		align-items: center;
 		margin: 4rem 0;
+		justify-content: center;
 	}
 	.imageButton {
 		width: 12rem;
@@ -44,22 +42,55 @@ const MyPageWrapper = styled.div`
 	}
 	.myInfoWrap {
 		font-size: 3rem;
+		display: flex;
+		justify-content: center;
+		align-items: end;
 		margin: 6rem 0;
+		@media (max-width: 800px) {
+			flex-wrap: wrap;
+		}
+		@media (max-width: 643px) {
+			margin: 0;
+		}
+		. .myInfoWrapCenter {
+			display: flex;
+		}
 		.aliasWrap {
 			display: flex;
 			align-items: center;
-			margin: 4rem 0;
+			margin: 4rem auto;
+			justify-content: center;
+			flex-wrap: wrap;
+			@media (max-width: 800px) {
+				margin-top: 0;
+			}
+			@media (max-width: 456px) {
+				svg {
+					margin: 1rem 0;
+				}
+				margin-bottom: 1rem;
+			}
 		}
 		.myRegionWrap {
 			display: flex;
 			align-items: center;
-			margin: 4rem 0;
+			flex-wrap: wrap;
+			justify-content: center;
+			@media (max-width: 456px) {
+				svg {
+					margin: 1rem 0;
+				}
+			}
 		}
 		label {
 			margin: 0 2.5rem;
 			width: 12rem;
 			text-align: center;
+			flex-shrink: 0;
 			font-weight: 700;
+			@media (max-width: 800px) {
+				margin: 0 1rem;
+			}
 		}
 		input[type='text'] {
 			border: 1px solid rgba(189, 189, 189, 1);
@@ -70,11 +101,11 @@ const MyPageWrapper = styled.div`
 			font-size: 2rem;
 			font-weight: 700;
 			border-radius: 0.8rem;
-			margin-right: 2rem;
 		}
 	}
 	.buttonsWrap {
 		display: flex;
+		justify-content: center;
 	}
 	.button {
 		width: 10rem;
@@ -98,10 +129,15 @@ const MyPageWrapper = styled.div`
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		box-size: border-box;
 		border-radius: 0.8rem;
 		box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.13);
 		cursor: pointer;
-		margin: 0 2rem;
+		margin: 0.6rem 2rem;
+		flex-shrink: 0;
+		@media (max-width: 768px) {
+			margin-top: 4rem;
+		}
 	}
 `;
 export { MyPageWrapper };

@@ -117,7 +117,9 @@ function MyInfoEdit() {
 			<MyPageWrapper>
 				{location.state && (
 					<>
-						<div className='title'>내 정보 수정</div>
+						<div className='title'>
+							<span className='titleText'>내 정보 수정</span>
+						</div>
 						<div className='profileImageWrap'>
 							<GlobalProfile
 								src={userInfo.profileImageUrl}
@@ -134,45 +136,45 @@ function MyInfoEdit() {
 									id='profileImg'
 									onChange={onImageUpload}
 								/>
-								<div
-									className='imageButton'
-									onClick={onImageDelete}>
+								<div className='imageButton' onClick={onImageDelete}>
 									이미지 제거
 								</div>
 							</div>
 						</div>
 						<div className='myInfoWrap'>
-							<div className='aliasWrap'>
-								<UserEdit
-									size={53}
-									color='rgba(58, 58, 58, 1)'
-									className='icons'
-								/>
-								<label htmlFor='alias'>닉네임</label>
-								<input
-									type='text'
-									name='alias'
-									value={userInfo.alias}
-									onChange={onAliasChange}
-								/>
-							</div>
-							<div className='myRegionWrap'>
-								<Location
-									size={53}
-									color='rgba(58, 58, 58, 1)'
-									className='icons'
-								/>
-								<label htmlFor='region'>나의 위치</label>
-								<input
-									type='text'
-									name='region'
-									value={
-										userInfo.region === 'DEFAULT_REGION'
-											? '위치를 설정해주세요.'
-											: userInfo.region
-									}
-									disabled
-								/>
+							<div>
+								<div className='aliasWrap'>
+									<UserEdit
+										size={'5rem'}
+										color='rgba(58, 58, 58, 1)'
+										className='icons'
+									/>
+									<label htmlFor='alias'>닉네임</label>
+									<input
+										type='text'
+										name='alias'
+										value={userInfo.alias}
+										onChange={onAliasChange}
+									/>
+								</div>
+								<div className='myRegionWrap'>
+									<Location
+										size={'5rem'}
+										color='rgba(58, 58, 58, 1)'
+										className='icons'
+									/>
+									<label htmlFor='region'>나의 위치</label>
+									<input
+										type='text'
+										name='region'
+										value={
+											userInfo.region === 'DEFAULT_REGION'
+												? '위치를 설정해주세요.'
+												: userInfo.region
+										}
+										disabled
+									/>
+								</div>
 							</div>
 						</div>
 						<div className='buttonsWrap'>

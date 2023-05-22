@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Loading, MyPageWrapper } from '../components';
+import { HR, Loading, MyPageWrapper } from '../components';
 import { UserEdit, Location } from 'iconsax-react';
 import { GlobalProfile } from '../components';
 import { useNavigate } from 'react-router-dom';
@@ -66,7 +66,9 @@ function MyPage() {
 		<>
 			<Loading isLoading={isLoading} />
 			<MyPageWrapper>
-				<div className='title'>마이페이지</div>
+				<div className='title'>
+					<span className='titleText'>마이페이지</span>
+				</div>
 				<div className='profileImageWrap'>
 					<GlobalProfile
 						src={userInfo.profileImageUrl}
@@ -75,36 +77,53 @@ function MyPage() {
 					/>
 				</div>
 				<div className='myInfoWrap'>
-					<div className='aliasWrap'>
-						<UserEdit size={53} color='rgba(58, 58, 58, 1)' className='icons' />
-						<label htmlFor='alias'>닉네임</label>
-						<input type='text' name='alias' value={userInfo.alias} readOnly />
-					</div>
-					<div className='myRegionWrap'>
-						<Location size={53} color='rgba(58, 58, 58, 1)' className='icons' />
-						<label htmlFor='region'>나의 위치</label>
-						<input
-							type='text'
-							name='region'
-							value={
-								userInfo.region === 'DEFAULT_REGION'
-									? ''
-									: userInfo.region
-							}
-							readOnly
-						/>
-						<div className='getRegionButton' onClick={getLocation}>
-							내 위치 받아오기
+					<div>
+						<div>
+							<div className='aliasWrap'>
+								<UserEdit
+									size={'5rem'}
+									color='rgba(58, 58, 58, 1)'
+									className='icons'
+								/>
+								<label htmlFor='alias'>닉네임</label>
+								<input
+									type='text'
+									name='alias'
+									value={userInfo.alias}
+									readOnly
+								/>
+							</div>
+							<div className='myRegionWrap'>
+								<Location
+									size={'5rem'}
+									color='rgba(58, 58, 58, 1)'
+									className='icons'
+								/>
+								<label htmlFor='region'>나의 위치</label>
+								<input
+									type='text'
+									name='region'
+									value={
+										userInfo.region === 'DEFAULT_REGION' ? '' : userInfo.region
+									}
+									readOnly
+								/>
+							</div>
 						</div>
 					</div>
+					<div className='getRegionButton' onClick={getLocation}>
+						내 위치 받아오기
+					</div>
 				</div>
-				<div
-					className='button'
-					onClick={() => {
-						navigate('/mypage/edit', { state: userInfo });
-					}}
-				>
-					수정
+				<div className='buttonsWrap'>
+					<div
+						className='button'
+						style={{ width: '12rem' }}
+						onClick={() => {
+							navigate('/mypage/edit', { state: userInfo });
+						}}>
+						내 정보 수정
+					</div>
 				</div>
 				{/* <button onClick={() => {}}>회원 탈퇴</button> */}
 			</MyPageWrapper>
