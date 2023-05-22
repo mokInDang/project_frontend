@@ -96,6 +96,71 @@ const HeaderButtonWrap = styled.div`
 	.myRegion {
 		cursor: default;
 	}
+	@keyframes jittery {
+		1%,
+		9% {
+			transform: scale(1);
+		}
+		2% {
+			transform: scale(0.95);
+		}
+		3% {
+			transform: scale(1.05);
+		}
+		4% {
+			transform: scale(1.05) rotate(-5deg);
+		}
+		5% {
+			transform: scale(1.05) rotate(5deg);
+		}
+		6% {
+			transform: scale(1.05) rotate(-3deg);
+		}
+		7% {
+			transform: scale(1.05) rotate(2deg);
+		}
+		8% {
+			transform: scale(1.05) rotate(0);
+		}
+	}
+
+	@keyframes jelly {
+		25% {
+			transform: scale(0.9, 1.1);
+		}
+		50% {
+			transform: scale(1.1, 0.9);
+		}
+		75% {
+			transform: scale(0.95, 1.05);
+		}
+	}
+	.myRegionMapButton {
+		cursor: pointer;
+		animation: jittery 20s infinite;
+		background: rgba(129, 204, 85, 0.7);
+		box-shadow: 0px 5px 0px 0px rgba(129, 204, 85, 1);
+
+		box-sizing: border-box;
+		padding-left: 1rem;
+		padding-right: 2rem;
+		border-radius: 1rem;
+		margin: 0 2rem;
+		img {
+			width: 3rem;
+		}
+		:hover {
+			animation-play-state: paused;
+			margin-top: 15px;
+			margin-bottom: 5px;
+			box-shadow: 0px 0px 0px 0px rgba(129, 204, 85, 1);
+		}
+		:active {
+			// -webkit-animation: jelly 0.5s;
+			// animation: jelly 0.5s;
+			background-color: rgba(129, 204, 85, 0.9);
+		}
+	}
 `;
 
 const ProfileWrap = styled.div`

@@ -1,10 +1,27 @@
 /*global kakao*/
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { SelectBox } from '../components';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 
+const { kakao } = window;
+const MyRegionWrapper = styled.div`
+	width: 90%;
+	height: 80vh;
+	margin: 0 auto;
+	margin-top: 5rem;
+	h1 {
+		font-family: NanumSquareNeo;
+		font-size: 4rem;
+		line-height: 4rem;
+		margin: 0;
+	}
+	h2 {
+		font-size: 1.8rem;
+		color: green;
+	}
+`;
 const MapWrapper = styled.div`
 	width: 75rem;
 	height: 40rem;
@@ -402,4 +419,110 @@ const BoardDetailsMap = ({ meetingPlaceResponse }) => {
 		</>
 	);
 };
-export { Map, BoardDetailsMap };
+const MyRegionMap = ({ places, isLoaded, region }) => {
+	const [myRegionRecruitments, setMyRegionRecruitments] = useState(places);
+	var clickedOverlay = null;
+	const navigate = useNavigate();
+	useEffect(() => {
+		if (isLoaded) {
+			// 지도를 생성합니다
+			const defaultPosition = new kakao.maps.LatLng(
+				37.495853033944364,
+				126.95781764313084
+			);
+
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+				mapOption = {
+					center: defaultPosition, // 지도의 중심좌표
+					level: 3, // 지도의 확대 레벨
+				};
+			var map = new kakao.maps.Map(mapContainer, mapOption);
+			var clickImage = new kakao.maps.MarkerImage(
+				'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
+				new kakao.maps.Size(31, 35),
+				new kakao.maps.Point(13, 34)
+			);
+			var bounds = new kakao.maps.LatLngBounds();
+			for (var i = 0; i < myRegionRecruitments.length; i++) {
+				bounds.extend(
+					new kakao.maps.LatLng(
+						myRegionRecruitments[i].meetingPlaceResponse.latitude,
+						myRegionRecruitments[i].meetingPlaceResponse.longitude
+					)
+				);
+				DisplayMarker(myRegionRecruitments[i]);
+			}
+			map.setBounds(bounds);
+			function DisplayMarker(myRegionRecruitments) {
+				const { recruitmentBoardIdResponse, meetingPlaceResponse, title } =
+					myRegionRecruitments;
+				var titleText = document.createTextNode(title);
+				const markerPosition = new kakao.maps.LatLng(
+					meetingPlaceResponse.latitude,
+					meetingPlaceResponse.longitude
+				);
+				var normalImage = new kakao.maps.MarkerImage(
+					'https://t1.daumcdn.net/mapjsapi/images/marker.png',
+					new kakao.maps.Size(37, 52.5),
+					new kakao.maps.Point(17, 35)
+				);
+				// 마커를 생성하고 지도에 표시합니다. 이미지는 기본 마커 이미지를 사용합니다
+				var marker = new kakao.maps.Marker({
+					map: map,
+					position: markerPosition,
+					image: normalImage,
+				});
+
+				kakao.maps.event.addListener(marker, 'click', function () {
+					map.panTo(markerPosition);
+					if (clickedOverlay) {
+						clickedOverlay.setMap(null);
+					}
+					var content = document.createElement('div');
+					content.className = 'customoverlay';
+					var title = document.createElement('span');
+					title.className = 'title';
+					title.appendChild(titleText);
+					content.appendChild(title);
+					var selectSpan = document.createElement('span');
+					var textNode = document.createTextNode(
+						meetingPlaceResponse.meetingAddress
+					);
+					selectSpan.appendChild(textNode);
+					content.appendChild(selectSpan);
+					content.onclick = function () {
+						var boardId = JSON.stringify(recruitmentBoardIdResponse.boardId);
+						navigate(`/boards/recruitment/${boardId}`);
+					};
+
+					var customOverlay = new kakao.maps.CustomOverlay({
+						clickable: true, // 커스텀 오버레이 클릭 시 지도에 이벤트를 전파하지 않도록 설정
+						content: content,
+						position: markerPosition, // 커스텀 오버레이를 표시할 좌표
+						zIndex: 3,
+						yAnchor: -0.4,
+					});
+
+					customOverlay.setMap(null);
+					customOverlay.setMap(map);
+					clickedOverlay = customOverlay;
+				});
+			}
+		}
+	}, [myRegionRecruitments]);
+	useEffect(() => {
+		if (places !== []) {
+			setMyRegionRecruitments(places);
+		}
+	}, [places]);
+	return (
+		<MyRegionWrapper>
+			<h1>{region} 한 눈에 보기</h1>
+			<h2>마커 클릭 시 게시글 정보를 볼 수 있습니다.</h2>
+			<MapWrapper style={{ width: '100%', height: '70vh' }}>
+				<div id='map'></div>
+			</MapWrapper>
+		</MyRegionWrapper>
+	);
+};
+export { Map, BoardDetailsMap, MyRegionMap };

@@ -11,9 +11,10 @@ import {
 	PostCertification,
 	CertificationDetails,
 	PatchCertification,
+	MyRegionBoardsMap,
 } from './pages';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import { Navigator, Map, BoardDetailsMap } from './components';
+import { Routes, Route } from 'react-router-dom';
+import { Navigator } from './components';
 import { reissueToken } from './apis';
 import { Comments } from './pages/comments';
 import { PrivateRoutes, RegionRequiredRoutes } from './utils';
@@ -34,7 +35,7 @@ function App() {
 					<Route path='/login' element={<Login />} />
 				</Route>
 				<Route path='/api/auth/join' element={<Welcome />} />
-				
+
 				<Route element={<PrivateRoutes authentication={true} />}>
 					{/* 인증을 반드시 해야만 접근 가능한 페이지 정의 */}
 					<Route path='/mypage' element={<MyPage />} />
@@ -53,6 +54,7 @@ function App() {
 							path='/boards/certification'
 							element={<PostCertification />}
 						/>
+						<Route path='/myregionmap' element={<MyRegionBoardsMap />} />
 					</Route>
 					<Route
 						path='/edit/recruitment/:boardId'
