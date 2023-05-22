@@ -97,29 +97,29 @@ const HeaderButtonWrap = styled.div`
 		cursor: default;
 	}
 	@keyframes jittery {
-		2%,
-		18% {
+		1%,
+		9% {
 			transform: scale(1);
 		}
-		4% {
+		2% {
 			transform: scale(0.95);
 		}
-		6% {
+		3% {
 			transform: scale(1.05);
 		}
-		8% {
+		4% {
 			transform: scale(1.05) rotate(-5deg);
 		}
-		10% {
+		5% {
 			transform: scale(1.05) rotate(5deg);
 		}
-		12% {
+		6% {
 			transform: scale(1.05) rotate(-3deg);
 		}
-		14% {
+		7% {
 			transform: scale(1.05) rotate(2deg);
 		}
-		16% {
+		8% {
 			transform: scale(1.05) rotate(0);
 		}
 	}
@@ -137,7 +137,7 @@ const HeaderButtonWrap = styled.div`
 	}
 	.myRegionMapButton {
 		cursor: pointer;
-		animation: jittery 10s infinite;
+		animation: jittery 20s infinite;
 		background: rgba(129, 204, 85, 0.7);
 		box-shadow: 0px 5px 0px 0px rgba(129, 204, 85, 1);
 
@@ -150,6 +150,7 @@ const HeaderButtonWrap = styled.div`
 			width: 3rem;
 		}
 		:hover {
+			animation-play-state: paused;
 			margin-top: 15px;
 			margin-bottom: 5px;
 			box-shadow: 0px 0px 0px 0px rgba(129, 204, 85, 1);
