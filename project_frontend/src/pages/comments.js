@@ -135,7 +135,9 @@ const Comment = ({ comment, getComments }) => {
 			});
 	};
 	const onMoveToReplyCommentInput = () => {
-		replyRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+		if (replyRef.current) {
+			replyRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+		}
 	};
 	const postReplyComment = () => {
 		var newReplyCommentBody = replyCommentBody.trim();
@@ -160,8 +162,13 @@ const Comment = ({ comment, getComments }) => {
 				setIsLoading(false);
 			});
 	};
+	useEffect(() => {
+		if (toWriteReply) {
+			onMoveToReplyCommentInput();
+		}
+	}, [toWriteReply]);
 	return (
-		<CommentDiv ref={replyRef}>
+		<CommentDiv>
 			<CommentWrap>
 				<CommentProfileDiv>
 					<GlobalProfile
@@ -183,7 +190,6 @@ const Comment = ({ comment, getComments }) => {
 							<BoardContentButtonDiv
 								onClick={() => {
 									setToWriteReply(true);
-									onMoveToReplyCommentInput();
 								}}>
 								대댓글 작성
 							</BoardContentButtonDiv>
@@ -208,7 +214,7 @@ const Comment = ({ comment, getComments }) => {
 				getComments={getComments}
 			/>
 			{toWriteReply && (
-				<div>
+				<div ref={replyRef}>
 					<ReplyCommentWrap>
 						<LowLevel></LowLevel>
 						<ReplyInput>
@@ -239,7 +245,6 @@ const Comment = ({ comment, getComments }) => {
 			)}
 			{comment.multiReplyCommentSelectionResponse.countOfReplyComments !==
 				0 && <HR style={{ marginBottom: 0, marginTop: '2rem' }}></HR>}
-			<div ref={replyRef}></div>
 		</CommentDiv>
 	);
 };
