@@ -143,14 +143,9 @@ const CustomSelectActivity = ({ getSelectedActivity, value }) => {
 	}, [currentValue]);
 
 	useEffect(() => {
-		console.log(showOptions);
-	}, [showOptions]);
-
-	useEffect(() => {
 		const handleClickOutsideOrScroll = (e) => {
 			if (selectBoxRef.current && !selectBoxRef.current.contains(e.target)) {
 				setShowOptions(false);
-				console.log('setShowOptions(false)');
 			}
 		};
 		window.addEventListener('scroll', handleClickOutsideOrScroll);
