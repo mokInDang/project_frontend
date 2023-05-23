@@ -66,7 +66,7 @@ import {
 	HeaderButtonWrap,
 	ProfileWrap,
 } from './navigator/navigatorStyledComponents';
-import { GlobalProfile } from './globalStyledComponents';
+import { GlobalProfile, TopButton } from './globalStyledComponents';
 import { RecruitmentInfiniteScroll } from './main/recruitmentInfiniteScroll';
 import { Map, BoardDetailsMap, MyRegionMap } from './map';
 import { CertificationWriteForm } from './certification/certificationWriteForm';
@@ -91,6 +91,7 @@ export {
 	MyRegionMap,
 	CustomSelectDate,
 	CertificationWriteForm,
+	TopButton,
 };
 export {
 	WriteWrapper,
