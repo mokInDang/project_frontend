@@ -70,10 +70,8 @@ const CommentButtonsWrap = styled.div`
 	font-size: 2rem;
 	font-weight: 700;
 	color: #000000b2;
-	@media (max-width: 600px) {
-		flex-shrink: 1;
-		text-align: right;
-		align-items: stretch;
+	@media (max-width: 300px) {
+		font-size: 1.8rem;
 	}
 `;
 const LowLevel = styled.div`
@@ -181,13 +179,15 @@ const Comment = ({ comment, getComments }) => {
 						</div>
 					</CommentWriterDiv>
 					<CommentButtonsWrap>
-						<BoardContentButtonDiv
-							onClick={() => {
-								setToWriteReply(true);
-								onMoveToReplyCommentInput();
-							}}>
-							대댓글 작성
-						</BoardContentButtonDiv>
+						{!toWriteReply && (
+							<BoardContentButtonDiv
+								onClick={() => {
+									setToWriteReply(true);
+									onMoveToReplyCommentInput();
+								}}>
+								대댓글 작성
+							</BoardContentButtonDiv>
+						)}
 						{comment.mine && (
 							<BoardContentButtonDiv
 								onClick={() => {
