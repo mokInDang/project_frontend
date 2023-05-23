@@ -7,9 +7,11 @@ const Card = ({ content }) => {
 	const navigate = useNavigate();
 	const contentBody = content.contentBody;
 	const newContent = contentBody
+		.replace(/<br>/gi, ' ')
+		.replace(/<(\/p)([^>]*)>/g, ' ')
+		.replace(/&nbsp;/gi, ' ')
 		.replace(/<[^>]*>?/g, '')
-		.replace(/(<([^>]+)>)/gi, '')
-		.replace(/&nbsp;/gi, ' ');
+		.replace(/(<([^>]+)>)/gi, '');
 	return (
 		<BoardItemCard
 			isOnRecruitment={content.onRecruitment}
@@ -19,9 +21,9 @@ const Card = ({ content }) => {
 			<div className="closed" />
 			<div className="category">
 				시작 예정일
-				<VerticalBar />
+				<VerticalBar className="bar" />
 				{content.startingDate}
-				<VerticalBar />
+				<VerticalBar className="bar" />
 				{content.activityCategory}
 			</div>
 			<div className="title">{content.title}</div>

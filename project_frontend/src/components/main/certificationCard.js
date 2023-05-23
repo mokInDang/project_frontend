@@ -91,6 +91,9 @@ const Tape = styled.div`
 const CertificationCard = ({ boardItem, tapeNumber }) => {
 	const navigate = useNavigate();
 	const newContent = boardItem.contentBody
+		.replace(/<br>/gi, ' ')
+		.replace(/<(\/p)([^>]*)>/g, ' ')
+		.replace(/&nbsp;/gi, ' ')
 		.replace(/<[^>]*>?/g, '')
 		.replace(/(<([^>]+)>)/gi, '');
 	return (
