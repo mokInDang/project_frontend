@@ -145,9 +145,18 @@ const HeaderButtonWrap = styled.div`
 		padding-left: 1rem;
 		padding-right: 2rem;
 		border-radius: 1rem;
-		margin: 0 2rem;
+		margin-right: 2rem;
 		img {
-			width: 3rem;
+			width: 2.5rem;
+		}
+		@media (max-width: 290px) {
+			font-size: 1.5rem;
+			padding-left: 0.5rem;
+			padding-right: 1rem;
+			margin-right: 1rem;
+			img {
+				width: 2rem;
+			}
 		}
 		:hover {
 			animation-play-state: paused;
@@ -169,6 +178,9 @@ const ProfileWrap = styled.div`
 	cursor: pointer;
 	justify-content: end;
 	align-items: center;
+	.arrowDown {
+		${(props) => props.dropdownView && 'transform: scaleY(-1);'}
+	}
 `;
 
 export { Headerdiv, HeaderButton, HeaderButtonWrap, ProfileWrap };
