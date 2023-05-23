@@ -1,7 +1,7 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { banner1, banner2_trash, banner2_human } from '../../assets/images';
+import { banner1, banner2, banner2_clouds } from '../../assets/images';
 import styled from 'styled-components';
 import '../../styles/index.css';
 
@@ -17,63 +17,71 @@ const BannerDiv = styled.div`
 	text-align: center;
 
 	.banner1 {
+		position: relative;
 		height: 90%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		font-size: 3.3rem;
+		font-size: 4.5rem;
 		letter-spacing: 0.1rem;
-		span {
-			font-family: NanumSquareNeo;
-			font-weight: 900;
-			font-size: 5rem;
+		font-family: NanumSquareNeo;
+		font-weight: 900;
+		text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+		line-height: 6rem;
+		text-align: left;
+		.center {
+			text-align: center;
 		}
 	}
+	.background {
+		position: absolute;
+		bottom: 0;
+	}
+	.clouds {
+		position: absolute;
+		top: 10%;
+	}
 	.banner2 {
+		position: relative;
 		height: 100%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		letter-spacing: 0.1rem;
+		overflow: hidden;
+	}
+	img {
+		height: 90%;
+		object-fit: contain;
+	}
+	.absoluteImage {
+		position: absolute;
+		bottom: 0;
 	}
 	.banner2_text {
+		display: flex;
 		font-family: NanumSquareNeo;
 		font-weight: 900;
+		text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+		z-index: 10;
 		line-height: 7.5rem;
-		span {
-			font-size: 4.5rem;
-		}
-		margin-right: 10rem;
-	}
-	.image {
-		margin-left: 2rem;
-		height: 90%;
+		margin-bottom: 5rem;
 	}
 	@media (max-width: 1440px) {
-		.banner2_text {
-			margin-right: 3rem;
-			font-size: 3.5rem;
-			line-height: 6.5rem;
-			span {
-				font-size: 4rem;
-			}
+		.banner1 {
+			font-size: 4rem;
 		}
-		.image {
-			margin-left: 1rem;
+		.banner2_text {
+			font-size: 4rem;
+			line-height: 6.5rem;
+		}
+		img {
 			height: 75%;
 		}
 	}
 	@media (max-width: 1024px) {
 		background-size: 120%;
-		.banner2_text {
-			margin-right: 2rem;
-			font-size: 2.5rem;
-			line-height: 5.5rem;
-			span {
-				font-size: 3rem;
-			}
-		}
-		.image {
+		img {
 			height: 60%;
 		}
 	}
@@ -82,27 +90,27 @@ const BannerDiv = styled.div`
 		text-align: start;
 		.banner1 {
 			height: 100%;
-			font-size: 2.5rem;
-			span {
-				font-size: 4rem;
-			}
+			font-size: 4rem;
 		}
-		.image {
+		img {
 			display: none;
 		}
 		.banner2_text {
-			margin-right: 0;
+			font-size: 4rem;
+			margin-bottom: 0;
+			display: block;
 		}
 	}
 	@media (max-width: 425px) {
 		height: 30rem;
 		.banner1 {
 			height: 100%;
-			font-size: 2.5rem;
+			font-size: 3rem;
 			line-height: 5.5rem;
-			span {
-				font-size: 4rem;
-			}
+		}
+		.banner2_text {
+			font-size: 3rem;
+			line-height: 5.5rem;
 		}
 	}
 `;
@@ -124,23 +132,21 @@ const BannerSlide = () => {
 			<BannerDiv color='#81cc55' image={banner1}>
 				<div className='banner1'>
 					<div>
-						<span>환경도 건강도 동시</span>에 챙기자!
-						<br />
-						함께할 친구를 찾으세요!
+						<div>플로깅하면서</div>
+						<div className='center'>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;동네 친구들도 사귀자!
+						</div>
 					</div>
 				</div>
 			</BannerDiv>
 			<BannerDiv color='#81cc55'>
 				<div className='banner2'>
+					<img className='image clouds' src={banner2_clouds} />
 					<div className='banner2_text'>
-						우리 동네 쓰레기는 우리가 줍자!
-						<br />
-						<span>환경도 보존하고 친구도 만나고!</span>
-						<br />
-						지금 함께 하세요!
+						<div>플로깅하고 사진 찍으면&nbsp;</div>
+						<div>컨텐츠 완성!</div>
 					</div>
-					<img className='image' src={banner2_trash} />
-					<img className='image' src={banner2_human} />
+					<img className='image background' src={banner2} />
 				</div>
 			</BannerDiv>
 		</Slider>
