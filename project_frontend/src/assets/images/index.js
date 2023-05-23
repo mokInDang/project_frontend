@@ -11,6 +11,7 @@ import closed_stamp from './closed_stamp.png';
 import tape_green from './tape_green.png';
 import tape_pastelgreen from './tape_pastelgreen.png';
 import logo from './logo.png';
+import arrow_up from './arrow-up.png';
 import banner2 from './banner2.png';
 import banner2_clouds from './clouds.png';
 
@@ -28,6 +29,7 @@ export {
 	tape_green,
 	tape_pastelgreen,
 	logo,
+	arrow_up,
 	banner2,
 	banner2_clouds,
 };

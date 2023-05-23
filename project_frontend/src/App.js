@@ -14,7 +14,7 @@ import {
 	MyRegionBoardsMap,
 } from './pages';
 import { Routes, Route } from 'react-router-dom';
-import { Navigator } from './components';
+import { Navigator, TopButton } from './components';
 import { reissueToken } from './apis';
 import { Comments } from './pages/comments';
 import { PrivateRoutes, RegionRequiredRoutes } from './utils';
@@ -26,6 +26,7 @@ function App() {
 	return (
 		<div className='App'>
 			<Navigator />
+			<TopButton />
 			<Routes>
 				{/* 인증 여부 상관 없이 접근 가능한 페이지 정의 */}
 				<Route exact path='/*' element={<Home />} />
