@@ -1,5 +1,5 @@
 import { Navigator } from './navigator/navigator';
-import { Dropdown, NewPostDropDown } from './dropdown';
+import { Dropdown } from './dropdown';
 import GetlocationButton from './getLocationButton';
 import JoinComment from './login/joinComment';
 import EditorComponent from './write/editorComponent';
@@ -83,7 +83,6 @@ export {
 	BoardContent,
 	CertificationCardInfiniteScroll,
 	CertificationCard,
-	NewPostDropDown,
 	ImageSlide,
 	Loading,
 	RecruitmentInfiniteScroll,

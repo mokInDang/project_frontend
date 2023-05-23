@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { onLogout } from '../apis';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 
 const DropDownWrapper = styled.div`
 	z-index: 101;
@@ -8,11 +9,6 @@ const DropDownWrapper = styled.div`
 	top: 8rem;
 	@media (min-width: 1600px) {
 		top: 9.5rem;
-	}
-	.newPostList {
-		@media (min-width: 778px) {
-			display: none;
-		}
 	}
 `;
 const DropdownDiv = styled.div`
@@ -38,58 +34,39 @@ const DropdownList = styled.div`
 		background-color: rgba(0, 0, 0, 0.2);
 	}
 `;
-function Dropdown() {
+function Dropdown({ dropdownView, setDropdownView, dropMenuRef }) {
 	const navigate = useNavigate();
+	const dropdownRef = useRef();
+	useEffect(() => {
+		const handleClickOutside = (e) => {
+			if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+				if (dropMenuRef.current && dropMenuRef.current.contains(e.target)) {
+					setDropdownView((prev) => prev);
+				} else {
+					setDropdownView(false);
+				}
+			}
+		};
+		document.addEventListener('click', handleClickOutside);
+		return () => {
+			document.removeEventListener('click', handleClickOutside);
+		};
+	}, [dropdownRef]);
 	return (
-		<DropDownWrapper>
-			<DropdownDiv>
-				<DropdownList
-					className="newPostList"
-					onClick={() =>
-						// isLogined(navigate, '/boards/recruitment')
-						navigate('/boards/recruitment')
-					}>
-					모집글 작성
-				</DropdownList>
-				<DropdownList
-					className="newPostList"
-					onClick={() =>
-						// isLogined(navigate, '/boards/recruitment')
-						navigate('/boards/certification')
-					}>
-					인증글 작성
-				</DropdownList>
-				<DropdownList>내 작성글</DropdownList>
-				<DropdownList onClick={() => navigate('/mypage')}>
-					마이페이지
-				</DropdownList>
-				<DropdownList onClick={onLogout}>로그아웃</DropdownList>
-			</DropdownDiv>
-		</DropDownWrapper>
+		<>
+			{dropdownView && (
+				<DropDownWrapper ref={dropdownRef}>
+					<DropdownDiv>
+						<DropdownList>내 작성글</DropdownList>
+						<DropdownList onClick={() => navigate('/mypage')}>
+							마이페이지
+						</DropdownList>
+						<DropdownList onClick={onLogout}>로그아웃</DropdownList>
+					</DropdownDiv>
+				</DropDownWrapper>
+			)}
+		</>
 	);
 }
 
-function NewPostDropDown() {
-	const navigate = useNavigate();
-	return (
-		<DropDownWrapper>
-			<DropdownDiv className="newPost">
-				<DropdownList
-					onClick={() =>
-						// isLogined(navigate, '/boards/recruitment')
-						navigate('/boards/recruitment')
-					}>
-					모집글 작성
-				</DropdownList>
-				<DropdownList
-					onClick={() =>
-						// isLogined(navigate, '/boards/recruitment')
-						navigate('/boards/certification')
-					}>
-					인증글 작성
-				</DropdownList>
-			</DropdownDiv>
-		</DropDownWrapper>
-	);
-}
-export { Dropdown, NewPostDropDown };
+export { Dropdown };
