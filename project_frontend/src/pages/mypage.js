@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { HR, Loading, MyPageWrapper } from '../components';
-import { UserEdit, Location } from 'iconsax-react';
+import { User, Location } from 'iconsax-react';
 import { GlobalProfile } from '../components';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -80,7 +80,7 @@ function MyPage() {
 					<div>
 						<div>
 							<div className='aliasWrap'>
-								<UserEdit
+								<User
 									size={'5rem'}
 									color='rgba(58, 58, 58, 1)'
 									className='icons'
