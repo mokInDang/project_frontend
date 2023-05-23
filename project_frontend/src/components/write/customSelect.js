@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const SelectBox = styled.div`
 	display: flex;
@@ -59,7 +59,6 @@ const SelectOptions = styled.ul`
 	left: 0;
 	width: 100%;
 	overflow: hidden;
-	display: ${(props) => (props.show ? 'block' : 'none')};
 	padding: 0;
 	border: 1px solid #bdbdbd;
 	border-radius: 0.8rem;
@@ -102,7 +101,6 @@ const DateSelector = styled.input`
 		color: #bdbdbd;
 		font-size: 2rem;
 	}
-	// background: url() no-repeat right 5px center / 10px auto;
 	::-webkit-clear-button,
 	::-webkit-inner-spin-button {
 		display: none;
@@ -130,11 +128,12 @@ const TodayString = () => {
 const CustomSelectActivity = ({ getSelectedActivity, value }) => {
 	const [showOptions, setShowOptions] = useState(false);
 	const [currentValue, setCurrentValue] = useState('');
+	const selectBoxRef = useRef();
+
 	const handleOnChangeSelectValue = (e) => {
 		const { innerText } = e.target;
 		setCurrentValue(innerText);
 	};
-
 	useEffect(() => {
 		setCurrentValue(value);
 	}, []);
@@ -143,13 +142,32 @@ const CustomSelectActivity = ({ getSelectedActivity, value }) => {
 		getSelectedActivity(currentValue);
 	}, [currentValue]);
 
+	useEffect(() => {
+		const handleClickOutsideOrScroll = (e) => {
+			if (selectBoxRef.current && !selectBoxRef.current.contains(e.target)) {
+				setShowOptions(false);
+			}
+		};
+		window.addEventListener('scroll', handleClickOutsideOrScroll);
+		document.addEventListener('mousedown', handleClickOutsideOrScroll);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutsideOrScroll);
+			window.removeEventListener('scroll', handleClickOutsideOrScroll);
+		};
+	}, [selectBoxRef]);
+
 	return (
-		<SelectBox selectBox={true} onClick={() => setShowOptions((prev) => !prev)}>
+		<SelectBox
+			ref={selectBoxRef}
+			selectBox={true}
+			onClick={() => setShowOptions(!showOptions)}>
 			<Placeholder>{currentValue ? currentValue : '산책/달리기'}</Placeholder>
-			<SelectOptions show={showOptions}>
-				<Option onClick={handleOnChangeSelectValue}>산책</Option>
-				<Option onClick={handleOnChangeSelectValue}>달리기</Option>
-			</SelectOptions>
+			{showOptions && (
+				<SelectOptions>
+					<Option onClick={handleOnChangeSelectValue}>산책</Option>
+					<Option onClick={handleOnChangeSelectValue}>달리기</Option>
+				</SelectOptions>
+			)}
 		</SelectBox>
 	);
 };

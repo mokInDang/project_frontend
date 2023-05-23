@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { Dropdown, NewPostDropDown } from '..';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { movePath } from '../../utils';
 import { homeIcon } from '../../assets/images';
 import secureLocalStorage from 'react-secure-storage';
@@ -19,19 +19,18 @@ const Navigator = () => {
 	const location = useLocation();
 	const [isLogined, setIsLogined] = useState(false);
 	const [userInfo, setUserInfo] = useState({});
-	const [dropdownView, setDropDownView] = useState(false);
-
+	const [dropdownView, setDropdownView] = useState(false);
+	const dropMenuRef = useRef();
 	const getUserInfo = () => {
 		if (isLogined) {
 			setUserInfo(secureLocalStorage.getItem('userInfo'));
 		}
 	};
 	useEffect(() => {
-		setDropDownView(false);
+		setDropdownView(false);
 		if (secureLocalStorage.getItem('accessToken') !== null && !isLogined)
 			setIsLogined(true);
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로, 페이지 이동 시
-
 	useEffect(() => {
 		if (location.pathname === '/mypage') getUserInfo();
 	});
@@ -56,41 +55,38 @@ const Navigator = () => {
 						</div>
 						{location.pathname !== '/api/auth/join' && (
 							<HeaderButtonWrap>
-								{isLogined && userInfo ? (
-									<div className='myRegion myRegionMapButton'>
-										{userInfo.region !== 'DEFAULT_REGION' ? (
-											<>
+								{isLogined ? (
+									<>
+										{userInfo.region !== 'DEFAULT_REGION' && (
+											<div className='myRegion myRegionMapButton'>
 												<HeaderButton onClick={() => navigate(`/myregionmap`)}>
 													<img src={locationIcon} alt='locationIcon' />
 													{userInfo.region}
 												</HeaderButton>
-											</>
-										) : (
-											''
+											</div>
 										)}
-									</div>
-								) : (
-									<></>
-								)}
-								{isLogined && userInfo ? (
-									<ProfileWrap
-										onClick={() => {
-											setDropDownView(!dropdownView);
-										}}>
-										<GlobalProfile
-											size='5rem'
-											src={userInfo.profileImageUrl}
-											margin='0 0.5rem 0 0'
-										/>
-										<AiFillCaretDown size={'3rem'} />
-										{dropdownView ? <Dropdown /> : ''}
-									</ProfileWrap>
-								) : (
-									<>
-										<HeaderButton onClick={() => movePath(navigate, '/login')}>
-											로그인
-										</HeaderButton>
+										<ProfileWrap
+											dropdownView={dropdownView}
+											ref={dropMenuRef}
+											onClick={() => setDropdownView(!dropdownView)}>
+											<GlobalProfile
+												size='5rem'
+												src={userInfo.profileImageUrl}
+												margin='0 0.5rem 0 0'
+											/>
+											<AiFillCaretDown className='arrowDown' size={'2.5rem'} />
+											{dropdownView && (
+												<Dropdown
+													setDropdownView={setDropdownView}
+													dropMenuRef={dropMenuRef}
+												/>
+											)}
+										</ProfileWrap>
 									</>
+								) : (
+									<HeaderButton onClick={() => movePath(navigate, '/login')}>
+										로그인
+									</HeaderButton>
 								)}
 							</HeaderButtonWrap>
 						)}
