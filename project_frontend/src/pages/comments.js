@@ -319,13 +319,15 @@ const ReplyComment = ({ replyComment, getComments }) => {
 	);
 };
 const Comments = ({ boardType, boardId }) => {
-	const commentRef = useRef();
 	const [comments, setComments] = useState();
 	const [countOfComments, setCountOfComments] = useState();
 	const [commentBody, setCommentBody] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const [isNewComment, setIsNewComment] = useState(0);
+
 	const onMoveToLastComment = () => {
-		commentRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+		const bottom = document.body.scrollHeight;
+		window.scroll({ behavior: 'smooth', top: bottom });
 	};
 	const getCommentBody = (e) => {
 		if (
@@ -350,7 +352,7 @@ const Comments = ({ boardType, boardId }) => {
 				setCommentBody('');
 				getComments();
 				setIsLoading(false);
-				onMoveToLastComment();
+				setIsNewComment((prev) => prev + 1);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -469,46 +471,56 @@ const Comments = ({ boardType, boardId }) => {
 		getComments();
 	}, []);
 
+	useEffect(() => {
+		if (isNewComment) {
+			onMoveToLastComment();
+		}
+	}, [isNewComment]);
+
 	return (
 		<>
-			<ReplyDiv>
-				<HeadingDiv fontSize='2.5rem'>
-					{comments ? comments.length : ''}개의 댓글이 있습니다.
-				</HeadingDiv>
-				<ReplyInput>
-					<textarea
-						maxLength={250}
-						value={commentBody}
-						onChange={getCommentBody}
-					/>
-				</ReplyInput>
-				<div style={{ display: 'flex', flexDirection: 'column' }}>
-					{isLoading && (
-						<div
-							style={{
-								position: 'absolute',
-								backgroundColor: 'white',
-								opacity: '0.8',
-								width: '10rem',
-								height: '3.4rem',
-								right: '0',
-								borderRadius: '1.45rem',
-							}}></div>
-					)}
-					<ReplySubmitButton onClick={postComment}>댓글 등록</ReplySubmitButton>
-				</div>
-			</ReplyDiv>
-			{comments &&
-				comments.map((comment) => {
-					return (
-						<Comment
-							key={comment.commentId}
-							comment={comment}
-							getComments={getComments}
-						/>
-					);
-				})}
-			<div ref={commentRef}></div>
+			{comments && (
+				<>
+					<ReplyDiv>
+						<HeadingDiv fontSize='2.5rem'>
+							{countOfComments}개의 댓글이 있습니다.
+						</HeadingDiv>
+						<ReplyInput>
+							<textarea
+								maxLength={250}
+								value={commentBody}
+								onChange={getCommentBody}
+							/>
+						</ReplyInput>
+						<div style={{ display: 'flex', flexDirection: 'column' }}>
+							{isLoading && (
+								<div
+									style={{
+										position: 'absolute',
+										backgroundColor: 'white',
+										opacity: '0.8',
+										width: '10rem',
+										height: '3.4rem',
+										right: '0',
+										borderRadius: '1.45rem',
+									}}></div>
+							)}
+							<ReplySubmitButton onClick={postComment}>
+								댓글 등록
+							</ReplySubmitButton>
+						</div>
+					</ReplyDiv>
+					{comments.map((comment) => {
+						return (
+							<Comment
+								key={comment.commentId}
+								comment={comment}
+								getComments={getComments}
+							/>
+						);
+					})}
+				</>
+			)}
 		</>
 	);
 };
