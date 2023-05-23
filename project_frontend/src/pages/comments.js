@@ -369,8 +369,8 @@ const Comments = ({ boardType, boardId }) => {
 		axios
 			.get(`/api/${boardType}/${boardId}/comments`)
 			.then((res) => {
-				if (!res.status === 204) {
-					// 204인 경우는 댓글 작성을 아예 막기 위해 setComment를 하지 않을 것! comment에 따라 댓글이 조건부 렌더링되기 때문
+				// 204인 경우(No content)는 댓글 작성을 아예 막기 위해 setComment를 하지 않을 것! comment에 따라 댓글이 조건부 렌더링되기 때문
+				if (res.data) {
 					const commentData = res.data;
 					setComments(commentData.comments);
 					setCountOfComments(commentData.countOfCommentAndReplyComment);
