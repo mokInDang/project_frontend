@@ -123,6 +123,12 @@ const Comment = ({ comment, getComments }) => {
 			e.target.value = '';
 		setReplyCommentBody(e.target.value);
 	};
+	const onEnterDown = (e) => {
+		if (e.key === 'Enter') {
+			e.preventDefault();
+			postReplyComment();
+		}
+	};
 	const deleteComment = () => {
 		axios
 			.delete(`/api/comments/${comment.commentId}`)
@@ -222,6 +228,7 @@ const Comment = ({ comment, getComments }) => {
 								value={replyCommentBody}
 								onChange={getReplyCommentBody}
 								maxLength={250}
+								onKeyDown={onEnterDown}
 							/>
 						</ReplyInput>
 					</ReplyCommentWrap>
@@ -330,6 +337,13 @@ const Comments = ({ boardType, boardId }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isNewComment, setIsNewComment] = useState(0);
 
+	const onEnterDown = (e) => {
+		if (e.key === 'Enter') {
+			e.preventDefault();
+			postComment();
+		}
+	};
+
 	const onMoveToLastComment = () => {
 		const bottom = document.body.scrollHeight;
 		window.scroll({ behavior: 'smooth', top: bottom });
@@ -378,97 +392,97 @@ const Comments = ({ boardType, boardId }) => {
 			})
 			.catch((error) => {
 				console.log(error);
-				const commentData = {
-					'comments': [
-						{
-							'commentId': 21,
-							'commentBody': '좋은 냄새는 어떤 냄새인가요 재원님?',
-							'createdDatetime': '2023-04-27T10:20:48.034221',
-							'writerAlias': '미노',
-							'edited': false,
-							'firstFourLettersOfEmail': 'koho',
-							'writerProfileImageUrl':
-								'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/bc816516-752b-4fd6-9017-99f988206ba8.jpg',
-							'mine': false,
-							'multiReplyCommentSelectionResponse': {
-								'replyComments': [],
-								'countOfReplyComments': 0,
-							},
-						},
-						{
-							'commentId': 28,
-							'commentBody':
-								'냄새 날 것 같아서 같이 못 할 것 같으면 어떻게 하나요???',
-							'createdDatetime': '2023-04-28T13:38:16.596166',
-							'writerAlias': '5테가위손',
-							'edited': false,
-							'firstFourLettersOfEmail': 'dbsw',
-							'writerProfileImageUrl':
-								'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/deae020d-132a-4524-80a0-a42fd553bc9f.jpeg',
-							'mine': false,
-							'multiReplyCommentSelectionResponse': {
-								'replyComments': [
-									{
-										'replyCommentId': 16,
-										'replyCommentBody': '나는 바보입니다 ㅋㅋ',
-										'createdDatetime': '2023-04-28T13:48:49.411139',
-										'writerAlias': '5테가위손',
-										'edited': false,
-										'firstFourLettersOfEmail': 'dbsw',
-										'writerProfileImageUrl':
-											'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/deae020d-132a-4524-80a0-a42fd553bc9f.jpeg',
-										'mine': false,
-									},
-									{
-										'replyCommentId': 17,
-										'replyCommentBody': '나는 멍청이~~',
-										'createdDatetime': '2023-04-28T13:49:02.038094',
-										'writerAlias': '5테가위손',
-										'edited': false,
-										'firstFourLettersOfEmail': 'dbsw',
-										'writerProfileImageUrl':
-											'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/deae020d-132a-4524-80a0-a42fd553bc9f.jpeg',
-										'mine': false,
-									},
-								],
-								'countOfReplyComments': 2,
-							},
-						},
-						{
-							'commentId': 42,
-							'commentBody': '같이 플로깅 합시다!',
-							'createdDatetime': '2023-05-21T22:10:12.267799',
-							'writerAlias': '최지환',
-							'edited': false,
-							'firstFourLettersOfEmail': 'cjh8',
-							'writerProfileImageUrl':
-								'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/33a8dabe-90a7-482a-850e-6ac2920929fa.PNG',
-							'mine': false,
-							'multiReplyCommentSelectionResponse': {
-								'replyComments': [],
-								'countOfReplyComments': 0,
-							},
-						},
-						{
-							'commentId': 45,
-							'commentBody': '저도 참여하고 싶습니다!',
-							'createdDatetime': '2023-05-21T22:21:44.098118',
-							'writerAlias': '미노',
-							'edited': false,
-							'firstFourLettersOfEmail': 'koho',
-							'writerProfileImageUrl':
-								'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/bc816516-752b-4fd6-9017-99f988206ba8.jpg',
-							'mine': false,
-							'multiReplyCommentSelectionResponse': {
-								'replyComments': [],
-								'countOfReplyComments': 0,
-							},
-						},
-					],
-					'countOfCommentAndReplyComment': 3,
-				};
-				setComments(commentData.comments);
-				setCountOfComments(commentData.countOfCommentAndReplyComment);
+				// const commentData = {
+				// 	'comments': [
+				// 		{
+				// 			'commentId': 21,
+				// 			'commentBody': '좋은 냄새는 어떤 냄새인가요 재원님?',
+				// 			'createdDatetime': '2023-04-27T10:20:48.034221',
+				// 			'writerAlias': '미노',
+				// 			'edited': false,
+				// 			'firstFourLettersOfEmail': 'koho',
+				// 			'writerProfileImageUrl':
+				// 				'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/bc816516-752b-4fd6-9017-99f988206ba8.jpg',
+				// 			'mine': false,
+				// 			'multiReplyCommentSelectionResponse': {
+				// 				'replyComments': [],
+				// 				'countOfReplyComments': 0,
+				// 			},
+				// 		},
+				// 		{
+				// 			'commentId': 28,
+				// 			'commentBody':
+				// 				'냄새 날 것 같아서 같이 못 할 것 같으면 어떻게 하나요???',
+				// 			'createdDatetime': '2023-04-28T13:38:16.596166',
+				// 			'writerAlias': '5테가위손',
+				// 			'edited': false,
+				// 			'firstFourLettersOfEmail': 'dbsw',
+				// 			'writerProfileImageUrl':
+				// 				'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/deae020d-132a-4524-80a0-a42fd553bc9f.jpeg',
+				// 			'mine': false,
+				// 			'multiReplyCommentSelectionResponse': {
+				// 				'replyComments': [
+				// 					{
+				// 						'replyCommentId': 16,
+				// 						'replyCommentBody': '나는 바보입니다 ㅋㅋ',
+				// 						'createdDatetime': '2023-04-28T13:48:49.411139',
+				// 						'writerAlias': '5테가위손',
+				// 						'edited': false,
+				// 						'firstFourLettersOfEmail': 'dbsw',
+				// 						'writerProfileImageUrl':
+				// 							'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/deae020d-132a-4524-80a0-a42fd553bc9f.jpeg',
+				// 						'mine': false,
+				// 					},
+				// 					{
+				// 						'replyCommentId': 17,
+				// 						'replyCommentBody': '나는 멍청이~~',
+				// 						'createdDatetime': '2023-04-28T13:49:02.038094',
+				// 						'writerAlias': '5테가위손',
+				// 						'edited': false,
+				// 						'firstFourLettersOfEmail': 'dbsw',
+				// 						'writerProfileImageUrl':
+				// 							'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/deae020d-132a-4524-80a0-a42fd553bc9f.jpeg',
+				// 						'mine': false,
+				// 					},
+				// 				],
+				// 				'countOfReplyComments': 2,
+				// 			},
+				// 		},
+				// 		{
+				// 			'commentId': 42,
+				// 			'commentBody': '같이 플로깅 합시다!',
+				// 			'createdDatetime': '2023-05-21T22:10:12.267799',
+				// 			'writerAlias': '최지환',
+				// 			'edited': false,
+				// 			'firstFourLettersOfEmail': 'cjh8',
+				// 			'writerProfileImageUrl':
+				// 				'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/33a8dabe-90a7-482a-850e-6ac2920929fa.PNG',
+				// 			'mine': false,
+				// 			'multiReplyCommentSelectionResponse': {
+				// 				'replyComments': [],
+				// 				'countOfReplyComments': 0,
+				// 			},
+				// 		},
+				// 		{
+				// 			'commentId': 45,
+				// 			'commentBody': '저도 참여하고 싶습니다!',
+				// 			'createdDatetime': '2023-05-21T22:21:44.098118',
+				// 			'writerAlias': '미노',
+				// 			'edited': false,
+				// 			'firstFourLettersOfEmail': 'koho',
+				// 			'writerProfileImageUrl':
+				// 				'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/bc816516-752b-4fd6-9017-99f988206ba8.jpg',
+				// 			'mine': false,
+				// 			'multiReplyCommentSelectionResponse': {
+				// 				'replyComments': [],
+				// 				'countOfReplyComments': 0,
+				// 			},
+				// 		},
+				// 	],
+				// 	'countOfCommentAndReplyComment': 3,
+				// };
+				// setComments(commentData.comments);
+				// setCountOfComments(commentData.countOfCommentAndReplyComment);
 			});
 	};
 
@@ -495,6 +509,7 @@ const Comments = ({ boardType, boardId }) => {
 								maxLength={250}
 								value={commentBody}
 								onChange={getCommentBody}
+								onKeyDown={onEnterDown}
 							/>
 						</ReplyInput>
 						<div style={{ display: 'flex', flexDirection: 'column' }}>
