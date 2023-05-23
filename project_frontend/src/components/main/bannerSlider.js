@@ -11,7 +11,7 @@ const BannerDiv = styled.div`
 	background-size: contain;
 	height: 35rem;
 	box-sizing: border-box;
-	font-size: 4rem;
+	font-size: 4.5rem;
 	font-weight: 700;
 	line-height: 6rem;
 	text-align: center;
@@ -22,7 +22,6 @@ const BannerDiv = styled.div`
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		font-size: 4.5rem;
 		letter-spacing: 0.1rem;
 		font-family: NanumSquareNeo;
 		font-weight: 900;
@@ -68,11 +67,8 @@ const BannerDiv = styled.div`
 		margin-bottom: 5rem;
 	}
 	@media (max-width: 1440px) {
-		.banner1 {
-			font-size: 4rem;
-		}
+		font-size: 4rem;
 		.banner2_text {
-			font-size: 4rem;
 			line-height: 6.5rem;
 		}
 		img {
@@ -90,26 +86,23 @@ const BannerDiv = styled.div`
 		text-align: start;
 		.banner1 {
 			height: 100%;
-			font-size: 4rem;
 		}
 		img {
 			display: none;
 		}
 		.banner2_text {
-			font-size: 4rem;
 			margin-bottom: 0;
 			display: block;
 		}
 	}
 	@media (max-width: 425px) {
+		font-size: 3rem;
 		height: 30rem;
 		.banner1 {
 			height: 100%;
-			font-size: 3rem;
 			line-height: 5.5rem;
 		}
 		.banner2_text {
-			font-size: 3rem;
 			line-height: 5.5rem;
 		}
 	}
@@ -141,12 +134,12 @@ const BannerSlide = () => {
 			</BannerDiv>
 			<BannerDiv color='#81cc55'>
 				<div className='banner2'>
-					<img className='image clouds' src={banner2_clouds} />
+					<img className='clouds' src={banner2_clouds} />
 					<div className='banner2_text'>
 						<div>플로깅하고 사진 찍으면&nbsp;</div>
 						<div>컨텐츠 완성!</div>
 					</div>
-					<img className='image background' src={banner2} />
+					<img className='background' src={banner2} />
 				</div>
 			</BannerDiv>
 		</Slider>
