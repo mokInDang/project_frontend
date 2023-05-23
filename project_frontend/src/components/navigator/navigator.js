@@ -74,7 +74,7 @@ const Navigator = () => {
 												src={userInfo.profileImageUrl}
 												margin='0 0.5rem 0 0'
 											/>
-											<AiFillCaretDown className='arrowDown' size={'3rem'} />
+											<AiFillCaretDown className='arrowDown' size={'2.5rem'} />
 											<Dropdown
 												dropdownView={dropdownView}
 												setDropdownView={setDropdownView}

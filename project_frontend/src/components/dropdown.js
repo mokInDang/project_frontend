@@ -47,25 +47,28 @@ function Dropdown({ dropdownView, setDropdownView, dropMenuRef }) {
 				}
 			}
 		};
-		document.addEventListener('click', handleClickOutside);
+		document.addEventListener('mousedown', handleClickOutside);
 		return () => {
-			document.removeEventListener('click', handleClickOutside);
+			document.removeEventListener('mousedown', handleClickOutside);
 		};
 	}, [dropdownRef]);
+	useEffect(() => {
+		console.log(
+			`${dropMenuRef.current.className} ${dropdownRef.current.className}`
+		);
+	}, [dropMenuRef, dropdownRef]);
 	return (
-		<>
+		<DropDownWrapper ref={dropdownRef}>
 			{dropdownView && (
-				<DropDownWrapper ref={dropdownRef}>
-					<DropdownDiv>
-						<DropdownList>내 작성글</DropdownList>
-						<DropdownList onClick={() => navigate('/mypage')}>
-							마이페이지
-						</DropdownList>
-						<DropdownList onClick={onLogout}>로그아웃</DropdownList>
-					</DropdownDiv>
-				</DropDownWrapper>
+				<DropdownDiv>
+					<DropdownList>내 작성글</DropdownList>
+					<DropdownList onClick={() => navigate('/mypage')}>
+						마이페이지
+					</DropdownList>
+					<DropdownList onClick={onLogout}>로그아웃</DropdownList>
+				</DropdownDiv>
 			)}
-		</>
+		</DropDownWrapper>
 	);
 }
 
