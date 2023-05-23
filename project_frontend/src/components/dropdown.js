@@ -34,40 +34,28 @@ const DropdownList = styled.div`
 		background-color: rgba(0, 0, 0, 0.2);
 	}
 `;
-function Dropdown({ dropdownView, setDropdownView, dropMenuRef }) {
+function Dropdown({ setDropdownView, dropMenuRef }) {
 	const navigate = useNavigate();
-	const dropdownRef = useRef();
 	useEffect(() => {
 		const handleClickOutside = (e) => {
-			if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-				if (dropMenuRef.current && dropMenuRef.current.contains(e.target)) {
-					setDropdownView((prev) => prev);
-				} else {
-					setDropdownView(false);
-				}
+			if (dropMenuRef.current && !dropMenuRef.current.contains(e.target)) {
+				setDropdownView(false);
 			}
 		};
 		document.addEventListener('mousedown', handleClickOutside);
 		return () => {
 			document.removeEventListener('mousedown', handleClickOutside);
 		};
-	}, [dropdownRef]);
-	useEffect(() => {
-		console.log(
-			`${dropMenuRef.current.className} ${dropdownRef.current.className}`
-		);
-	}, [dropMenuRef, dropdownRef]);
+	}, [dropMenuRef]);
 	return (
-		<DropDownWrapper ref={dropdownRef}>
-			{dropdownView && (
-				<DropdownDiv>
-					<DropdownList>내 작성글</DropdownList>
-					<DropdownList onClick={() => navigate('/mypage')}>
-						마이페이지
-					</DropdownList>
-					<DropdownList onClick={onLogout}>로그아웃</DropdownList>
-				</DropdownDiv>
-			)}
+		<DropDownWrapper>
+			<DropdownDiv>
+				<DropdownList>내 작성글</DropdownList>
+				<DropdownList onClick={() => navigate('/mypage')}>
+					마이페이지
+				</DropdownList>
+				<DropdownList onClick={onLogout}>로그아웃</DropdownList>
+			</DropdownDiv>
 		</DropDownWrapper>
 	);
 }
