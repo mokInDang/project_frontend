@@ -14,7 +14,6 @@ const getRecruitment = (boardId, getBoardDetails, navigate) => {
 };
 
 const writeRecruitment = (form, navigate, setIsLoading) => {
-	console.log(form);
 	if (
 		form.activityCategory === '' ||
 		form.title === '' ||
@@ -29,7 +28,6 @@ const writeRecruitment = (form, navigate, setIsLoading) => {
 		return;
 	}
 	setIsLoading(true);
-	console.log('writeRecruitment 실행');
 	axios
 		.post(`/api/boards/recruitment`, form)
 		.then((res) => {
@@ -59,7 +57,6 @@ const EditRecruitment = (boardId, form, navigate, setIsLoading) => {
 	}
 	if (window.confirm('게시글 수정을 완료하시겠습니까?')) {
 		setIsLoading(true);
-		console.log('EditRecruitment 실행');
 		axios
 			.patch(`/api/boards/recruitment/${boardId}`, form)
 			.then((res) => {
@@ -81,18 +78,16 @@ const closeRecruitment = (boardId, getClosedDetails) => {
 		)
 	) {
 		// 모달창으로 수정할 것
-		console.log(`모집 게시글 마감`);
 		axios
 			.patch(`/api/boards/recruitment/${boardId}/recruitment-status`)
 			.then((res) => {
-				alert('마감 처리가 완료되었습니다.');
 				// console.log(res.data.boardId);
 				getClosedDetails();
 			})
 			.catch((error) => {
 				console.log(error);
 				// console.log(error.status);
-				console.log('마감 처리 실패');
+				alert('마감 처리에 실패했습니다.');
 			});
 	}
 };
@@ -100,7 +95,6 @@ const closeRecruitment = (boardId, getClosedDetails) => {
 const deleteRecruitment = (boardId, navigate) => {
 	if (window.confirm('게시글을 삭제하시겠습니까?')) {
 		// 모달창으로 수정할 것
-		console.log(`모집 게시글 삭제`);
 		axios
 			.delete(`/api/boards/recruitment/${boardId}`)
 			.then((res) => {
@@ -111,7 +105,7 @@ const deleteRecruitment = (boardId, navigate) => {
 			.catch((error) => {
 				console.log(error);
 				// console.log(error.status);
-				console.log('게시글 삭제 실패');
+				alert('게시글 삭제에 실패했습니다.');
 			});
 	}
 };
