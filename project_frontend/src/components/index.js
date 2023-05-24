@@ -69,6 +69,7 @@ import { GlobalProfile, TopButton } from './globalStyledComponents';
 import { RecruitmentInfiniteScroll } from './main/recruitmentInfiniteScroll';
 import { Map, BoardDetailsMap, MyRegionMap } from './map';
 import { CertificationWriteForm } from './certification/certificationWriteForm';
+import ScrollToTop from './scrollToTop';
 export {
 	JoinComment,
 	Navigator,
@@ -92,6 +93,7 @@ export {
 	CustomSelectDate,
 	CertificationWriteForm,
 	TopButton,
+	ScrollToTop,
 };
 export {
 	WriteWrapper,
