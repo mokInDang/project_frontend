@@ -517,45 +517,49 @@ const Comments = ({ boardType, boardId }) => {
 		<>
 			{isResponse ? (
 				<>
-					<ReplyDiv>
-						<HeadingDiv fontSize='2.5rem'>
-							{countOfComments}개의 댓글이 있습니다.
-						</HeadingDiv>
-						<ReplyInput>
-							<textarea
-								maxLength={250}
-								value={commentBody}
-								onChange={getCommentBody}
-								onKeyDown={onEnterDown}
-							/>
-						</ReplyInput>
-						<div style={{ display: 'flex', flexDirection: 'column' }}>
-							{isLoading && (
-								<div
-									style={{
-										position: 'absolute',
-										backgroundColor: 'white',
-										opacity: '0.8',
-										width: '10rem',
-										height: '3.4rem',
-										right: '0',
-										borderRadius: '1.45rem',
-									}}></div>
-							)}
-							<ReplySubmitButton onClick={postComment}>
-								댓글 등록
-							</ReplySubmitButton>
-						</div>
-					</ReplyDiv>
-					{comments.map((comment) => {
-						return (
-							<Comment
-								key={comment.commentId}
-								comment={comment}
-								getComments={getComments}
-							/>
-						);
-					})}
+					{comments && (
+						<>
+							<ReplyDiv>
+								<HeadingDiv fontSize='2.5rem'>
+									{countOfComments}개의 댓글이 있습니다.
+								</HeadingDiv>
+								<ReplyInput>
+									<textarea
+										maxLength={250}
+										value={commentBody}
+										onChange={getCommentBody}
+										onKeyDown={onEnterDown}
+									/>
+								</ReplyInput>
+								<div style={{ display: 'flex', flexDirection: 'column' }}>
+									{isLoading && (
+										<div
+											style={{
+												position: 'absolute',
+												backgroundColor: 'white',
+												opacity: '0.8',
+												width: '10rem',
+												height: '3.4rem',
+												right: '0',
+												borderRadius: '1.45rem',
+											}}></div>
+									)}
+									<ReplySubmitButton onClick={postComment}>
+										댓글 등록
+									</ReplySubmitButton>
+								</div>
+							</ReplyDiv>
+							{comments.map((comment) => {
+								return (
+									<Comment
+										key={comment.commentId}
+										comment={comment}
+										getComments={getComments}
+									/>
+								);
+							})}
+						</>
+					)}
 				</>
 			) : (
 				<div>
