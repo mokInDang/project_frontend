@@ -488,19 +488,19 @@ const Comments = ({ boardType, boardId }) => {
 	}, []);
 
 	useEffect(() => {
-		if (isInit) {
-			// let currentHeight = 0;
-			// var onMoveToLastComment = setInterval(function () {
-			// 	let pageBottom = document.body.scrollHeight;
-			// 	if (currentHeight < pageBottom) {
-			// 		window.scroll({ behavior: 'smooth', top: pageBottom });
-			// 		currentHeight = pageBottom;
-			// 	} else {
-			// 		clearInterval(onMoveToLastComment);
-			// 	}
-			// }, 100);
-		}
-		return;
+		if (isInit) return;
+		// {
+		// let currentHeight = 0;
+		// var onMoveToLastComment = setInterval(function () {
+		// 	let pageBottom = document.body.scrollHeight;
+		// 	if (currentHeight < pageBottom) {
+		// 		window.scroll({ behavior: 'smooth', top: pageBottom });
+		// 		currentHeight = pageBottom;
+		// 	} else {
+		// 		clearInterval(onMoveToLastComment);
+		// 	}
+		// }, 100);
+		// }
 
 		const timer = setTimeout(() => {
 			window.scroll({
