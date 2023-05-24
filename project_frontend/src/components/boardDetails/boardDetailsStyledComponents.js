@@ -93,10 +93,16 @@ const ReplyDiv = styled(ContentDiv)`
 	margin: 5rem 0;
 `;
 const ReplyInput = styled.div`
+	background-color: ${(props) =>
+		props.writingCommentPermission ? 'white' : 'rgb(235,235,233)'};
 	margin: 2rem 0;
 	width: 100%;
 	height: 10rem;
-	border: 2px solid rgba(162, 162, 162, 0.6);
+	border: 2px solid
+		${(props) =>
+			props.writingCommentPermission
+				? 'rgba(162,162,162,0.6)'
+				: 'rgba(162,162,162,0.5)'};
 	border-radius: 10px;
 	padding: 1rem;
 	box-sizing: border-box;
@@ -110,22 +116,31 @@ const ReplyInput = styled.div`
 		font-size: 2rem;
 		font-weight: 700;
 	}
+	textarea::placeholder {
+		color: rgba(100, 100, 100, 0.7);
+	}
+	textarea:disabled {
+		background-color: transparent;
+	}
 `;
 const ReplySubmitButton = styled.div`
 	align-self: flex-end;
 	width: 10rem;
 	height: 3.4rem;
+
 	line-height: 3.4rem;
 	text-align: center;
-	color: #ffffff;
-	background: #000000;
+	color: ${(props) =>
+		props.writingCommentPermission ? 'white' : 'rgba(255,255,255,0.7)'};
+	background: ${(props) =>
+		props.writingCommentPermission ? 'black' : 'rgba(0,0,0,0.3)'};
 	border-radius: 1.6rem;
-	box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.13);
+	box-shadow: 0 0 0.8rem 0.4rem rgba(0, 0, 0, 0.13);
 	font-family: 'NanumSquare';
 	font-weight: 500;
 	font-size: 1.5rem;
 	text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.13);
-	cursor: pointer;
+	cursor: ${(props) => (props.writingCommentPermission ? 'pointer' : '')};
 `;
 const ButtonsWrap = styled.div`
 	position: absolute;
