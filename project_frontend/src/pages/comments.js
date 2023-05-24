@@ -488,7 +488,7 @@ const Comments = ({ boardType, boardId }) => {
 	}, []);
 
 	useEffect(() => {
-		if (!isInit) {
+		if (isInit) {
 			// let currentHeight = 0;
 			// var onMoveToLastComment = setInterval(function () {
 			// 	let pageBottom = document.body.scrollHeight;
@@ -499,13 +499,16 @@ const Comments = ({ boardType, boardId }) => {
 			// 		clearInterval(onMoveToLastComment);
 			// 	}
 			// }, 100);
-			setTimeout(() => {
-				window.scroll({
-					behavior: 'smooth',
-					top: document.documentElement.scrollHeight,
-				});
-			}, 50);
 		}
+		return;
+
+		const timer = setTimeout(() => {
+			window.scroll({
+				behavior: 'smooth',
+				top: document.documentElement.scrollHeight,
+			});
+		}, 50);
+		return () => clearTimeout(timer);
 	}, [comments]);
 
 	return (
