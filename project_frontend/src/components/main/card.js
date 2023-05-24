@@ -18,30 +18,31 @@ const Card = ({ content }) => {
 			onClick={() =>
 				movePath(navigate, `/boards/recruitment/${content.boardId}`)
 			}>
-			<div className="closed" />
-			<div className="category">
+			<div className='closed' />
+			<div className='category'>
 				시작 예정일
-				<VerticalBar className="bar" />
+				<VerticalBar className='bar' />
 				{content.startingDate}
-				<VerticalBar className="bar" />
+				<VerticalBar className='bar' />
 				{content.activityCategory}
 			</div>
-			<div className="title">{content.title}</div>
-			<div className="contentBody">{newContent}</div>
-			<div className="writerProfileWrap">
+			<div className='title'>{content.title}</div>
+			<div className='contentBody'>{newContent}</div>
+			<div style={{ flexGrow: 1 }} />
+			<div className='writerProfileWrap'>
 				{content.region}
 				<hr />
 				<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-					<div className="writerProfile">
+					<div className='writerProfile'>
 						<GlobalProfile
-							size="4.6rem"
-							margin="1rem 1.5rem 1rem 0"
+							size='4.6rem'
+							margin='1rem 1.5rem 1rem 0'
 							src={content.writerProfileUrl}></GlobalProfile>
 						{content.writerAlias}({content.firstFourLettersOfEmail}
 						****)
 					</div>
-					<div className="numofComments">
-						<Message size="2.5rem"></Message>
+					<div className='numofComments'>
+						<Message size='2.5rem'></Message>
 						<span>{content.countOfCommentAndReplyComment}</span>
 					</div>
 				</div>

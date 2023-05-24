@@ -41,9 +41,10 @@ const BoardItemsWrap = styled.div`
 const BoardItemCard = styled.div`
 	// 부모 컴포넌트인 BoardItemsWrap에서 너비를 지정해주었으므로 자식 컴포넌트(아이템)의 너비는 지정하지 말아야 함
 	height: 40rem;
-
+	display: flex;
+	flex-direction: column;
 	border-radius: 0.7rem;
-	padding: 4rem 3rem 2rem 3rem;
+	padding: 4rem 3rem 1rem;
 	box-sizing: border-box;
 	background-color: rgba(255, 255, 255, 0.8);
 	border: 0.2rem solid #b3b3b3;
@@ -98,11 +99,9 @@ const BoardItemCard = styled.div`
 		.bar {
 			height: 1.4rem;
 		}
-		@media (max-width: 355px) {
-			font-size: 1.3rem;
-		}
 	}
 	.title {
+		width: 100%;
 		font-size: 2rem;
 		height: 5rem;
 		line-height: 2.5rem;
@@ -127,7 +126,6 @@ const BoardItemCard = styled.div`
 		-webkit-line-clamp: 5;
 	}
 	.writerProfileWrap {
-		margin-top: 3rem;
 		font-size: 1.7rem;
 		text-align: right;
 		color: rgba(40, 40, 40, 0.8);
@@ -157,22 +155,19 @@ const BoardItemCard = styled.div`
 
 	@media (max-width: 425px) {
 		.category {
-			font-size: 1.8rem;
+			font-size: 1.5rem;
 		}
 		.title {
-			font-size: 2.5rem;
+			font-size: 2.3rem;
 			height: 3rem;
 			line-height: 3rem;
 			-webkit-line-clamp: 1;
 		}
 		.contentBody {
-			font-size: 2rem;
+			font-size: 1.8rem;
 			line-height: 2.7rem;
 			height: 10.8rem;
 			-webkit-line-clamp: 4;
-		}
-		.writerProfileWrap {
-			margin-top: 4rem;
 		}
 	}
 `;
