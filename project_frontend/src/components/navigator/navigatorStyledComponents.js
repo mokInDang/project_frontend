@@ -165,6 +165,7 @@ const HeaderButtonWrap = styled.div`
 			// -webkit-animation: jelly 0.5s;
 			// animation: jelly 0.5s;
 			background-color: rgba(129, 204, 85, 0.9);
+			box-shadow: 0px 0px 0px 0px rgba(129, 204, 85, 1);
 		}
 	}
 `;
