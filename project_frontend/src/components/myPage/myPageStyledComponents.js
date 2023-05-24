@@ -96,7 +96,7 @@ const MyPageWrapper = styled.div`
 			border: 1px solid rgba(189, 189, 189, 1);
 			width: 27rem;
 			height: 5rem;
-			text-indent: 2rem;
+			text-align: center;
 			font-family: NanumSquare;
 			font-size: 2rem;
 			font-weight: 700;
