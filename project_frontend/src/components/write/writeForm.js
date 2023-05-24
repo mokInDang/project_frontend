@@ -110,13 +110,8 @@ const WriteForm = (props) => {
 				플로깅 모집 시 필요한 정보를 입력해주세요.
 			</P>
 			<HR />
-			<div
-				style={{
-					display: 'flex',
-					justifyContent: 'space-between',
-					marginBottom: '7rem',
-				}}>
-				<div style={{ display: 'inline-block', width: '48%' }}>
+			<div className='selectBoxWrap'>
+				<div className='selectBox'>
 					<Label htmlFor='activityCategory'>모집 구분</Label>
 					<CustomSelectActivity
 						name='activityCategory'
@@ -124,7 +119,7 @@ const WriteForm = (props) => {
 						getSelectedActivity={getSelectedActivity}
 					/>
 				</div>
-				<div style={{ display: 'inline-block', width: '48%' }}>
+				<div className='selectBox'>
 					<Label htmlFor='startingDate'>시작 예정일</Label>
 					<CustomSelectDate
 						name='startingDate'

@@ -2,13 +2,10 @@ import styled from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
 
 const SelectBox = styled.div`
-	display: flex;
 	margin-top: 2rem;
-	content: '산책/달리기';
 	position: relative;
-	width: ${(props) => (props.selectBox ? '100%' : '48%')};
 	height: 5.5rem;
-	background-color: #ffffff;
+	width: 100%;
 	cursor: pointer;
 	border: 1px solid #bdbdbd;
 	border-radius: 0.8rem;
@@ -16,9 +13,6 @@ const SelectBox = styled.div`
 	text-indent: 2rem;
 	align-items: center;
 	display: flex;
-	@media (max-width: 778px) {
-		width: 100%;
-	}
 	&::before {
 		content: '⌵';
 		display: ${(props) => (props.selectBox ? 'block' : 'none')};
