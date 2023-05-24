@@ -385,7 +385,7 @@ const Comments = ({ boardType, boardId }) => {
 				const commentData = res.data;
 				setComments(commentData.comments);
 				setCountOfComments(commentData.countOfCommentAndReplyComment);
-				writingCommentPermission = commentData.writingCommentPermission;
+				setWritingCommentPermission(commentData.writingCommentPermission);
 			})
 			.catch((error) => {
 				console.log(error);
