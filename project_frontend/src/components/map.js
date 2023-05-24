@@ -35,10 +35,12 @@ const SearchInput = styled.div`
 	}
 `;
 const MyRegionWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
 	width: 80vw;
 	height: 80vh;
-	margin: 0 auto;
-	margin-top: 8rem;
+	margin: 7rem auto 0;
 	h1 {
 		font-family: NanumSquareNeo;
 		font-size: 4rem;
@@ -50,15 +52,17 @@ const MyRegionWrapper = styled.div`
 		color: green;
 	}
 	.myRegionMap {
-		max-height: 70vh;
+		display: flex;
+		margin: 0;
+		margin-top: 2rem;
+		height: 100%;
 		width: 100%;
-		height: 65vh;
-		@media (max-width: 1440px) {
-			height: 100%;
-		}
 		@media (max-width: 778px) {
-			height: 110vw;
+			max-height: 100vw;
 		}
+	}
+	.marginBottom {
+		margin-bottom: 6rem;
 	}
 `;
 const MapWrapper = styled.div`
@@ -519,6 +523,7 @@ const MyRegionMap = ({ places, isLoaded, region }) => {
 			<MapWrapper className='myRegionMap'>
 				<div id='map'></div>
 			</MapWrapper>
+			<div className='marginBottom'></div>
 		</MyRegionWrapper>
 	);
 };
