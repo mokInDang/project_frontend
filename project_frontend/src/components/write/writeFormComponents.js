@@ -56,6 +56,7 @@ const Title = styled.input.attrs({
 	background: #ffffff;
 	border: 1px solid #bdbdbd;
 	border-radius: 0.8rem;
+	box-sizing: border-box;
 	outline: 0;
 	width: 100%;
 	text-indent: 2rem;

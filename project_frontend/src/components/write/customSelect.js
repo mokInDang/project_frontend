@@ -9,6 +9,7 @@ const SelectBox = styled.div`
 	cursor: pointer;
 	border: 1px solid #bdbdbd;
 	border-radius: 0.8rem;
+	box-sizing: border-box;
 	outline: 0;
 	text-indent: 2rem;
 	align-items: center;
@@ -36,13 +37,14 @@ const SelectOptions = styled.ul`
 	z-index: 99;
 	position: absolute;
 	list-style: none;
-	top: 6rem;
+	top: 5rem;
 	left: 0;
 	width: 100%;
 	overflow: hidden;
 	padding: 0;
 	border: 1px solid #bdbdbd;
 	border-radius: 0.8rem;
+	box-sizing: border-box;
 	background-color: #ffffff;
 	font-weight: 700;
 	font-size: 1.8rem;
@@ -66,6 +68,7 @@ const DateSelector = styled.input`
 	width: 100%;
 	cursor: pointer;
 	border: 1px solid #bdbdbd;
+	box-sizing: border-box;
 	border-radius: 0.8rem;
 	text-indent: 1rem;
 	font-family: NanumSquareNeo;

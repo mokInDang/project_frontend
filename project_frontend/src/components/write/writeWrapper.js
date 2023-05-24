@@ -21,6 +21,9 @@ const WriteWrapper = styled.div`
 		.selectBox {
 			width: 100%;
 		}
+		.activitySelectBox {
+			margin-bottom: 2rem;
+		}
 	}
 `;
 export default WriteWrapper;

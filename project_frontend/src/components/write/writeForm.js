@@ -111,7 +111,7 @@ const WriteForm = (props) => {
 			</P>
 			<HR />
 			<div className='selectBoxWrap'>
-				<div className='selectBox'>
+				<div className='selectBox activitySelectBox'>
 					<Label htmlFor='activityCategory'>모집 구분</Label>
 					<CustomSelectActivity
 						name='activityCategory'
