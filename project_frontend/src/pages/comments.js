@@ -337,6 +337,7 @@ const Comments = ({ boardType, boardId }) => {
 	const [commentBody, setCommentBody] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [isInit, setIsInit] = useState(true);
+	const [isResponse, setIsResponse] = useState(false);
 
 	const onEnterDown = (e) => {
 		if (e.key === 'Enter') {
@@ -386,6 +387,7 @@ const Comments = ({ boardType, boardId }) => {
 					setComments(commentData.comments);
 					setCountOfComments(commentData.countOfCommentAndReplyComment);
 				}
+				setIsResponse(true);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -513,7 +515,7 @@ const Comments = ({ boardType, boardId }) => {
 
 	return (
 		<>
-			{comments && (
+			{isResponse ? (
 				<>
 					<ReplyDiv>
 						<HeadingDiv fontSize='2.5rem'>
@@ -555,6 +557,19 @@ const Comments = ({ boardType, boardId }) => {
 						);
 					})}
 				</>
+			) : (
+				<div>
+					<HR></HR>
+					<HeadingDiv
+						fontSize='2.5rem'
+						style={{
+							fontFamily: 'NanumSquare',
+							fontWeight: 700,
+							color: 'rgb(70, 70, 70)',
+						}}>
+						타 지역의 모집 게시글에는 댓글을 달 수 없습니다.
+					</HeadingDiv>
+				</div>
 			)}
 		</>
 	);
