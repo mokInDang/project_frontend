@@ -52,6 +52,11 @@ const MyPageWrapper = styled.div`
 		@media (max-width: 643px) {
 			margin: 0;
 		}
+		@media (max-width: 456px) {
+			svg {
+				margin: 1rem 0;
+			}
+		}
 		. .myInfoWrapCenter {
 			display: flex;
 		}
@@ -65,9 +70,6 @@ const MyPageWrapper = styled.div`
 				margin-top: 0;
 			}
 			@media (max-width: 456px) {
-				svg {
-					margin: 1rem 0;
-				}
 				margin-bottom: 1rem;
 			}
 		}
@@ -76,11 +78,6 @@ const MyPageWrapper = styled.div`
 			align-items: center;
 			flex-wrap: wrap;
 			justify-content: center;
-			@media (max-width: 456px) {
-				svg {
-					margin: 1rem 0;
-				}
-			}
 		}
 		label {
 			margin: 0 2.5rem;
@@ -96,11 +93,17 @@ const MyPageWrapper = styled.div`
 			border: 1px solid rgba(189, 189, 189, 1);
 			width: 27rem;
 			height: 5rem;
-			text-align: center;
 			font-family: NanumSquare;
+			padding: 0 2rem;
+			box-sizing: border-box;
 			font-size: 2rem;
 			font-weight: 700;
 			border-radius: 0.8rem;
+			outline: 0;
+			@media (max-width: 778px) {
+				padding: 0;
+				text-align: center;
+			}
 		}
 	}
 	.buttonsWrap {
