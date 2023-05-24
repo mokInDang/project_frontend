@@ -10,20 +10,26 @@ import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 function Home() {
 	const navigate = useNavigate();
 	const location = useLocation();
+	var boardTab = 'recruitment';
+	if (location.pathname.includes('certification')) {
+		boardTab = 'certification';
+	} else {
+		boardTab = 'recruitment';
+	}
 	return (
 		<>
 			<BannerSlide />
-			<TabWrapper boardTab={location.pathname}>
-				<div className="mainCategory">
+			<TabWrapper boardTab={boardTab}>
+				<div className='mainCategory'>
 					<div>
 						<TabDiv
 							onClick={() => {
 								navigate('/');
 							}}
-							className="recruitment">
+							className='recruitment'>
 							<SlArrowRight
 								style={{ marginRight: '2rem' }}
-								className="recruitmentarrow"
+								className='recruitmentarrow'
 							/>
 							<span>플로깅 모집</span>
 						</TabDiv>
@@ -31,10 +37,10 @@ function Home() {
 							onClick={() => {
 								navigate('certification');
 							}}
-							className="certification">
+							className='certification'>
 							<SlArrowRight
 								style={{ marginRight: '2rem' }}
-								className="certificationarrow"
+								className='certificationarrow'
 							/>
 							<span>플로깅 인증</span>
 						</TabDiv>
@@ -52,13 +58,8 @@ function Home() {
 				</div>
 			</TabWrapper>
 			<Routes>
+				<Route path={'*'} element={<RecruitmentInfiniteScroll />} />
 				<Route
-					exact
-					path={'/'}
-					element={<RecruitmentInfiniteScroll />}
-				/>
-				<Route
-					exact
 					path={'certification'}
 					element={<CertificationCardInfiniteScroll />}
 				/>
