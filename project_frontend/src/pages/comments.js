@@ -184,7 +184,7 @@ const Comment = ({ comment, getComments, writingCommentPermission }) => {
 					/>
 					<CommentWriterDiv>
 						<div className='writerAlias'>
-							{comment.writerAlias} ({comment.firstFourLettersOfEmail}
+							{comment.writerAlias}({comment.firstFourLettersOfEmail}
 							****)
 						</div>
 						<div className='createdDatetime'>
@@ -305,7 +305,7 @@ const ReplyComment = ({ replyComment, getComments }) => {
 					/>
 					<CommentWriterDiv>
 						<div className='writerAlias'>
-							{replyComment.writerAlias} ({replyComment.firstFourLettersOfEmail}
+							{replyComment.writerAlias}({replyComment.firstFourLettersOfEmail}
 							****)
 						</div>
 						<div className='createdDatetime'>

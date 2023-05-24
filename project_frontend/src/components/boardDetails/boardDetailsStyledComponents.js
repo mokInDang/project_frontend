@@ -135,7 +135,7 @@ const ReplySubmitButton = styled.div`
 	background: ${(props) =>
 		props.writingCommentPermission ? 'black' : 'rgba(0,0,0,0.3)'};
 	border-radius: 1.6rem;
-	box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.13);
+	box-shadow: 0 0 0.8rem 0.4rem rgba(0, 0, 0, 0.13);
 	font-family: 'NanumSquare';
 	font-weight: 500;
 	font-size: 1.5rem;
