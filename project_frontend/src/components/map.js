@@ -228,7 +228,7 @@ const Map = ({ getMeetingPlace, meetingPlace }) => {
 			clickable: true, // 커스텀 오버레이 클릭 시 지도에 이벤트를 전파하지 않도록 설정
 			content: savedContent,
 			zIndex: 3,
-			yAnchor: -0.1,
+			yAnchor: -0.2,
 		});
 
 		function DisplaySavedMarker(place) {
@@ -284,7 +284,7 @@ const Map = ({ getMeetingPlace, meetingPlace }) => {
 					content: content,
 					position: markerPosition, // 커스텀 오버레이를 표시할 좌표
 					zIndex: 3,
-					yAnchor: -0.1,
+					yAnchor: -0.2,
 				});
 
 				customOverlay.setMap(null);
@@ -395,7 +395,7 @@ const BoardDetailsMap = ({ meetingPlaceResponse }) => {
 			var customOverlay = new kakao.maps.CustomOverlay({
 				position: position,
 				content: content,
-				yAnchor: -0.25,
+				yAnchor: -0.2,
 			});
 			customOverlay.setMap(map);
 		}
@@ -486,7 +486,7 @@ const MyRegionMap = ({ places, isLoaded, region }) => {
 						content: content,
 						position: markerPosition, // 커스텀 오버레이를 표시할 좌표
 						zIndex: 3,
-						yAnchor: -0.4,
+						yAnchor: -0.2,
 					});
 
 					customOverlay.setMap(null);
