@@ -154,7 +154,6 @@ const Map = ({ getMeetingPlace, meetingPlace }) => {
 				level: 3, // 지도의 확대 레벨
 			};
 		var map = new kakao.maps.Map(mapContainer, mapOption);
-		var selectedMarker = null;
 
 		// 장소 검색 객체를 생성합니다
 		var ps = new kakao.maps.services.Places();
@@ -213,11 +212,6 @@ const Map = ({ getMeetingPlace, meetingPlace }) => {
 				return;
 			}
 		}
-		var clickImage = new kakao.maps.MarkerImage(
-			'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
-			new kakao.maps.Size(31, 35),
-			new kakao.maps.Point(13, 34)
-		);
 
 		var savedContent = document.createElement('div');
 		savedContent.className = 'customoverlay';
@@ -229,10 +223,6 @@ const Map = ({ getMeetingPlace, meetingPlace }) => {
 		var selectedTextNode = document.createTextNode('선택됨');
 		selectSpan.appendChild(selectedTextNode);
 		savedContent.appendChild(selectSpan);
-		var selectedMarker = new kakao.maps.Marker({
-			image: clickImage,
-			zIndex: 2,
-		});
 
 		var savedCustomOverlay = new kakao.maps.CustomOverlay({
 			clickable: true, // 커스텀 오버레이 클릭 시 지도에 이벤트를 전파하지 않도록 설정
@@ -245,9 +235,7 @@ const Map = ({ getMeetingPlace, meetingPlace }) => {
 			const markerPosition = new kakao.maps.LatLng(place.y, place.x);
 			map.setDraggable(false);
 			title.appendChild(document.createTextNode(place.place_name));
-			// 마커를 생성하고 지도에 표시합니다. 이미지는 기본 마커 이미지를 사용합니다
-			selectedMarker.setPosition(markerPosition);
-			selectedMarker.setMap(map);
+			// 마커를 생성하고 지도에 표시합니다.
 
 			savedCustomOverlay.setPosition(markerPosition);
 			savedCustomOverlay.setMap(map);
@@ -255,24 +243,12 @@ const Map = ({ getMeetingPlace, meetingPlace }) => {
 		// 지도에 마커를 표시하는 함수입니다
 		function DisplayMarker(place) {
 			const markerPosition = new kakao.maps.LatLng(place.y, place.x);
-			selectedMarker.setMap(null);
 			savedCustomOverlay.setMap(null);
-			var normalImage = new kakao.maps.MarkerImage(
-				'https://t1.daumcdn.net/mapjsapi/images/marker.png',
-				new kakao.maps.Size(25, 35),
-				new kakao.maps.Point(13, 34)
-			);
-			var clickImage = new kakao.maps.MarkerImage(
-				'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
-				new kakao.maps.Size(31, 35),
-				new kakao.maps.Point(13, 34)
-			);
 
-			// 마커를 생성하고 지도에 표시합니다. 이미지는 기본 마커 이미지를 사용합니다
+			// 마커를 생성하고 지도에 표시합니다.
 			var marker = new kakao.maps.Marker({
 				map: map,
 				position: markerPosition,
-				image: normalImage,
 			});
 
 			kakao.maps.event.addListener(marker, 'click', function () {
@@ -314,17 +290,7 @@ const Map = ({ getMeetingPlace, meetingPlace }) => {
 				customOverlay.setMap(null);
 				// 마커에 클릭이벤트를 등록합니다
 				customOverlay.setMap(map);
-				if (!selectedMarker || selectedMarker !== marker) {
-					// 클릭된 마커 객체가 null이 아니면
-					// 클릭된 마커의 이미지를 기본 이미지로 변경하고
-					!!selectedMarker && selectedMarker.setImage(normalImage);
-					!!selectedMarker && selectedMarker.setZIndex(1);
-					// 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
-					marker.setImage(clickImage);
-					marker.setZIndex(2);
-				}
 				// 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
-				selectedMarker = marker;
 				clickedOverlay = customOverlay;
 			});
 		}
@@ -487,16 +453,10 @@ const MyRegionMap = ({ places, isLoaded, region }) => {
 					meetingPlaceResponse.latitude,
 					meetingPlaceResponse.longitude
 				);
-				var normalImage = new kakao.maps.MarkerImage(
-					'https://t1.daumcdn.net/mapjsapi/images/marker.png',
-					new kakao.maps.Size(37, 52.5),
-					new kakao.maps.Point(17, 35)
-				);
 				// 마커를 생성하고 지도에 표시합니다. 이미지는 기본 마커 이미지를 사용합니다
 				var marker = new kakao.maps.Marker({
 					map: map,
 					position: markerPosition,
-					image: normalImage,
 				});
 
 				kakao.maps.event.addListener(marker, 'click', function () {
