@@ -170,6 +170,7 @@ function CertificationWriteForm(props) {
 						height: '1rem',
 						backgroundColor: '#81CC55',
 						borderRadius: '1rem',
+						marginRight: '1rem',
 					}}></span>
 				플로깅 활동을 인증해주세요.
 			</P>
