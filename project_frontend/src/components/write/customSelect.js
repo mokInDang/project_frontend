@@ -2,23 +2,18 @@ import styled from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
 
 const SelectBox = styled.div`
-	display: flex;
 	margin-top: 2rem;
-	content: '산책/달리기';
 	position: relative;
-	width: ${(props) => (props.selectBox ? '100%' : '48%')};
 	height: 5.5rem;
-	background-color: #ffffff;
+	width: 100%;
 	cursor: pointer;
 	border: 1px solid #bdbdbd;
 	border-radius: 0.8rem;
+	box-sizing: border-box;
 	outline: 0;
 	text-indent: 2rem;
 	align-items: center;
 	display: flex;
-	@media (max-width: 778px) {
-		width: 100%;
-	}
 	&::before {
 		content: '⌵';
 		display: ${(props) => (props.selectBox ? 'block' : 'none')};
@@ -27,19 +22,6 @@ const SelectBox = styled.div`
 		right: 2rem;
 		color: #bdbdbd;
 		font-size: 2rem;
-	}
-	input {
-		border: none;
-		height: 100%;
-		margin-left: 2rem;
-		flex-grow: 1;
-		background: transparent;
-		outline: none;
-		font-family: NanumSquare;
-		font-size: 1.8rem;
-	}
-	svg {
-		margin: 0 1rem;
 	}
 `;
 const Placeholder = styled.label`
@@ -52,16 +34,17 @@ const Placeholder = styled.label`
 	color: rgba(0, 0, 0, 0.5);
 `;
 const SelectOptions = styled.ul`
-	z-index: 10000;
+	z-index: 99;
 	position: absolute;
 	list-style: none;
-	top: 6rem;
+	top: 5rem;
 	left: 0;
 	width: 100%;
 	overflow: hidden;
 	padding: 0;
 	border: 1px solid #bdbdbd;
 	border-radius: 0.8rem;
+	box-sizing: border-box;
 	background-color: #ffffff;
 	font-weight: 700;
 	font-size: 1.8rem;
@@ -85,6 +68,7 @@ const DateSelector = styled.input`
 	width: 100%;
 	cursor: pointer;
 	border: 1px solid #bdbdbd;
+	box-sizing: border-box;
 	border-radius: 0.8rem;
 	text-indent: 1rem;
 	font-family: NanumSquareNeo;
@@ -92,6 +76,7 @@ const DateSelector = styled.input`
 	font-weight: 350;
 	font-size: 1.8rem;
 	color: rgba(0, 0, 0, 0.5);
+	outline: none;
 
 	&::before {
 		content: '⌵';

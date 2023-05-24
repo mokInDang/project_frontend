@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './quillstyle.css';
-import { QuillWrap } from './writeFormComponents';
 
 const Quill = ReactQuill.Quill;
 var Font = Quill.import('formats/font');
@@ -50,17 +49,14 @@ function EditorComponent({ getHtmlContentBody, value, placeholder }) {
 	}, [contentBody]);
 
 	return (
-		<QuillWrap>
-			<ReactQuill
-				className="QuillComponent"
-				theme="snow"
-				modules={modules}
-				formats={formats}
-				value={contentBody}
-				onChange={setContentBody}
-				placeholder={placeholder}
-			/>
-		</QuillWrap>
+		<ReactQuill
+			theme='snow'
+			modules={modules}
+			formats={formats}
+			value={contentBody}
+			onChange={setContentBody}
+			placeholder={placeholder}
+		/>
 	);
 }
 

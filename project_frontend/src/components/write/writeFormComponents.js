@@ -10,35 +10,27 @@ const P = styled.div`
 	font-style: normal;
 	font-weight: 900;
 	font-size: 2.2rem;
-	font-size: 2.2rem;
 
 	align-items: center;
 	display: flex;
 	letter-spacing: 0.01em;
-	text-indent: 1rem;
-	text-indent: 1rem;
 	color: #000000;
 `;
 
 const NumDiv = styled.div`
-	position: relative;
 	width: 3rem;
 	height: 3rem;
 	border-radius: 3rem;
-	text-align: center;
 	color: white;
 	background-color: #81cc55;
 	display: flex;
+	justify-content: center;
+	align-items: center;
 	flex-shrink: 0;
-	span {
-		top: 0.5rem;
-		right: 0.5rem;
-	}
+	margin-right: 1rem;
 `;
 const Label = styled.label`
 	font-weight: 700;
-	font-size: 2.3rem;
-	line-height: 2.5rem;
 	font-size: 2.3rem;
 	line-height: 2.5rem;
 	span {
@@ -64,6 +56,7 @@ const Title = styled.input.attrs({
 	background: #ffffff;
 	border: 1px solid #bdbdbd;
 	border-radius: 0.8rem;
+	box-sizing: border-box;
 	outline: 0;
 	width: 100%;
 	text-indent: 2rem;
@@ -71,16 +64,6 @@ const Title = styled.input.attrs({
 	font-style: normal;
 	font-weight: 350;
 	font-size: 1.7rem;
-`;
-
-const QuillWrap = styled.div`
-	height: 600px;
-	@media (max-width: 768px) {
-		height: 400px;
-	}
-	@media (max-width: 425px) {
-		height: 400px;
-	}
 `;
 
 const ButtonWrap = styled.div`
@@ -99,10 +82,9 @@ const Button = styled.div`
     cursor:pointer;
     margin-left: 2.5rem;
     text-align: center;
-    font-weight: 350;
     font-size: 1.5rem;
     line-height: 3rem;
 	background: ${(props) => (props.name === 'cancel' ? '#DDDDDD' : '#000000')};
     color: ${(props) => (props.name === 'cancel' ? '#767676' : '#ffffff')};
 `;
-export { HR, P, Label, Title, Button, ButtonWrap, QuillWrap, NumDiv };
+export { HR, P, Label, Title, Button, ButtonWrap, NumDiv };

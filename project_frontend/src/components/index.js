@@ -47,7 +47,6 @@ import {
 	Title,
 	Button,
 	ButtonWrap,
-	QuillWrap,
 } from './write/writeFormComponents';
 import {
 	ThumbnailsWrapper,
@@ -118,7 +117,6 @@ export {
 	Title,
 	Button,
 	ButtonWrap,
-	QuillWrap,
 	ThumbnailsWrapper,
 	ThumbnailDiv,
 	ThumbnailedDiv,
