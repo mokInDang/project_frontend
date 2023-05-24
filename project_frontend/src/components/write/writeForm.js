@@ -10,7 +10,6 @@ import {
 	Title,
 	NumDiv,
 } from './writeFormComponents';
-import { movePath } from '../../utils';
 import { writeRecruitment, EditRecruitment } from '../../apis';
 import { CustomSelectActivity, CustomSelectDate, Map, WriteWrapper } from '..';
 
@@ -158,7 +157,7 @@ const WriteForm = (props) => {
 					name='cancel'
 					onClick={() => {
 						if (window.confirm('작성을 취소하고 페이지를 벗어나시겠습니까?')) {
-							movePath(navigate, -1);
+							navigate(-1);
 						}
 					}}>
 					취소

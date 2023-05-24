@@ -2,7 +2,6 @@ import { BoardItemCard } from './mainStyledComponents';
 import { GlobalProfile, VerticalBar } from '../../components';
 import { useNavigate } from 'react-router-dom';
 import { Message } from 'iconsax-react';
-import { movePath } from '../../utils';
 const Card = ({ content }) => {
 	const navigate = useNavigate();
 	const contentBody = content.contentBody;
@@ -15,9 +14,7 @@ const Card = ({ content }) => {
 	return (
 		<BoardItemCard
 			isOnRecruitment={content.onRecruitment}
-			onClick={() =>
-				movePath(navigate, `/boards/recruitment/${content.boardId}`)
-			}>
+			onClick={() => navigate(`/boards/recruitment/${content.boardId}`)}>
 			<div className='closed' />
 			<div className='category'>
 				시작 예정일
