@@ -337,7 +337,7 @@ const Comments = ({ boardType, boardId }) => {
 	const [commentBody, setCommentBody] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [isInit, setIsInit] = useState(true);
-	const [isResponse, setIsResponse] = useState(false);
+	const [responseBody, setResponseBody] = useState(false);
 
 	const onEnterDown = (e) => {
 		if (e.key === 'Enter') {
@@ -383,11 +383,12 @@ const Comments = ({ boardType, boardId }) => {
 			.then((res) => {
 				// 204인 경우(No content)는 댓글 작성을 아예 막기 위해 setComment를 하지 않을 것! comment에 따라 댓글이 조건부 렌더링되기 때문
 				if (res.data) {
-					const commentData = res.data;
-					setComments(commentData.comments);
-					setCountOfComments(commentData.countOfCommentAndReplyComment);
+					setResponseBody(res.data);
+					setComments(responseBody.comments);
+					setCountOfComments(responseBody.countOfCommentAndReplyComment);
+				} else {
+					setResponseBody(null);
 				}
-				setIsResponse(true);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -515,7 +516,20 @@ const Comments = ({ boardType, boardId }) => {
 
 	return (
 		<>
-			{isResponse ? (
+			{!responseBody ? (
+				<div>
+					<HR></HR>
+					<HeadingDiv
+						fontSize='2.5rem'
+						style={{
+							fontFamily: 'NanumSquare',
+							fontWeight: 700,
+							color: 'rgb(70, 70, 70)',
+						}}>
+						타 지역의 모집 게시글에는 댓글을 달 수 없습니다.
+					</HeadingDiv>
+				</div>
+			) : (
 				<>
 					{comments && (
 						<>
@@ -561,19 +575,6 @@ const Comments = ({ boardType, boardId }) => {
 						</>
 					)}
 				</>
-			) : (
-				<div>
-					<HR></HR>
-					<HeadingDiv
-						fontSize='2.5rem'
-						style={{
-							fontFamily: 'NanumSquare',
-							fontWeight: 700,
-							color: 'rgb(70, 70, 70)',
-						}}>
-						타 지역의 모집 게시글에는 댓글을 달 수 없습니다.
-					</HeadingDiv>
-				</div>
 			)}
 		</>
 	);
