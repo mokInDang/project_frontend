@@ -201,11 +201,12 @@ const TabWrapper = styled.div`
 	.certificationarrow {
 		transition: all 0.2s ease;
 		${(props) =>
-			props.boardTab === '/certification' ? 'transform:rotateZ(90deg)' : ''}
+			props.boardTab === 'certification' ? 'transform:rotateZ(90deg)' : ''}
 	}
 	.recruitmentarrow {
 		transition: all 0.2s ease;
-		${(props) => (props.boardTab === '/' ? 'transform:rotateZ(90deg)' : '')}
+		${(props) =>
+			props.boardTab === 'recruitment' ? 'transform:rotateZ(90deg)' : ''}
 	}
 	.mainCategory {
 		flex-wrap: wrap;
@@ -218,7 +219,7 @@ const TabWrapper = styled.div`
 	}
 	color: #3a3a3a;
 	${(props) =>
-		props.boardTab === '/certification'
+		props.boardTab === 'certification'
 			? '.recruitment{color:#dddddd}'
 			: '.certification{color:#dddddd}'}
 	.regionTab {

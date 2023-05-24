@@ -11,7 +11,7 @@ import {
 	SelectBox,
 	Placeholder,
 } from './write/customSelect';
-import { InfiniteScroll } from './main/infiniteScroll';
+import { InfiniteScroll, MyRegionInfiniteScroll } from './main/infiniteScroll';
 import {
 	BoardItemsWrap,
 	TabWrapper,
@@ -78,6 +78,7 @@ export {
 	Dropdown,
 	CustomSelectActivity,
 	InfiniteScroll,
+	MyRegionInfiniteScroll,
 	Card,
 	BoardContent,
 	CertificationCardInfiniteScroll,
