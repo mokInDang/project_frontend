@@ -520,60 +520,57 @@ const Comments = ({ boardType, boardId }) => {
 				<div>
 					<HR></HR>
 					<HeadingDiv
-						fontSize='2.5rem'
+						fontSize='2rem'
 						style={{
 							fontFamily: 'NanumSquare',
 							fontWeight: 700,
-							color: 'rgb(70, 70, 70)',
+							color: 'rgb(150, 150, 150)',
 						}}>
 						타 지역의 모집 게시글에는 댓글을 달 수 없습니다.
 					</HeadingDiv>
 				</div>
 			) : (
 				<>
-					{comments && (
-						<>
-							<ReplyDiv>
-								<HeadingDiv fontSize='2.5rem'>
-									{countOfComments}개의 댓글이 있습니다.
-								</HeadingDiv>
-								<ReplyInput>
-									<textarea
-										maxLength={250}
-										value={commentBody}
-										onChange={getCommentBody}
-										onKeyDown={onEnterDown}
-									/>
-								</ReplyInput>
-								<div style={{ display: 'flex', flexDirection: 'column' }}>
-									{isLoading && (
-										<div
-											style={{
-												position: 'absolute',
-												backgroundColor: 'white',
-												opacity: '0.8',
-												width: '10rem',
-												height: '3.4rem',
-												right: '0',
-												borderRadius: '1.45rem',
-											}}></div>
-									)}
-									<ReplySubmitButton onClick={postComment}>
-										댓글 등록
-									</ReplySubmitButton>
-								</div>
-							</ReplyDiv>
-							{comments.map((comment) => {
-								return (
-									<Comment
-										key={comment.commentId}
-										comment={comment}
-										getComments={getComments}
-									/>
-								);
-							})}
-						</>
-					)}
+					<ReplyDiv>
+						<HeadingDiv fontSize='2.5rem'>
+							{countOfComments ? countOfComments : '0'}개의 댓글이 있습니다.
+						</HeadingDiv>
+						<ReplyInput>
+							<textarea
+								maxLength={250}
+								value={commentBody}
+								onChange={getCommentBody}
+								onKeyDown={onEnterDown}
+							/>
+						</ReplyInput>
+						<div style={{ display: 'flex', flexDirection: 'column' }}>
+							{isLoading && (
+								<div
+									style={{
+										position: 'absolute',
+										backgroundColor: 'white',
+										opacity: '0.8',
+										width: '10rem',
+										height: '3.4rem',
+										right: '0',
+										borderRadius: '1.45rem',
+									}}></div>
+							)}
+							<ReplySubmitButton onClick={postComment}>
+								댓글 등록
+							</ReplySubmitButton>
+						</div>
+					</ReplyDiv>
+					{comments &&
+						comments.map((comment) => {
+							return (
+								<Comment
+									key={comment.commentId}
+									comment={comment}
+									getComments={getComments}
+								/>
+							);
+						})}
 				</>
 			)}
 		</>
