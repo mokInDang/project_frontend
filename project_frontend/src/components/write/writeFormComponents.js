@@ -65,16 +65,6 @@ const Title = styled.input.attrs({
 	font-size: 1.7rem;
 `;
 
-const QuillWrap = styled.div`
-	height: 600px;
-	@media (max-width: 768px) {
-		height: 400px;
-	}
-	@media (max-width: 425px) {
-		height: 400px;
-	}
-`;
-
 const ButtonWrap = styled.div`
 	display: flex;
 	justify-content: flex-end;
@@ -96,4 +86,4 @@ const Button = styled.div`
 	background: ${(props) => (props.name === 'cancel' ? '#DDDDDD' : '#000000')};
     color: ${(props) => (props.name === 'cancel' ? '#767676' : '#ffffff')};
 `;
-export { HR, P, Label, Title, Button, ButtonWrap, QuillWrap, NumDiv };
+export { HR, P, Label, Title, Button, ButtonWrap, NumDiv };

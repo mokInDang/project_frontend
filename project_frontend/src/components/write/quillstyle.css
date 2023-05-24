@@ -1,32 +1,13 @@
 .ql-editor {
 	font-family: 'NanumSquare';
 	font-size: 1.8rem;
+	height: 50rem;
 }
-.QuillComponent {
-	height: calc(100% - 42px);
-}
-@media screen and (max-width: 836px) {
-	.QuillComponent {
-		height: calc(100% - 67px);
+
+@media screen and (max-width: 1024px) {
+	.ql-editor {
+		height: 40rem;
 	}
-}
-@media screen and (max-width: 768px) {
-	.QuillComponent {
-		height: calc(100% - 42px);
-	}
-}
-@media screen and (max-width: 747px) {
-	.QuillComponent {
-		height: calc(100% - 67px);
-	}
-}
-@media screen and (max-width: 337px) {
-	.QuillComponent {
-		height: calc(100% - 90px);
-	}
-}
-.ql-container .ql-snow {
-	height: 55rem;
 }
 
 .ql-formats {
