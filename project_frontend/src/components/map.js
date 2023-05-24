@@ -1,11 +1,39 @@
 /*global kakao*/
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { SelectBox } from '../components';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
 const { kakao } = window;
+const SearchInput = styled.div`
+	position: relative;
+	display: flex;
+	align-items: center;
+	width: 48%;
+	height: 5.5rem;
+	margin-top: 2rem;
+	border: 1px solid #bdbdbd;
+	border-radius: 0.8rem;
+	cursor: text;
+	padding-left: 2rem;
+	box-sizing: border-box;
+	@media (max-width: 75rem) {
+		width: 100%;
+	}
+	svg {
+		margin: 0 1rem;
+	}
+	input {
+		// 맵 컴포넌트 안 searchInput 스타일링
+		outline: none;
+		border: none;
+		height: 95%;
+		flex-grow: 1;
+		background: transparent;
+		font-size: 1.8rem;
+		font-family: NanumSquare;
+	}
+`;
 const MyRegionWrapper = styled.div`
 	width: 90%;
 	height: 80vh;
@@ -309,25 +337,23 @@ const Map = ({ getMeetingPlace, meetingPlace }) => {
 	// 지도를 표시할 div와 지도 옵션으로 지도를 생성합니다
 	return (
 		<>
-			<div>
-				<SelectBox selectBox={false} style={{ cursor: 'text' }}>
-					<input
-						type='text'
-						id='searchInput'
-						value={keyword}
-						onChange={onChange}
-						placeholder='플로깅할 위치 검색'></input>
-					<AiOutlineSearch
-						id='searchButton'
-						size='3rem'
-						color='#999999'
-						style={{
-							zIndex: 2,
-							cursor: 'pointer',
-						}}
-					/>
-				</SelectBox>
-			</div>{' '}
+			<SearchInput>
+				<input
+					type='text'
+					id='searchInput'
+					value={keyword}
+					onChange={onChange}
+					placeholder='플로깅할 위치 검색'></input>
+				<AiOutlineSearch
+					id='searchButton'
+					size='3rem'
+					color='#999999'
+					style={{
+						zIndex: 2,
+						cursor: 'pointer',
+					}}
+				/>
+			</SearchInput>
 			<MapWrapper>
 				<div id='map'></div>
 			</MapWrapper>

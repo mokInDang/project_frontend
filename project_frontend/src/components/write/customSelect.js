@@ -22,19 +22,6 @@ const SelectBox = styled.div`
 		color: #bdbdbd;
 		font-size: 2rem;
 	}
-	input {
-		border: none;
-		height: 100%;
-		margin-left: 2rem;
-		flex-grow: 1;
-		background: transparent;
-		outline: none;
-		font-family: NanumSquare;
-		font-size: 1.8rem;
-	}
-	svg {
-		margin: 0 1rem;
-	}
 `;
 const Placeholder = styled.label`
 	margin-left: 0.4rem;
@@ -46,7 +33,7 @@ const Placeholder = styled.label`
 	color: rgba(0, 0, 0, 0.5);
 `;
 const SelectOptions = styled.ul`
-	z-index: 10000;
+	z-index: 99;
 	position: absolute;
 	list-style: none;
 	top: 6rem;
@@ -86,6 +73,7 @@ const DateSelector = styled.input`
 	font-weight: 350;
 	font-size: 1.8rem;
 	color: rgba(0, 0, 0, 0.5);
+	outline: none;
 
 	&::before {
 		content: '⌵';
