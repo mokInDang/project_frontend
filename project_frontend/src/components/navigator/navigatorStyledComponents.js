@@ -156,15 +156,15 @@ const HeaderButtonWrap = styled.div`
 			}
 		}
 		:hover {
-			animation-play-state: paused;
-			margin-top: 15px;
-			margin-bottom: 5px;
-			box-shadow: 0px 0px 0px 0px rgba(129, 204, 85, 1);
+			-webkit-animation: jelly 0.5s;
+			animation: jelly 0.5s;
 		}
 		:active {
 			// -webkit-animation: jelly 0.5s;
 			// animation: jelly 0.5s;
-			background-color: rgba(129, 204, 85, 0.9);
+			// background-color: rgba(129, 204, 85, 0.9);
+			margin-top: 15px;
+			margin-bottom: 5px;
 			box-shadow: 0px 0px 0px 0px rgba(129, 204, 85, 1);
 		}
 	}
