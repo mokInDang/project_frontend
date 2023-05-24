@@ -59,7 +59,9 @@ const Navigator = () => {
 									<>
 										{userInfo.region !== 'DEFAULT_REGION' && (
 											<div className='myRegion myRegionMapButton'>
-												<HeaderButton onClick={() => navigate(`/myregionmap`)}>
+												<HeaderButton
+													onClick={() => navigate(`/myregionmap`)}
+													style={{ paddingRight: '1rem' }}>
 													<img src={locationIcon} alt='locationIcon' />
 													{userInfo.region}
 												</HeaderButton>
