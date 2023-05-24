@@ -110,7 +110,7 @@ function newDatetime(Datetime) {
 		datetime.getMinutes();
 	return newDate;
 }
-const Comment = ({ comment, getComments }) => {
+const Comment = ({ comment, getComments, writingCommentPermission }) => {
 	const replyRef = useRef();
 	const [toWriteReply, setToWriteReply] = useState(false);
 	const [replyCommentBody, setReplyCommentBody] = useState('');
@@ -192,7 +192,7 @@ const Comment = ({ comment, getComments }) => {
 						</div>
 					</CommentWriterDiv>
 					<CommentButtonsWrap>
-						{!toWriteReply && (
+						{!toWriteReply && writingCommentPermission && (
 							<BoardContentButtonDiv
 								onClick={() => {
 									setToWriteReply(true);
@@ -337,7 +337,8 @@ const Comments = ({ boardType, boardId }) => {
 	const [commentBody, setCommentBody] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [isInit, setIsInit] = useState(true);
-	const [responseBody, setResponseBody] = useState(false);
+	const [writingCommentPermission, setWritingCommentPermission] =
+		useState(true);
 
 	const onEnterDown = (e) => {
 		if (e.key === 'Enter') {
@@ -381,14 +382,10 @@ const Comments = ({ boardType, boardId }) => {
 		axios
 			.get(`/api/${boardType}/${boardId}/comments`)
 			.then((res) => {
-				// 204인 경우(No content)는 댓글 작성을 아예 막기 위해 setComment를 하지 않을 것! comment에 따라 댓글이 조건부 렌더링되기 때문
-				if (res.data) {
-					setResponseBody(res.data);
-					setComments(responseBody.comments);
-					setCountOfComments(responseBody.countOfCommentAndReplyComment);
-				} else {
-					setResponseBody(null);
-				}
+				const commentData = res.data;
+				setComments(commentData.comments);
+				setCountOfComments(commentData.countOfCommentAndReplyComment);
+				writingCommentPermission = commentData.writingCommentPermission;
 			})
 			.catch((error) => {
 				console.log(error);
@@ -516,61 +513,58 @@ const Comments = ({ boardType, boardId }) => {
 
 	return (
 		<>
-			{!responseBody ? (
-				<div>
-					<HR></HR>
-					<HeadingDiv
-						fontSize='2rem'
-						style={{
-							fontFamily: 'NanumSquare',
-							fontWeight: 700,
-							color: 'rgb(150, 150, 150)',
-						}}>
-						타 지역의 모집 게시글에는 댓글을 달 수 없습니다.
-					</HeadingDiv>
-				</div>
-			) : (
+			{comments && (
 				<>
 					<ReplyDiv>
 						<HeadingDiv fontSize='2.5rem'>
-							{countOfComments ? countOfComments : '0'}개의 댓글이 있습니다.
+							{countOfComments}개의 댓글이 있습니다.
 						</HeadingDiv>
-						<ReplyInput>
+						<ReplyInput writingCommentPermission={writingCommentPermission}>
 							<textarea
 								maxLength={250}
 								value={commentBody}
 								onChange={getCommentBody}
 								onKeyDown={onEnterDown}
+								placeholder={
+									writingCommentPermission
+										? '댓글을 작성해보세요.'
+										: '타 지역의 모집 게시글에는 댓글을 달 수 없습니다.'
+								}
+								disabled={!writingCommentPermission}
 							/>
 						</ReplyInput>
 						<div style={{ display: 'flex', flexDirection: 'column' }}>
-							{isLoading && (
-								<div
-									style={{
-										position: 'absolute',
-										backgroundColor: 'white',
-										opacity: '0.8',
-										width: '10rem',
-										height: '3.4rem',
-										right: '0',
-										borderRadius: '1.45rem',
-									}}></div>
-							)}
-							<ReplySubmitButton onClick={postComment}>
-								댓글 등록
-							</ReplySubmitButton>
+							<>
+								{isLoading && (
+									<div
+										style={{
+											position: 'absolute',
+											backgroundColor: 'rgba(255,255,255,0.8)',
+											opacity: '0.8',
+											width: '10rem',
+											height: '3.4rem',
+											right: '0',
+											borderRadius: '1.45rem',
+										}}></div>
+								)}
+								<ReplySubmitButton
+									writingCommentPermission={writingCommentPermission}
+									onClick={writingCommentPermission ? postComment : () => {}}>
+									댓글 등록
+								</ReplySubmitButton>
+							</>
 						</div>
 					</ReplyDiv>
-					{comments &&
-						comments.map((comment) => {
-							return (
-								<Comment
-									key={comment.commentId}
-									comment={comment}
-									getComments={getComments}
-								/>
-							);
-						})}
+					{comments.map((comment) => {
+						return (
+							<Comment
+								key={comment.commentId}
+								comment={comment}
+								getComments={getComments}
+								writingCommentPermission={writingCommentPermission}
+							/>
+						);
+					})}
 				</>
 			)}
 		</>
