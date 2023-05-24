@@ -70,10 +70,8 @@ const CommentButtonsWrap = styled.div`
 	font-size: 2rem;
 	font-weight: 700;
 	color: #000000b2;
-	@media (max-width: 600px) {
-		flex-shrink: 1;
-		text-align: right;
-		align-items: stretch;
+	@media (max-width: 300px) {
+		font-size: 1.8rem;
 	}
 `;
 const LowLevel = styled.div`
@@ -125,6 +123,12 @@ const Comment = ({ comment, getComments }) => {
 			e.target.value = '';
 		setReplyCommentBody(e.target.value);
 	};
+	const onEnterDown = (e) => {
+		if (e.key === 'Enter') {
+			e.preventDefault();
+			postReplyComment();
+		}
+	};
 	const deleteComment = () => {
 		axios
 			.delete(`/api/comments/${comment.commentId}`)
@@ -137,7 +141,9 @@ const Comment = ({ comment, getComments }) => {
 			});
 	};
 	const onMoveToReplyCommentInput = () => {
-		replyRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+		if (replyRef.current) {
+			replyRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+		}
 	};
 	const postReplyComment = () => {
 		var newReplyCommentBody = replyCommentBody.trim();
@@ -162,8 +168,13 @@ const Comment = ({ comment, getComments }) => {
 				setIsLoading(false);
 			});
 	};
+	useEffect(() => {
+		if (toWriteReply) {
+			onMoveToReplyCommentInput();
+		}
+	}, [toWriteReply]);
 	return (
-		<CommentDiv ref={replyRef}>
+		<CommentDiv>
 			<CommentWrap>
 				<CommentProfileDiv>
 					<GlobalProfile
@@ -181,13 +192,14 @@ const Comment = ({ comment, getComments }) => {
 						</div>
 					</CommentWriterDiv>
 					<CommentButtonsWrap>
-						<BoardContentButtonDiv
-							onClick={() => {
-								setToWriteReply(true);
-								onMoveToReplyCommentInput();
-							}}>
-							대댓글 작성
-						</BoardContentButtonDiv>
+						{!toWriteReply && (
+							<BoardContentButtonDiv
+								onClick={() => {
+									setToWriteReply(true);
+								}}>
+								대댓글 작성
+							</BoardContentButtonDiv>
+						)}
 						{comment.mine && (
 							<BoardContentButtonDiv
 								onClick={() => {
@@ -208,7 +220,7 @@ const Comment = ({ comment, getComments }) => {
 				getComments={getComments}
 			/>
 			{toWriteReply && (
-				<div>
+				<div ref={replyRef}>
 					<ReplyCommentWrap>
 						<LowLevel></LowLevel>
 						<ReplyInput>
@@ -216,6 +228,7 @@ const Comment = ({ comment, getComments }) => {
 								value={replyCommentBody}
 								onChange={getReplyCommentBody}
 								maxLength={250}
+								onKeyDown={onEnterDown}
 							/>
 						</ReplyInput>
 					</ReplyCommentWrap>
@@ -239,7 +252,6 @@ const Comment = ({ comment, getComments }) => {
 			)}
 			{comment.multiReplyCommentSelectionResponse.countOfReplyComments !==
 				0 && <HR style={{ marginBottom: 0, marginTop: '2rem' }}></HR>}
-			<div ref={replyRef}></div>
 		</CommentDiv>
 	);
 };
@@ -318,14 +330,21 @@ const ReplyComment = ({ replyComment, getComments }) => {
 		</ReplyCommentWrap>
 	);
 };
+
 const Comments = ({ boardType, boardId }) => {
-	const commentRef = useRef();
 	const [comments, setComments] = useState();
+	const [countOfComments, setCountOfComments] = useState();
 	const [commentBody, setCommentBody] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	const onMoveToLastComment = () => {
-		commentRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+	const [isInit, setIsInit] = useState(true);
+
+	const onEnterDown = (e) => {
+		if (e.key === 'Enter') {
+			e.preventDefault();
+			postComment();
+		}
 	};
+
 	const getCommentBody = (e) => {
 		if (
 			e.target.value.replace(/ /g, '') === '' ||
@@ -347,9 +366,9 @@ const Comments = ({ boardType, boardId }) => {
 			})
 			.then(() => {
 				setCommentBody('');
+				if (isInit) setIsInit(false);
 				getComments();
 				setIsLoading(false);
-				onMoveToLastComment();
 			})
 			.catch((error) => {
 				console.log(error);
@@ -360,74 +379,107 @@ const Comments = ({ boardType, boardId }) => {
 	const getComments = () => {
 		axios
 			.get(`/api/${boardType}/${boardId}/comments`)
-			.then((res) => setComments(res.data.comments))
+			.then((res) => {
+				// 204인 경우(No content)는 댓글 작성을 아예 막기 위해 setComment를 하지 않을 것! comment에 따라 댓글이 조건부 렌더링되기 때문
+				if (res.data) {
+					const commentData = res.data;
+					setComments(commentData.comments);
+					setCountOfComments(commentData.countOfCommentAndReplyComment);
+				}
+			})
 			.catch((error) => {
 				console.log(error);
-				setComments([
-					{
-						commentId: 0,
-						commentBody: '댓글 본문입니다.',
-						createdDatetime: '2023-04-24T05:24:34.066Z',
-						writerAlias: '음냠냐',
-						edited: false,
-						firstFourLettersOfEmail: 'pany',
-						writerProfileImageUrl: '',
-						mine: true,
-						multiReplyCommentSelectionResponse: {
-							replyComments: [
-								{
-									replyCommentId: 0,
-									replyCommentBody: '댓글 본문입니다.',
-									createdDatetime: '2023-04-25T15:44:57.335Z',
-									writerAlias: '작성자닉네임',
-									edited: true,
-									firstFourLettersOfEmail: 'stri',
-									writerProfileImageUrl: '',
-									mine: true,
-								},
-								{
-									replyCommentId: 1,
-									replyCommentBody: '댓글 본문입니다.',
-									createdDatetime: '2023-04-25T15:44:57.335Z',
-									writerAlias: '작성자닉네임',
-									edited: true,
-									firstFourLettersOfEmail: 'stri',
-									writerProfileImageUrl: '',
-									mine: true,
-								},
-							],
-							countOfReplyComments: 2,
-						},
-					},
-					{
-						commentId: 1,
-						commentBody: '댓글 본문입니다.',
-						createdDatetime: '2023-04-25T05:24:34.066Z',
-						writerAlias: '으르렁',
-						edited: true,
-						firstFourLettersOfEmail: 'doko',
-						writerProfileImageUrl: '',
-						mine: false,
-						multiReplyCommentSelectionResponse: {
-							replyComments: [],
-							countOfReplyComments: 0,
-						},
-					},
-					{
-						commentId: 2,
-						commentBody: '댓글 본문입니다.',
-						createdDatetime: '2023-04-25T05:24:34.066Z',
-						writerAlias: '똥개',
-						edited: true,
-						firstFourLettersOfEmail: 'doko',
-						writerProfileImageUrl: '',
-						mine: false,
-						multiReplyCommentSelectionResponse: {
-							replyComments: [],
-							countOfReplyComments: 0,
-						},
-					},
-				]);
+				// const commentData = {
+				// 	'comments': [
+				// 		{
+				// 			'commentId': 21,
+				// 			'commentBody': '좋은 냄새는 어떤 냄새인가요 재원님?',
+				// 			'createdDatetime': '2023-04-27T10:20:48.034221',
+				// 			'writerAlias': '미노',
+				// 			'edited': false,
+				// 			'firstFourLettersOfEmail': 'koho',
+				// 			'writerProfileImageUrl':
+				// 				'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/bc816516-752b-4fd6-9017-99f988206ba8.jpg',
+				// 			'mine': false,
+				// 			'multiReplyCommentSelectionResponse': {
+				// 				'replyComments': [],
+				// 				'countOfReplyComments': 0,
+				// 			},
+				// 		},
+				// 		{
+				// 			'commentId': 28,
+				// 			'commentBody':
+				// 				'냄새 날 것 같아서 같이 못 할 것 같으면 어떻게 하나요???',
+				// 			'createdDatetime': '2023-04-28T13:38:16.596166',
+				// 			'writerAlias': '5테가위손',
+				// 			'edited': false,
+				// 			'firstFourLettersOfEmail': 'dbsw',
+				// 			'writerProfileImageUrl':
+				// 				'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/deae020d-132a-4524-80a0-a42fd553bc9f.jpeg',
+				// 			'mine': false,
+				// 			'multiReplyCommentSelectionResponse': {
+				// 				'replyComments': [
+				// 					{
+				// 						'replyCommentId': 16,
+				// 						'replyCommentBody': '나는 바보입니다 ㅋㅋ',
+				// 						'createdDatetime': '2023-04-28T13:48:49.411139',
+				// 						'writerAlias': '5테가위손',
+				// 						'edited': false,
+				// 						'firstFourLettersOfEmail': 'dbsw',
+				// 						'writerProfileImageUrl':
+				// 							'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/deae020d-132a-4524-80a0-a42fd553bc9f.jpeg',
+				// 						'mine': false,
+				// 					},
+				// 					{
+				// 						'replyCommentId': 17,
+				// 						'replyCommentBody': '나는 멍청이~~',
+				// 						'createdDatetime': '2023-04-28T13:49:02.038094',
+				// 						'writerAlias': '5테가위손',
+				// 						'edited': false,
+				// 						'firstFourLettersOfEmail': 'dbsw',
+				// 						'writerProfileImageUrl':
+				// 							'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/deae020d-132a-4524-80a0-a42fd553bc9f.jpeg',
+				// 						'mine': false,
+				// 					},
+				// 				],
+				// 				'countOfReplyComments': 2,
+				// 			},
+				// 		},
+				// 		{
+				// 			'commentId': 42,
+				// 			'commentBody': '같이 플로깅 합시다!',
+				// 			'createdDatetime': '2023-05-21T22:10:12.267799',
+				// 			'writerAlias': '최지환',
+				// 			'edited': false,
+				// 			'firstFourLettersOfEmail': 'cjh8',
+				// 			'writerProfileImageUrl':
+				// 				'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/33a8dabe-90a7-482a-850e-6ac2920929fa.PNG',
+				// 			'mine': false,
+				// 			'multiReplyCommentSelectionResponse': {
+				// 				'replyComments': [],
+				// 				'countOfReplyComments': 0,
+				// 			},
+				// 		},
+				// 		{
+				// 			'commentId': 45,
+				// 			'commentBody': '저도 참여하고 싶습니다!',
+				// 			'createdDatetime': '2023-05-21T22:21:44.098118',
+				// 			'writerAlias': '미노',
+				// 			'edited': false,
+				// 			'firstFourLettersOfEmail': 'koho',
+				// 			'writerProfileImageUrl':
+				// 				'https://dognejupging-xyz-image-bucket.s3.ap-northeast-2.amazonaws.com/profile_image/bc816516-752b-4fd6-9017-99f988206ba8.jpg',
+				// 			'mine': false,
+				// 			'multiReplyCommentSelectionResponse': {
+				// 				'replyComments': [],
+				// 				'countOfReplyComments': 0,
+				// 			},
+				// 		},
+				// 	],
+				// 	'countOfCommentAndReplyComment': 3,
+				// };
+				// setComments(commentData.comments);
+				// setCountOfComments(commentData.countOfCommentAndReplyComment);
 			});
 	};
 
@@ -435,46 +487,75 @@ const Comments = ({ boardType, boardId }) => {
 		getComments();
 	}, []);
 
+	useEffect(() => {
+		if (isInit) {
+			// let currentHeight = 0;
+			// var onMoveToLastComment = setInterval(function () {
+			// 	let pageBottom = document.body.scrollHeight;
+			// 	if (currentHeight < pageBottom) {
+			// 		window.scroll({ behavior: 'smooth', top: pageBottom });
+			// 		currentHeight = pageBottom;
+			// 	} else {
+			// 		clearInterval(onMoveToLastComment);
+			// 	}
+			// }, 100);
+		}
+		return;
+
+		const timer = setTimeout(() => {
+			window.scroll({
+				behavior: 'smooth',
+				top: document.documentElement.scrollHeight,
+			});
+		}, 50);
+		return () => clearTimeout(timer);
+	}, [comments]);
+
 	return (
 		<>
-			<ReplyDiv>
-				<HeadingDiv fontSize='2.5rem'>
-					{comments ? comments.length : ''}개의 댓글이 있습니다.
-				</HeadingDiv>
-				<ReplyInput>
-					<textarea
-						maxLength={250}
-						value={commentBody}
-						onChange={getCommentBody}
-					/>
-				</ReplyInput>
-				<div style={{ display: 'flex', flexDirection: 'column' }}>
-					{isLoading && (
-						<div
-							style={{
-								position: 'absolute',
-								backgroundColor: 'white',
-								opacity: '0.8',
-								width: '10rem',
-								height: '3.4rem',
-								right: '0',
-								borderRadius: '1.45rem',
-							}}></div>
-					)}
-					<ReplySubmitButton onClick={postComment}>댓글 등록</ReplySubmitButton>
-				</div>
-			</ReplyDiv>
-			{comments &&
-				comments.map((comment) => {
-					return (
-						<Comment
-							key={comment.commentId}
-							comment={comment}
-							getComments={getComments}
-						/>
-					);
-				})}
-			<div ref={commentRef}></div>
+			{comments && (
+				<>
+					<ReplyDiv>
+						<HeadingDiv fontSize='2.5rem'>
+							{countOfComments}개의 댓글이 있습니다.
+						</HeadingDiv>
+						<ReplyInput>
+							<textarea
+								maxLength={250}
+								value={commentBody}
+								onChange={getCommentBody}
+								onKeyDown={onEnterDown}
+							/>
+						</ReplyInput>
+						<div style={{ display: 'flex', flexDirection: 'column' }}>
+							{isLoading && (
+								<div
+									style={{
+										position: 'absolute',
+										backgroundColor: 'white',
+										opacity: '0.8',
+										width: '10rem',
+										height: '3.4rem',
+										right: '0',
+										borderRadius: '1.45rem',
+									}}></div>
+							)}
+							<ReplySubmitButton onClick={postComment}>
+								댓글 등록
+							</ReplySubmitButton>
+						</div>
+					</ReplyDiv>
+					{comments.map((comment) => {
+						return (
+							<Comment
+								key={comment.commentId}
+								comment={comment}
+								getComments={getComments}
+							/>
+						);
+					})}
+				</>
+			)}
 		</>
 	);
 };
