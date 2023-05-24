@@ -330,12 +330,13 @@ const ReplyComment = ({ replyComment, getComments }) => {
 		</ReplyCommentWrap>
 	);
 };
+
 const Comments = ({ boardType, boardId }) => {
 	const [comments, setComments] = useState();
 	const [countOfComments, setCountOfComments] = useState();
 	const [commentBody, setCommentBody] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	const [isNewComment, setIsNewComment] = useState(0);
+	const [isInit, setIsInit] = useState(true);
 
 	const onEnterDown = (e) => {
 		if (e.key === 'Enter') {
@@ -344,10 +345,6 @@ const Comments = ({ boardType, boardId }) => {
 		}
 	};
 
-	const onMoveToLastComment = () => {
-		const bottom = document.body.scrollHeight;
-		window.scroll({ behavior: 'smooth', top: bottom });
-	};
 	const getCommentBody = (e) => {
 		if (
 			e.target.value.replace(/ /g, '') === '' ||
@@ -369,9 +366,9 @@ const Comments = ({ boardType, boardId }) => {
 			})
 			.then(() => {
 				setCommentBody('');
+				if (isInit) setIsInit(false);
 				getComments();
 				setIsLoading(false);
-				setIsNewComment((prev) => prev + 1);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -491,10 +488,25 @@ const Comments = ({ boardType, boardId }) => {
 	}, []);
 
 	useEffect(() => {
-		if (isNewComment) {
-			onMoveToLastComment();
+		if (!isInit) {
+			// let currentHeight = 0;
+			// var onMoveToLastComment = setInterval(function () {
+			// 	let pageBottom = document.body.scrollHeight;
+			// 	if (currentHeight < pageBottom) {
+			// 		window.scroll({ behavior: 'smooth', top: pageBottom });
+			// 		currentHeight = pageBottom;
+			// 	} else {
+			// 		clearInterval(onMoveToLastComment);
+			// 	}
+			// }, 100);
+			setTimeout(() => {
+				window.scroll({
+					behavior: 'smooth',
+					top: document.documentElement.scrollHeight,
+				});
+			}, 50);
 		}
-	}, [isNewComment]);
+	}, [comments]);
 
 	return (
 		<>
