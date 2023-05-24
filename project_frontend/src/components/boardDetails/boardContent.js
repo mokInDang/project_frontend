@@ -29,12 +29,21 @@ const BoardContent = () => {
 		setBoardDetails(value);
 	};
 	const [isOnRecruitment, setIsOnRecruitment] = useState(1);
-	const getNewDetails = () => {
+	const getClosedDetails = () => {
 		setIsOnRecruitment(0);
 	};
 	useEffect(() => {
 		getRecruitment(params.boardId, getBoardDetails, navigate);
 	}, [isOnRecruitment]);
+	useEffect(() => {
+		if (!isOnRecruitment) {
+			const navigateBack = setTimeout(() => {
+				alert('마감 처리가 완료되었습니다.');
+				navigate(-1);
+			}, 50);
+			return () => clearTimeout(navigateBack);
+		}
+	}, [boardDetails]);
 
 	let items = ['활동 지역', '모집 구분', '시작 예정', '모집 상태'];
 	let values = [
@@ -88,7 +97,7 @@ const BoardContent = () => {
 													onClick={() => {
 														closeRecruitment(
 															boardDetails.boardId,
-															getNewDetails
+															getClosedDetails
 														);
 													}}>
 													마감
