@@ -13,17 +13,23 @@
 .ql-formats {
 	font-size: 1rem;
 }
+.ql-snow .ql-picker.ql-font {
+	width: 13.5rem;
+}
 .ql-picker.ql-font .ql-picker-label[data-value='NanumSquare']::before,
 .ql-picker.ql-font .ql-picker-item[data-value='NanumSquare']::before {
 	font-family: 'NanumSquare', cursive;
 	content: '나눔스퀘어' !important;
-	font-size: 1.3rem;
+	font-size: 1.5rem;
 }
 .ql-picker.ql-font .ql-picker-label[data-value='NanumSquareNeo']::before,
 .ql-picker.ql-font .ql-picker-item[data-value='NanumSquareNeo']::before {
 	font-family: 'NanumSquareNeo';
 	content: '나눔스퀘어 네오' !important;
-	font-size: 1.1rem;
+	font-size: 1.5rem;
+}
+.ql-snow .ql-picker.ql-size {
+	width: 11rem;
 }
 
 /* Set content font-families */
@@ -35,9 +41,12 @@
 }
 .ql-size-large,
 .ql-size span[data-value='large']::before {
-	font-size: 2.5rem !important;
+	font-size: 2.7rem !important;
 }
 .ql-size-medium,
 .ql-size span[data-value='medium']::before {
-	font-size: 1.8rem !important;
+	font-size: 2rem !important;
+}
+.ql-toolbar.ql-snow .ql-formats {
+	margin-right: 1rem;
 }

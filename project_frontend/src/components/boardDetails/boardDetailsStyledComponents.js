@@ -3,9 +3,9 @@ import styled from 'styled-components';
 const BoardWrapper = styled(WriteWrapper)`
 	margin: 2.75rem auto;
 	@media (max-width: 768px) {
-		margin: 1rem auto;
+		margin: 1rem auto 10rem;
 	}
-	margin-bottom: 5rem;
+	margin-bottom: 12rem;
 `;
 const BoardDetailsWrap = styled.div`
 	position: relative;
@@ -44,7 +44,7 @@ const VerticalBar = styled.div`
 
 const ContentDiv = styled.div`
 	margin: 8rem 0;
-	font-size: 1.8rem;
+	font-size: 2rem;
 `;
 
 const BoardInfo = styled.div`
