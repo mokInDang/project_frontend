@@ -23,7 +23,6 @@ function Login() {
 	const preventGoback = () => {
 		history.push(window.location.href);
 		navigate('/');
-		console.log('preventGoback!');
 	};
 	useEffect(() => {
 		history.push(window.location.href);

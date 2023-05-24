@@ -29,18 +29,10 @@ const WelcomeComment = styled.p`
 const LoginPageWrap = styled.div`
 	height: 90vh;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	flex-direction: column;
-
-	.loginComponentsWrap {
-		text-align: center;
-		user-select: none;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-contents: center;
-	}
+	text-align: center;
 `;
 const LoginComments = styled.div`
 	font-family: NanumSquare;
