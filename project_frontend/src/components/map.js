@@ -35,10 +35,10 @@ const SearchInput = styled.div`
 	}
 `;
 const MyRegionWrapper = styled.div`
-	width: 90%;
+	width: 80vw;
 	height: 80vh;
 	margin: 0 auto;
-	margin-top: 5rem;
+	margin-top: 8rem;
 	h1 {
 		font-family: NanumSquareNeo;
 		font-size: 4rem;
@@ -48,6 +48,17 @@ const MyRegionWrapper = styled.div`
 	h2 {
 		font-size: 1.8rem;
 		color: green;
+	}
+	.myRegionMap {
+		max-height: 70vh;
+		width: 100%;
+		height: 65vh;
+		@media (max-width: 1440px) {
+			height: 100%;
+		}
+		@media (max-width: 778px) {
+			height: 110vw;
+		}
 	}
 `;
 const MapWrapper = styled.div`
@@ -505,7 +516,7 @@ const MyRegionMap = ({ places, isLoaded, region }) => {
 		<MyRegionWrapper>
 			<h1>{region} 한 눈에 보기</h1>
 			<h2>마커 클릭 시 게시글 정보를 볼 수 있습니다.</h2>
-			<MapWrapper style={{ width: '100%', height: '70vh' }}>
+			<MapWrapper className='myRegionMap'>
 				<div id='map'></div>
 			</MapWrapper>
 		</MyRegionWrapper>
