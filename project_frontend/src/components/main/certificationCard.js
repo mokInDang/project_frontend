@@ -1,9 +1,7 @@
 import { GlobalProfile } from '..';
 import { useNavigate } from 'react-router-dom';
-import { movePath } from '../../utils';
 import styled from 'styled-components';
 import { tape_green, tape_pastelgreen } from '../../assets/images';
-import { BsImage } from 'react-icons/bs';
 
 const CertificationItemCard = styled.div`
 	box-sizing: border-box;
@@ -98,29 +96,22 @@ const CertificationCard = ({ boardItem, tapeNumber }) => {
 		.replace(/(<([^>]+)>)/gi, '');
 	return (
 		<CertificationItemCard
-			onClick={() =>
-				movePath(navigate, `/boards/certification/${boardItem.boardId}`)
-			}>
+			onClick={() => navigate(`/boards/certification/${boardItem.boardId}`)}>
 			<Tape tapeNumber={tapeNumber % 4} />
-			<div className="thumbnail">
-				<img
-					src={boardItem.mainImageUrl}
-					loading="lazy"></img>
+			<div className='thumbnail'>
+				<img src={boardItem.mainImageUrl} loading='lazy'></img>
 			</div>
-			<div className="writerProfileWrap">
-				<div className="writerProfile">
+			<div className='writerProfileWrap'>
+				<div className='writerProfile'>
 					<GlobalProfile
-						size="4rem"
-						margin="0 1.5rem 0 0"
+						size='4rem'
+						margin='0 1.5rem 0 0'
 						src={boardItem.writerProfileUrl}></GlobalProfile>
 					{boardItem.writerAlias}({boardItem.firstFourLettersOfEmail}
 					****)
 				</div>
-				<div
-					className="line"
-					role="presentation"
-				/>
-				<div className="contentBody">{newContent}</div>
+				<div className='line' role='presentation' />
+				<div className='contentBody'>{newContent}</div>
 			</div>
 		</CertificationItemCard>
 	);

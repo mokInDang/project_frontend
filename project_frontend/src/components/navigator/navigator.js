@@ -1,9 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AiFillCaretDown } from 'react-icons/ai';
-import { Dropdown, NewPostDropDown } from '..';
+import { Dropdown } from '..';
 import { useState, useEffect, useRef } from 'react';
-import { movePath } from '../../utils';
-import { homeIcon } from '../../assets/images';
 import secureLocalStorage from 'react-secure-storage';
 import { locationIcon, logo } from '../../assets/images';
 import {
@@ -86,7 +84,7 @@ const Navigator = () => {
 										</ProfileWrap>
 									</>
 								) : (
-									<HeaderButton onClick={() => movePath(navigate, '/login')}>
+									<HeaderButton onClick={() => navigate('/login')}>
 										로그인
 									</HeaderButton>
 								)}

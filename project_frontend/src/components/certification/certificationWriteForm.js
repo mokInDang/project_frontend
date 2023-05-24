@@ -12,7 +12,7 @@ import {
 	ThumbnailedDiv,
 	FileUploader,
 } from '..';
-import { fileExtensionValid, fileSizeValid, movePath } from '../../utils';
+import { fileExtensionValid, fileSizeValid } from '../../utils';
 import { RxPlus, RxCross2 } from 'react-icons/rx';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
@@ -225,7 +225,7 @@ function CertificationWriteForm(props) {
 					name='cancel'
 					onClick={() => {
 						if (window.confirm('작성을 취소하고 페이지를 벗어나시겠습니까?')) {
-							movePath(navigate, -1);
+							navigate(-1);
 						}
 					}}>
 					취소
