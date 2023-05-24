@@ -53,10 +53,12 @@ function MyRegionBoardsMap() {
 		console.log(places);
 	}, [places]);
 	return (
-		<MyRegionMap
-			places={places}
-			isLoaded={isLoaded}
-			region={userInfo.region ? userInfo.region : ''}></MyRegionMap>
+		isLoaded && (
+			<MyRegionMap
+				places={places}
+				isLoaded={isLoaded}
+				region={userInfo ? userInfo.region : ''}></MyRegionMap>
+		)
 	);
 }
 export default MyRegionBoardsMap;

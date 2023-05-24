@@ -1,7 +1,12 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { banner1, banner2, banner2_clouds } from '../../assets/images';
+import {
+	banner1,
+	banner2,
+	banner1_clouds,
+	banner2_clouds,
+} from '../../assets/images';
 import styled from 'styled-components';
 import '../../styles/index.css';
 
@@ -15,19 +20,22 @@ const BannerDiv = styled.div`
 	font-weight: 700;
 	line-height: 6rem;
 	text-align: center;
+	overflow: hidden;
 
 	.banner1 {
 		position: relative;
-		height: 90%;
+		height: 100%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		letter-spacing: 0.1rem;
-		font-family: NanumSquareNeo;
-		font-weight: 900;
-		text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-		line-height: 6rem;
 		text-align: left;
+		.banner1_text {
+			letter-spacing: 0.1rem;
+			font-family: NanumSquareNeo;
+			font-weight: 900;
+			text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+			line-height: 6rem;
+		}
 		.center {
 			text-align: center;
 		}
@@ -47,15 +55,10 @@ const BannerDiv = styled.div`
 		justify-content: center;
 		align-items: center;
 		letter-spacing: 0.1rem;
-		overflow: hidden;
 	}
 	img {
 		height: 90%;
-		object-fit: contain;
-	}
-	.absoluteImage {
-		position: absolute;
-		bottom: 0;
+		object-fit: scale-down;
 	}
 	.banner2_text {
 		display: flex;
@@ -82,14 +85,14 @@ const BannerDiv = styled.div`
 		}
 	}
 	@media (max-width: 778px) {
-		background: ${(props) => props.color};
+		// background: ${(props) => props.color};
 		text-align: start;
 		.banner1 {
 			height: 100%;
 		}
-		img {
-			display: none;
-		}
+		// img {
+		// 	display: none;
+		// }
 		.banner2_text {
 			margin-bottom: 0;
 			display: block;
@@ -122,14 +125,16 @@ const BannerSlide = () => {
 	};
 	return (
 		<Slider {...settings} dotsClass='test-css' style={{ marginBottom: '3rem' }}>
-			<BannerDiv color='#81cc55' image={banner1}>
+			<BannerDiv color='#81cc55'>
 				<div className='banner1'>
-					<div>
+					<img className='clouds' src={banner1_clouds} />
+					<div className='banner1_text'>
 						<div>플로깅하면서</div>
 						<div className='center'>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;동네 친구들도 사귀자!
 						</div>
 					</div>
+					<img className='background' src={banner1} />
 				</div>
 			</BannerDiv>
 			<BannerDiv color='#81cc55'>

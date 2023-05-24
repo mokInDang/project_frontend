@@ -50,7 +50,7 @@ function Dropdown({ setDropdownView, dropMenuRef }) {
 	return (
 		<DropDownWrapper>
 			<DropdownDiv>
-				<DropdownList>내 작성글</DropdownList>
+				{/* <DropdownList>내 작성글</DropdownList> */}
 				<DropdownList onClick={() => navigate('/mypage')}>
 					마이페이지
 				</DropdownList>

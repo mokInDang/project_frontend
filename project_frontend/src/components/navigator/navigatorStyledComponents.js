@@ -50,19 +50,6 @@ const Headerdiv = styled.div`
 			}
 		}
 	}
-	.myRegion {
-		margin-right: 5rem;
-		text-shadow: none;
-		display: flex;
-		align-items: center;
-		img {
-			width: 3.5rem;
-			margin: 1rem;
-		}
-		@media (max-width: 778px) {
-			margin-right: 3rem;
-		}
-	}
 	.newPost {
 		margin-right: 5rem;
 		display: flex;
@@ -93,9 +80,6 @@ const HeaderButton = styled.div`
 const HeaderButtonWrap = styled.div`
 	align-items: center;
 	display: flex;
-	.myRegion {
-		cursor: default;
-	}
 	@keyframes jittery {
 		1%,
 		9% {
@@ -135,15 +119,29 @@ const HeaderButtonWrap = styled.div`
 			transform: scale(0.95, 1.05);
 		}
 	}
+	.myRegion {
+		margin-right: 5rem;
+		text-shadow: none;
+		display: flex;
+		align-items: center;
+		img {
+			width: 3.5rem;
+			margin: 1rem;
+		}
+		@media (max-width: 778px) {
+			margin-right: 3rem;
+		}
+	}
+
 	.myRegionMapButton {
+		flex-shrink: 0;
 		cursor: pointer;
 		animation: jittery 20s infinite;
 		background: rgba(129, 204, 85, 0.7);
 		box-shadow: 0px 5px 0px 0px rgba(129, 204, 85, 1);
 
 		box-sizing: border-box;
-		padding-left: 1rem;
-		padding-right: 2rem;
+		padding: 0 1rem;
 		border-radius: 1rem;
 		margin-right: 2rem;
 		img {
@@ -151,23 +149,23 @@ const HeaderButtonWrap = styled.div`
 		}
 		@media (max-width: 290px) {
 			font-size: 1.5rem;
-			padding-left: 0.5rem;
-			padding-right: 1rem;
-			margin-right: 1rem;
+			padding: 0;
+			margin: 0 1rem;
 			img {
 				width: 2rem;
 			}
 		}
 		:hover {
-			animation-play-state: paused;
-			margin-top: 15px;
-			margin-bottom: 5px;
-			box-shadow: 0px 0px 0px 0px rgba(129, 204, 85, 1);
+			-webkit-animation: jelly 0.5s;
+			animation: jelly 0.5s;
 		}
 		:active {
 			// -webkit-animation: jelly 0.5s;
 			// animation: jelly 0.5s;
-			background-color: rgba(129, 204, 85, 0.9);
+			// background-color: rgba(129, 204, 85, 0.9);
+			margin-top: 15px;
+			margin-bottom: 5px;
+			box-shadow: 0px 0px 0px 0px rgba(129, 204, 85, 1);
 		}
 	}
 `;
