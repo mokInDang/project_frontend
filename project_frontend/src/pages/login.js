@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate, Navigate } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 import {
 	JoinComment,
 	KakaoLoginButton,
@@ -17,25 +17,34 @@ const REDIRECT_URI = `https://${Host}/api/auth/join`;
 const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
 function Login() {
+	const { state } = useLocation();
+	const navigate = useNavigate();
+	const history = createBrowserHistory();
+	const preventGoback = () => {
+		history.push(window.location.href);
+		navigate('/');
+		console.log('preventGoback!');
+	};
+	useEffect(() => {
+		history.push(window.location.href);
+		window.addEventListener('popstate', preventGoback);
+		return () => {
+			window.removeEventListener('popstate', preventGoback);
+		};
+	}, []);
 	return (
-		<div>
-			<div>
-				<Link to="/">
-					<CloseButton>
-						<TfiClose
-							size="3rem"
-							color="#3A3A3A"></TfiClose>
-					</CloseButton>
-				</Link>
-			</div>
-			<LoginPageWrap>
+		<LoginPageWrap>
+			<CloseButton onClick={preventGoback} style={{ cursor: 'pointer' }}>
+				<TfiClose size='3rem' color='#3A3A3A'></TfiClose>
+			</CloseButton>
+			<div className='loginComponentsWrap'>
 				<JoinComment />
 				<LoginComments>소셜 계정으로 로그인하기</LoginComments>
 				<a href={KAKAO_AUTH_URL}>
 					<KakaoLoginButton />
 				</a>
-			</LoginPageWrap>
-		</div>
+			</div>
+		</LoginPageWrap>
 	);
 }
 export default Login;
