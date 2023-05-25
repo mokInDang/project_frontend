@@ -5,7 +5,13 @@ import {
 import { SlArrowRight } from 'react-icons/sl';
 import { TabWrapper, TabDiv } from '../components';
 import { BannerSlide } from '../components/main/bannerSlider';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import {
+	Routes,
+	Route,
+	Outlet,
+	useNavigate,
+	useLocation,
+} from 'react-router-dom';
 
 function Home() {
 	const navigate = useNavigate();
@@ -57,13 +63,7 @@ function Home() {
 					</div>
 				</div>
 			</TabWrapper>
-			<Routes>
-				<Route path={'*'} element={<RecruitmentInfiniteScroll />} />
-				<Route
-					path={'certification'}
-					element={<CertificationCardInfiniteScroll />}
-				/>
-			</Routes>
+			<Outlet />
 		</>
 	);
 }

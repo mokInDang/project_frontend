@@ -3,7 +3,7 @@ import { ImFileEmpty, ImFileText2 } from 'react-icons/im';
 import { isLogined, RegionRequiredRoutes, PrivateRoutes } from '../../utils';
 import { InfiniteScroll, MyRegionInfiniteScroll } from './infiniteScroll';
 import { TabWrapper, TabDiv } from '../../components';
-import { Routes, Route, useNavigate, useLocation } from 'react-router';
+import { Routes, Route, useNavigate, useLocation, Outlet } from 'react-router';
 const RecruitmentInfiniteScroll = () => {
 	var regionTab = 'all';
 	const navigate = useNavigate();
@@ -36,17 +36,7 @@ const RecruitmentInfiniteScroll = () => {
 					<ImFileText2 size='2.5rem' style={{ marginRight: '1rem' }} />내 지역
 				</TabDiv>
 			</TabWrapper>
-			<Routes>
-				<Route exact path={'*'} element={<InfiniteScroll />} />
-				<Route element={<PrivateRoutes authentication={true} />}>
-					<Route element={<RegionRequiredRoutes />}>
-						<Route
-							path={'/recruitment/myregion'}
-							element={<MyRegionInfiniteScroll />}
-						/>
-					</Route>
-				</Route>
-			</Routes>
+			<Outlet />
 		</>
 	);
 };
