@@ -27,13 +27,12 @@ const WelcomeComment = styled.p`
 	text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
 `;
 const LoginPageWrap = styled.div`
-	text-align: center;
-	padding-top: 20rem;
-	user-select: none;
+	height: 90vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-contents: center;
+	justify-content: center;
+	text-align: center;
 `;
 const LoginComments = styled.div`
 	font-family: NanumSquare;
