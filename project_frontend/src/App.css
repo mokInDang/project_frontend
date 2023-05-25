@@ -42,8 +42,10 @@
 }
 @font-face {
 	font-family: 'NanumSquareNeo';
-	src: local('☺'),
-		url('assets/fonts/NanumSquareNeo_Variable.woff') format('woff');
+	src: local('☺'), url('assets/fonts/NanumSquareNeo.woff2') format('woff2'),
+		url('assets/fonts/NanumSquareNeo.woff') format('woff'),
+		url('assets/fonts/NanumSquareNeo.otf') format('opentype'),
+		url('assets/fonts/NanumSquareNeo.ttf') format('truetype');
 	font-display: block;
 }
 
