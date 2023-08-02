@@ -30,6 +30,16 @@ const BannerDiv = styled.div`
 		align-items: center;
 		text-align: left;
 		.banner1_text {
+			position: absolute;
+			top: 7rem;
+			letter-spacing: 0.1rem;
+			font-family: NanumSquareNeo;
+			font-weight: 900;
+			text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+			line-height: 6rem;
+			z-index: 10;
+		}
+		.banner3_text {
 			letter-spacing: 0.1rem;
 			font-family: NanumSquareNeo;
 			font-weight: 900;
@@ -129,9 +139,10 @@ const BannerSlide = () => {
 				<div className='banner1'>
 					<img className='clouds' src={banner1_clouds} />
 					<div className='banner1_text'>
-						<div>플로깅하면서</div>
+						<div>시켜줘.</div>
+						&nbsp; &nbsp; &nbsp;우리동네 <br />
 						<div className='center'>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;동네 친구들도 사귀자!
+							&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;명예 환경미화원 👷‍♂
 						</div>
 					</div>
 					<img className='background' src={banner1} />
@@ -145,6 +156,19 @@ const BannerSlide = () => {
 						<div>컨텐츠 완성!</div>
 					</div>
 					<img className='background' src={banner2} />
+				</div>
+			</BannerDiv>
+			<BannerDiv color='#81cc55'>
+				<div className='banner1'>
+					<img className='clouds' src={banner1_clouds} />
+					<div className='banner3_text'>
+						플로깅하면서
+						<br />
+						<div className='center'>
+							&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;동네 친구들도 사귀자!
+						</div>
+					</div>
+					<img className='background' src={banner1} />
 				</div>
 			</BannerDiv>
 		</Slider>
