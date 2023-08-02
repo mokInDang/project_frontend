@@ -18,12 +18,16 @@ const WriteWrapper = styled.div`
 	}
 	@media (max-width: 425px) {
 		width: 85%;
-		.selectBox {
-			width: 100%;
+		.photoInfoText {
+			display: block;
+			margin-top: 1rem;
 		}
-		.activitySelectBox {
-			margin-bottom: 2rem;
-		}
+		// .selectBox {
+		// 	width: 100%;
+		// }
+		// .activitySelectBox {
+		// 	margin-bottom: 2rem;
+		// }
 	}
 `;
 export default WriteWrapper;

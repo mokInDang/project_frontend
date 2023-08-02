@@ -106,7 +106,7 @@ const WriteForm = (props) => {
 				<NumDiv>
 					<span>1</span>
 				</NumDiv>
-				플로깅 모집 시 필요한 정보를 입력해주세요.
+			활동 종류와 시작 예정일을 입력해주세요.
 			</P>
 			<HR />
 			<div className='selectBoxWrap'>
@@ -131,7 +131,7 @@ const WriteForm = (props) => {
 				<NumDiv>
 					<span>2</span>
 				</NumDiv>
-				플로깅할 위치를 지정해주세요.
+				활동 시 만날 위치를 지정해주세요.
 			</P>
 			<HR />
 			<Label htmlFor='title'>위치 검색</Label>

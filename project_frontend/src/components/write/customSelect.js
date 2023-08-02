@@ -1,37 +1,103 @@
 import styled from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
 
+const Placeholder = styled.label`
+	padding-left: 0.4rem;
+	text-align: center;
+	font-family: NanumSquareNeo;
+	font-style: normal;
+	font-size: 1.8rem;
+	color: rgba(0, 0, 0, 0.5);
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+`;
 const SelectBox = styled.div`
 	margin-top: 2rem;
+	text-indent: 2rem;
 	position: relative;
 	height: 5.5rem;
 	width: 100%;
+	justify-content: start;
 	cursor: pointer;
 	border: 1px solid #bdbdbd;
 	border-radius: 0.8rem;
 	box-sizing: border-box;
 	outline: 0;
-	text-indent: 2rem;
+	font-family: NanumSquareNeo;
 	align-items: center;
 	display: flex;
-	&::before {
+	.activityPlaceholder {
+		font-size: 1.65rem;
+		text-align: left;
+		text-indent: 2rem;
+	}
+	::before {
 		content: '⌵';
-		display: ${(props) => (props.selectBox ? 'block' : 'none')};
 		position: absolute;
-		top: 1.4rem;
+		top: 50%;
 		right: 2rem;
+		transform: translate(0, -50%);
 		color: #bdbdbd;
 		font-size: 2rem;
 	}
-`;
-const Placeholder = styled.label`
-	margin-left: 0.4rem;
-	text-align: center;
-	font-family: NanumSquareNeo;
-	font-style: normal;
-	font-weight: 350;
-	font-size: 1.8rem;
-	color: rgba(0, 0, 0, 0.5);
+	input[type='date'] {
+		opacity: 0;
+		position: absolute;
+		background: transparent;
+		overflow: hidden;
+		font-family: NanumSquareNeo;
+		font-style: normal;
+		font-weight: 350;
+		font-size: 1.65rem;
+		color: rgba(0, 0, 0, 0.5);
+		text-indent: 1rem;
+		height: 100%;
+		outline: none;
+		width: 100%;
+		border: none;
+		box-sizing: border-box;
+		// :not(.has-value)::before {
+		// 	content: ${(<Placeholder>'연도-월-일'</Placeholder>)};
+		// 	width: 100%;
+		// }
+		// :focus::before,
+		// :valid::before {
+		// 	display: none;
+		// }
+		// ::-webkit-datetime-edit-text {
+		// 	-webkit-appearance: none;
+		// 	display: none;
+		// }
+		// ::-webkit-datetime-edit-month-field {
+		// 	-webkit-appearance: none;
+		// 	display: none;
+		// }
+		// ::-webkit-datetime-edit-day-field {
+		// 	-webkit-appearance: none;
+		// 	display: none;
+		// }
+		// ::-webkit-datetime-edit-year-field {
+		// 	-webkit-appearance: none;
+		// 	display: none;
+		// }
+		::-webkit-clear-button,
+		::-webkit-inner-spin-button {
+			display: none;
+		}
+		::-webkit-calendar-picker-indicator {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background: transparent;
+			color: transparent;
+			cursor: pointer;
+		}
+	}
 `;
 const SelectOptions = styled.ul`
 	z-index: 99;
@@ -40,7 +106,6 @@ const SelectOptions = styled.ul`
 	top: 5rem;
 	left: 0;
 	width: 100%;
-	overflow: hidden;
 	padding: 0;
 	border: 1px solid #bdbdbd;
 	border-radius: 0.8rem;
@@ -61,48 +126,6 @@ const Option = styled.li`
 	}
 `;
 
-const DateSelector = styled.input`
-	margin-top: 2rem;
-	position: relative;
-	height: 5.5rem;
-	width: 100%;
-	cursor: pointer;
-	border: 1px solid #bdbdbd;
-	box-sizing: border-box;
-	border-radius: 0.8rem;
-	text-indent: 1rem;
-	font-family: NanumSquareNeo;
-	font-style: normal;
-	font-weight: 350;
-	font-size: 1.8rem;
-	color: rgba(0, 0, 0, 0.5);
-	outline: none;
-	width: 100%;
-
-	&::before {
-		content: '⌵';
-		position: absolute;
-		top: 1.4rem;
-		right: 2rem;
-		color: #bdbdbd;
-		font-size: 2rem;
-	}
-	::-webkit-clear-button,
-	::-webkit-inner-spin-button {
-		display: none;
-	}
-	::-webkit-calendar-picker-indicator {
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		background: transparent;
-		color: transparent;
-		cursor: pointer;
-	}
-`;
-
 const TodayString = () => {
 	var today = new Date();
 	var year = today.getFullYear();
@@ -114,7 +137,7 @@ const TodayString = () => {
 const CustomSelectActivity = ({ getSelectedActivity, value }) => {
 	const [showOptions, setShowOptions] = useState(false);
 	const [currentValue, setCurrentValue] = useState('');
-	const selectBoxRef = useRef();
+	const activitySelectorRef = useRef();
 
 	const handleOnChangeSelectValue = (e) => {
 		const { innerText } = e.target;
@@ -130,7 +153,10 @@ const CustomSelectActivity = ({ getSelectedActivity, value }) => {
 
 	useEffect(() => {
 		const handleClickOutsideOrScroll = (e) => {
-			if (selectBoxRef.current && !selectBoxRef.current.contains(e.target)) {
+			if (
+				activitySelectorRef.current &&
+				!activitySelectorRef.current.contains(e.target)
+			) {
 				setShowOptions(false);
 			}
 		};
@@ -140,15 +166,16 @@ const CustomSelectActivity = ({ getSelectedActivity, value }) => {
 			document.removeEventListener('mousedown', handleClickOutsideOrScroll);
 			window.removeEventListener('scroll', handleClickOutsideOrScroll);
 		};
-	}, [selectBoxRef]);
+	}, [activitySelectorRef]);
 
 	return (
 		<SelectBox
-			ref={selectBoxRef}
-			selectBox={true}
+			ref={activitySelectorRef}
 			onClick={() => setShowOptions(!showOptions)}
 		>
-			<Placeholder>{currentValue ? currentValue : '산책/달리기'}</Placeholder>
+			<Placeholder className='activityPlaceholder'>
+				{currentValue ? currentValue : '산책/달리기'}
+			</Placeholder>
 			{showOptions && (
 				<SelectOptions>
 					<Option onClick={handleOnChangeSelectValue}>산책</Option>
@@ -161,25 +188,34 @@ const CustomSelectActivity = ({ getSelectedActivity, value }) => {
 
 const CustomSelectDate = ({ getSelectedDate, value }) => {
 	const [date, setDate] = useState('');
+	const dateSelectorRef = useRef();
 	const onChange = (e) => {
 		setDate(e.target.value);
 	};
-
 	useEffect(() => {
 		setDate(value);
 	}, []);
 
 	useEffect(() => {
 		getSelectedDate(date);
+		console.log(date);
 	}, [date]);
 	return (
-		<DateSelector
-			placeholder='연도-월-일'
-			type='date'
-			value={date}
-			onChange={onChange}
-			min={TodayString()}
-		></DateSelector>
+		<>
+			<SelectBox onClick={() => dateSelectorRef.current.click()}>
+				<Placeholder htmlFor='dateSelector' className='activityPlaceholder'>
+					{date ? date : '연도-월-일'}
+				</Placeholder>
+				<input
+					id='dateSelector'
+					ref={dateSelectorRef}
+					type='date'
+					value={date}
+					onChange={onChange}
+					min={TodayString()}
+				></input>
+			</SelectBox>
+		</>
 	);
 }; // 추후 react-datepicker 라이브러리로 변경할 것
 
