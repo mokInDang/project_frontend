@@ -228,7 +228,7 @@ const Comment = ({ comment, getComments, writingCommentPermission }) => {
 								value={replyCommentBody}
 								onChange={getReplyCommentBody}
 								maxLength={250}
-								onKeyDown={onEnterDown}
+								// onKeyDown={onEnterDown}
 							/>
 						</ReplyInput>
 					</ReplyCommentWrap>
@@ -524,7 +524,7 @@ const Comments = ({ boardType, boardId }) => {
 								maxLength={250}
 								value={commentBody}
 								onChange={getCommentBody}
-								onKeyDown={onEnterDown}
+								// onKeyDown={onEnterDown}
 								placeholder={
 									writingCommentPermission
 										? '댓글을 작성해보세요.'
