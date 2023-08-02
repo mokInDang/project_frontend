@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { Card, BoardItemsWrap } from '../index';
+import styled from 'styled-components';
 
 function InfiniteScroll() {
 	const [boardItems, setBoardItems] = useState([]);
@@ -48,7 +49,14 @@ function InfiniteScroll() {
 	}, [loading, hasNext]);
 
 	return (
-		<div>
+		<>
+			{/* <div className='widgetWrapper'>
+				<div className='widgetSection'>
+					<div className='widgetDiv'>
+						<div className='widget'>ㅎㅇㅎㅇ</div>
+					</div>
+				</div>
+			</div> */}
 			<BoardItemsWrap>
 				{boardItems.map((boardItem) => (
 					<Card key={boardItem.boardId} content={boardItem}></Card>
@@ -56,7 +64,7 @@ function InfiniteScroll() {
 			</BoardItemsWrap>
 			{/* <div>{boardItems.length}</div> */}
 			<div ref={pageEnd} style={{ marginBottom: '40px' }}></div>
-		</div>
+		</>
 	);
 }
 function MyRegionInfiniteScroll() {
@@ -107,7 +115,7 @@ function MyRegionInfiniteScroll() {
 	}, [loading, hasNext]);
 
 	return (
-		<div>
+		<>
 			<BoardItemsWrap>
 				{boardItems.map((boardItem) => (
 					<Card key={boardItem.boardId} content={boardItem}></Card>
@@ -115,7 +123,7 @@ function MyRegionInfiniteScroll() {
 			</BoardItemsWrap>
 			{/* <div>{boardItems.length}</div> */}
 			<div ref={pageEnd} style={{ marginBottom: '40px' }}></div>
-		</div>
+		</>
 	);
 }
 

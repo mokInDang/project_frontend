@@ -33,14 +33,16 @@ const Card = ({ content }) => {
 					<div className='writerProfile'>
 						<GlobalProfile
 							size='4.6rem'
-							margin='1rem 1.5rem 1rem 0'
+							margin='0.7rem 1.2rem 0.7rem 0'
 							src={content.writerProfileUrl}></GlobalProfile>
-						{content.writerAlias}({content.firstFourLettersOfEmail}
-						****)
-					</div>
-					<div className='numofComments'>
-						<Message size='2.5rem'></Message>
-						<span>{content.countOfCommentAndReplyComment}</span>
+						<div className='writerInfo'>
+							{content.writerAlias}({content.firstFourLettersOfEmail}
+							****)
+						</div>
+						<div className='numofComments'>
+							<Message size='2.5rem'></Message>
+							<span>{content.countOfCommentAndReplyComment}</span>
+						</div>
 					</div>
 				</div>
 			</div>

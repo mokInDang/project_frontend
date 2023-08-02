@@ -3,8 +3,7 @@ import { closed_stamp } from '../../assets/images';
 
 const CertificationCardsWrap = styled.div`
 	display: grid;
-	width: 80%;
-	grid-template-columns: repeat(auto-fill, 39rem);
+	grid-template-columns: repeat(auto-fill, 32rem);
 	justify-content: center;
 	align-content: center;
 	margin: 0 auto;
@@ -12,42 +11,41 @@ const CertificationCardsWrap = styled.div`
 	row-gap: 7rem;
 	column-gap: 3rem;
 	@media (min-width: 1440px) {
-		grid-template-columns: repeat(3, 39rem);
+		grid-template-columns: repeat(3, 32rem);
 	}
 	@media (min-width: 1920px) {
-		grid-template-columns: repeat(4, 39rem);
+		grid-template-columns: repeat(4, 32rem);
 	}
 	@media (max-width: 425px) {
-		grid-template-columns: Minmax(35rem, 95%);
+		grid-template-columns: Minmax(30rem, 95%);
 	}
 `;
 const BoardItemsWrap = styled.div`
 	display: grid;
-	padding: 0 2rem;
 	margin-top: 2rem;
-	grid-template-columns: repeat(auto-fill, 35rem);
-	// 너비 35rem인 아이템을 담을 수 있을만큼!
+	grid-template-columns: repeat(auto-fill, 30rem);
+	// 너비 30rem인 아이템을 담을 수 있을만큼!
 	justify-content: center;
 	align-content: center;
-	row-gap: 7rem;
-	column-gap: 4rem;
+	row-gap: 6rem;
+	column-gap: 3.5rem;
 	@media (max-width: 425px) {
-		grid-template-columns: Minmax(35rem, 95%);
+		grid-template-columns: Minmax(30rem, 95%);
 	}
 	@media (min-width: 1920px) {
-		grid-template-columns: repeat(4, 35rem);
+		grid-template-columns: repeat(4, 30rem);
 	}
 `;
 const BoardItemCard = styled.div`
 	// 부모 컴포넌트인 BoardItemsWrap에서 너비를 지정해주었으므로 자식 컴포넌트(아이템)의 너비는 지정하지 말아야 함
-	height: 40rem;
+	height: 34.5rem;
 	display: flex;
 	flex-direction: column;
 	border-radius: 0.7rem;
-	padding: 4rem 3rem 1rem;
+	padding: 4rem 3rem 0.7rem;
 	box-sizing: border-box;
 	background-color: rgba(255, 255, 255, 0.8);
-	border: 0.2rem solid #b3b3b3;
+	border: 0.2rem solid rgba(179, 179, 179, 0.8);
 	border-radius: 4rem;
 	transition: all 0.2s ease-in-out;
 	transform: scale(1);
@@ -89,7 +87,7 @@ const BoardItemCard = styled.div`
 	}
 	.category {
 		color: #b3b3b3;
-		font-size: 1.4rem;
+		font-size: 1.2rem;
 		display: flex;
 		flex-direction: row;
 		letter-spacing: 0.05rem;
@@ -102,13 +100,13 @@ const BoardItemCard = styled.div`
 	}
 	.title {
 		width: 100%;
-		font-size: 2rem;
-		height: 5rem;
-		line-height: 2.5rem;
+		font-size: 1.8rem;
+		height: 4.6rem;
+		line-height: 2.3rem;
 		text-overflow: ellipsis;
 		display: -webkit-box;
 		overflow: hidden;
-		margin: 2rem 0;
+		margin: 1.5rem 0;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 2;
 		align-self: center;
@@ -118,30 +116,35 @@ const BoardItemCard = styled.div`
 		text-overflow: ellipsis;
 		width: 100%;
 		color: #969696;
-		font-size: 1.4rem;
-		line-height: 2.1rem;
-		height: 10.5rem;
+		font-size: 1.3rem;
+		line-height: 1.8rem;
+		height: 9rem;
 		overflow: hidden;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 5;
 	}
 	.writerProfileWrap {
-		font-size: 1.7rem;
+		font-size: 1.5rem;
 		text-align: right;
 		color: rgba(40, 40, 40, 0.8);
 		hr {
 			opacity: 0.8;
-			border: 1.5px solid #b3b3b3;
+			border: 0.15rem solid #b3b3b3;
 		}
 	}
 	.writerProfile {
 		align-items: center;
 		display: flex;
+		width: 100%;
 		flex-direction: row;
 		flex-shrink: 0;
+		.writerInfo {
+			text-align: left;
+			flex-grow: 1;
+		}
 	}
 	.numofComments {
-		font-size: 2rem;
+		font-size: 1.5rem;
 		display: flex;
 		align-items: center;
 		color: rgba(40, 40, 40, 0.5);
@@ -154,6 +157,8 @@ const BoardItemCard = styled.div`
 	}
 
 	@media (max-width: 425px) {
+		height: 40rem;
+		padding-bottom: 1rem;
 		.category {
 			font-size: 1.5rem;
 		}
@@ -162,6 +167,7 @@ const BoardItemCard = styled.div`
 			height: 3rem;
 			line-height: 3rem;
 			-webkit-line-clamp: 1;
+			margin: 2rem 0;
 		}
 		.contentBody {
 			font-size: 1.8rem;
@@ -169,25 +175,51 @@ const BoardItemCard = styled.div`
 			height: 10.8rem;
 			-webkit-line-clamp: 4;
 		}
+		.writerProfileWrap {
+			font-size: 1.8rem;
+		}
+	}
+`;
+const TabContentWrapper = styled.div`
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 135rem;
+	margin: 0 auto;
+	box-sizing: border-box;
+
+	.widgetWrapper {
+		position: absolute;
+		left: 100%;
+		.widgetDiv {
+			position: fixed;
+			margin-left: 2rem;
+		}
+		.widget {
+		}
+		@media (max-width: 1440px) {
+			display: none;
+		}
+		@media (max-height: 1024px) {
+			display: none;
+		}
+	}
+
+	@media (max-width: 130.5rem) {
+		padding: 0 2rem;
 	}
 `;
 const TabWrapper = styled.div`
 	display: flex;
 	width: 100%;
 	max-width: 160rem;
-	padding: 0 10rem;
 	margin: 0 auto;
 	box-sizing: border-box;
 	font-size: 2.5rem;
 	font-weight: 700;
 	flex-wrap: wrap;
 
-	@media only screen and (min-width: 1560px) {
-		padding: 0 2rem;
-	}
-	@media only screen and (max-width: 1380px) {
-		padding: 0 2rem;
-	}
 	@media only screen and (max-width: 778px) {
 		font-size: 2.4rem;
 	}
@@ -250,6 +282,7 @@ const TabDiv = styled.div`
 export {
 	BoardItemCard,
 	BoardItemsWrap,
+	TabContentWrapper,
 	TabWrapper,
 	TabDiv,
 	CertificationCardsWrap,

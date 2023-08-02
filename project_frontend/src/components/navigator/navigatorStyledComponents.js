@@ -12,17 +12,17 @@ const Headerdiv = styled.div`
 
 	.headerWrapper {
 		box-sizing: border-box;
-		padding: 0 5rem;
+		max-width: 135rem;
 		margin: 0 auto;
 		transition: all 0.2s ease-in-out;
 		align-items: center;
 		background: #ffffff;
 		display: flex;
 		height: 9rem;
+		padding: 0 3rem;
 		@media (min-width: 1600px) {
 			height: 11rem;
 			padding: 0 3rem;
-			max-width: 161rem;
 		}
 		@media (max-width: 778px) {
 			padding: 0 3rem;
@@ -59,7 +59,6 @@ const Headerdiv = styled.div`
 			display: none;
 		}
 	}
-	.region
 `;
 
 const HeaderButton = styled.div`

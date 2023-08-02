@@ -77,6 +77,7 @@ const DateSelector = styled.input`
 	font-size: 1.8rem;
 	color: rgba(0, 0, 0, 0.5);
 	outline: none;
+	width: 100%;
 
 	&::before {
 		content: '⌵';
@@ -145,7 +146,8 @@ const CustomSelectActivity = ({ getSelectedActivity, value }) => {
 		<SelectBox
 			ref={selectBoxRef}
 			selectBox={true}
-			onClick={() => setShowOptions(!showOptions)}>
+			onClick={() => setShowOptions(!showOptions)}
+		>
 			<Placeholder>{currentValue ? currentValue : '산책/달리기'}</Placeholder>
 			{showOptions && (
 				<SelectOptions>
@@ -176,7 +178,8 @@ const CustomSelectDate = ({ getSelectedDate, value }) => {
 			type='date'
 			value={date}
 			onChange={onChange}
-			min={TodayString()}></DateSelector>
+			min={TodayString()}
+		></DateSelector>
 	);
 }; // 추후 react-datepicker 라이브러리로 변경할 것
 

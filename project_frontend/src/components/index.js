@@ -14,6 +14,7 @@ import {
 import { InfiniteScroll, MyRegionInfiniteScroll } from './main/infiniteScroll';
 import {
 	BoardItemsWrap,
+	TabContentWrapper,
 	TabWrapper,
 	TabDiv,
 } from './main/mainStyledComponents';
@@ -111,6 +112,7 @@ export {
 	ReplyDiv,
 	ReplyInput,
 	ReplySubmitButton,
+	TabContentWrapper,
 	TabWrapper,
 	TabDiv,
 	MyPageWrapper,

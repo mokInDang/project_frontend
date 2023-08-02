@@ -17,9 +17,9 @@ const CertificationItemCard = styled.div`
 	.thumbnail {
 		box-shadow: inset 0px 0px 1.5rem rgba(0, 0, 0, 0.3);
 		box-sizing: border-box;
-		margin: 2.2rem;
+		margin: 1.8rem;
 		margin-bottom: 1.5rem;
-		height: 35rem;
+		height: 29rem;
 		overflow: hidden;
 		img {
 			position: relative;
@@ -28,6 +28,10 @@ const CertificationItemCard = styled.div`
 			object-fit: cover;
 			z-index: -1;
 			background: rgba(217, 217, 217, 0.5);
+		}
+		@media (max-width:425px){
+			height:40rem;
+			margin:2rem;
 		}
 	}
 	.writerProfileWrap {
@@ -53,7 +57,6 @@ const CertificationItemCard = styled.div`
 		height: 5rem;
 		-webkit-line-clamp: 2;
 		text-overflow: ellipsis;
-		margin-bottom: 2rem;
 		color: rgba(0, 0, 0, 0.9);
 	}
 	transition: all 0.2s ease-in-out;
@@ -68,10 +71,15 @@ const CertificationItemCard = styled.div`
 `;
 const Tape = styled.div`
 	position: absolute;
-	width: 17.5rem;
-	height: 4rem;
+	width: 13rem;
+	height: 3rem;
+	@media (max-width: 425px) {
+		height: 7rem;
+		width: 17rem;
+		top: -1rem;
+	}
 	z-index: 3;
-	top: -1rem;
+	top: -0.5rem;
 	left: 50%;
 	transform: translate3d(-50%, -50%, 0)
 		${(props) => {
@@ -96,7 +104,8 @@ const CertificationCard = ({ boardItem, tapeNumber }) => {
 		.replace(/(<([^>]+)>)/gi, '');
 	return (
 		<CertificationItemCard
-			onClick={() => navigate(`/boards/certification/${boardItem.boardId}`)}>
+			onClick={() => navigate(`/boards/certification/${boardItem.boardId}`)}
+		>
 			<Tape tapeNumber={tapeNumber % 4} />
 			<div className='thumbnail'>
 				<img src={boardItem.mainImageUrl} loading='lazy'></img>
@@ -106,7 +115,8 @@ const CertificationCard = ({ boardItem, tapeNumber }) => {
 					<GlobalProfile
 						size='4rem'
 						margin='0 1.5rem 0 0'
-						src={boardItem.writerProfileUrl}></GlobalProfile>
+						src={boardItem.writerProfileUrl}
+					></GlobalProfile>
 					{boardItem.writerAlias}({boardItem.firstFourLettersOfEmail}
 					****)
 				</div>

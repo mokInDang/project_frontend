@@ -13,7 +13,7 @@ import {
 	PatchCertification,
 	MyRegionBoardsMap,
 } from './pages';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Navigator, TopButton } from './components';
 import { reissueToken } from './apis';
 import { Comments } from './pages/comments';
@@ -35,20 +35,20 @@ function App() {
 			<TopButton />
 			<Routes>
 				{/* 인증 여부 상관 없이 접근 가능한 페이지 정의 */}
-				<Route path='mypage' element={<MyPage />} />
-				<Route path='mypage/edit' element={<MyInfoEdit />} />
+				{/* <Route path='mypage' element={<MyPage />} />
+				<Route path='mypage/edit' element={<MyInfoEdit />} /> */}
 
 				<Route element={<Home />}>
 					<Route element={<RecruitmentInfiniteScroll />}>
 						<Route path='' element={<InfiniteScroll />} />
-						{/* <Route element={<PrivateRoutes authentication={true} />}>
-							<Route element={<RegionRequiredRoutes />}> */}
-						<Route
-							path='recruitment/myregion'
-							element={<MyRegionInfiniteScroll />}
-						/>
-						{/* </Route>
-						</Route> */}
+						<Route element={<PrivateRoutes authentication={true} />}>
+							<Route element={<RegionRequiredRoutes />}>
+								<Route
+									path='recruitment/myregion'
+									element={<MyRegionInfiniteScroll />}
+								/>
+							</Route>
+						</Route>
 					</Route>
 					<Route
 						path='/certification'
@@ -92,15 +92,15 @@ function App() {
 					</Route>
 				</Route>
 				{/* Comments도 추후 PrivateRoutes 안으로 옮길 것 */}
-				<Route
+				{/* <Route
 					path='/boards/certification/:boardId/comments'
 					element={<Comments />}
 				/>
 				<Route
 					path='/boards/recruitment/:boardId/comments'
 					element={<Comments />}
-				/>
-				<Route path='*' element={<Welcome />} />
+				/> */}
+				<Route path='*' element={<Navigate to='/' />} />
 			</Routes>
 		</div>
 	);
