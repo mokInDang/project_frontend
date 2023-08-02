@@ -1,14 +1,20 @@
-
 import { OnLogin } from '../apis';
 import { BarLoader } from 'react-spinners';
+import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
 
 function Welcome() {
 	const KAKAO_CODE = new URL(document.location.href).searchParams.get('code');
+	const navigate = useNavigate();
 	let kakaoAuthCode = { authorizationCode: KAKAO_CODE };
-	if (KAKAO_CODE) {
-		OnLogin(kakaoAuthCode);
-	} // eslint-disable-next-line
-
+	useEffect(() => {
+		if (KAKAO_CODE) {
+			OnLogin(kakaoAuthCode);
+		} else {
+			alert('잘못된 접근입니다.');
+			navigate('/');
+		}
+	}, []);
 	return (
 		<div
 			style={{
@@ -17,10 +23,7 @@ function Welcome() {
 				textAlign: 'center',
 				width: '100%',
 			}}>
-			<BarLoader
-				color="#81CC55"
-				height="5px"
-				width="100%"></BarLoader>
+			<BarLoader color='#81CC55' height='5px' width='100%'></BarLoader>
 		</div>
 	);
 }
