@@ -19,6 +19,7 @@ const Headerdiv = styled.div`
 		background: #ffffff;
 		display: flex;
 		height: 9rem;
+		padding: 0 3rem;
 		@media (min-width: 1600px) {
 			height: 11rem;
 			padding: 0 3rem;

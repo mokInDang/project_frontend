@@ -30,12 +30,13 @@ const Navigator = () => {
 			setIsLogined(true);
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로, 페이지 이동 시
 	useEffect(() => {
-		if (location.pathname === '/mypage') getUserInfo();
+		getUserInfo();
+		console.log('헤헤');
 	});
 
-	useEffect(() => {
-		getUserInfo();
-	}, [isLogined]);
+	// useEffect(() => {
+	// 	getUserInfo();
+	// }, [isLogined]);
 
 	return (
 		<>
@@ -46,7 +47,8 @@ const Navigator = () => {
 							<div>
 								<div
 									className='HomebuttonWrapper'
-									onClick={() => navigate('/')}>
+									onClick={() => navigate('/')}
+								>
 									<img src={logo} alt='logo' />
 								</div>
 							</div>
@@ -59,7 +61,8 @@ const Navigator = () => {
 											<div className='myRegion myRegionMapButton'>
 												<HeaderButton
 													onClick={() => navigate(`/myregionmap`)}
-													style={{ paddingRight: '1rem' }}>
+													style={{ paddingRight: '1rem' }}
+												>
 													<img src={locationIcon} alt='locationIcon' />
 													{userInfo.region}
 												</HeaderButton>
@@ -68,7 +71,8 @@ const Navigator = () => {
 										<ProfileWrap
 											dropdownView={dropdownView}
 											ref={dropMenuRef}
-											onClick={() => setDropdownView(!dropdownView)}>
+											onClick={() => setDropdownView(!dropdownView)}
+										>
 											<GlobalProfile
 												size='5rem'
 												src={userInfo.profileImageUrl}

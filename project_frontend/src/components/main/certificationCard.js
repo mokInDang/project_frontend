@@ -29,6 +29,10 @@ const CertificationItemCard = styled.div`
 			z-index: -1;
 			background: rgba(217, 217, 217, 0.5);
 		}
+		@media (max-width:425px){
+			height:40rem;
+			margin:2rem;
+		}
 	}
 	.writerProfileWrap {
 		padding: 0 2rem 2rem 2rem;
@@ -69,8 +73,13 @@ const Tape = styled.div`
 	position: absolute;
 	width: 13rem;
 	height: 3rem;
+	@media (max-width: 425px) {
+		height: 7rem;
+		width: 17rem;
+		top: -1rem;
+	}
 	z-index: 3;
-	top: -1rem;
+	top: -0.5rem;
 	left: 50%;
 	transform: translate3d(-50%, -50%, 0)
 		${(props) => {
@@ -95,7 +104,8 @@ const CertificationCard = ({ boardItem, tapeNumber }) => {
 		.replace(/(<([^>]+)>)/gi, '');
 	return (
 		<CertificationItemCard
-			onClick={() => navigate(`/boards/certification/${boardItem.boardId}`)}>
+			onClick={() => navigate(`/boards/certification/${boardItem.boardId}`)}
+		>
 			<Tape tapeNumber={tapeNumber % 4} />
 			<div className='thumbnail'>
 				<img src={boardItem.mainImageUrl} loading='lazy'></img>
@@ -105,7 +115,8 @@ const CertificationCard = ({ boardItem, tapeNumber }) => {
 					<GlobalProfile
 						size='4rem'
 						margin='0 1.5rem 0 0'
-						src={boardItem.writerProfileUrl}></GlobalProfile>
+						src={boardItem.writerProfileUrl}
+					></GlobalProfile>
 					{boardItem.writerAlias}({boardItem.firstFourLettersOfEmail}
 					****)
 				</div>
