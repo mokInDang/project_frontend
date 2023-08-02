@@ -15,6 +15,7 @@ import banner1 from './banner1.png';
 import banner1_clouds from './banner1_clouds.png';
 import banner2 from './banner2.png';
 import banner2_clouds from './banner2_clouds.png';
+import fireEmoji from './fireEmoji.png';
 
 export {
 	kakao_login_large_wide,
@@ -34,4 +35,5 @@ export {
 	banner1_clouds,
 	banner2,
 	banner2_clouds,
+	fireEmoji,
 };
