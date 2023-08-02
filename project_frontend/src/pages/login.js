@@ -36,7 +36,7 @@ function Login() {
 			<CloseButton onClick={preventGoback} style={{ cursor: 'pointer' }}>
 				<TfiClose size='3rem' color='#3A3A3A'></TfiClose>
 			</CloseButton>
-			<div className='loginComponentsWrap'>
+			<div>
 				<JoinComment />
 				<LoginComments>소셜 계정으로 로그인하기</LoginComments>
 				<a href={KAKAO_AUTH_URL}>

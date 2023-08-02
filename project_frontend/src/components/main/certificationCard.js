@@ -17,9 +17,9 @@ const CertificationItemCard = styled.div`
 	.thumbnail {
 		box-shadow: inset 0px 0px 1.5rem rgba(0, 0, 0, 0.3);
 		box-sizing: border-box;
-		margin: 2.2rem;
+		margin: 1.8rem;
 		margin-bottom: 1.5rem;
-		height: 35rem;
+		height: 29rem;
 		overflow: hidden;
 		img {
 			position: relative;
@@ -53,7 +53,6 @@ const CertificationItemCard = styled.div`
 		height: 5rem;
 		-webkit-line-clamp: 2;
 		text-overflow: ellipsis;
-		margin-bottom: 2rem;
 		color: rgba(0, 0, 0, 0.9);
 	}
 	transition: all 0.2s ease-in-out;
@@ -68,8 +67,8 @@ const CertificationItemCard = styled.div`
 `;
 const Tape = styled.div`
 	position: absolute;
-	width: 17.5rem;
-	height: 4rem;
+	width: 13rem;
+	height: 3rem;
 	z-index: 3;
 	top: -1rem;
 	left: 50%;

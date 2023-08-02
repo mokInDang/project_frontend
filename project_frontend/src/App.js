@@ -41,14 +41,14 @@ function App() {
 				<Route element={<Home />}>
 					<Route element={<RecruitmentInfiniteScroll />}>
 						<Route path='' element={<InfiniteScroll />} />
-						{/* <Route element={<PrivateRoutes authentication={true} />}>
-							<Route element={<RegionRequiredRoutes />}> */}
+						<Route element={<PrivateRoutes authentication={true} />}>
+							<Route element={<RegionRequiredRoutes />}>
 						<Route
 							path='recruitment/myregion'
 							element={<MyRegionInfiniteScroll />}
 						/>
-						{/* </Route>
-						</Route> */}
+						</Route>
+						</Route>
 					</Route>
 					<Route
 						path='/certification'
