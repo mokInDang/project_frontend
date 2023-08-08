@@ -12,6 +12,7 @@ function PostRecruitment() {
 			latitude: '',
 			meetingAddress: '',
 		},
+		maxOfParticipationCount: 0,
 	};
 
 	return (

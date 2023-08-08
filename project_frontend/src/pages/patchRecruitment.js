@@ -17,6 +17,7 @@ function PatchRecruitment() {
 			latitude: '',
 			meetingAddress: '',
 		},
+		maxOfParticipationCount: 0,
 	};
 
 	if (recruitmentToEdit && boardIdToEdit) {
@@ -26,6 +27,7 @@ function PatchRecruitment() {
 			title,
 			contentBody,
 			meetingPlaceResponse,
+			maxOfParticipationCount,
 		} = recruitmentToEdit;
 		let { longitude, latitude, meetingAddress } = meetingPlaceResponse;
 
@@ -39,6 +41,7 @@ function PatchRecruitment() {
 				latitude: latitude,
 				meetingAddress: meetingAddress,
 			},
+			maxOfParticipationCount: maxOfParticipationCount,
 		};
 		form = formToEdit;
 	}

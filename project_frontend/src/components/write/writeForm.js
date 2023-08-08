@@ -11,7 +11,13 @@ import {
 	NumDiv,
 } from './writeFormComponents';
 import { writeRecruitment, EditRecruitment } from '../../apis';
-import { CustomSelectActivity, CustomSelectDate, Map, WriteWrapper } from '..';
+import {
+	CustomSelectActivity,
+	CustomSelectDate,
+	CustomSelectMaxOfParticipationCount,
+	Map,
+	WriteWrapper,
+} from '..';
 
 const WriteForm = (props) => {
 	const boardIdToEdit = props.boardIdToEdit;
@@ -28,6 +34,7 @@ const WriteForm = (props) => {
 		startingDate,
 		meetingPlaceCreationRequest,
 		meetingPlaceModificationRequest,
+		maxOfParticipationCount,
 	} = form;
 	var meetingPlace = {};
 	if (meetingPlaceModificationRequest !== undefined) {
@@ -42,6 +49,20 @@ const WriteForm = (props) => {
 		const nextForm = {
 			...form, // 기존값 복사 (spread operator)
 			activityCategory: newSelectedActivity, // 덮어쓰기
+		};
+		setForm(nextForm);
+	};
+	const getSelectedDate = (newSelectedDate) => {
+		const nextForm = {
+			...form, // 기존값 복사 (spread operator)
+			startingDate: newSelectedDate, // 덮어쓰기
+		};
+		setForm(nextForm);
+	};
+	const getMaxOfParticipationCount = (newMaxOfParticipationCount) => {
+		const nextForm = {
+			...form, // 기존값 복사 (spread operator)
+			maxOfParticipationCount: newMaxOfParticipationCount, // 덮어쓰기
 		};
 		setForm(nextForm);
 	};
@@ -67,13 +88,6 @@ const WriteForm = (props) => {
 			};
 			setForm(nextForm);
 		}
-	};
-	const getSelectedDate = (newSelectedDate) => {
-		const nextForm = {
-			...form, // 기존값 복사 (spread operator)
-			startingDate: newSelectedDate, // 덮어쓰기
-		};
-		setForm(nextForm);
 	};
 
 	const getHtmlContentBody = (newContentBody) => {
@@ -106,7 +120,7 @@ const WriteForm = (props) => {
 				<NumDiv>
 					<span>1</span>
 				</NumDiv>
-			활동 종류와 시작 예정일을 입력해주세요.
+				활동 종류와 시작 예정일을 입력해주세요.
 			</P>
 			<HR />
 			<div className='selectBoxWrap'>
@@ -131,9 +145,16 @@ const WriteForm = (props) => {
 				<NumDiv>
 					<span>2</span>
 				</NumDiv>
-				활동 시 만날 위치를 지정해주세요.
+				활동 인원과 활동 시 만날 위치를 지정해주세요.
 			</P>
 			<HR />
+			<Label htmlFor='title'>활동 인원</Label>
+			<CustomSelectMaxOfParticipationCount
+				name='headCount'
+				value={maxOfParticipationCount}
+				getMaxOfParticipationCount={getMaxOfParticipationCount}
+			/>
+			<HR style={{ border: '2px solid white' }}></HR>
 			<Label htmlFor='title'>위치 검색</Label>
 			<Map getMeetingPlace={getMeetingPlace} meetingPlace={meetingPlace} />
 			<P>
