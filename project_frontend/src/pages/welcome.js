@@ -2,6 +2,7 @@ import { OnLogin } from '../apis';
 import { BarLoader } from 'react-spinners';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 function Welcome() {
 	const dispatch = useDispatch();
@@ -12,12 +13,14 @@ function Welcome() {
 	const KAKAO_CODE = new URL(document.location.href).searchParams.get('code');
 	const navigate = useNavigate();
 	let kakaoAuthCode = { authorizationCode: KAKAO_CODE };
-	if (KAKAO_CODE) {
-		OnLogin(kakaoAuthCode, loginHandler, navigate);
-	} else {
-		alert('잘못된 접근입니다.');
-		navigate('/');
-	} // eslint-disable-next-line
+	useEffect(() => {
+		if (KAKAO_CODE) {
+			OnLogin(kakaoAuthCode, loginHandler, navigate);
+		} else {
+			alert('잘못된 접근입니다.');
+			navigate('/');
+		} // eslint-disable-next-line
+	}, []);
 
 	return (
 		<div
