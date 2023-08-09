@@ -11,32 +11,21 @@ import {
 	ProfileWrap,
 	GlobalProfile,
 } from '..';
+import { useSelector } from 'react-redux';
 
 const Navigator = () => {
+	const isLogined = useSelector((state) => state.isLogined);
+	const userInfo = useSelector((state) => state.userInfo);
 	const navigate = useNavigate();
 	const location = useLocation();
-	const [isLogined, setIsLogined] = useState(false);
-	const [userInfo, setUserInfo] = useState({});
 	const [dropdownView, setDropdownView] = useState(false);
 	const dropMenuRef = useRef();
-	const getUserInfo = () => {
-		if (isLogined) {
-			setUserInfo(secureLocalStorage.getItem('userInfo'));
-		}
-	};
 	useEffect(() => {
 		setDropdownView(false);
-		if (secureLocalStorage.getItem('accessToken') !== null && !isLogined)
-			setIsLogined(true);
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로, 페이지 이동 시
 	useEffect(() => {
-		getUserInfo();
-		console.log('헤헤');
+		console.log({ isLogined });
 	});
-
-	// useEffect(() => {
-	// 	getUserInfo();
-	// }, [isLogined]);
 
 	return (
 		<>
@@ -47,8 +36,7 @@ const Navigator = () => {
 							<div>
 								<div
 									className='HomebuttonWrapper'
-									onClick={() => navigate('/')}
-								>
+									onClick={() => navigate('/')}>
 									<img src={logo} alt='logo' />
 								</div>
 							</div>
@@ -61,8 +49,7 @@ const Navigator = () => {
 											<div className='myRegion myRegionMapButton'>
 												<HeaderButton
 													onClick={() => navigate(`/myregionmap`)}
-													style={{ paddingRight: '1rem' }}
-												>
+													style={{ paddingRight: '1rem' }}>
 													<img src={locationIcon} alt='locationIcon' />
 													{userInfo.region}
 												</HeaderButton>
@@ -71,8 +58,7 @@ const Navigator = () => {
 										<ProfileWrap
 											dropdownView={dropdownView}
 											ref={dropMenuRef}
-											onClick={() => setDropdownView(!dropdownView)}
-										>
+											onClick={() => setDropdownView(!dropdownView)}>
 											<GlobalProfile
 												size='5rem'
 												src={userInfo.profileImageUrl}

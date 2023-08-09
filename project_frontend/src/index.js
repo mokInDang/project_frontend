@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 import { ScrollToTop } from './components';
+import { Provider } from 'react-redux';
+import store from './store';
 
 axios.defaults.baseURL = 'https://dev.dongnejupging.xyz';
 axios.defaults.withCredentials = true;
@@ -13,8 +15,10 @@ axios.defaults.withCredentials = true;
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<BrowserRouter>
-		<ScrollToTop />
-		<App />
+		<Provider store={store}>
+			<ScrollToTop />
+			<App />
+		</Provider>
 	</BrowserRouter>
 );
 

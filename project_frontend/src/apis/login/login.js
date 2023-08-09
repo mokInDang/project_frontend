@@ -1,25 +1,27 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import secureLocalStorage from 'react-secure-storage';
+import { useDispatch } from 'react-redux';
 const JWT_EXPIRY_TIME = 2 * 60 * 60 * 1000; // 만료 시간 (30분 밀리초로 표현) 60000 = 1분, 60000 *60 = 1시간, 60000*60*2 = 2시간
 
-const OnLogin = async (res) => {
+const OnLogin = async (kakaoAuthCode, loginHandler) => {
 	const navigate = useNavigate();
 	console.log(`1. onLogin 실행`);
 	await axios
-		.post('/api/auth/join', JSON.stringify(res), {
+		.post('/api/auth/join', JSON.stringify(kakaoAuthCode), {
 			headers: {
 				'Content-Type': 'application/json',
 				'Access-Control-Allow-Origin': `https://www.dongnejupging.xyz`,
 			},
 		})
 		.then((res) => {
-			secureLocalStorage.setItem('userInfo', res.data);
+			loginHandler(res.data, res.headers.get('Authorization'));
 			onLoginSuccess(res);
-			const userInfo = secureLocalStorage.getItem('userInfo');
 			navigate('/');
-			if(userInfo.region === "DEFAULT_REGION"){
-				alert("마이페이지에서 내 위치 인증 후 게시글 작성이 가능합니다!\n마이페이지 -> 내 위치 인증 클릭\n(모바일의 경우 위치 인증 시 핸드폰의 GPS를 켜주세요.)")
+			if (res.data.region === 'DEFAULT_REGION') {
+				alert(
+					'마이페이지에서 내 위치 인증 후 게시글 작성이 가능합니다!\n마이페이지 -> 내 위치 인증 클릭\n(모바일의 경우 위치 인증 시 핸드폰의 GPS를 켜주세요.)'
+				);
 			}
 		})
 		.catch((error) => {
@@ -29,6 +31,7 @@ const OnLogin = async (res) => {
 			navigate('/');
 		});
 };
+
 const onLoginSuccess = (res) => {
 	console.log('2. onLoginSuccess 실행');
 	secureLocalStorage.setItem('accessToken', res.headers.get('Authorization'));
