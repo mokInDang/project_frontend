@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 const Navigator = () => {
 	const isLogined = useSelector((state) => state.isLogined);
 	const userInfo = useSelector((state) => state.userInfo);
+	const state = useSelector((state) => state);
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [dropdownView, setDropdownView] = useState(false);
@@ -24,8 +25,8 @@ const Navigator = () => {
 		setDropdownView(false);
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로, 페이지 이동 시
 	useEffect(() => {
-		console.log({ isLogined });
-	});
+		console.log({ state });
+	}, [state]);
 
 	return (
 		<>
@@ -36,7 +37,8 @@ const Navigator = () => {
 							<div>
 								<div
 									className='HomebuttonWrapper'
-									onClick={() => navigate('/')}>
+									onClick={() => navigate('/')}
+								>
 									<img src={logo} alt='logo' />
 								</div>
 							</div>
@@ -49,7 +51,8 @@ const Navigator = () => {
 											<div className='myRegion myRegionMapButton'>
 												<HeaderButton
 													onClick={() => navigate(`/myregionmap`)}
-													style={{ paddingRight: '1rem' }}>
+													style={{ paddingRight: '1rem' }}
+												>
 													<img src={locationIcon} alt='locationIcon' />
 													{userInfo.region}
 												</HeaderButton>
@@ -58,7 +61,8 @@ const Navigator = () => {
 										<ProfileWrap
 											dropdownView={dropdownView}
 											ref={dropMenuRef}
-											onClick={() => setDropdownView(!dropdownView)}>
+											onClick={() => setDropdownView(!dropdownView)}
+										>
 											<GlobalProfile
 												size='5rem'
 												src={userInfo.profileImageUrl}

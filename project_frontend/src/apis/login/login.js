@@ -1,11 +1,8 @@
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import secureLocalStorage from 'react-secure-storage';
-import { useDispatch } from 'react-redux';
 const JWT_EXPIRY_TIME = 2 * 60 * 60 * 1000; // 만료 시간 (30분 밀리초로 표현) 60000 = 1분, 60000 *60 = 1시간, 60000*60*2 = 2시간
 
-const OnLogin = async (kakaoAuthCode, loginHandler) => {
-	const navigate = useNavigate();
+const OnLogin = async (kakaoAuthCode, loginHandler, navigate) => {
 	console.log(`1. onLogin 실행`);
 	await axios
 		.post('/api/auth/join', JSON.stringify(kakaoAuthCode), {
@@ -15,6 +12,7 @@ const OnLogin = async (kakaoAuthCode, loginHandler) => {
 			},
 		})
 		.then((res) => {
+			console.log(res.data);
 			loginHandler(res.data, res.headers.get('Authorization'));
 			onLoginSuccess(res);
 			navigate('/');

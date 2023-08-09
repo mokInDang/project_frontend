@@ -13,7 +13,7 @@ function Welcome() {
 	const navigate = useNavigate();
 	let kakaoAuthCode = { authorizationCode: KAKAO_CODE };
 	if (KAKAO_CODE) {
-		OnLogin(kakaoAuthCode, loginHandler);
+		OnLogin(kakaoAuthCode, loginHandler, navigate);
 	} else {
 		alert('잘못된 접근입니다.');
 		navigate('/');
@@ -26,7 +26,8 @@ function Welcome() {
 				margin: '0 auto',
 				textAlign: 'center',
 				width: '100%',
-			}}>
+			}}
+		>
 			<BarLoader color='#81CC55' height='5px' width='100%'></BarLoader>
 		</div>
 	);
