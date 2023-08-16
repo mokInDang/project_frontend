@@ -23,13 +23,12 @@ import {
 	InfiniteScroll,
 	MyRegionInfiniteScroll,
 } from './components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 function App() {
 	// 페이지 리로드 시 reissueToken 실행
 	console.log('App.js에서 reissueToken 실행');
 	reissueToken();
-	const region = useSelector((state) => state.userInfo.region);
-	const accessToken = useSelector((state) => state.accessToken);
 
 	return (
 		<div className='App'>
@@ -43,14 +42,8 @@ function App() {
 				<Route element={<Home />}>
 					<Route element={<RecruitmentInfiniteScroll />}>
 						<Route path='' element={<InfiniteScroll />} />
-						<Route
-							element={
-								<PrivateRoutes
-									authentication={true}
-									accessToken={accessToken}
-								/>
-							}>
-							<Route element={<RegionRequiredRoutes region={region} />}>
+						<Route element={<PrivateRoutes authentication={true} />}>
+							<Route element={<RegionRequiredRoutes />}>
 								<Route
 									path='recruitment/myregion'
 									element={<MyRegionInfiniteScroll />}
@@ -70,10 +63,7 @@ function App() {
 				</Route>
 				<Route path='/api/auth/join' element={<Welcome />} />
 
-				<Route
-					element={
-						<PrivateRoutes authentication={true} accessToken={accessToken} />
-					}>
+				<Route element={<PrivateRoutes authentication={true} />}>
 					{/* 인증을 반드시 해야만 접근 가능한 페이지 정의 */}
 					<Route path='/mypage' element={<MyPage />} />
 					<Route path='/mypage/edit' element={<MyInfoEdit />} />
@@ -93,7 +83,7 @@ function App() {
 						path='/edit/certification/:boardId'
 						element={<PatchCertification />}
 					/>
-					<Route element={<RegionRequiredRoutes region={region} />}>
+					<Route element={<RegionRequiredRoutes />}>
 						<Route path='/boards/recruitment' element={<PostRecruitment />} />
 						<Route
 							path='/boards/certification'

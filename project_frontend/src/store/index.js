@@ -1,4 +1,5 @@
 import { createStore } from 'redux';
+import { composeWithDevTools } from '@redux-devtools/extension';
 
 const userInfoReducer = (
 	state = {
@@ -31,8 +32,15 @@ const userInfoReducer = (
 			isLogined: false,
 		};
 	}
+	if (action.type === 'test') {
+		return {
+			userInfo: action.userInfo,
+			isLogined: true,
+			accessToken: action.accessToken,
+		};
+	}
 	return state;
 };
-const store = createStore(userInfoReducer);
+const store = createStore(userInfoReducer, composeWithDevTools());
 
 export default store;

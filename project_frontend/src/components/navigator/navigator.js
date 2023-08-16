@@ -25,7 +25,7 @@ const Navigator = () => {
 		setDropdownView(false);
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로, 페이지 이동 시
 	useEffect(() => {
-		console.log({ state });
+		console.log(state);
 	}, [state]);
 
 	return (
