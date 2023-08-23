@@ -14,7 +14,7 @@ const onLogout = async () => {
 			console.log(`동네줍깅 로그아웃 : Access token 삭제`);
 			axios.defaults.headers.common['Authorization'] = undefined;
 			console.log(res.status);
-			secureLocalStorage.clear();
+			// secureLocalStorage.clear(); persistor.purge() 로 교체할 것
 			window.location.replace(KAKAO_LOGOUT_URL);
 		})
 		.catch((error) => {

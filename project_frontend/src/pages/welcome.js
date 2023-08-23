@@ -1,12 +1,11 @@
 import { OnLogin } from '../apis';
 import { BarLoader } from 'react-spinners';
 import { useNavigate } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
 function Welcome() {
 	const dispatch = useDispatch();
-	const region = useSelector((state) => state.userInfo.region);
 	const loginHandler = (userInfo, accessToken) => {
 		dispatch({ type: 'login', userInfo: userInfo, accessToken: accessToken });
 	};
@@ -29,8 +28,7 @@ function Welcome() {
 				margin: '0 auto',
 				textAlign: 'center',
 				width: '100%',
-			}}
-		>
+			}}>
 			<BarLoader color='#81CC55' height='5px' width='100%'></BarLoader>
 		</div>
 	);

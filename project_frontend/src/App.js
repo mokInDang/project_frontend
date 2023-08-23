@@ -23,13 +23,13 @@ import {
 	InfiniteScroll,
 	MyRegionInfiniteScroll,
 } from './components';
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 function App() {
 	// 페이지 리로드 시 reissueToken 실행
 	console.log('App.js에서 reissueToken 실행');
-	reissueToken();
-
+	reissueToken(
+		useSelector((state) => state.user.accessToken) // redux-store에서 accessToken 값 가져오기
+	);
 	return (
 		<div className='App'>
 			<Navigator />

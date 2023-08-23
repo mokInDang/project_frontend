@@ -1,5 +1,4 @@
 import axios from 'axios';
-import secureLocalStorage from 'react-secure-storage';
 const JWT_EXPIRY_TIME = 2 * 60 * 60 * 1000; // 만료 시간 (30분 밀리초로 표현) 60000 = 1분, 60000 *60 = 1시간, 60000*60*2 = 2시간
 
 const OnLogin = async (kakaoAuthCode, loginHandler, navigate) => {
@@ -32,9 +31,8 @@ const OnLogin = async (kakaoAuthCode, loginHandler, navigate) => {
 
 const onLoginSuccess = (res) => {
 	console.log('2. onLoginSuccess 실행');
-	secureLocalStorage.setItem('accessToken', res.headers.get('Authorization'));
 	axios.defaults.headers.common['Authorization'] =
-		secureLocalStorage.getItem('accessToken');
+		res.headers.get('Authorization');
 	setTimeout(() => onSilentRefresh(), JWT_EXPIRY_TIME - 60000);
 };
 
@@ -50,14 +48,10 @@ const onSilentRefresh = () => {
 			console.log('onSilentRefresh 실패');
 		});
 };
-const reissueToken = () => {
+const reissueToken = (accessToken) => {
 	// Todo : 로그아웃 시 Authorization undefined로 설정해줄 것
-	if (
-		secureLocalStorage.getItem('accessToken') !== null &&
-		secureLocalStorage.getItem('accessToken').slice(0, 6) === 'Bearer'
-	) {
-		axios.defaults.headers.common['Authorization'] =
-			secureLocalStorage.getItem('accessToken');
+	if (accessToken !== null && accessToken.slice(0, 6) === 'Bearer') {
+		axios.defaults.headers.common['Authorization'] = accessToken;
 		onSilentRefresh();
 	} else {
 		console.log('Access Token not defined');
