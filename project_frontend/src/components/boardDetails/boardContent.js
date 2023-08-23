@@ -129,14 +129,13 @@ const BoardContent = () => {
 										{boardDetails.onRecruitment === true && (
 											<ButtonsWrap>
 												<ParticipationButton
-													onClick={
-														() => {}
-														// ploggingParticipation(
-														// 	boardDetails.boardId,
-														// 	getBoardDetails,
-														// 	boardDetails.participationCount,
-														// 	navigate
-														// )
+													onClick={() =>
+														ploggingParticipation(
+															boardDetails.boardId,
+															getBoardDetails,
+															boardDetails.participationCount,
+															navigate
+														)
 													}>
 													{boardDetails.participationCount}/
 													{boardDetails.maxOfParticipationCount}명 모집 중
