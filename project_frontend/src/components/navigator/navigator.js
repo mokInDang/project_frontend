@@ -14,8 +14,8 @@ import {
 import { useSelector } from 'react-redux';
 
 const Navigator = () => {
-	const isLogined = useSelector((state) => state.isLogined);
-	const userInfo = useSelector((state) => state.userInfo);
+	const isLogined = useSelector((state) => state.user.isLogined);
+	const userInfo = useSelector((state) => state.user.userInfo);
 	const state = useSelector((state) => state);
 	const navigate = useNavigate();
 	const location = useLocation();

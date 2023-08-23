@@ -5,8 +5,10 @@ import { GlobalProfile } from '../components';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import secureLocalStorage from 'react-secure-storage';
+import { useDispatch } from 'react-redux';
 
 function MyPage() {
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [userInfo, setUserInfo] = useState({
 		profileImageUrl: 'DEFAULT_PROFILE_IMAGE_URL',
@@ -53,7 +55,7 @@ function MyPage() {
 		await axios
 			.get('api/member/mypage')
 			.then((res) => {
-				secureLocalStorage.setItem('userInfo', res.data);
+				dispatch({ type: 'mypage', userInfo: res.data });
 				setUserInfo(res.data);
 			})
 			.catch((error) => console.log(error));

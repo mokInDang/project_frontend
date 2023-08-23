@@ -1,5 +1,13 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from '@redux-devtools/extension';
+import storage from 'redux-persist/lib/storage';
+import { persistReducer, persistStore } from 'redux-persist';
+
+const persistConfig = {
+	key: 'root',
+	storage,
+	whitelist: ['userInfo'],
+};
 
 const userInfoReducer = (
 	state = {
@@ -39,8 +47,21 @@ const userInfoReducer = (
 			accessToken: action.accessToken,
 		};
 	}
+	if (action.type === 'mypage') {
+		return {
+			...state,
+			userInfo: action.userInfo,
+		};
+	}
+	if (action.type === 'accessToken') {
+		return {
+			...state,
+			accessToken: action.accessToken,
+		};
+	}
 	return state;
 };
-const store = createStore(userInfoReducer, composeWithDevTools());
-
-export default store;
+const combinedReducer = combineReducers({ user: userInfoReducer });
+const rootReducer = persistReducer(persistConfig, combinedReducer);
+export const store = createStore(rootReducer, composeWithDevTools());
+export const persistor = persistStore(store);

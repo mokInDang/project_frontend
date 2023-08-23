@@ -7,7 +7,8 @@ import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 import { ScrollToTop } from './components';
 import { Provider } from 'react-redux';
-import store from './store';
+import { store, persistor } from './store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 axios.defaults.baseURL = 'https://dev.dongnejupging.xyz';
 axios.defaults.withCredentials = true;
@@ -16,8 +17,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<BrowserRouter>
 		<Provider store={store}>
-			<ScrollToTop />
-			<App />
+			<PersistGate persistor={persistor}>
+				<ScrollToTop />
+				<App />
+			</PersistGate>
 		</Provider>
 	</BrowserRouter>
 );
