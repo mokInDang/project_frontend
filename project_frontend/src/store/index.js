@@ -1,7 +1,16 @@
-import { createStore, combineReducers } from 'redux';
-import { composeWithDevTools } from '@redux-devtools/extension';
+import { combineReducers } from 'redux';
 import storage from 'redux-persist/lib/storage';
-import { persistReducer, persistStore } from 'redux-persist';
+import {
+	persistReducer,
+	persistStore,
+	FLUSH,
+	REHYDRATE,
+	PAUSE,
+	PERSIST,
+	PURGE,
+	REGISTER,
+} from 'redux-persist';
+import { configureStore } from '@reduxjs/toolkit';
 
 const persistConfig = {
 	key: 'root',
@@ -63,5 +72,13 @@ const userInfoReducer = (
 };
 const combinedReducer = combineReducers({ user: userInfoReducer });
 const rootReducer = persistReducer(persistConfig, combinedReducer);
-export const store = createStore(rootReducer, composeWithDevTools());
+export const store = configureStore({
+	reducer: rootReducer,
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+			serializableCheck: {
+				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+			},
+		}),
+});
 export const persistor = persistStore(store);
