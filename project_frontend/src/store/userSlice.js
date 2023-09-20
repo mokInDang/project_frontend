@@ -15,14 +15,16 @@ const userSlice = createSlice({
 	initialState,
 	reducers: {
 		login: (state, action) => {
-			state.userInfo = action.payload.userInfo;
-			state.accessToken = action.payload.accessToken;
+			state.userInfo = action.payload;
 		},
+        getToken: (state, action) =>{
+            state.accessToken = action.payload
+        },
 		logout: (state, action) => {
 			state.userInfo = {};
 		},
 	},
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, getToken, logout } = userSlice.actions;
 export default userSlice.reducer;

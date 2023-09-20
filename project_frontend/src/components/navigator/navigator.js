@@ -2,7 +2,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { Dropdown } from '..';
 import { useState, useEffect, useRef } from 'react';
-import secureLocalStorage from 'react-secure-storage';
 import { locationIcon, logo } from '../../assets/images';
 import {
 	Headerdiv,
@@ -15,6 +14,7 @@ import { useSelector } from 'react-redux';
 
 const Navigator = () => {
 	const userInfo = useSelector((state) => state.user?.userInfo);
+	console.log(userInfo)
 	const accessToken = useSelector((state) => state.user?.accessToken);
 	const navigate = useNavigate();
 	const location = useLocation();

@@ -3,7 +3,6 @@ import { BarLoader } from 'react-spinners';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { login } from '../store/userSlice';
 
 function Welcome() {
 	const dispatch = useDispatch();

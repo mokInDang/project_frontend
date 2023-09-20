@@ -1,7 +1,9 @@
 import axios from 'axios';
-import { login } from '../../store/userSlice';
+import { login, getToken } from '../../store/userSlice';
+import { useDispatch } from 'react-redux';
 const JWT_EXPIRY_TIME = 2 * 60 * 60 * 1000; // 만료 시간 (30분 밀리초로 표현) 60000 = 1분, 60000 *60 = 1시간, 60000*60*2 = 2시간
-const OnLogin = async (kakaoAuthCode, dispatch, navigate) => {
+const OnLogin = async (kakaoAuthCode, navigate) => {
+	const dispatch = useDispatch();
 	console.log(`1. onLogin 실행`);
 	await axios
 		.post('/api/auth/join', JSON.stringify(kakaoAuthCode), {
@@ -12,9 +14,9 @@ const OnLogin = async (kakaoAuthCode, dispatch, navigate) => {
 		})
 		.then((res) => {
 			console.log(res.data);
-			
-			dispatch(login(res.data, res.headers.get('Authorization')));
-			onLoginSuccess(res);
+			dispatch(login(res.data));
+			dispatch(getToken(res.headers.get('Authorization')));
+			onLoginSuccess(res, dispatch);
 			navigate('/');
 			if (res.data.region === 'DEFAULT_REGION') {
 				alert(
@@ -30,30 +32,31 @@ const OnLogin = async (kakaoAuthCode, dispatch, navigate) => {
 		});
 };
 
-const onLoginSuccess = (res) => {
+const onLoginSuccess = (res, dispatch) => {
 	console.log('2. onLoginSuccess 실행');
 	axios.defaults.headers.common['Authorization'] =
 		res.headers.get('Authorization');
+	dispatch(getToken(res.headers.get('Authorization')));
 	setTimeout(() => onSilentRefresh(), JWT_EXPIRY_TIME - 60000);
 };
 
-const onSilentRefresh = () => {
+const onSilentRefresh = (dispatch) => {
 	console.log('3. onSilentRefresh 실행');
 	axios
 		.post('/api/auth/refresh')
 		.then((res) => {
-			onLoginSuccess(res);
+			onLoginSuccess(res, dispatch);
 		})
 		.catch((error) => {
 			console.log(error);
 			console.log('onSilentRefresh 실패');
 		});
 };
-const reissueToken = (accessToken) => {
+const reissueToken = (accessToken, dispatch) => {
 	// Todo : 로그아웃 시 Authorization undefined로 설정해줄 것
 	if (accessToken && accessToken.slice(0, 6) === 'Bearer') {
 		axios.defaults.headers.common['Authorization'] = accessToken;
-		onSilentRefresh();
+		onSilentRefresh(dispatch);
 	} else {
 		console.log('Access Token not defined');
 	}
