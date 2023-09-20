@@ -20,9 +20,6 @@ const userSlice = createSlice({
         getToken: (state, action) =>{
             state.accessToken = action.payload
         },
-		logout: (state, action) => {
-			state.userInfo = {};
-		},
 	},
 });
 

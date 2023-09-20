@@ -14,7 +14,7 @@ const OnLogin = async (kakaoAuthCode, dispatch, navigate) => {
 			console.log(res.data);
 			dispatch(login(res.data));
 			dispatch(getToken(res.headers.get('Authorization')));
-			onLoginSuccess(res, dispatch);
+			// onLoginSuccess(res, dispatch);
 			navigate('/');
 			if (res.data.region === 'DEFAULT_REGION') {
 				alert(
