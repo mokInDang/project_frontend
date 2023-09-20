@@ -1,9 +1,7 @@
 import axios from 'axios';
 import { login, getToken } from '../../store/userSlice';
-import { useDispatch } from 'react-redux';
 const JWT_EXPIRY_TIME = 2 * 60 * 60 * 1000; // 만료 시간 (30분 밀리초로 표현) 60000 = 1분, 60000 *60 = 1시간, 60000*60*2 = 2시간
-const OnLogin = async (kakaoAuthCode, navigate) => {
-	const dispatch = useDispatch();
+const OnLogin = async (kakaoAuthCode, dispatch, navigate) => {
 	console.log(`1. onLogin 실행`);
 	await axios
 		.post('/api/auth/join', JSON.stringify(kakaoAuthCode), {

@@ -14,7 +14,6 @@ import { useSelector } from 'react-redux';
 
 const Navigator = () => {
 	const userInfo = useSelector((state) => state.user?.userInfo);
-	console.log(userInfo)
 	const accessToken = useSelector((state) => state.user?.accessToken);
 	const navigate = useNavigate();
 	const location = useLocation();
