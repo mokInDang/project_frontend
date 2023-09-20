@@ -3,18 +3,16 @@ import { BarLoader } from 'react-spinners';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { login } from '../store/userSlice';
 
 function Welcome() {
 	const dispatch = useDispatch();
-	const loginHandler = (userInfo, accessToken) => {
-		dispatch({ type: 'login', userInfo: userInfo, accessToken: accessToken });
-	};
 	const KAKAO_CODE = new URL(document.location.href).searchParams.get('code');
 	const navigate = useNavigate();
 	let kakaoAuthCode = { authorizationCode: KAKAO_CODE };
 	useEffect(() => {
 		if (KAKAO_CODE) {
-			OnLogin(kakaoAuthCode, loginHandler, navigate);
+			OnLogin(kakaoAuthCode, dispatch, navigate);
 		} else {
 			alert('잘못된 접근입니다.');
 			navigate('/');

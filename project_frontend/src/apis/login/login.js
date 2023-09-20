@@ -1,7 +1,7 @@
 import axios from 'axios';
+import { login } from '../../store/userSlice';
 const JWT_EXPIRY_TIME = 2 * 60 * 60 * 1000; // 만료 시간 (30분 밀리초로 표현) 60000 = 1분, 60000 *60 = 1시간, 60000*60*2 = 2시간
-
-const OnLogin = async (kakaoAuthCode, loginHandler, navigate) => {
+const OnLogin = async (kakaoAuthCode, dispatch, navigate) => {
 	console.log(`1. onLogin 실행`);
 	await axios
 		.post('/api/auth/join', JSON.stringify(kakaoAuthCode), {
@@ -12,7 +12,8 @@ const OnLogin = async (kakaoAuthCode, loginHandler, navigate) => {
 		})
 		.then((res) => {
 			console.log(res.data);
-			loginHandler(res.data, res.headers.get('Authorization'));
+			
+			dispatch(login(res.data, res.headers.get('Authorization')));
 			onLoginSuccess(res);
 			navigate('/');
 			if (res.data.region === 'DEFAULT_REGION') {
@@ -50,7 +51,7 @@ const onSilentRefresh = () => {
 };
 const reissueToken = (accessToken) => {
 	// Todo : 로그아웃 시 Authorization undefined로 설정해줄 것
-	if (accessToken !== null && accessToken.slice(0, 6) === 'Bearer') {
+	if (accessToken && accessToken.slice(0, 6) === 'Bearer') {
 		axios.defaults.headers.common['Authorization'] = accessToken;
 		onSilentRefresh();
 	} else {

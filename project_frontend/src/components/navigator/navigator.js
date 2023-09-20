@@ -14,9 +14,8 @@ import {
 import { useSelector } from 'react-redux';
 
 const Navigator = () => {
-	const isLogined = useSelector((state) => state.user.isLogined);
-	const userInfo = useSelector((state) => state.user.userInfo);
-	const state = useSelector((state) => state);
+	const userInfo = useSelector((state) => state.user?.userInfo);
+	const accessToken = useSelector((state) => state.user?.accessToken);
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [dropdownView, setDropdownView] = useState(false);
@@ -25,8 +24,8 @@ const Navigator = () => {
 		setDropdownView(false);
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로, 페이지 이동 시
 	useEffect(() => {
-		console.log(state);
-	}, [state]);
+		console.log({userInfo});
+	}, [userInfo]);
 
 	return (
 		<>
@@ -45,7 +44,7 @@ const Navigator = () => {
 						</div>
 						{location.pathname !== '/api/auth/join' && (
 							<HeaderButtonWrap>
-								{isLogined ? (
+								{accessToken ? (
 									<>
 										{userInfo.region !== 'DEFAULT_REGION' && (
 											<div className='myRegion myRegionMapButton'>
