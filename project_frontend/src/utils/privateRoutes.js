@@ -24,7 +24,7 @@ const PrivateRoutes = ({ authentication }) => {
 	}
 };
 const RegionRequiredRoutes = () => {
-	const region = useSelector((state) => state.user.userInfo.region);
+	const region = useSelector((state) => state.user.region);
 	if (region !== 'DEFAULT_REGION') {
 		return <Outlet />;
 	} else {

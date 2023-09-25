@@ -324,7 +324,8 @@ const Map = ({ getMeetingPlace, meetingPlace }) => {
 					id='searchInput'
 					value={keyword}
 					onChange={onChange}
-					placeholder='플로깅할 위치 검색'></input>
+					placeholder='플로깅할 위치 검색'
+				></input>
 				<AiOutlineSearch
 					id='searchButton'
 					size='3rem'
@@ -512,7 +513,7 @@ const MyRegionMap = ({ places, isLoaded, region }) => {
 		}
 	}, [myRegionRecruitments]);
 	useEffect(() => {
-		if (places !== []) {
+		if (!places) {
 			setMyRegionRecruitments(places);
 		}
 	}, [places]);

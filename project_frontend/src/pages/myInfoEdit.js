@@ -4,16 +4,17 @@ import { UserEdit, Location } from 'iconsax-react';
 import { GlobalProfile, Loading } from '../components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import secureLocalStorage from 'react-secure-storage';
 import {
 	fileExtensionValid,
 	fileSizeValid,
 } from '../utils/fileUploadValidHandler';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserInfo } from '../store/userSlice';
 
 function MyInfoEdit() {
 	const navigate = useNavigate();
-	const location = useLocation();
-	const [userInfo, setUserInfo] = useState(location.state); // 마이페이지에서 state로 넘어온 회원정보
+	const dispatch = useDispatch();
+	const [userInfo, setUserInfo] = useState(useSelector((state) => state.user)); // 마이페이지에서 state로 넘어온 회원정보
 	const [isLoading, setIsLoading] = useState(false);
 	const formData = new FormData();
 
@@ -31,7 +32,7 @@ function MyInfoEdit() {
 		axios
 			.patch('/api/member/edit-mypage', userInfo)
 			.then((res) => {
-				secureLocalStorage.setItem('userInfo', res.data);
+				dispatch(getUserInfo(res.data));
 				navigate('/mypage');
 			})
 			.catch((error) => {
@@ -40,6 +41,7 @@ function MyInfoEdit() {
 				setIsLoading(false);
 			});
 	};
+
 	const onImageUpload = (e) => {
 		const { files } = e.target;
 		if (!files || !files[0]) return;
@@ -76,6 +78,7 @@ function MyInfoEdit() {
 				setIsLoading(false);
 			});
 	};
+
 	const onImageDelete = () => {
 		setIsLoading(true);
 		axios
@@ -104,97 +107,90 @@ function MyInfoEdit() {
 		setUserInfo(newUserInfo);
 	};
 
-	useEffect(() => {
-		if (!location.state) {
-			alert('잘못된 접근입니다.');
-			navigate(-1);
-		}
-	}, []);
-
 	return (
 		<>
 			<Loading isLoading={isLoading} />
 			<MyPageWrapper>
-				{location.state && (
-					<>
-						<div className='title'>
-							<span className='titleText'>내 정보 수정</span>
-						</div>
-						<div className='profileImageWrap'>
-							<GlobalProfile
-								src={userInfo.profileImageUrl}
-								size='20rem'
-								margin='0 0.5rem 0 0'
+				<>
+					<div className='title'>
+						<span className='titleText'>내 정보 수정</span>
+					</div>
+					<div className='profileImageWrap'>
+						<GlobalProfile
+							src={userInfo.profileImageUrl}
+							size='20rem'
+							margin='0 0.5rem 0 0'
+						/>
+						<div className='imageButtonsWrap'>
+							<label htmlFor='profileImg'>
+								<div className='imageButton'>이미지 선택</div>
+							</label>
+							<input
+								type='file'
+								accept='image/*'
+								id='profileImg'
+								onChange={onImageUpload}
 							/>
-							<div className='imageButtonsWrap'>
-								<label htmlFor='profileImg'>
-									<div className='imageButton'>이미지 선택</div>
-								</label>
-								<input
-									type='file'
-									accept='image/*'
-									id='profileImg'
-									onChange={onImageUpload}
+							<div className='imageButton' onClick={onImageDelete}>
+								이미지 제거
+							</div>
+						</div>
+					</div>
+					<div className='myInfoWrap'>
+						<div>
+							<div className='aliasWrap'>
+								<UserEdit
+									size={'5rem'}
+									color='rgba(58, 58, 58, 1)'
+									className='icons'
 								/>
-								<div className='imageButton' onClick={onImageDelete}>
-									이미지 제거
-								</div>
+								<label htmlFor='alias'>닉네임</label>
+								<input
+									type='text'
+									name='alias'
+									value={userInfo.alias}
+									onChange={onAliasChange}
+								/>
+							</div>
+							<div className='myRegionWrap'>
+								<Location
+									size={'5rem'}
+									color='rgba(58, 58, 58, 1)'
+									className='icons'
+								/>
+								<label htmlFor='region'>나의 위치</label>
+								<input
+									type='text'
+									name='region'
+									value={
+										userInfo.region === 'DEFAULT_REGION'
+											? '위치를 설정해주세요.'
+											: userInfo.region
+									}
+									disabled
+								/>
 							</div>
 						</div>
-						<div className='myInfoWrap'>
-							<div>
-								<div className='aliasWrap'>
-									<UserEdit
-										size={'5rem'}
-										color='rgba(58, 58, 58, 1)'
-										className='icons'
-									/>
-									<label htmlFor='alias'>닉네임</label>
-									<input
-										type='text'
-										name='alias'
-										value={userInfo.alias}
-										onChange={onAliasChange}
-									/>
-								</div>
-								<div className='myRegionWrap'>
-									<Location
-										size={'5rem'}
-										color='rgba(58, 58, 58, 1)'
-										className='icons'
-									/>
-									<label htmlFor='region'>나의 위치</label>
-									<input
-										type='text'
-										name='region'
-										value={
-											userInfo.region === 'DEFAULT_REGION'
-												? '위치를 설정해주세요.'
-												: userInfo.region
-										}
-										disabled
-									/>
-								</div>
-							</div>
+					</div>
+					<div className='buttonsWrap'>
+						<div
+							className='button'
+							onClick={() => {
+								navigate('/mypage');
+							}}
+						>
+							취소
 						</div>
-						<div className='buttonsWrap'>
-							<div
-								className='button'
-								onClick={() => {
-									navigate('/mypage');
-								}}>
-								취소
-							</div>
-							<div
-								className='button'
-								onClick={() => {
-									submitChangedProfile();
-								}}>
-								완료
-							</div>
+						<div
+							className='button'
+							onClick={() => {
+								submitChangedProfile();
+							}}
+						>
+							완료
 						</div>
-					</>
-				)}
+					</div>
+				</>
 			</MyPageWrapper>
 		</>
 	);

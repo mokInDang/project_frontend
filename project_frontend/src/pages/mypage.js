@@ -5,16 +5,17 @@ import { GlobalProfile } from '../components';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import secureLocalStorage from 'react-secure-storage';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function MyPage() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const [userInfo, setUserInfo] = useState({
-		profileImageUrl: 'DEFAULT_PROFILE_IMAGE_URL',
-		alias: '',
-		region: 'DEFAULT_REGION',
-	});
+	const userInfo = useSelector((state) => state.user);
+	// const [userInfo, setUserInfo] = useState({
+	// 	profileImageUrl: 'DEFAULT_PROFILE_IMAGE_URL',
+	// 	alias: '',
+	// 	region: 'DEFAULT_REGION',
+	// });
 	const [isLoading, setIsLoading] = useState(false);
 	const locRef = useRef({ latitude: null, longitude: null });
 
@@ -55,14 +56,10 @@ function MyPage() {
 		await axios
 			.get('api/member/mypage')
 			.then((res) => {
-				dispatch({ type: 'mypage', userInfo: res.data });
-				setUserInfo(res.data);
+				dispatch(getUserInfo(res.data));
 			})
 			.catch((error) => console.log(error));
 	};
-	useEffect(() => {
-		getUserInfo();
-	}, []);
 
 	return (
 		<>
@@ -123,7 +120,8 @@ function MyPage() {
 						style={{ width: '12rem' }}
 						onClick={() => {
 							navigate('/mypage/edit', { state: userInfo });
-						}}>
+						}}
+					>
 						내 정보 수정
 					</div>
 				</div>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { login, getToken } from '../../store/userSlice';
+import { getUserInfo, getToken } from '../../store/userSlice';
 const JWT_EXPIRY_TIME = 2 * 60 * 60 * 1000; // 만료 시간 (30분 밀리초로 표현) 60000 = 1분, 60000 *60 = 1시간, 60000*60*2 = 2시간
 const OnLogin = async (kakaoAuthCode, dispatch, navigate) => {
 	console.log(`1. onLogin 실행`);
@@ -11,7 +11,7 @@ const OnLogin = async (kakaoAuthCode, dispatch, navigate) => {
 			},
 		})
 		.then((res) => {
-			dispatch(login(res.data));
+			dispatch(getUserInfo(res.data));
 			dispatch(getToken(res.headers.get('Authorization')));
 			// onLoginSuccess(res, dispatch);
 			navigate('/');

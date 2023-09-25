@@ -13,12 +13,13 @@ import {
 import { useSelector } from 'react-redux';
 
 const Navigator = () => {
-	const userInfo = useSelector((state) => state.user);
-	const accessToken = useSelector((state) => state.user?.accessToken);
 	const navigate = useNavigate();
 	const location = useLocation();
-	const [dropdownView, setDropdownView] = useState(false);
 	const dropMenuRef = useRef();
+	const userInfo = useSelector((state) => state.user);
+	const accessToken = useSelector((state) => state.user?.accessToken);
+	const [dropdownView, setDropdownView] = useState(false);
+
 	useEffect(() => {
 		setDropdownView(false);
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로, 페이지 이동 시
