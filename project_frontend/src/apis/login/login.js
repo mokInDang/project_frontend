@@ -11,8 +11,7 @@ const OnLogin = async (kakaoAuthCode, dispatch, navigate) => {
 			},
 		})
 		.then((res) => {
-			console.log(res.data);
-			dispatch(login(res.data.userInfo));
+			dispatch(login(res.data));
 			dispatch(getToken(res.headers.get('Authorization')));
 			// onLoginSuccess(res, dispatch);
 			navigate('/');
