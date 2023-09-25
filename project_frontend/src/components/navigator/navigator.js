@@ -2,7 +2,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { Dropdown } from '..';
 import { useState, useEffect, useRef } from 'react';
-import secureLocalStorage from 'react-secure-storage';
 import { locationIcon, logo } from '../../assets/images';
 import {
 	Headerdiv,
@@ -11,32 +10,22 @@ import {
 	ProfileWrap,
 	GlobalProfile,
 } from '..';
+import { useSelector } from 'react-redux';
 
 const Navigator = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
-	const [isLogined, setIsLogined] = useState(false);
-	const [userInfo, setUserInfo] = useState({});
-	const [dropdownView, setDropdownView] = useState(false);
 	const dropMenuRef = useRef();
-	const getUserInfo = () => {
-		if (isLogined) {
-			setUserInfo(secureLocalStorage.getItem('userInfo'));
-		}
-	};
+	const userInfo = useSelector((state) => state.user);
+	const accessToken = useSelector((state) => state.user?.accessToken);
+	const [dropdownView, setDropdownView] = useState(false);
+
 	useEffect(() => {
 		setDropdownView(false);
-		if (secureLocalStorage.getItem('accessToken') !== null && !isLogined)
-			setIsLogined(true);
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로, 페이지 이동 시
 	useEffect(() => {
-		getUserInfo();
-		console.log('헤헤');
-	});
-
-	// useEffect(() => {
-	// 	getUserInfo();
-	// }, [isLogined]);
+		console.log({ userInfo });
+	}, [userInfo]);
 
 	return (
 		<>
@@ -55,7 +44,7 @@ const Navigator = () => {
 						</div>
 						{location.pathname !== '/api/auth/join' && (
 							<HeaderButtonWrap>
-								{isLogined ? (
+								{accessToken ? (
 									<>
 										{userInfo.region !== 'DEFAULT_REGION' && (
 											<div className='myRegion myRegionMapButton'>

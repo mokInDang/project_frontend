@@ -11,6 +11,7 @@ import {
 	EditRecruitment,
 	closeRecruitment,
 	deleteRecruitment,
+	ploggingParticipation,
 } from './boards/recruitment';
 
 export {
@@ -24,4 +25,5 @@ export {
 	EditRecruitment,
 	closeRecruitment,
 	deleteRecruitment,
+	ploggingParticipation,
 };

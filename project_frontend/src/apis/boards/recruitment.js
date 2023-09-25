@@ -109,6 +109,26 @@ const deleteRecruitment = (boardId, navigate) => {
 			});
 	}
 };
+const ploggingParticipation = (
+	boardId,
+	getBoardDetails,
+	participationCount,
+	navigate
+) => {
+	if (window.confirm('모집에 참여하시겠습니까?')) {
+		// 모달창으로 수정할 것
+		axios
+			.patch(`/api/boards/recruitment/${boardId}/participation-list`)
+			.then((res) => {
+				getRecruitment(res.data.boardId, getBoardDetails, navigate);
+			})
+			.catch((error) => {
+				console.log(error);
+				// console.log(error.status);
+				alert('모집 참여에 실패했습니다.');
+			});
+	}
+};
 
 export {
 	getRecruitment,
@@ -116,4 +136,5 @@ export {
 	EditRecruitment,
 	closeRecruitment,
 	deleteRecruitment,
+	ploggingParticipation,
 };

@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { MyRegionMap } from '../components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import secureLocalStorage from 'react-secure-storage';
+import { useSelector } from 'react-redux';
 function MyRegionBoardsMap() {
 	const navigate = useNavigate();
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [places, setPlaces] = useState([]);
-	const userInfo = secureLocalStorage.getItem('userInfo');
+	const userInfo = useSelector((state) => state.user);
 	const getRecruitments = () => {
 		axios
 			.get('/api/boards/recruitment/places?page=0&size=30&sort=id')
@@ -57,7 +57,8 @@ function MyRegionBoardsMap() {
 			<MyRegionMap
 				places={places}
 				isLoaded={isLoaded}
-				region={userInfo ? userInfo.region : ''}></MyRegionMap>
+				region={userInfo ? userInfo.region : ''}
+			></MyRegionMap>
 		)
 	);
 }

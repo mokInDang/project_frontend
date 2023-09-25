@@ -171,8 +171,7 @@ const CustomSelectActivity = ({ getSelectedActivity, value }) => {
 	return (
 		<SelectBox
 			ref={activitySelectorRef}
-			onClick={() => setShowOptions(!showOptions)}
-		>
+			onClick={() => setShowOptions(!showOptions)}>
 			<Placeholder className='activityPlaceholder'>
 				{currentValue ? currentValue : '산책/달리기'}
 			</Placeholder>
@@ -212,16 +211,75 @@ const CustomSelectDate = ({ getSelectedDate, value }) => {
 					type='date'
 					value={date}
 					onChange={onChange}
-					min={TodayString()}
-				></input>
+					min={TodayString()}></input>
 			</SelectBox>
 		</>
 	);
-}; // 추후 react-datepicker 라이브러리로 변경할 것
+};
 
+const CustomSelectMaxOfParticipationCount = ({
+	getMaxOfParticipationCount,
+	value,
+}) => {
+	const [showOptions, setShowOptions] = useState(false);
+	const [currentValue, setCurrentValue] = useState();
+	const headCountInputRef = useRef();
+	const handleOnChangeSelectValue = (e) => {
+		const { innerText } = e.target;
+		var numberValue = parseInt(innerText.replace(/[^0-9]/g, ''));
+		setCurrentValue(numberValue);
+	};
+	useEffect(() => {
+		setCurrentValue(value);
+	}, []);
+
+	useEffect(() => {
+		console.log(currentValue);
+		getMaxOfParticipationCount(currentValue);
+	}, [currentValue]);
+
+	useEffect(() => {
+		const handleClickOutsideOrScroll = (e) => {
+			if (
+				headCountInputRef.current &&
+				!headCountInputRef.current.contains(e.target)
+			) {
+				setShowOptions(false);
+			}
+		};
+		window.addEventListener('scroll', handleClickOutsideOrScroll);
+		document.addEventListener('mousedown', handleClickOutsideOrScroll);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutsideOrScroll);
+			window.removeEventListener('scroll', handleClickOutsideOrScroll);
+		};
+	}, [headCountInputRef]);
+
+	return (
+		<SelectBox
+			ref={headCountInputRef}
+			onClick={() => setShowOptions(!showOptions)}>
+			<Placeholder className='activityPlaceholder'>
+				{currentValue ? `${currentValue}명` : '활동 인원을 선택해주세요.'}
+			</Placeholder>
+			{showOptions && (
+				<SelectOptions>
+					{[2, 3, 4, 5, 6, 7, 8].map((number, i) => {
+						return (
+							<Option key={i} onClick={handleOnChangeSelectValue}>
+								{number}명
+							</Option>
+						);
+					})}
+				</SelectOptions>
+			)}
+		</SelectBox>
+	);
+};
 export {
 	CustomSelectActivity,
 	CustomSelectDate,
+	CustomSelectMaxOfParticipationCount,
 	TodayString,
 	SelectBox,
 	Placeholder,

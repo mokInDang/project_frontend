@@ -165,6 +165,17 @@ const BoardContentButtonDiv = styled.div`
 	cursor: pointer;
 	margin-bottom: 1rem;
 `;
+const ParticipationButton = styled.div`
+	flex-shrink: 0;
+	cursor: pointer;
+	margin-bottom: 1rem;
+	padding: 0 1rem;
+	border-radius: 1rem;
+	background: rgba(129, 204, 85, 0.7);
+	box-shadow: rgb(129, 204, 85) 0px 5px 0px 0px;
+	font-size: 2rem;
+`;
+
 export {
 	BoardWrapper,
 	BoardDetailsWrap,
@@ -178,4 +189,5 @@ export {
 	ReplySubmitButton,
 	ButtonsWrap,
 	BoardContentButtonDiv,
+	ParticipationButton,
 };

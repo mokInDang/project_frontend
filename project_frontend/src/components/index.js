@@ -8,6 +8,7 @@ import WriteWrapper from './write/writeWrapper';
 import {
 	CustomSelectActivity,
 	CustomSelectDate,
+	CustomSelectMaxOfParticipationCount,
 	SelectBox,
 	Placeholder,
 } from './write/customSelect';
@@ -95,6 +96,7 @@ export {
 	CertificationWriteForm,
 	TopButton,
 	ScrollToTop,
+	CustomSelectMaxOfParticipationCount,
 };
 export {
 	WriteWrapper,

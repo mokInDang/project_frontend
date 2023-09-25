@@ -16,7 +16,6 @@ import {
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Navigator, TopButton } from './components';
 import { reissueToken } from './apis';
-import { Comments } from './pages/comments';
 import { PrivateRoutes, RegionRequiredRoutes } from './utils';
 import {
 	RecruitmentInfiniteScroll,
@@ -24,11 +23,15 @@ import {
 	InfiniteScroll,
 	MyRegionInfiniteScroll,
 } from './components';
+import { useDispatch, useSelector } from 'react-redux';
 function App() {
+	const dispatch = useDispatch();
 	// 페이지 리로드 시 reissueToken 실행
 	console.log('App.js에서 reissueToken 실행');
-	reissueToken();
-
+	reissueToken(
+		useSelector((state) => state.user?.accessToken),
+		dispatch // redux-store에서 accessToken 값 가져오기
+	);
 	return (
 		<div className='App'>
 			<Navigator />

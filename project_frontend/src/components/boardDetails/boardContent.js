@@ -11,11 +11,13 @@ import {
 	BoardInfo,
 	BoardContentButtonDiv,
 	ButtonsWrap,
+	ParticipationButton,
 } from './boardDetailsStyledComponents';
 import {
 	getRecruitment,
 	closeRecruitment,
 	deleteRecruitment,
+	ploggingParticipation,
 } from '../../apis';
 import { GlobalProfile, BoardDetailsMap } from '../../components';
 import { DateString } from '../../utils';
@@ -86,7 +88,7 @@ const BoardContent = () => {
 						<HR className='BoardInfoHR' />
 						<div>
 							<BoardInfo>
-								{boardDetails.mine && (
+								{boardDetails.mine ? (
 									<ButtonsWrap
 										boardDetails={boardDetails}
 										className='ButtonsWrap'>
@@ -122,6 +124,26 @@ const BoardContent = () => {
 											삭제
 										</BoardContentButtonDiv>
 									</ButtonsWrap>
+								) : (
+									<>
+										{boardDetails.onRecruitment === true && (
+											<ButtonsWrap>
+												<ParticipationButton
+													onClick={() =>
+														ploggingParticipation(
+															boardDetails.boardId,
+															getBoardDetails,
+															boardDetails.participationCount,
+															navigate
+														)
+													}>
+													{boardDetails.participationCount}/
+													{boardDetails.maxOfParticipationCount}명 모집 중
+													<div>참여하기</div>
+												</ParticipationButton>
+											</ButtonsWrap>
+										)}
+									</>
 								)}
 								{items.map((item, i) => {
 									return (
