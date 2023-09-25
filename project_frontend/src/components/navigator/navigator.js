@@ -13,7 +13,7 @@ import {
 import { useSelector } from 'react-redux';
 
 const Navigator = () => {
-	const userInfo = useSelector((state) => state.user?.userInfo);
+	const userInfo = useSelector((state) => state.user);
 	const accessToken = useSelector((state) => state.user?.accessToken);
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -23,7 +23,7 @@ const Navigator = () => {
 		setDropdownView(false);
 	}, [location.pathname]); // 페이지 이동 시 dropdown view false로, 페이지 이동 시
 	useEffect(() => {
-		console.log({userInfo});
+		console.log({ userInfo });
 	}, [userInfo]);
 
 	return (
